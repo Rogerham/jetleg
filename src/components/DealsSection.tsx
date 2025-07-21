@@ -74,9 +74,9 @@ const DealsSection = () => {
         </div>
         
         <div className="text-center mt-12">
-          <button className="btn-jetleg-outline">
+          <a href="/top-deals" className="btn-jetleg-outline">
             Bekijk Alle Deals
-          </button>
+          </a>
         </div>
       </div>
     </section>

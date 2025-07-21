@@ -1,26 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Calendar, Users, Plane } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-interface Airport {
-  code: string;
-  name: string;
-  city: string;
-  country: string;
-}
-
-const popularAirports: Airport[] = [
-  { code: 'BRU', name: 'Brussels Airport', city: 'Brussels', country: 'Belgium' },
-  { code: 'AMS', name: 'Amsterdam Schiphol', city: 'Amsterdam', country: 'Netherlands' },
-  { code: 'CDG', name: 'Charles de Gaulle', city: 'Paris', country: 'France' },
-  { code: 'LHR', name: 'Heathrow', city: 'London', country: 'United Kingdom' },
-  { code: 'FRA', name: 'Frankfurt am Main', city: 'Frankfurt', country: 'Germany' },
-  { code: 'NCE', name: 'Nice Côte d\'Azur', city: 'Nice', country: 'France' },
-  { code: 'ZUR', name: 'Zurich Airport', city: 'Zurich', country: 'Switzerland' },
-  { code: 'MUC', name: 'Munich Airport', city: 'Munich', country: 'Germany' },
-  { code: 'VIE', name: 'Vienna International', city: 'Vienna', country: 'Austria' },
-  { code: 'MXP', name: 'Milan Malpensa', city: 'Milan', country: 'Italy' },
-];
+import { worldwideAirports, type Airport } from '@/data/airports';
+import PassengerCounter from './PassengerCounter';
 
 interface SearchWithSuggestionsProps {
   className?: string;
@@ -71,8 +53,8 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
     }));
 
     if (field === 'from' || field === 'to') {
-      if (value.length > 0) {
-        const filtered = popularAirports.filter(airport =>
+      if (value.length > 0 && value !== 'Overal') {
+        const filtered = worldwideAirports.filter(airport =>
           airport.name.toLowerCase().includes(value.toLowerCase()) ||
           airport.city.toLowerCase().includes(value.toLowerCase()) ||
           airport.code.toLowerCase().includes(value.toLowerCase()) ||
@@ -80,7 +62,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
         );
         setSuggestions(prev => ({
           ...prev,
-          [field]: filtered.slice(0, 6)
+          [field]: filtered.slice(0, 8)
         }));
         setActiveSuggestion({ field: field as 'from' | 'to' });
       } else {
@@ -147,10 +129,10 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
   const minDate = tomorrow.toISOString().split('T')[0];
 
   return (
-    <div className={`search-form-jetleg max-w-5xl mx-auto animate-fade-in ${className}`}>
-      <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+    <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`}>
+      <form onSubmit={handleSearch} className="flex flex-wrap lg:flex-nowrap items-end gap-2 lg:gap-1">
         {/* From Field */}
-        <div className="text-left relative" ref={suggestionsRef}>
+        <div className="flex-1 min-w-0 relative" ref={suggestionsRef}>
           <label htmlFor="from" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Van
@@ -197,7 +179,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
         </div>
         
         {/* Swap Button */}
-        <div className="flex justify-center lg:order-3">
+        <div className="flex-shrink-0 self-end mb-1">
           <button
             type="button"
             onClick={handleSwapLocations}
@@ -211,7 +193,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
         </div>
         
         {/* To Field */}
-        <div className="text-left relative lg:order-2">
+        <div className="flex-1 min-w-0 relative">
           <label htmlFor="to" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Naar
@@ -223,9 +205,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             value={searchData.to}
             onChange={(e) => handleInputChange('to', e.target.value)}
             onFocus={() => {
-              if (searchData.to.length > 0 && searchData.to !== 'Overal') {
-                setActiveSuggestion({ field: 'to' });
-              }
+              setActiveSuggestion({ field: 'to' });
             }}
             placeholder="bv. Nice" 
             className="input-jetleg"
@@ -275,7 +255,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
         </div>
         
         {/* Date Field */}
-        <div className="text-left lg:order-4">
+        <div className="flex-shrink-0 w-40">
           <label htmlFor="date" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             Datum
@@ -292,31 +272,25 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
         </div>
         
         {/* Passengers Field */}
-        <div className="text-left lg:order-5">
+        <div className="flex-shrink-0 w-32">
           <label htmlFor="passengers" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <Users className="h-4 w-4" />
             Passagiers
           </label>
-          <select 
-            id="passengers"
+          <PassengerCounter
             value={searchData.passengers}
-            onChange={(e) => handleInputChange('passengers', e.target.value)}
-            className="input-jetleg"
-            required
-          >
-            {[...Array(20)].map((_, i) => (
-              <option key={i + 1} value={i + 1}>
-                {i + 1} {i === 0 ? 'passagier' : 'passagiers'}
-              </option>
-            ))}
-          </select>
+            onChange={(value) => handleInputChange('passengers', value)}
+            className="input-jetleg-counter"
+          />
         </div>
         
         {/* Search Button */}
-        <button type="submit" className="btn-jetleg-primary w-full lg:col-span-1 lg:order-6 flex items-center justify-center gap-2">
-          <Search className="h-5 w-5" />
-          Zoek Vluchten
-        </button>
+        <div className="flex-shrink-0 self-end">
+          <button type="submit" className="btn-jetleg-primary h-10 px-6 flex items-center justify-center gap-2 whitespace-nowrap">
+            <Search className="h-5 w-5" />
+            Zoek Vluchten
+          </button>
+        </div>
       </form>
     </div>
   );

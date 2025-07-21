@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
 import FlightCard from '@/components/FlightCard';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
+import ActiveFilters from '@/components/ActiveFilters';
 interface Flight {
   id: string;
   route: {
@@ -140,6 +141,29 @@ const SearchResults = () => {
       [key]: value
     }));
   };
+
+  const handleRemoveFilter = (key: string) => {
+    const defaultFilters = {
+      maxPrice: 5000,
+      minPassengers: 1,
+      aircraft: '',
+      timeOfDay: 'any'
+    };
+
+    setFilters(prev => ({
+      ...prev,
+      [key]: defaultFilters[key as keyof typeof defaultFilters]
+    }));
+  };
+
+  const handleClearAllFilters = () => {
+    setFilters({
+      maxPrice: 5000,
+      minPassengers: 1,
+      aircraft: '',
+      timeOfDay: 'any'
+    });
+  };
   return <div className="min-h-screen bg-background">
       {/* Search Bar */}
       <div className="bg-primary text-white py-8">
@@ -193,6 +217,13 @@ const SearchResults = () => {
             
           </div>
         </div>
+
+        {/* Active Filters */}
+        <ActiveFilters
+          filters={filters}
+          onRemoveFilter={handleRemoveFilter}
+          onClearAll={handleClearAllFilters}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
