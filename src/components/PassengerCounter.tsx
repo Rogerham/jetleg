@@ -6,12 +6,14 @@ interface PassengerCounterProps {
   value: string;
   onChange: (value: string) => void;
   className?: string;
+  hideArrows?: boolean;
 }
 
 const PassengerCounter = ({
   value,
   onChange,
-  className = ''
+  className = '',
+  hideArrows = false
 }: PassengerCounterProps) => {
   const [inputValue, setInputValue] = useState(value);
 
@@ -54,6 +56,22 @@ const PassengerCounter = ({
       setInputValue(value);
     }
   };
+
+  if (hideArrows) {
+    return (
+      <div className={`flex items-center rounded-xl border border-input bg-card overflow-hidden ${className}`}>
+        <input
+          type="number"
+          min="1"
+          max="20"
+          value={inputValue}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          className="w-full h-full text-center bg-white/90 text-foreground border-0 focus:ring-0 focus:outline-none"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={`flex items-center rounded-xl border border-input bg-card overflow-hidden ${className}`}>

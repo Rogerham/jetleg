@@ -1,5 +1,5 @@
 
-import { Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -19,9 +19,9 @@ const Footer = () => {
               <a 
                 href="#" 
                 className="p-2 bg-primary-foreground/10 rounded-lg hover:bg-accent hover:text-primary transition-jetleg"
-                aria-label="Twitter"
+                aria-label="Instagram"
               >
-                <Twitter className="h-5 w-5" />
+                <Instagram className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
