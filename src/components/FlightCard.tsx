@@ -1,5 +1,7 @@
+
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface FlightCardProps {
   id: string;
@@ -19,6 +21,7 @@ interface FlightCardProps {
 }
 
 const FlightCard = ({ 
+  id,
   route, 
   date, 
   aircraft, 
@@ -29,11 +32,24 @@ const FlightCard = ({
   imageAlt 
 }: FlightCardProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleBooking = () => {
-    toast({
-      title: "Boekingssysteem in ontwikkeling",
-      description: "Deze vlucht is een voorbeeld. Het volledige boekingssysteem wordt binnenkort gelanceerd.",
+    // Navigate to the booking flow with the flight ID
+    navigate(`/booking/${id}`, {
+      state: {
+        flight: {
+          id,
+          route,
+          date,
+          aircraft,
+          maxPassengers,
+          price,
+          discount,
+          image,
+          imageAlt
+        }
+      }
     });
   };
 
@@ -46,7 +62,7 @@ const FlightCard = ({
           className="w-full h-48 object-cover transition-jetleg hover:scale-110"
         />
         <div className="absolute top-4 right-4">
-          <span className="deal-badge">
+          <span className="deal-badge text-white bg-accent">
             {discount}% Besparing
           </span>
         </div>

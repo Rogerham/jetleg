@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
 import FlightCard from '@/components/FlightCard';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
+
 interface Flight {
   id: string;
   route: {
@@ -24,6 +26,7 @@ interface Flight {
   arrival: string;
   rating: number;
 }
+
 const mockFlights: Flight[] = [{
   id: '1',
   route: {
@@ -82,6 +85,7 @@ const mockFlights: Flight[] = [{
   arrival: '17:05',
   rating: 4.7
 }];
+
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -92,15 +96,18 @@ const SearchResults = () => {
   const [filters, setFilters] = useState({
     maxPrice: 5000,
     minPassengers: 1,
+    maxPassengers: 20,
     aircraft: '',
     timeOfDay: 'any'
   });
+
   const searchData = {
     from: searchParams.get('from') || '',
     to: searchParams.get('to') || '',
     date: searchParams.get('date') || '',
     passengers: searchParams.get('passengers') || '1'
   };
+
   useEffect(() => {
     let filtered = [...flights];
 
@@ -108,6 +115,7 @@ const SearchResults = () => {
     filtered = filtered.filter(flight => {
       if (flight.price > filters.maxPrice) return false;
       if (flight.maxPassengers < filters.minPassengers) return false;
+      if (flight.maxPassengers > filters.maxPassengers) return false;
       if (filters.aircraft && !flight.aircraft.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
       if (filters.timeOfDay !== 'any') {
         const hour = parseInt(flight.departure.split(':')[0]);
@@ -133,18 +141,22 @@ const SearchResults = () => {
           return 0;
       }
     });
+
     setFilteredFlights(filtered);
   }, [flights, filters, sortBy]);
+
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
   };
+
   const handleRemoveFilter = (key: string) => {
     const defaultFilters = {
       maxPrice: 5000,
       minPassengers: 1,
+      maxPassengers: 20,
       aircraft: '',
       timeOfDay: 'any'
     };
@@ -153,20 +165,27 @@ const SearchResults = () => {
       [key]: defaultFilters[key as keyof typeof defaultFilters]
     }));
   };
+
   const handleClearAllFilters = () => {
     setFilters({
       maxPrice: 5000,
       minPassengers: 1,
+      maxPassengers: 20,
       aircraft: '',
       timeOfDay: 'any'
     });
   };
-  return <div className="min-h-screen bg-background">
+
+  return (
+    <div className="min-h-screen bg-background">
       {/* Search Bar */}
       <div className="bg-primary text-white py-8">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-4 mb-6">
-            <button onClick={() => navigate('/')} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+            >
               <ArrowLeft className="h-5 w-5" />
               Terug naar home
             </button>
@@ -202,21 +221,26 @@ const SearchResults = () => {
             {/* Sort Dropdown */}
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">Sorteer op:</span>
-              <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
+              <select
+                value={sortBy}
+                onChange={e => setSortBy(e.target.value)}
+                className="px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20"
+              >
                 <option value="price">Prijs (laag naar hoog)</option>
                 <option value="duration">Vliegduur</option>
                 <option value="departure">Vertrektijd</option>
                 <option value="rating">Beoordeling</option>
               </select>
             </div>
-
-            {/* Filter Toggle */}
-            
           </div>
         </div>
 
         {/* Active Filters */}
-        <ActiveFilters filters={filters} onRemoveFilter={handleRemoveFilter} onClearAll={handleClearAllFilters} />
+        <ActiveFilters
+          filters={filters}
+          onRemoveFilter={handleRemoveFilter}
+          onClearAll={handleClearAllFilters}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
@@ -232,22 +256,74 @@ const SearchResults = () => {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Max. prijs: €{filters.maxPrice}
                 </label>
-                <input type="range" min="500" max="10000" step="100" value={filters.maxPrice} onChange={e => handleFilterChange('maxPrice', parseInt(e.target.value))} className="w-full accent-accent" />
+                <input
+                  type="range"
+                  min="500"
+                  max="10000"
+                  step="100"
+                  value={filters.maxPrice}
+                  onChange={e => handleFilterChange('maxPrice', parseInt(e.target.value))}
+                  className="w-full accent-accent"
+                />
                 <div className="flex justify-between text-xs text-muted-foreground mt-1">
                   <span>€500</span>
                   <span>€10.000</span>
                 </div>
               </div>
 
-              {/* Minimum Passengers */}
-              
+              {/* Aircraft Size Range */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Vliegtuiggrootte (passagiers)
+                </label>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs text-muted-foreground mb-1">
+                      Minimum: {filters.minPassengers}
+                    </label>
+                    <input
+                      type="range"
+                      min="1"
+                      max="20"
+                      step="1"
+                      value={filters.minPassengers}
+                      onChange={e => handleFilterChange('minPassengers', parseInt(e.target.value))}
+                      className="w-full accent-accent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-muted-foreground mb-1">
+                      Maximum: {filters.maxPassengers}
+                    </label>
+                    <input
+                      type="range"
+                      min="1"
+                      max="20"
+                      step="1"
+                      value={filters.maxPassengers}
+                      onChange={e => handleFilterChange('maxPassengers', parseInt(e.target.value))}
+                      className="w-full accent-accent"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>1 pax</span>
+                  <span>20 pax</span>
+                </div>
+              </div>
 
               {/* Aircraft Type */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Vliegtuigtype
                 </label>
-                <input type="text" value={filters.aircraft} onChange={e => handleFilterChange('aircraft', e.target.value)} placeholder="bv. Cessna, Embraer" className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground" />
+                <input
+                  type="text"
+                  value={filters.aircraft}
+                  onChange={e => handleFilterChange('aircraft', e.target.value)}
+                  placeholder="bv. Cessna, Embraer"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground"
+                />
               </div>
 
               {/* Time of Day */}
@@ -256,32 +332,38 @@ const SearchResults = () => {
                   Vertrektijd
                 </label>
                 <div className="space-y-2">
-                  {[{
-                  value: 'any',
-                  label: 'Alle tijden'
-                }, {
-                  value: 'morning',
-                  label: 'Ochtend (06:00 - 12:00)'
-                }, {
-                  value: 'afternoon',
-                  label: 'Middag (12:00 - 18:00)'
-                }, {
-                  value: 'evening',
-                  label: 'Avond (18:00 - 24:00)'
-                }].map(option => <label key={option.value} className="flex items-center gap-2">
-                      <input type="radio" name="timeOfDay" value={option.value} checked={filters.timeOfDay === option.value} onChange={e => handleFilterChange('timeOfDay', e.target.value)} className="accent-accent" />
+                  {[
+                    { value: 'any', label: 'Alle tijden' },
+                    { value: 'morning', label: 'Ochtend (06:00 - 12:00)' },
+                    { value: 'afternoon', label: 'Middag (12:00 - 18:00)' },
+                    { value: 'evening', label: 'Avond (18:00 - 24:00)' }
+                  ].map(option => (
+                    <label key={option.value} className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="timeOfDay"
+                        value={option.value}
+                        checked={filters.timeOfDay === option.value}
+                        onChange={e => handleFilterChange('timeOfDay', e.target.value)}
+                        className="accent-accent"
+                      />
                       <span className="text-sm text-foreground">{option.label}</span>
-                    </label>)}
+                    </label>
+                  ))}
                 </div>
               </div>
 
               {/* Clear Filters */}
-              <button onClick={() => setFilters({
-              maxPrice: 5000,
-              minPassengers: 1,
-              aircraft: '',
-              timeOfDay: 'any'
-            })} className="w-full text-accent hover:text-accent/80 text-sm font-medium transition-colors">
+              <button
+                onClick={() => setFilters({
+                  maxPrice: 5000,
+                  minPassengers: 1,
+                  maxPassengers: 20,
+                  aircraft: '',
+                  timeOfDay: 'any'
+                })}
+                className="w-full text-accent hover:text-accent/80 text-sm font-medium transition-colors"
+              >
                 Wis alle filters
               </button>
             </div>
@@ -289,22 +371,30 @@ const SearchResults = () => {
 
           {/* Results */}
           <div className="lg:col-span-3">
-            {filteredFlights.length === 0 ? <div className="text-center py-12">
+            {filteredFlights.length === 0 ? (
+              <div className="text-center py-12">
                 <Plane className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-foreground mb-2">Geen vluchten gevonden</h3>
                 <p className="text-muted-foreground mb-4">
                   Probeer je zoekcriteria aan te passen of kies andere filters.
                 </p>
-                <button onClick={() => setFilters({
-              maxPrice: 5000,
-              minPassengers: 1,
-              aircraft: '',
-              timeOfDay: 'any'
-            })} className="btn-jetleg-primary">
+                <button
+                  onClick={() => setFilters({
+                    maxPrice: 5000,
+                    minPassengers: 1,
+                    maxPassengers: 20,
+                    aircraft: '',
+                    timeOfDay: 'any'
+                  })}
+                  className="btn-jetleg-primary"
+                >
                   Reset filters
                 </button>
-              </div> : <div className="space-y-6">
-                {filteredFlights.map(flight => <div key={flight.id} className="card-jetleg overflow-hidden">
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {filteredFlights.map(flight => (
+                  <div key={flight.id} className="card-jetleg overflow-hidden">
                     <div className="p-6">
                       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                         {/* Flight Info */}
@@ -348,29 +438,42 @@ const SearchResults = () => {
 
                         {/* Image */}
                         <div className="lg:col-span-1">
-                          <img src={flight.image} alt={flight.imageAlt} className="w-full h-24 object-cover rounded-lg" />
+                          <img
+                            src={flight.image}
+                            alt={flight.imageAlt}
+                            className="w-full h-24 object-cover rounded-lg"
+                          />
                         </div>
 
                         {/* Price & Book */}
                         <div className="lg:col-span-1 text-center lg:text-right">
                           <div className="mb-2">
-                            <span className="deal-badge">-{flight.discount}%</span>
+                            <span className="deal-badge text-white bg-accent">-{flight.discount}%</span>
                           </div>
                           <div className="text-2xl font-bold text-foreground mb-1">
                             €{flight.price.toLocaleString()}
                           </div>
                           <div className="text-sm text-muted-foreground mb-4">per vlucht</div>
-                          <button onClick={() => navigate(`/booking/${flight.id}`)} className="btn-jetleg-primary w-full lg:w-auto">
+                          <button
+                            onClick={() => navigate(`/booking/${flight.id}`, {
+                              state: { flight }
+                            })}
+                            className="btn-jetleg-primary w-full lg:w-auto"
+                          >
                             Boek Nu
                           </button>
                         </div>
                       </div>
                     </div>
-                  </div>)}
-              </div>}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default SearchResults;

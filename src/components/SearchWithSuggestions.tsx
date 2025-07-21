@@ -172,15 +172,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 onChange={e => handleInputChange('to', e.target.value)}
                 onFocus={() => {
                   setActiveSuggestion({ field: 'to' });
-                  if (searchData.to.length > 0 && searchData.to !== 'Overal') {
-                    const filtered = worldwideAirports.filter(airport =>
-                      airport.name.toLowerCase().includes(searchData.to.toLowerCase()) ||
-                      airport.city.toLowerCase().includes(searchData.to.toLowerCase()) ||
-                      airport.code.toLowerCase().includes(searchData.to.toLowerCase()) ||
-                      airport.country.toLowerCase().includes(searchData.to.toLowerCase())
-                    );
-                    setSuggestions(prev => ({ ...prev, to: filtered.slice(0, 8) }));
-                  }
                 }}
                 placeholder="bv. Nice"
                 className="input-jetleg h-12"
@@ -190,7 +181,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             
             {/* Suggestions for mobile */}
             {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
-              <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+              <div className="absolute top-full left-0 right-[50%] bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                 {suggestions.from.map(airport => (
                   <button
                     key={airport.code}
@@ -213,7 +204,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             )}
             
             {activeSuggestion.field === 'to' && (
-              <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+              <div className="absolute top-full left-[50%] right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                 {/* Everywhere Option */}
                 <button
                   type="button"
@@ -261,26 +252,22 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 <Calendar className="h-4 w-4" />
                 Datum
               </label>
-              <div className="relative">
-                <input
-                  type="date"
-                  id="date-mobile"
-                  value={searchData.date}
-                  onChange={e => handleInputChange('date', e.target.value)}
-                  min={minDate}
-                  className="input-jetleg h-12 cursor-pointer w-full animate-pulse"
-                  required
-                  style={{ caretColor: 'transparent' }}
-                />
-                <div className="absolute inset-0 cursor-pointer" onClick={() => document.getElementById('date-mobile')?.focus()}></div>
-              </div>
+              <input
+                type="date"
+                id="date-mobile"
+                value={searchData.date}
+                onChange={e => handleInputChange('date', e.target.value)}
+                min={minDate}
+                className="input-jetleg h-12"
+                required
+              />
             </div>
             
             {/* Passengers Field */}
-            <div className="flex-shrink-0 w-32">
+            <div className="flex-shrink-0 w-24">
               <label htmlFor="passengers-mobile" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <Users className="h-4 w-4" />
-                Passagiers
+                Pax
               </label>
               <PassengerCounter
                 value={searchData.passengers}
@@ -371,15 +358,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               onChange={e => handleInputChange('to', e.target.value)}
               onFocus={() => {
                 setActiveSuggestion({ field: 'to' });
-                if (searchData.to.length > 0 && searchData.to !== 'Overal') {
-                  const filtered = worldwideAirports.filter(airport =>
-                    airport.name.toLowerCase().includes(searchData.to.toLowerCase()) ||
-                    airport.city.toLowerCase().includes(searchData.to.toLowerCase()) ||
-                    airport.code.toLowerCase().includes(searchData.to.toLowerCase()) ||
-                    airport.country.toLowerCase().includes(searchData.to.toLowerCase())
-                  );
-                  setSuggestions(prev => ({ ...prev, to: filtered.slice(0, 8) }));
-                }
               }}
               placeholder="bv. Nice"
               className="input-jetleg h-12"
@@ -434,26 +412,22 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               <Calendar className="h-4 w-4" />
               Datum
             </label>
-            <div className="relative">
-              <input
-                type="date"
-                id="date-desktop"
-                value={searchData.date}
-                onChange={e => handleInputChange('date', e.target.value)}
-                min={minDate}
-                className="input-jetleg h-12 cursor-pointer w-full animate-pulse"
-                required
-                style={{ caretColor: 'transparent' }}
-              />
-              <div className="absolute inset-0 cursor-pointer" onClick={() => document.getElementById('date-desktop')?.focus()}></div>
-            </div>
+            <input
+              type="date"
+              id="date-desktop"
+              value={searchData.date}
+              onChange={e => handleInputChange('date', e.target.value)}
+              min={minDate}
+              className="input-jetleg h-12"
+              required
+            />
           </div>
           
           {/* Passengers Field */}
-          <div className="flex-shrink-0 w-32">
+          <div className="flex-shrink-0 w-24">
             <label htmlFor="passengers-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Passagiers
+              Pax
             </label>
             <PassengerCounter
               value={searchData.passengers}

@@ -34,8 +34,8 @@ const Footer = () => {
           </div>
           
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 text-white">Snelmenu</h4>
+          <div className="md:col-span-1 lg:col-span-1">
+            <h4 className="text-lg font-semibold mb-6 text-white">Menu</h4>
             <ul className="space-y-3">
               <li>
                 <Link to="/" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
@@ -44,12 +44,12 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/top-deals" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Top Deals
+                  Deals
                 </Link>
               </li>
               <li>
                 <Link to="/how-it-works" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Hoe het werkt
+                  Info
                 </Link>
               </li>
               <li>
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
           
           {/* Support */}
-          <div>
+          <div className="md:col-span-1 lg:col-span-1">
             <h4 className="text-lg font-semibold mb-6 text-white">Support</h4>
             <ul className="space-y-3">
               <li>
@@ -71,29 +71,19 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/customer-service" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Klantenservice
+                  Service
                 </Link>
               </li>
               <li>
                 <Link to="/for-operators" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Voor Operatoren
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms-conditions" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Terms & Conditions
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy-policy" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Privacy Policy
+                  Operatoren
                 </Link>
               </li>
             </ul>
           </div>
           
           {/* Contact Info */}
-          <div>
+          <div className="md:col-span-2 lg:col-span-1">
             <h4 className="text-lg font-semibold mb-6 text-white">Contact</h4>
             <div className="space-y-4">
               <div className="flex items-center">
@@ -114,14 +104,6 @@ const Footer = () => {
                   +32 (0)1 234 56 789
                 </a>
               </div>
-              <div className="flex items-start">
-                <MapPin className="h-5 w-5 mr-3 text-accent mt-1" />
-                <address className="text-primary-foreground/80 not-italic">
-                  Jetleg HQ<br />
-                  Brussels Airport<br />
-                  1930 Zaventem, België
-                </address>
-              </div>
             </div>
           </div>
         </div>
@@ -133,14 +115,11 @@ const Footer = () => {
               &copy; {currentYear} Jetleg. Alle rechten voorbehouden.
             </p>
             <div className="flex space-x-6 text-sm">
-              <Link to="/cookie-policy" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
-                Cookiebeleid
-              </Link>
-              <Link to="/gdpr" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
-                AVG/GDPR
+              <Link to="/privacy-policy" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
+                Privacy
               </Link>
               <Link to="/terms-conditions" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
-                Algemene Voorwaarden
+                Voorwaarden
               </Link>
             </div>
           </div>
