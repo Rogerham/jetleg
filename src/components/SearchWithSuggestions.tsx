@@ -71,9 +71,15 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
   };
 
   const handleSuggestionClick = (field: 'from' | 'to', airport: Airport) => {
-    setSearchData(prev => ({ ...prev, [field]: `${airport.city} (${airport.code})` }));
+    const airportText = `${airport.city} (${airport.code})`;
+    setSearchData(prev => ({ ...prev, [field]: airportText }));
     setActiveSuggestion({ field: null });
     setSuggestions(prev => ({ ...prev, [field]: [] }));
+    
+    // Focus the next field after selection
+    if (field === 'from' && toInputRef.current) {
+      toInputRef.current.focus();
+    }
   };
 
   const handleEverywhere = () => {
@@ -112,9 +118,9 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
 
   return (
     <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`}>
-      <form onSubmit={handleSearch} className="flex flex-wrap lg:flex-nowrap items-end gap-2 lg:gap-1">
+      <form onSubmit={handleSearch} className="flex flex-col lg:flex-row items-end gap-4 lg:gap-1">
         {/* From Field */}
-        <div className="flex-1 min-w-0 relative" ref={suggestionsRef}>
+        <div className="flex-1 min-w-0 relative w-full" ref={suggestionsRef}>
           <label htmlFor="from" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Van
@@ -131,13 +137,13 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               }
             }}
             placeholder="bv. Brussel"
-            className="input-jetleg"
+            className="input-jetleg h-12"
             required
           />
           
           {/* From Suggestions */}
           {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-10 max-h-64 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
               {suggestions.from.map(airport => (
                 <button
                   key={airport.code}
@@ -160,20 +166,20 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           )}
         </div>
         
-        {/* Swap Button - Fixed with proper icon */}
-        <div className="flex-shrink-0 self-end mb-1">
+        {/* Swap Button */}
+        <div className="flex-shrink-0 self-end mb-1 order-last lg:order-none">
           <button
             type="button"
             onClick={handleSwapLocations}
-            className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
+            className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
             title="Wissel vertrek en bestemming"
           >
             <ArrowLeftRight className="w-5 h-5 text-white" />
           </button>
         </div>
         
-        {/* To Field - Fixed autocomplete */}
-        <div className="flex-1 min-w-0 relative">
+        {/* To Field */}
+        <div className="flex-1 min-w-0 relative w-full">
           <label htmlFor="to" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Naar
@@ -186,18 +192,18 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             onChange={e => handleInputChange('to', e.target.value)}
             onFocus={() => setActiveSuggestion({ field: 'to' })}
             placeholder="bv. Nice"
-            className="input-jetleg"
+            className="input-jetleg h-12"
             required
           />
           
-          {/* To Suggestions - Always show when focused */}
+          {/* To Suggestions */}
           {activeSuggestion.field === 'to' && (
-            <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-10 max-h-64 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
               {/* Everywhere Option */}
               <button
                 type="button"
                 onClick={handleEverywhere}
-                className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors"
+                className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
@@ -215,7 +221,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                   key={airport.code}
                   type="button"
                   onClick={() => handleSuggestionClick('to', airport)}
-                  className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors"
+                  className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
@@ -232,8 +238,8 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           )}
         </div>
         
-        {/* Date Field - Enhanced clickability */}
-        <div className="flex-shrink-0 w-40">
+        {/* Date Field */}
+        <div className="flex-shrink-0 w-full lg:w-40">
           <label htmlFor="date" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             Datum
@@ -245,14 +251,15 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               value={searchData.date}
               onChange={e => handleInputChange('date', e.target.value)}
               min={minDate}
-              className="input-jetleg cursor-pointer"
+              className="input-jetleg h-12 cursor-pointer w-full"
               required
             />
+            <div className="absolute inset-0 cursor-pointer" onClick={() => document.getElementById('date')?.focus()}></div>
           </div>
         </div>
         
         {/* Passengers Field */}
-        <div className="flex-shrink-0 w-32">
+        <div className="flex-shrink-0 w-full lg:w-32">
           <label htmlFor="passengers" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <Users className="h-4 w-4" />
             Passagiers
@@ -260,13 +267,13 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           <PassengerCounter
             value={searchData.passengers}
             onChange={value => handleInputChange('passengers', value)}
-            className="input-jetleg-counter"
+            className="h-12"
           />
         </div>
         
         {/* Search Button */}
-        <div className="flex-shrink-0 self-end">
-          <button type="submit" className="btn-jetleg-primary h-10 px-6 flex items-center justify-center gap-2 whitespace-nowrap">
+        <div className="flex-shrink-0 self-end w-full lg:w-auto">
+          <button type="submit" className="btn-jetleg-primary h-12 px-6 flex items-center justify-center gap-2 whitespace-nowrap w-full lg:w-auto">
             <Search className="h-5 w-5" />
             Zoek Vluchten
           </button>
