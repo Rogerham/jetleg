@@ -1,7 +1,12 @@
+
 import { Plane, Users, Award, Globe, Shield, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+
 const About = () => {
+  const navigate = useNavigate();
+
   const stats = [{
     number: '500+',
     label: 'Tevreden klanten',
@@ -19,6 +24,7 @@ const About = () => {
     label: 'Klantenservice',
     icon: Clock
   }];
+
   const team = [{
     name: 'Thomas Janssen',
     role: 'CEO & Oprichter',
@@ -35,6 +41,7 @@ const About = () => {
     description: 'Marc ontwikkelt de technologie die onze platform zo gebruiksvriendelijk maakt.',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face'
   }];
+
   const values = [{
     icon: Shield,
     title: 'Veiligheid eerst',
@@ -52,7 +59,17 @@ const About = () => {
     title: 'Toegankelijkheid',
     description: 'We maken luxe reizen toegankelijk door ongebruikte capaciteit optimaal te benutten.'
   }];
-  return <div className="min-h-screen">
+
+  const handleSearchFlights = () => {
+    navigate('/');
+  };
+
+  const handleContact = () => {
+    navigate('/contact');
+  };
+
+  return (
+    <div className="min-h-screen">
       <Navigation />
       
       {/* Hero Section */}
@@ -86,8 +103,11 @@ const About = () => {
               </p>
             </div>
             <div className="relative">
-              <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600&h=400&fit=crop" alt="Luxe private jet interieur" className="rounded-2xl shadow-lg" />
-              
+              <img 
+                src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600&h=400&fit=crop" 
+                alt="Luxe private jet interieur" 
+                className="rounded-2xl shadow-lg" 
+              />
             </div>
           </div>
         </div>
@@ -98,13 +118,15 @@ const About = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-title text-center mb-12 text-foreground">Jetleg in cijfers</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => <div key={index} className="text-center">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="h-8 w-8 text-accent" />
                 </div>
                 <div className="text-3xl font-bold text-foreground mb-2">{stat.number}</div>
                 <div className="text-muted-foreground">{stat.label}</div>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -114,13 +136,15 @@ const About = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-title text-center mb-12 text-foreground">Onze waarden</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => <div key={index} className="card-jetleg p-6 text-center">
+            {values.map((value, index) => (
+              <div key={index} className="card-jetleg p-6 text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <value.icon className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-3">{value.title}</h3>
                 <p className="text-muted-foreground">{value.description}</p>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -130,12 +154,18 @@ const About = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-title text-center mb-12 text-foreground">Ons team</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => <div key={index} className="card-jetleg p-6 text-center">
-                <img src={member.image} alt={member.name} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover" />
+            {team.map((member, index) => (
+              <div key={index} className="card-jetleg p-6 text-center">
+                <img 
+                  src={member.image} 
+                  alt={member.name} 
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover" 
+                />
                 <h3 className="font-semibold text-foreground mb-1">{member.name}</h3>
                 <div className="text-accent font-medium mb-3">{member.role}</div>
                 <p className="text-muted-foreground">{member.description}</p>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -148,10 +178,16 @@ const About = () => {
             Ontdek onze beschikbare vluchten en ervaar zelf waarom duizenden reizigers voor Jetleg kiezen.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-accent font-semibold px-8 py-3 rounded-xl hover:bg-white/90 transition-all">
+            <button 
+              onClick={handleSearchFlights}
+              className="bg-white text-accent font-semibold px-8 py-3 rounded-xl hover:bg-white/90 transition-all"
+            >
               Bekijk vluchten
             </button>
-            <button className="border-2 border-white text-white font-semibold px-8 py-3 rounded-xl hover:bg-white hover:text-accent transition-all">
+            <button 
+              onClick={handleContact}
+              className="border-2 border-white text-white font-semibold px-8 py-3 rounded-xl hover:bg-white hover:text-accent transition-all"
+            >
               Contact opnemen
             </button>
           </div>
@@ -159,6 +195,8 @@ const About = () => {
       </section>
 
       <Footer />
-    </div>;
+    </div>
+  );
 };
+
 export default About;

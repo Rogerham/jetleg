@@ -1,9 +1,14 @@
 
 import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <footer id="contact" className="bg-primary text-primary-foreground pt-16 pb-8">
@@ -13,7 +18,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <h4 className="text-2xl font-bold mb-4 text-white">Jetleg</h4>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              De toekomst van slim en luxueus reizen. Ontdek exclusieve empty leg vluchten voor een fractie van de prijs.
+              Wij maken luxe privéjet reizen toegankelijk door slimme technologie en empty leg vluchten.
             </p>
             <div className="flex space-x-4">
               <a 
@@ -89,10 +94,10 @@ const Footer = () => {
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-accent" />
                 <a 
-                  href="mailto:info@jetleg.com" 
+                  href="mailto:hello@jetleg.com" 
                   className="text-primary-foreground/80 hover:text-accent transition-jetleg"
                 >
-                  info@jetleg.com
+                  hello@jetleg.com
                 </a>
               </div>
               <div className="flex items-center">

@@ -70,6 +70,21 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
     }
   };
 
+  const handleInputFocus = (field: 'from' | 'to') => {
+    const value = searchData[field];
+    if (value.length > 0 && value !== 'Overal') {
+      // Re-filter suggestions when focusing
+      const filtered = worldwideAirports.filter(airport =>
+        airport.name.toLowerCase().includes(value.toLowerCase()) ||
+        airport.city.toLowerCase().includes(value.toLowerCase()) ||
+        airport.code.toLowerCase().includes(value.toLowerCase()) ||
+        airport.country.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(prev => ({ ...prev, [field]: filtered.slice(0, 8) }));
+    }
+    setActiveSuggestion({ field });
+  };
+
   const handleSuggestionClick = (field: 'from' | 'to', airport: Airport) => {
     const airportText = `${airport.city} (${airport.code})`;
     setSearchData(prev => ({ ...prev, [field]: airportText }));
@@ -117,14 +132,14 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
   const minDate = tomorrow.toISOString().split('T')[0];
 
   return (
-    <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`}>
+    <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
       <form onSubmit={handleSearch} className="space-y-4">
         {/* Mobile Layout */}
         <div className="lg:hidden space-y-4">
           {/* From and To Fields Row */}
-          <div className="flex items-end gap-2 relative" ref={suggestionsRef}>
+          <div className="flex items-end gap-2 relative">
             {/* From Field */}
-            <div className="flex-1">
+            <div className="flex-1 relative">
               <label htmlFor="from" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
                 Van
@@ -135,15 +150,35 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 id="from"
                 value={searchData.from}
                 onChange={e => handleInputChange('from', e.target.value)}
-                onFocus={() => {
-                  if (searchData.from.length > 0) {
-                    setActiveSuggestion({ field: 'from' });
-                  }
-                }}
+                onFocus={() => handleInputFocus('from')}
                 placeholder="bv. Brussel"
                 className="input-jetleg h-12"
                 required
               />
+              
+              {/* From Suggestions for Mobile */}
+              {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
+                <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                  {suggestions.from.map(airport => (
+                    <button
+                      key={airport.code}
+                      type="button"
+                      onClick={() => handleSuggestionClick('from', airport)}
+                      className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
+                          <Plane className="h-4 w-4 text-accent" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
+                          <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             
             {/* Swap Button */}
@@ -159,7 +194,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             </div>
             
             {/* To Field */}
-            <div className="flex-1">
+            <div className="flex-1 relative">
               <label htmlFor="to" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
                 Naar
@@ -170,78 +205,53 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 id="to"
                 value={searchData.to}
                 onChange={e => handleInputChange('to', e.target.value)}
-                onFocus={() => {
-                  setActiveSuggestion({ field: 'to' });
-                }}
+                onFocus={() => handleInputFocus('to')}
                 placeholder="bv. Nice"
                 className="input-jetleg h-12"
                 required
               />
+              
+              {/* To Suggestions for Mobile */}
+              {activeSuggestion.field === 'to' && (
+                <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                  {/* Everywhere Option */}
+                  <button
+                    type="button"
+                    onClick={handleEverywhere}
+                    className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
+                        <Search className="h-4 w-4 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-foreground">Overal</div>
+                        <div className="text-sm text-muted-foreground">Vind de beste deals naar elke bestemming</div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  {suggestions.to.map(airport => (
+                    <button
+                      key={airport.code}
+                      type="button"
+                      onClick={() => handleSuggestionClick('to', airport)}
+                      className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
+                          <Plane className="h-4 w-4 text-accent" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
+                          <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            
-            {/* Suggestions for mobile */}
-            {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
-              <div className="absolute top-full left-0 right-[50%] bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                {suggestions.from.map(airport => (
-                  <button
-                    key={airport.code}
-                    type="button"
-                    onClick={() => handleSuggestionClick('from', airport)}
-                    className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
-                        <Plane className="h-4 w-4 text-accent" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
-                        <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-            
-            {activeSuggestion.field === 'to' && (
-              <div className="absolute top-full left-[50%] right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                {/* Everywhere Option */}
-                <button
-                  type="button"
-                  onClick={handleEverywhere}
-                  className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
-                      <Search className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-medium text-foreground">Overal</div>
-                      <div className="text-sm text-muted-foreground">Vind de beste deals naar elke bestemming</div>
-                    </div>
-                  </div>
-                </button>
-                
-                {suggestions.to.map(airport => (
-                  <button
-                    key={airport.code}
-                    type="button"
-                    onClick={() => handleSuggestionClick('to', airport)}
-                    className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
-                        <Plane className="h-4 w-4 text-accent" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
-                        <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
           
           {/* Date and Passengers Row */}
@@ -288,7 +298,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
         {/* Desktop Layout */}
         <div className="hidden lg:flex items-end gap-4 lg:gap-1">
           {/* From Field */}
-          <div className="flex-1 min-w-0 relative" ref={suggestionsRef}>
+          <div className="flex-1 min-w-0 relative">
             <label htmlFor="from-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
               <MapPin className="h-4 w-4" />
               Van
@@ -298,11 +308,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               id="from-desktop"
               value={searchData.from}
               onChange={e => handleInputChange('from', e.target.value)}
-              onFocus={() => {
-                if (searchData.from.length > 0) {
-                  setActiveSuggestion({ field: 'from' });
-                }
-              }}
+              onFocus={() => handleInputFocus('from')}
               placeholder="bv. Brussel"
               className="input-jetleg h-12"
               required
@@ -356,9 +362,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               id="to-desktop"
               value={searchData.to}
               onChange={e => handleInputChange('to', e.target.value)}
-              onFocus={() => {
-                setActiveSuggestion({ field: 'to' });
-              }}
+              onFocus={() => handleInputFocus('to')}
               placeholder="bv. Nice"
               className="input-jetleg h-12"
               required
