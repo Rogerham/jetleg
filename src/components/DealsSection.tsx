@@ -49,7 +49,7 @@ const DealsSection = () => {
     image: ibizaImage,
     imageAlt: 'Luchtfoto van Ibiza kustlijn'
   }];
-  return <section id="deals" className="py-20 bg-muted/30">
+  return <section id="deals" className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-title text-foreground mb-4">Recente deals</h2>
