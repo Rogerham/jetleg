@@ -1,4 +1,6 @@
+
 import { Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -36,24 +38,24 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-6 text-white">Snelmenu</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#deals" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/top-deals" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Top Deals
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#how-it-works" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/how-it-works" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Hoe het werkt
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/about" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Over Ons
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -63,29 +65,29 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-6 text-white">Support</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/faq" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   FAQ
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/customer-service" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Klantenservice
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/for-operators" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Voor Operatoren
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/terms-conditions" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Terms & Conditions
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
+                <Link to="/privacy-policy" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -131,15 +133,15 @@ const Footer = () => {
               &copy; {currentYear} Jetleg. Alle rechten voorbehouden.
             </p>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
+              <Link to="/cookie-policy" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
                 Cookiebeleid
-              </a>
-              <a href="#" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
+              </Link>
+              <Link to="/gdpr" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
                 AVG/GDPR
-              </a>
-              <a href="#" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
+              </Link>
+              <Link to="/terms-conditions" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
                 Algemene Voorwaarden
-              </a>
+              </Link>
             </div>
           </div>
         </div>
