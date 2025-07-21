@@ -2,41 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Jetleg Design System - All colors, gradients, fonts, etc */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core brand colors */
+    --background: 248 250 252; /* slate-50 */
+    --foreground: 222.2 84% 4.9%; /* slate-900 */
 
-    --card: 0 0% 100%;
+    --card: 0 0% 100%; /* white */
     --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Jetleg brand identity */
+    --primary: 222.2 47.4% 11.2%; /* slate-800 */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 210 40% 96.1%; /* slate-100 */
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
+    --accent: 45 93% 47%; /* amber-500 */
     --accent-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 240 4.8% 95.9%; /* slate-100 */
+    --muted-foreground: 215.4 16.3% 46.9%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --input: 220 13% 91%;
+    --ring: 45 93% 47%; /* amber focus */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Jetleg specific colors */
+    --jetleg-blue: 217 91% 60%; /* blue-500 */
+    --jetleg-amber: 45 93% 47%; /* amber-500 */
+    --jetleg-amber-dark: 43 96% 56%; /* amber-400 */
+    --jetleg-success: 142 76% 36%; /* emerald-600 */
+    --jetleg-slate-light: 210 40% 96.1%; /* slate-100 */
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(222.2 47.4% 11.2% / 0.7), hsl(222.2 47.4% 11.2% / 0.5));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-button: linear-gradient(135deg, hsl(45 93% 47%), hsl(43 96% 56%));
+
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+    --shadow-card-hover: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.05);
+    --shadow-button: 0 4px 14px 0 hsl(45 93% 47% / 0.25);
+
+    /* Typography */
+    --font-size-hero: clamp(2.5rem, 5vw, 4rem);
+    --font-size-title: clamp(1.5rem, 3vw, 2.25rem);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +126,99 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Inter',sans-serif];
+  }
+}
+
+@layer components {
+  /* Jetleg Button Variants */
+  .btn-jetleg-primary {
+    @apply bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] text-primary-foreground font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95;
+    box-shadow: var(--shadow-button);
+  }
+
+  .btn-jetleg-secondary {
+    @apply bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-primary/90 hover:scale-105 active:scale-95;
+  }
+
+  .btn-jetleg-outline {
+    @apply border-2 border-accent text-accent font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent hover:text-primary-foreground hover:scale-105 active:scale-95;
+  }
+
+  /* Jetleg Card */
+  .card-jetleg {
+    @apply bg-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-card-hover)];
+    box-shadow: var(--shadow-card);
+    background: var(--gradient-card);
+  }
+
+  /* Hero Background */
+  .hero-jetleg {
+    background: var(--gradient-hero), url('/placeholder-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+
+  /* Search Form */
+  .search-form-jetleg {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6;
+  }
+
+  /* Input Field */
+  .input-jetleg {
+    @apply w-full px-4 py-3 rounded-xl border border-input bg-card text-foreground transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none;
+  }
+
+  /* Deal Badge */
+  .deal-badge {
+    @apply bg-[hsl(var(--jetleg-success))]/10 text-[hsl(var(--jetleg-success))] text-sm font-semibold px-3 py-1 rounded-full border border-[hsl(var(--jetleg-success))]/20;
+  }
+
+  /* Animation classes */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-scale-hover {
+    transition: var(--transition-smooth);
+  }
+
+  .animate-scale-hover:hover {
+    transform: scale(1.05);
+  }
+}
+
+@layer utilities {
+  .text-hero {
+    font-size: var(--font-size-hero);
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .text-title {
+    font-size: var(--font-size-title);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .transition-jetleg {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-jetleg-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
