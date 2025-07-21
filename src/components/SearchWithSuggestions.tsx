@@ -135,7 +135,7 @@ const SearchWithSuggestions = ({
           
           {/* From Suggestions */}
           {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-10 max-h-64 overflow-y-auto">
-              {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white">
+              {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                       <Plane className="h-4 w-4 text-accent" />
