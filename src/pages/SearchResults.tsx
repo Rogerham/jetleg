@@ -141,7 +141,6 @@ const SearchResults = () => {
       [key]: value
     }));
   };
-
   const handleRemoveFilter = (key: string) => {
     const defaultFilters = {
       maxPrice: 5000,
@@ -149,13 +148,11 @@ const SearchResults = () => {
       aircraft: '',
       timeOfDay: 'any'
     };
-
     setFilters(prev => ({
       ...prev,
       [key]: defaultFilters[key as keyof typeof defaultFilters]
     }));
   };
-
   const handleClearAllFilters = () => {
     setFilters({
       maxPrice: 5000,
@@ -219,11 +216,7 @@ const SearchResults = () => {
         </div>
 
         {/* Active Filters */}
-        <ActiveFilters
-          filters={filters}
-          onRemoveFilter={handleRemoveFilter}
-          onClearAll={handleClearAllFilters}
-        />
+        <ActiveFilters filters={filters} onRemoveFilter={handleRemoveFilter} onClearAll={handleClearAllFilters} />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
@@ -247,14 +240,7 @@ const SearchResults = () => {
               </div>
 
               {/* Minimum Passengers */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Min. passagiers
-                </label>
-                <select value={filters.minPassengers} onChange={e => handleFilterChange('minPassengers', parseInt(e.target.value))} className="w-full px-3 py-2 border border-border rounded-lg bg-card text-foreground">
-                  {[...Array(20)].map((_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)}
-                </select>
-              </div>
+              
 
               {/* Aircraft Type */}
               <div className="mb-6">
