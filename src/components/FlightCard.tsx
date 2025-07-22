@@ -99,7 +99,6 @@ const FlightCard = ({
           alt={jets ? `${jets.brand} ${jets.model}` : 'Private Jet'} 
           className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
           onError={(e) => {
-            // Fallback image if the original fails to load
             e.currentTarget.src = '/src/assets/jet-interior.jpg';
           }}
         />
@@ -146,7 +145,6 @@ const FlightCard = ({
             <p className="text-3xl font-bold text-foreground">
               € {price_per_seat.toLocaleString('nl-NL')}
             </p>
-            <p className="text-sm text-muted-foreground">per persoon</p>
           </div>
           <button 
             onClick={handleBooking}

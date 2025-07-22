@@ -1,4 +1,6 @@
+
 import { X } from 'lucide-react';
+import { formatMinutesToDuration } from '@/utils/durationUtils';
 
 interface Filter {
   key: string;
@@ -9,8 +11,12 @@ interface Filter {
 
 interface ActiveFiltersProps {
   filters: {
+    minPrice: number;
     maxPrice: number;
     minPassengers: number;
+    maxPassengers: number;
+    minDuration: number;
+    maxDuration: number;
     aircraft: string;
     timeOfDay: string;
   };
@@ -22,12 +28,21 @@ const ActiveFilters = ({ filters, onRemoveFilter, onClearAll }: ActiveFiltersPro
   const activeFilters: Filter[] = [];
 
   // Check for active filters
-  if (filters.maxPrice < 5000) {
+  if (filters.minPrice > 0) {
+    activeFilters.push({
+      key: 'minPrice',
+      label: `Min. prijs: €${filters.minPrice}`,
+      value: filters.minPrice,
+      defaultValue: 0
+    });
+  }
+
+  if (filters.maxPrice < 10000) {
     activeFilters.push({
       key: 'maxPrice',
       label: `Max. prijs: €${filters.maxPrice}`,
       value: filters.maxPrice,
-      defaultValue: 5000
+      defaultValue: 10000
     });
   }
 
@@ -37,6 +52,33 @@ const ActiveFilters = ({ filters, onRemoveFilter, onClearAll }: ActiveFiltersPro
       label: `Min. ${filters.minPassengers} passagiers`,
       value: filters.minPassengers,
       defaultValue: 1
+    });
+  }
+
+  if (filters.maxPassengers < 20) {
+    activeFilters.push({
+      key: 'maxPassengers',
+      label: `Max. ${filters.maxPassengers} passagiers`,
+      value: filters.maxPassengers,
+      defaultValue: 20
+    });
+  }
+
+  if (filters.minDuration > 0) {
+    activeFilters.push({
+      key: 'minDuration',
+      label: `Min. duur: ${formatMinutesToDuration(filters.minDuration)}`,
+      value: filters.minDuration,
+      defaultValue: 0
+    });
+  }
+
+  if (filters.maxDuration < 600) {
+    activeFilters.push({
+      key: 'maxDuration',
+      label: `Max. duur: ${formatMinutesToDuration(filters.maxDuration)}`,
+      value: filters.maxDuration,
+      defaultValue: 600
     });
   }
 
