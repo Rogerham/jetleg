@@ -1,7 +1,10 @@
+
 import FlightCard from './FlightCard';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import parisImage from '@/assets/paris-aerial.jpg';
 import londonImage from '@/assets/london-aerial.jpg';
 import ibizaImage from '@/assets/ibiza-aerial.jpg';
+
 const DealsSection = () => {
   const featuredDeals = [{
     id: '1',
@@ -49,7 +52,9 @@ const DealsSection = () => {
     image: ibizaImage,
     imageAlt: 'Luchtfoto van Ibiza kustlijn'
   }];
-  return <section id="deals" className="py-20 bg-white">
+
+  return (
+    <section id="deals" className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-title text-foreground mb-4">Recente deals</h2>
@@ -58,14 +63,36 @@ const DealsSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredDeals.map(deal => <FlightCard key={deal.id} {...deal} />)}
+        {/* Mobile and Tablet Carousel */}
+        <div className="lg:hidden mb-8">
+          <Carousel className="w-full max-w-sm sm:max-w-md md:max-w-2xl mx-auto">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {featuredDeals.map(deal => (
+                <CarouselItem key={deal.id} className="pl-2 md:pl-4 md:basis-1/2">
+                  <div className="p-1">
+                    <FlightCard {...deal} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex" />
+            <CarouselNext className="hidden sm:flex" />
+          </Carousel>
+        </div>
+        
+        {/* Desktop Grid */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-8">
+          {featuredDeals.map(deal => (
+            <FlightCard key={deal.id} {...deal} />
+          ))}
         </div>
         
         <div className="text-center mt-12">
           <a href="/top-deals" className="btn-jetleg-outline">Bekijk alle deals</a>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default DealsSection;

@@ -1,9 +1,9 @@
-
 import { useState, useEffect, useRef } from 'react';
-import { MapPin, Search, Calendar, Users, Plane, ArrowLeftRight } from 'lucide-react';
+import { MapPin, Search, Users, Plane, ArrowLeftRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { worldwideAirports, type Airport } from '@/data/airports';
 import PassengerCounter from './PassengerCounter';
+import FlexibleDatePicker from './FlexibleDatePicker';
 
 interface SearchWithSuggestionsProps {
   className?: string;
@@ -73,7 +73,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
   const handleInputFocus = (field: 'from' | 'to') => {
     const value = searchData[field];
     if (value.length > 0 && value !== 'Overal') {
-      // Re-filter suggestions when focusing
       const filtered = worldwideAirports.filter(airport =>
         airport.name.toLowerCase().includes(value.toLowerCase()) ||
         airport.city.toLowerCase().includes(value.toLowerCase()) ||
@@ -91,7 +90,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
     setActiveSuggestion({ field: null });
     setSuggestions(prev => ({ ...prev, [field]: [] }));
     
-    // Focus the next field after selection
     if (field === 'from' && toInputRef.current) {
       toInputRef.current.focus();
     }
@@ -127,19 +125,15 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
     navigate(`/search-results?${searchParams.toString()}`);
   };
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const minDate = tomorrow.toISOString().split('T')[0];
-
   return (
     <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
-      <form onSubmit={handleSearch} className="space-y-4">
+      <form onSubmit={handleSearch} className="space-y-6">
         {/* Mobile Layout */}
-        <div className="lg:hidden space-y-4">
+        <div className="lg:hidden space-y-6">
           {/* From and To Fields Row */}
-          <div className="flex items-end gap-2 relative">
+          <div className="space-y-4">
             {/* From Field */}
-            <div className="flex-1 relative">
+            <div className="relative">
               <label htmlFor="from" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
                 Van
@@ -152,11 +146,10 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 onChange={e => handleInputChange('from', e.target.value)}
                 onFocus={() => handleInputFocus('from')}
                 placeholder="bv. Brussel"
-                className="input-jetleg h-12"
+                className="input-jetleg h-14 w-full"
                 required
               />
               
-              {/* From Suggestions for Mobile */}
               {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
                 <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                   {suggestions.from.map(airport => (
@@ -182,19 +175,19 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             </div>
             
             {/* Swap Button */}
-            <div className="flex-shrink-0">
+            <div className="flex justify-center">
               <button
                 type="button"
                 onClick={handleSwapLocations}
-                className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
+                className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
                 title="Wissel vertrek en bestemming"
               >
-                <ArrowLeftRight className="w-4 h-4 text-white" />
+                <ArrowLeftRight className="w-5 h-5 text-white" />
               </button>
             </div>
             
             {/* To Field */}
-            <div className="flex-1 relative">
+            <div className="relative">
               <label htmlFor="to" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
                 Naar
@@ -207,14 +200,12 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 onChange={e => handleInputChange('to', e.target.value)}
                 onFocus={() => handleInputFocus('to')}
                 placeholder="bv. Nice"
-                className="input-jetleg h-12"
+                className="input-jetleg h-14 w-full"
                 required
               />
               
-              {/* To Suggestions for Mobile */}
               {activeSuggestion.field === 'to' && (
                 <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                  {/* Everywhere Option */}
                   <button
                     type="button"
                     onClick={handleEverywhere}
@@ -255,26 +246,22 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           </div>
           
           {/* Date and Passengers Row */}
-          <div className="flex items-end gap-4">
-            {/* Date Field */}
-            <div className="flex-1">
-              <label htmlFor="date-mobile" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
+          <div className="grid grid-cols-3 gap-4">
+            {/* Flexible Date Field */}
+            <div className="col-span-2">
+              <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
+                <Search className="h-4 w-4" />
                 Datum
               </label>
-              <input
-                type="date"
-                id="date-mobile"
+              <FlexibleDatePicker
                 value={searchData.date}
-                onChange={e => handleInputChange('date', e.target.value)}
-                min={minDate}
-                className="input-jetleg h-12"
-                required
+                onChange={value => handleInputChange('date', value)}
+                className="w-full"
               />
             </div>
             
             {/* Passengers Field */}
-            <div className="flex-shrink-0 w-24">
+            <div>
               <label htmlFor="passengers-mobile" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <Users className="h-4 w-4" />
                 Pax
@@ -282,14 +269,14 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               <PassengerCounter
                 value={searchData.passengers}
                 onChange={value => handleInputChange('passengers', value)}
-                className="h-12"
+                className="h-14"
                 hideArrows
               />
             </div>
           </div>
           
           {/* Search Button */}
-          <button type="submit" className="btn-jetleg-primary h-12 px-6 flex items-center justify-center gap-2 whitespace-nowrap w-full">
+          <button type="submit" className="btn-jetleg-primary h-14 px-6 flex items-center justify-center gap-2 whitespace-nowrap w-full text-lg">
             <Search className="h-5 w-5" />
             Zoek Vluchten
           </button>
@@ -314,7 +301,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               required
             />
             
-            {/* From Suggestions */}
             {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
               <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                 {suggestions.from.map(airport => (
@@ -368,10 +354,8 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               required
             />
             
-            {/* To Suggestions */}
             {activeSuggestion.field === 'to' && (
               <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                {/* Everywhere Option */}
                 <button
                   type="button"
                   onClick={handleEverywhere}
@@ -412,18 +396,13 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           
           {/* Date Field */}
           <div className="flex-shrink-0 w-40">
-            <label htmlFor="date-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
+            <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
+              <Search className="h-4 w-4" />
               Datum
             </label>
-            <input
-              type="date"
-              id="date-desktop"
+            <FlexibleDatePicker
               value={searchData.date}
-              onChange={e => handleInputChange('date', e.target.value)}
-              min={minDate}
-              className="input-jetleg h-12"
-              required
+              onChange={value => handleInputChange('date', value)}
             />
           </div>
           
