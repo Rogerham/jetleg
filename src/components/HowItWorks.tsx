@@ -30,15 +30,15 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 bg-white">
+    <section id="how-it-works" className="py-16 bg-white">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-title text-foreground mb-6">
             {t('howItWorks.title')}
           </h2>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
           <div className="animate-fade-in">
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p dangerouslySetInnerHTML={{ __html: t('howItWorks.description1') }} />

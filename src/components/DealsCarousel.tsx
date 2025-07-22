@@ -40,21 +40,21 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
 
   return (
     <div className={`relative ${className}`}>
-      {/* Add extra padding to prevent clipping on mobile/tablet */}
-      <div className="px-2 sm:px-4 md:px-6">
+      {/* Add extra padding to prevent clipping on mobile/tablet - increased bottom padding */}
+      <div className="px-2 sm:px-4 md:px-6 pb-4">
         <Carousel
           setApi={setApi}
           className="w-full"
           opts={{
             align: "center",
-            loop: true,
+            loop: false, // Disable infinite loop
           }}
         >
-          <CarouselContent className="-ml-3 sm:-ml-4 md:-ml-6">
+          <CarouselContent className="-ml-2 sm:-ml-3 md:-ml-6">
             {deals.map((deal) => (
-              <CarouselItem key={deal.id} className="pl-3 sm:pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3">
-                {/* Add padding around cards to prevent clipping when hovering */}
-                <div className="p-2 h-full">
+              <CarouselItem key={deal.id} className="pl-2 sm:pl-3 md:pl-6 md:basis-1/2 lg:basis-1/3">
+                {/* Increased padding around cards to prevent clipping during hover */}
+                <div className="p-3 h-full">
                   <FlightCard {...deal} />
                 </div>
               </CarouselItem>
@@ -75,20 +75,42 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
         </Carousel>
       </div>
 
-      {/* Mobile Navigation Dots Only */}
-      <div className="flex justify-center gap-2 mt-8 sm:hidden">
-        {Array.from({ length: count }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => scrollTo(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-200 ${
-              current === index + 1
-                ? 'bg-primary w-6'
-                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+      {/* Mobile Navigation - Non-overlapping buttons above dots */}
+      <div className="flex justify-center items-center gap-4 mt-4 sm:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => api?.scrollPrev()}
+          disabled={current === 1}
+          className="h-8 w-8 p-0"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        
+        <div className="flex gap-2">
+          {Array.from({ length: count }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollTo(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                current === index + 1
+                  ? 'bg-primary w-6'
+                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+        
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => api?.scrollNext()}
+          disabled={current === count}
+          className="h-8 w-8 p-0"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       </div>
 
       {/* Tablet Navigation - Dots Only */}
