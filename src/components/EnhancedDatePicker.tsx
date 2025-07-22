@@ -20,12 +20,11 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
   const [activeTab, setActiveTab] = useState('calendar');
 
   const flexibleOptions = [
-    { label: 'Vandaag', value: 'today' },
-    { label: 'Morgen', value: 'tomorrow' },
     { label: 'Dit weekend', value: 'weekend' },
     { label: 'Volgende week', value: 'next-week' },
     { label: 'Volgende maand', value: 'next-month' },
-    { label: 'Flexibel', value: 'flexible' }
+    { label: 'Specifieke maand', value: 'specific-month' },
+    { label: 'Volledig flexibel', value: 'fully-flexible' }
   ];
 
   const handleDateSelect = (date: Date | undefined) => {
@@ -78,7 +77,9 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
       <PopoverContent 
         className="w-[400px] p-0 bg-card border border-border shadow-lg" 
         align="center"
+        side="bottom"
         sideOffset={8}
+        avoidCollisions={false}
       >
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-muted/50 rounded-none rounded-t-lg">
@@ -109,6 +110,7 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
                 initialFocus
                 className="pointer-events-auto"
                 disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                fixedWeeks
               />
             </div>
           </TabsContent>
@@ -121,7 +123,7 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
                   Kies een flexibele periode voor betere deals
                 </p>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 gap-2">
                 {flexibleOptions.map((option) => (
                   <Button
                     key={option.value}

@@ -1,17 +1,17 @@
 
 import { Eye } from 'lucide-react';
-import FlightCard from './FlightCard';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDealsFlights } from '@/hooks/useFlights';
+import DealsCarousel from './DealsCarousel';
 
 const DealsSection = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: flights = [], isLoading, error } = useDealsFlights();
 
-  // Get the first 3 flights as featured deals
-  const featuredDeals = flights.slice(0, 3);
+  // Get the first 6 flights as featured deals for better carousel experience
+  const featuredDeals = flights.slice(0, 6);
 
   if (isLoading) {
     return (
@@ -67,17 +67,28 @@ const DealsSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredDeals.map((deal, index) => (
-            <div key={deal.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-              <FlightCard {...deal} />
-            </div>
-          ))}
+        {/* Desktop: Regular grid, Mobile/Tablet: Carousel */}
+        <div className="mb-12">
+          {/* Desktop Grid - Hidden on mobile/tablet */}
+          <div className="hidden lg:grid grid-cols-3 gap-8">
+            {featuredDeals.slice(0, 3).map((deal, index) => (
+              <div key={deal.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="h-full [&_*]:hover:scale-100">
+                  <div {...deal} />
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Mobile/Tablet Carousel - Hidden on desktop */}
+          <div className="lg:hidden">
+            <DealsCarousel deals={featuredDeals} />
+          </div>
         </div>
         
         <div className="text-center animate-fade-in">
           <button
-            onClick={() => navigate('/deals')}
+            onClick={() => navigate('/top-deals')}
             className="btn-jetleg-primary inline-flex items-center gap-2"
           >
             <Eye className="h-5 w-5" />

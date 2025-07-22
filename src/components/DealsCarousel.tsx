@@ -1,0 +1,120 @@
+
+import { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import FlightCard from './FlightCard';
+import { Button } from '@/components/ui/button';
+import type { CarouselApi } from '@/components/ui/carousel';
+
+interface Deal {
+  id: string;
+  departure: string;
+  destination: string;
+  departureTime: string;
+  arrivalTime: string;
+  price: number;
+  aircraftType: string;
+  availableSeats: number;
+  duration: string;
+  departureDate: string;
+  image: string;
+}
+
+interface DealsCarouselProps {
+  deals: Deal[];
+  className?: string;
+}
+
+const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
+
+  const scrollTo = (index: number) => {
+    api?.scrollTo(index);
+  };
+
+  if (deals.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className={`relative ${className}`}>
+      <Carousel
+        setApi={setApi}
+        className="w-full"
+        opts={{
+          align: "center",
+          loop: true,
+        }}
+      >
+        <CarouselContent className="-ml-2 md:-ml-4">
+          {deals.map((deal) => (
+            <CarouselItem key={deal.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+              <div className="h-full">
+                <FlightCard {...deal} />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        
+        {/* Desktop Navigation Arrows */}
+        <div className="hidden md:block">
+          <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
+          <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
+        </div>
+      </Carousel>
+
+      {/* Mobile/Tablet Navigation Dots */}
+      <div className="flex justify-center gap-2 mt-6 md:hidden">
+        {Array.from({ length: count }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => scrollTo(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              current === index + 1
+                ? 'bg-primary w-6'
+                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Tablet Navigation Arrows */}
+      <div className="hidden sm:flex md:hidden justify-center gap-4 mt-4">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => api?.scrollPrev()}
+          className="h-8 w-8 bg-white/90 hover:bg-white border-border shadow"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => api?.scrollNext()}
+          className="h-8 w-8 bg-white/90 hover:bg-white border-border shadow"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default DealsCarousel;
