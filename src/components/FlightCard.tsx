@@ -14,6 +14,7 @@ interface FlightCardProps {
   available_seats: number;
   operator: string;
   flight_duration: string;
+  jet_id?: number | null;
   jets?: {
     brand: string;
     model: string;
@@ -35,11 +36,15 @@ const FlightCard = ({
   available_seats,
   operator,
   flight_duration,
+  jet_id,
   jets
 }: FlightCardProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  // Debug logging to understand why aircraft details might be missing
+  console.log(`Flight ${id}: jet_id=${jet_id}, jets=`, jets);
 
   const handleBooking = () => {
     navigate(`/booking/${id}`, {
@@ -54,6 +59,7 @@ const FlightCard = ({
           available_seats,
           operator,
           flight_duration,
+          jet_id,
           jets
         }
       }
@@ -85,6 +91,16 @@ const FlightCard = ({
       return jets.description;
     }
     return `${operator} - ${jets ? `${jets.brand} ${jets.model}` : 'Private jet service'}`;
+  };
+
+  const getAircraftDetails = () => {
+    if (jets && jets.brand && jets.model) {
+      return `${jets.brand} ${jets.model}`;
+    }
+    if (jet_id) {
+      return `Aircraft ID: ${jet_id} (Details loading...)`;
+    }
+    return 'Aircraft details being updated';
   };
 
   return (
@@ -125,7 +141,7 @@ const FlightCard = ({
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Plane className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Vliegtuig:</strong> {jets ? `${jets.brand} ${jets.model}` : 'Aircraft details unavailable'}</span>
+            <span><strong>Vliegtuig:</strong> {getAircraftDetails()}</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Users className="h-4 w-4 mr-2 text-accent" />

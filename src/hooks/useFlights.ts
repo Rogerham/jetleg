@@ -191,7 +191,7 @@ export const useFlightById = (flightId: string) => {
   });
 };
 
-// Hook to get all available flights for deals sections
+// Hook to get all available flights for deals sections - now sorted by departure time (most recent first)
 export const useAllFlights = () => {
   return useQuery({
     queryKey: ['all-flights'],
@@ -213,7 +213,7 @@ export const useAllFlights = () => {
           )
         `)
         .gte('departure_time', now)
-        .order('price_per_seat', { ascending: true });
+        .order('departure_time', { ascending: true });
 
       if (error) {
         console.error('Error fetching all flights:', error);
