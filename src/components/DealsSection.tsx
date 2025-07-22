@@ -1,8 +1,7 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FlightCard from './FlightCard';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
-import { useEffect } from 'react';
 import parisImage from '@/assets/paris-aerial.jpg';
 import londonImage from '@/assets/london-aerial.jpg';
 import ibizaImage from '@/assets/ibiza-aerial.jpg';
@@ -88,34 +87,36 @@ const DealsSection = () => {
         
         {/* Mobile and Tablet Carousel */}
         <div className="lg:hidden mb-8">
-          <Carousel 
-            className="w-full max-w-sm sm:max-w-md md:max-w-2xl mx-auto"
-            setApi={setApi}
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {featuredDeals.map(deal => (
-                <CarouselItem key={deal.id} className="pl-2 md:pl-4 md:basis-1/2">
-                  <div className="p-1 h-full">
-                    <div className="h-full">
-                      <FlightCard {...deal} />
+          <div className="relative">
+            <Carousel 
+              className="w-full max-w-sm sm:max-w-md md:max-w-2xl mx-auto"
+              setApi={setApi}
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {featuredDeals.map(deal => (
+                  <CarouselItem key={deal.id} className="pl-2 md:pl-4 md:basis-1/2">
+                    <div className="p-1 h-full">
+                      <div className="h-full">
+                        <FlightCard {...deal} />
+                      </div>
                     </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex -left-4 bg-white/90 hover:bg-white border-2 border-border shadow-lg" />
-            <CarouselNext className="hidden sm:flex -right-4 bg-white/90 hover:bg-white border-2 border-border shadow-lg" />
-          </Carousel>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex -left-12 h-10 w-10 bg-white/95 hover:bg-white border-2 border-border shadow-lg backdrop-blur-sm" />
+              <CarouselNext className="hidden sm:flex -right-12 h-10 w-10 bg-white/95 hover:bg-white border-2 border-border shadow-lg backdrop-blur-sm" />
+            </Carousel>
+          </div>
           
           {/* Navigation Dots */}
           <div className="flex justify-center mt-6 space-x-2">
             {Array.from({ length: count }, (_, index) => (
               <button
                 key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                className={`h-2 rounded-full transition-all duration-300 ${
                   index === current - 1 
-                    ? 'bg-accent w-6' 
-                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    ? 'bg-primary w-6' 
+                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2'
                 }`}
                 onClick={() => api?.scrollTo(index)}
                 aria-label={`Go to slide ${index + 1}`}
