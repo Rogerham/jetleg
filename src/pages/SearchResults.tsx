@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
@@ -36,8 +35,12 @@ const SearchResults = () => {
     filtered = filtered.filter(flight => {
       if (flight.price_per_seat > filters.maxPrice) return false;
       if (flight.available_seats < filters.minPassengers) return false;
-      if (flight.jets.seating_capacity > filters.maxPassengers) return false;
-      if (filters.aircraft && !`${flight.jets.brand} ${flight.jets.model}`.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
+      
+      // Handle null jets object
+      const jetData = flight.jets || { seating_capacity: flight.available_seats, brand: '', model: '' };
+      if (jetData.seating_capacity > filters.maxPassengers) return false;
+      
+      if (filters.aircraft && !`${jetData.brand} ${jetData.model}`.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
       if (filters.timeOfDay !== 'any') {
         const hour = new Date(flight.departure_time).getHours();
         if (filters.timeOfDay === 'morning' && (hour < 6 || hour >= 12)) return false;
@@ -370,79 +373,92 @@ const SearchResults = () => {
               </div>
             ) : (
               <div className="space-y-6">
-                {filteredFlights.map(flight => (
-                  <div key={flight.id} className="card-jetleg overflow-hidden">
-                    <div className="p-6">
-                      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
-                        {/* Flight Info */}
-                        <div className="lg:col-span-2">
-                          <div className="flex items-center gap-4 mb-3">
-                            <div className="text-center">
-                              <div className="text-xl font-bold text-foreground">{formatTime(flight.departure_time)}</div>
-                              <div className="text-sm text-muted-foreground">{extractAirportCode(flight.departure_airport)}</div>
+                {filteredFlights.map(flight => {
+                  // Handle null jets object with fallback values
+                  const jetData = flight.jets || {
+                    brand: 'Unknown',
+                    model: 'Aircraft',
+                    type: 'Private Jet',
+                    seating_capacity: flight.available_seats,
+                    range_km: 0,
+                    description: `${flight.operator} - Private Aircraft`,
+                    image_url: '/src/assets/jet-interior.jpg'
+                  };
+
+                  return (
+                    <div key={flight.id} className="card-jetleg overflow-hidden">
+                      <div className="p-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+                          {/* Flight Info */}
+                          <div className="lg:col-span-2">
+                            <div className="flex items-center gap-4 mb-3">
+                              <div className="text-center">
+                                <div className="text-xl font-bold text-foreground">{formatTime(flight.departure_time)}</div>
+                                <div className="text-sm text-muted-foreground">{extractAirportCode(flight.departure_airport)}</div>
+                              </div>
+                              
+                              <div className="flex-1 relative">
+                                <div className="border-t border-dashed border-border"></div>
+                                <div className="absolute top-[-8px] left-1/2 transform -translate-x-1/2 bg-background px-2">
+                                  <Plane className="h-4 w-4 text-accent" />
+                                </div>
+                                <div className="text-center text-xs text-muted-foreground mt-1">
+                                  {flight.flight_duration}
+                                </div>
+                              </div>
+                              
+                              <div className="text-center">
+                                <div className="text-xl font-bold text-foreground">{formatTime(flight.arrival_time)}</div>
+                                <div className="text-sm text-muted-foreground">{extractAirportCode(flight.arrival_airport)}</div>
+                              </div>
                             </div>
                             
-                            <div className="flex-1 relative">
-                              <div className="border-t border-dashed border-border"></div>
-                              <div className="absolute top-[-8px] left-1/2 transform -translate-x-1/2 bg-background px-2">
-                                <Plane className="h-4 w-4 text-accent" />
+                            <div className="space-y-1">
+                              <div className="font-medium text-foreground">
+                                {jetData.brand} {jetData.model}
                               </div>
-                              <div className="text-center text-xs text-muted-foreground mt-1">
-                                {flight.flight_duration}
+                              <div className="text-sm text-muted-foreground flex items-center gap-4">
+                                <span className="flex items-center gap-1">
+                                  <Users className="h-3 w-3" />
+                                  {flight.available_seats} beschikbaar
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <MapPin className="h-3 w-3" />
+                                  {flight.operator}
+                                </span>
                               </div>
                             </div>
-                            
-                            <div className="text-center">
-                              <div className="text-xl font-bold text-foreground">{formatTime(flight.arrival_time)}</div>
-                              <div className="text-sm text-muted-foreground">{extractAirportCode(flight.arrival_airport)}</div>
-                            </div>
                           </div>
-                          
-                          <div className="space-y-1">
-                            <div className="font-medium text-foreground">
-                              {flight.jets.brand} {flight.jets.model}
-                            </div>
-                            <div className="text-sm text-muted-foreground flex items-center gap-4">
-                              <span className="flex items-center gap-1">
-                                <Users className="h-3 w-3" />
-                                {flight.available_seats} beschikbaar
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <MapPin className="h-3 w-3" />
-                                {flight.operator}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
 
-                        {/* Image */}
-                        <div className="lg:col-span-1">
-                          <img
-                            src={flight.jets.image_url}
-                            alt={`${flight.jets.brand} ${flight.jets.model}`}
-                            className="w-full h-24 object-cover rounded-lg"
-                          />
-                        </div>
-
-                        {/* Price & Book */}
-                        <div className="lg:col-span-1 text-center lg:text-right">
-                          <div className="text-2xl font-bold text-foreground mb-1">
-                            €{flight.price_per_seat.toLocaleString()}
+                          {/* Image */}
+                          <div className="lg:col-span-1">
+                            <img
+                              src={jetData.image_url}
+                              alt={`${jetData.brand} ${jetData.model}`}
+                              className="w-full h-24 object-cover rounded-lg"
+                            />
                           </div>
-                          <div className="text-sm text-muted-foreground mb-4">per persoon</div>
-                          <button
-                            onClick={() => navigate(`/booking/${flight.id}`, {
-                              state: { flight }
-                            })}
-                            className="btn-jetleg-primary w-full lg:w-auto"
-                          >
-                            Boek Nu
-                          </button>
+
+                          {/* Price & Book */}
+                          <div className="lg:col-span-1 text-center lg:text-right">
+                            <div className="text-2xl font-bold text-foreground mb-1">
+                              €{flight.price_per_seat.toLocaleString()}
+                            </div>
+                            <div className="text-sm text-muted-foreground mb-4">per persoon</div>
+                            <button
+                              onClick={() => navigate(`/booking/${flight.id}`, {
+                                state: { flight: { ...flight, jets: jetData } }
+                              })}
+                              className="btn-jetleg-primary w-full lg:w-auto"
+                            >
+                              Boek Nu
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
