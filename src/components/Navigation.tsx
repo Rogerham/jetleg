@@ -53,7 +53,7 @@ const Navigation = () => {
 
   return (
     <header className={`bg-card shadow-lg sticky top-0 z-50 transition-all duration-200 ease-out ${
-      isScrolled ? 'py-2' : 'py-3'
+      isScrolled ? 'py-3' : 'py-4'
     }`}>
       <nav className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center">
@@ -62,7 +62,7 @@ const Navigation = () => {
               src="/lovable-uploads/98279cd3-d5a1-4405-ae12-29b927f1dbd6.png" 
               alt="Jetleg - The smartest way to fly private" 
               className={`w-auto transition-all duration-200 ease-out ${
-                isScrolled ? 'h-12' : 'h-14'
+                isScrolled ? 'h-14' : 'h-16'
               }`} 
             />
           </Link>
