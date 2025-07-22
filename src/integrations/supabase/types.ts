@@ -63,7 +63,6 @@ export type Database = {
       }
       flights: {
         Row: {
-          aircraft_type: string
           arrival_airport: string
           arrival_time: string
           available_seats: number
@@ -72,11 +71,11 @@ export type Database = {
           departure_time: string
           flight_duration: string
           id: string
+          jet_id: number | null
           operator: string
           price_per_seat: number
         }
         Insert: {
-          aircraft_type: string
           arrival_airport: string
           arrival_time: string
           available_seats?: number
@@ -85,11 +84,11 @@ export type Database = {
           departure_time: string
           flight_duration: string
           id?: string
+          jet_id?: number | null
           operator: string
           price_per_seat: number
         }
         Update: {
-          aircraft_type?: string
           arrival_airport?: string
           arrival_time?: string
           available_seats?: number
@@ -98,8 +97,53 @@ export type Database = {
           departure_time?: string
           flight_duration?: string
           id?: string
+          jet_id?: number | null
           operator?: string
           price_per_seat?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flights_jet_id_fkey"
+            columns: ["jet_id"]
+            isOneToOne: false
+            referencedRelation: "jets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      jets: {
+        Row: {
+          brand: string
+          created_at: string | null
+          description: string | null
+          id: number
+          image_url: string | null
+          model: string | null
+          range_km: number | null
+          seating_capacity: number | null
+          type: string | null
+        }
+        Insert: {
+          brand: string
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          model?: string | null
+          range_km?: number | null
+          seating_capacity?: number | null
+          type?: string | null
+        }
+        Update: {
+          brand?: string
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          model?: string | null
+          range_km?: number | null
+          seating_capacity?: number | null
+          type?: string | null
         }
         Relationships: []
       }

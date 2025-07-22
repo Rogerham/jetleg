@@ -1,25 +1,9 @@
+
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check, CreditCard, Lock, Users, MapPin, Calendar, Plane } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-
-interface Flight {
-  id: string;
-  route: {
-    from: string;
-    to: string;
-    fromCode: string;
-    toCode: string;
-  };
-  date: string;
-  aircraft: string;
-  maxPassengers: number;
-  price: number;
-  discount: number;
-  departure: string;
-  arrival: string;
-  duration: string;
-}
+import { useFlightById } from '@/hooks/useFlights';
 
 interface Passenger {
   firstName: string;
@@ -43,31 +27,13 @@ interface PaymentData {
   };
 }
 
-const mockFlight: Flight = {
-  id: '1',
-  route: {
-    from: 'Brussels',
-    to: 'Nice',
-    fromCode: 'BRU',
-    toCode: 'NCE'
-  },
-  date: '2024-08-15',
-  aircraft: 'Cessna Citation CJ3+',
-  maxPassengers: 8,
-  price: 2450,
-  discount: 65,
-  departure: '14:30',
-  arrival: '16:15',
-  duration: '1h 45m'
-};
-
 const BookingFlow = () => {
   const { flightId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   
   const [currentStep, setCurrentStep] = useState(1);
-  const [flight] = useState<Flight>(mockFlight);
   const [passengers, setPassengers] = useState<Passenger[]>([
     {
       firstName: '',
@@ -93,6 +59,12 @@ const BookingFlow = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // Use the flight from location state if available, otherwise fetch from database
+  const flightFromState = location.state?.flight;
+  const { data: flightFromDb, isLoading: isLoadingFlight, error } = useFlightById(flightId || '');
+  
+  const flight = flightFromState || flightFromDb;
+
   const steps = [
     { number: 1, title: 'Passagiers', description: 'Voer gegevens in' },
     { number: 2, title: 'Betaling', description: 'Betalingsgegevens' },
@@ -100,7 +72,7 @@ const BookingFlow = () => {
   ];
 
   const addPassenger = () => {
-    if (passengers.length < flight.maxPassengers) {
+    if (flight && passengers.length < flight.available_seats) {
       setPassengers([...passengers, {
         firstName: '',
         lastName: '',
@@ -195,7 +167,56 @@ const BookingFlow = () => {
     navigate('/booking-confirmation');
   };
 
-  const totalPrice = flight.price * passengers.length;
+  const formatTime = (dateString: string) => {
+    return new Date(dateString).toLocaleTimeString('nl-NL', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('nl-NL');
+  };
+
+  const extractAirportCode = (airport: string) => {
+    const match = airport.match(/\(([^)]+)\)/);
+    return match ? match[1] : airport.slice(-3);
+  };
+
+  const extractCityName = (airport: string) => {
+    return airport.split('(')[0].trim();
+  };
+
+  if (isLoadingFlight) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Plane className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
+          <h3 className="text-xl font-semibold text-foreground mb-2">Vluchtgegevens laden...</h3>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !flight) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Plane className="h-16 w-16 text-destructive mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-foreground mb-2">Vlucht niet gevonden</h3>
+          <p className="text-muted-foreground mb-4">De vlucht die je zoekt bestaat niet of is niet beschikbaar.</p>
+          <button
+            onClick={() => navigate('/search-results')}
+            className="btn-jetleg-primary"
+          >
+            Terug naar zoekresultaten
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const totalPrice = (flight.price_per_seat || 0) * passengers.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -211,7 +232,7 @@ const BookingFlow = () => {
               Terug naar resultaten
             </button>
             <div className="text-sm text-muted-foreground">
-              Boeking voor vlucht {flight.route.fromCode} → {flight.route.toCode}
+              Boeking voor vlucht {extractAirportCode(flight.departure_airport)} → {extractAirportCode(flight.arrival_airport)}
             </div>
           </div>
         </div>
@@ -336,7 +357,7 @@ const BookingFlow = () => {
                     </div>
                   ))}
                   
-                  {passengers.length < flight.maxPassengers && (
+                  {passengers.length < flight.available_seats && (
                     <button
                       onClick={addPassenger}
                       className="btn-jetleg-outline w-full mb-6"
@@ -474,19 +495,25 @@ const BookingFlow = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Route:</span>
-                        <span className="text-foreground">{flight.route.from} → {flight.route.to}</span>
+                        <span className="text-foreground">{extractCityName(flight.departure_airport)} → {extractCityName(flight.arrival_airport)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Datum:</span>
-                        <span className="text-foreground">{flight.date}</span>
+                        <span className="text-foreground">{formatDate(flight.departure_time)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Vertrek:</span>
-                        <span className="text-foreground">{flight.departure}</span>
+                        <span className="text-foreground">{formatTime(flight.departure_time)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Vliegtuig:</span>
-                        <span className="text-foreground">{flight.aircraft}</span>
+                        <span className="text-foreground">
+                          {flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Aircraft details unavailable'}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Operator:</span>
+                        <span className="text-foreground">{flight.operator}</span>
                       </div>
                     </div>
                   </div>
@@ -553,16 +580,16 @@ const BookingFlow = () => {
                 <div className="flex items-center gap-3">
                   <Plane className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium text-foreground">{flight.route.fromCode} → {flight.route.toCode}</div>
-                    <div className="text-sm text-muted-foreground">{flight.route.from} - {flight.route.to}</div>
+                    <div className="font-medium text-foreground">{extractAirportCode(flight.departure_airport)} → {extractAirportCode(flight.arrival_airport)}</div>
+                    <div className="text-sm text-muted-foreground">{extractCityName(flight.departure_airport)} - {extractCityName(flight.arrival_airport)}</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-3">
                   <Calendar className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium text-foreground">{flight.date}</div>
-                    <div className="text-sm text-muted-foreground">{flight.departure} - {flight.arrival}</div>
+                    <div className="font-medium text-foreground">{formatDate(flight.departure_time)}</div>
+                    <div className="text-sm text-muted-foreground">{formatTime(flight.departure_time)} - {formatTime(flight.arrival_time)}</div>
                   </div>
                 </div>
                 
@@ -570,7 +597,9 @@ const BookingFlow = () => {
                   <Users className="h-5 w-5 text-accent" />
                   <div>
                     <div className="font-medium text-foreground">{passengers.length} passagier{passengers.length !== 1 ? 's' : ''}</div>
-                    <div className="text-sm text-muted-foreground">{flight.aircraft}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : flight.operator}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -579,16 +608,12 @@ const BookingFlow = () => {
               <div className="border-t border-border pt-4">
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Prijs per vlucht</span>
-                    <span className="text-foreground">€{flight.price.toLocaleString()}</span>
+                    <span className="text-muted-foreground">Prijs per persoon</span>
+                    <span className="text-foreground">€{flight.price_per_seat.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Aantal passagiers</span>
                     <span className="text-foreground">×{passengers.length}</span>
-                  </div>
-                  <div className="flex justify-between text-sm text-accent">
-                    <span>Korting ({flight.discount}%)</span>
-                    <span>-€{Math.round(flight.price * passengers.length * (flight.discount / 100)).toLocaleString()}</span>
                   </div>
                   <div className="border-t border-border pt-2 flex justify-between font-semibold text-lg">
                     <span className="text-foreground">Totaal</span>

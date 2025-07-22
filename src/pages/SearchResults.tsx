@@ -2,95 +2,14 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
-import FlightCard from '@/components/FlightCard';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
-
-interface Flight {
-  id: string;
-  route: {
-    from: string;
-    to: string;
-    fromCode: string;
-    toCode: string;
-  };
-  date: string;
-  aircraft: string;
-  maxPassengers: number;
-  price: number;
-  discount: number;
-  image: string;
-  imageAlt: string;
-  duration: string;
-  departure: string;
-  arrival: string;
-  rating: number;
-}
-
-const mockFlights: Flight[] = [{
-  id: '1',
-  route: {
-    from: 'Brussels',
-    to: 'Nice',
-    fromCode: 'BRU',
-    toCode: 'NCE'
-  },
-  date: '2024-08-15',
-  aircraft: 'Cessna Citation CJ3+',
-  maxPassengers: 8,
-  price: 2450,
-  discount: 65,
-  image: '/src/assets/jet-interior.jpg',
-  imageAlt: 'Luxe privéjet interieur',
-  duration: '1h 45m',
-  departure: '14:30',
-  arrival: '16:15',
-  rating: 4.8
-}, {
-  id: '2',
-  route: {
-    from: 'Brussels',
-    to: 'Paris',
-    fromCode: 'BRU',
-    toCode: 'CDG'
-  },
-  date: '2024-08-15',
-  aircraft: 'Embraer Phenom 300',
-  maxPassengers: 6,
-  price: 1890,
-  discount: 58,
-  image: '/src/assets/paris-aerial.jpg',
-  imageAlt: 'Luchtfoto van Parijs',
-  duration: '45m',
-  departure: '09:15',
-  arrival: '10:00',
-  rating: 4.9
-}, {
-  id: '3',
-  route: {
-    from: 'Brussels',
-    to: 'London',
-    fromCode: 'BRU',
-    toCode: 'LHR'
-  },
-  date: '2024-08-15',
-  aircraft: 'Bombardier Challenger 350',
-  maxPassengers: 10,
-  price: 3200,
-  discount: 72,
-  image: '/src/assets/london-aerial.jpg',
-  imageAlt: 'Luchtfoto van Londen',
-  duration: '1h 20m',
-  departure: '16:45',
-  arrival: '17:05',
-  rating: 4.7
-}];
+import { useFlights, type Flight } from '@/hooks/useFlights';
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [flights, setFlights] = useState<Flight[]>(mockFlights);
-  const [filteredFlights, setFilteredFlights] = useState<Flight[]>(mockFlights);
+  const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [sortBy, setSortBy] = useState('price');
   const [filters, setFilters] = useState({
@@ -108,17 +27,19 @@ const SearchResults = () => {
     passengers: searchParams.get('passengers') || '1'
   };
 
+  const { data: flights = [], isLoading, error } = useFlights(searchData);
+
   useEffect(() => {
     let filtered = [...flights];
 
     // Apply filters
     filtered = filtered.filter(flight => {
-      if (flight.price > filters.maxPrice) return false;
-      if (flight.maxPassengers < filters.minPassengers) return false;
-      if (flight.maxPassengers > filters.maxPassengers) return false;
-      if (filters.aircraft && !flight.aircraft.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
+      if (flight.price_per_seat > filters.maxPrice) return false;
+      if (flight.available_seats < filters.minPassengers) return false;
+      if (flight.jets && flight.jets.seating_capacity > filters.maxPassengers) return false;
+      if (filters.aircraft && flight.jets && !`${flight.jets.brand} ${flight.jets.model}`.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
       if (filters.timeOfDay !== 'any') {
-        const hour = parseInt(flight.departure.split(':')[0]);
+        const hour = new Date(flight.departure_time).getHours();
         if (filters.timeOfDay === 'morning' && (hour < 6 || hour >= 12)) return false;
         if (filters.timeOfDay === 'afternoon' && (hour < 12 || hour >= 18)) return false;
         if (filters.timeOfDay === 'evening' && (hour < 18 || hour >= 24)) return false;
@@ -130,13 +51,11 @@ const SearchResults = () => {
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'price':
-          return a.price - b.price;
+          return a.price_per_seat - b.price_per_seat;
         case 'duration':
-          return parseInt(a.duration) - parseInt(b.duration);
+          return parseInt(a.flight_duration) - parseInt(b.flight_duration);
         case 'departure':
-          return a.departure.localeCompare(b.departure);
-        case 'rating':
-          return b.rating - a.rating;
+          return new Date(a.departure_time).getTime() - new Date(b.departure_time).getTime();
         default:
           return 0;
       }
@@ -175,6 +94,56 @@ const SearchResults = () => {
       timeOfDay: 'any'
     });
   };
+
+  const formatTime = (dateString: string) => {
+    return new Date(dateString).toLocaleTimeString('nl-NL', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('nl-NL');
+  };
+
+  const extractAirportCode = (airport: string) => {
+    const match = airport.match(/\(([^)]+)\)/);
+    return match ? match[1] : airport.slice(-3);
+  };
+
+  const extractCityName = (airport: string) => {
+    return airport.split('(')[0].trim();
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Plane className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
+          <h3 className="text-xl font-semibold text-foreground mb-2">Vluchten zoeken...</h3>
+          <p className="text-muted-foreground">We zoeken de beste beschikbare vluchten voor je.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Plane className="h-16 w-16 text-destructive mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-foreground mb-2">Er is een fout opgetreden</h3>
+          <p className="text-muted-foreground mb-4">We konden geen vluchten laden. Probeer het opnieuw.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="btn-jetleg-primary"
+          >
+            Opnieuw proberen
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -229,7 +198,6 @@ const SearchResults = () => {
                 <option value="price">Prijs (laag naar hoog)</option>
                 <option value="duration">Vliegduur</option>
                 <option value="departure">Vertrektijd</option>
-                <option value="rating">Beoordeling</option>
               </select>
             </div>
           </div>
@@ -355,13 +323,7 @@ const SearchResults = () => {
 
               {/* Clear Filters */}
               <button
-                onClick={() => setFilters({
-                  maxPrice: 5000,
-                  minPassengers: 1,
-                  maxPassengers: 20,
-                  aircraft: '',
-                  timeOfDay: 'any'
-                })}
+                onClick={handleClearAllFilters}
                 className="w-full text-accent hover:text-accent/80 text-sm font-medium transition-colors"
               >
                 Wis alle filters
@@ -379,13 +341,7 @@ const SearchResults = () => {
                   Probeer je zoekcriteria aan te passen of kies andere filters.
                 </p>
                 <button
-                  onClick={() => setFilters({
-                    maxPrice: 5000,
-                    minPassengers: 1,
-                    maxPassengers: 20,
-                    aircraft: '',
-                    timeOfDay: 'any'
-                  })}
+                  onClick={handleClearAllFilters}
                   className="btn-jetleg-primary"
                 >
                   Reset filters
@@ -401,8 +357,8 @@ const SearchResults = () => {
                         <div className="lg:col-span-2">
                           <div className="flex items-center gap-4 mb-3">
                             <div className="text-center">
-                              <div className="text-xl font-bold text-foreground">{flight.departure}</div>
-                              <div className="text-sm text-muted-foreground">{flight.route.fromCode}</div>
+                              <div className="text-xl font-bold text-foreground">{formatTime(flight.departure_time)}</div>
+                              <div className="text-sm text-muted-foreground">{extractAirportCode(flight.departure_airport)}</div>
                             </div>
                             
                             <div className="flex-1 relative">
@@ -411,26 +367,28 @@ const SearchResults = () => {
                                 <Plane className="h-4 w-4 text-accent" />
                               </div>
                               <div className="text-center text-xs text-muted-foreground mt-1">
-                                {flight.duration}
+                                {flight.flight_duration}
                               </div>
                             </div>
                             
                             <div className="text-center">
-                              <div className="text-xl font-bold text-foreground">{flight.arrival}</div>
-                              <div className="text-sm text-muted-foreground">{flight.route.toCode}</div>
+                              <div className="text-xl font-bold text-foreground">{formatTime(flight.arrival_time)}</div>
+                              <div className="text-sm text-muted-foreground">{extractAirportCode(flight.arrival_airport)}</div>
                             </div>
                           </div>
                           
                           <div className="space-y-1">
-                            <div className="font-medium text-foreground">{flight.aircraft}</div>
+                            <div className="font-medium text-foreground">
+                              {flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Aircraft details unavailable'}
+                            </div>
                             <div className="text-sm text-muted-foreground flex items-center gap-4">
                               <span className="flex items-center gap-1">
                                 <Users className="h-3 w-3" />
-                                Max {flight.maxPassengers} passagiers
+                                {flight.available_seats} beschikbaar
                               </span>
                               <span className="flex items-center gap-1">
-                                <Star className="h-3 w-3 fill-current text-accent" />
-                                {flight.rating}
+                                <MapPin className="h-3 w-3" />
+                                {flight.operator}
                               </span>
                             </div>
                           </div>
@@ -439,21 +397,18 @@ const SearchResults = () => {
                         {/* Image */}
                         <div className="lg:col-span-1">
                           <img
-                            src={flight.image}
-                            alt={flight.imageAlt}
+                            src={flight.jets?.image_url || '/src/assets/jet-interior.jpg'}
+                            alt={flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private jet interior'}
                             className="w-full h-24 object-cover rounded-lg"
                           />
                         </div>
 
                         {/* Price & Book */}
                         <div className="lg:col-span-1 text-center lg:text-right">
-                          <div className="mb-2">
-                            <span className="deal-badge text-white bg-accent">-{flight.discount}%</span>
-                          </div>
                           <div className="text-2xl font-bold text-foreground mb-1">
-                            €{flight.price.toLocaleString()}
+                            €{flight.price_per_seat.toLocaleString()}
                           </div>
-                          <div className="text-sm text-muted-foreground mb-4">per vlucht</div>
+                          <div className="text-sm text-muted-foreground mb-4">per persoon</div>
                           <button
                             onClick={() => navigate(`/booking/${flight.id}`, {
                               state: { flight }

@@ -6,76 +6,98 @@ import { useTranslation } from 'react-i18next';
 
 interface FlightCardProps {
   id: string;
-  route: {
-    from: string;
-    to: string;
-    fromCode: string;
-    toCode: string;
+  departure_airport: string;
+  arrival_airport: string;
+  departure_time: string;
+  arrival_time: string;
+  price_per_seat: number;
+  available_seats: number;
+  operator: string;
+  flight_duration: string;
+  jets?: {
+    brand: string;
+    model: string;
+    type: string;
+    seating_capacity: number;
+    range_km: number;
+    description: string;
+    image_url: string;
   };
-  date: string;
-  aircraft: string;
-  maxPassengers: number;
-  price: number;
-  discount: number;
-  image: string;
-  imageAlt: string;
 }
 
 const FlightCard = ({ 
   id,
-  route, 
-  date, 
-  aircraft, 
-  maxPassengers, 
-  price, 
-  discount, 
-  image, 
-  imageAlt 
+  departure_airport,
+  arrival_airport,
+  departure_time,
+  arrival_time,
+  price_per_seat,
+  available_seats,
+  operator,
+  flight_duration,
+  jets
 }: FlightCardProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const handleBooking = () => {
-    // Navigate to the booking flow with the flight ID
     navigate(`/booking/${id}`, {
       state: {
         flight: {
           id,
-          route,
-          date,
-          aircraft,
-          maxPassengers,
-          price,
-          discount,
-          image,
-          imageAlt
+          departure_airport,
+          arrival_airport,
+          departure_time,
+          arrival_time,
+          price_per_seat,
+          available_seats,
+          operator,
+          flight_duration,
+          jets
         }
       }
     });
   };
 
+  const formatTime = (dateString: string) => {
+    return new Date(dateString).toLocaleTimeString('nl-NL', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('nl-NL');
+  };
+
+  const extractAirportCode = (airport: string) => {
+    const match = airport.match(/\(([^)]+)\)/);
+    return match ? match[1] : airport.slice(-3);
+  };
+
+  const extractCityName = (airport: string) => {
+    return airport.split('(')[0].trim();
+  };
+
   const getRouteDescription = () => {
-    if (route.from === 'Paris' || route.from === 'Parijs') {
-      return t('deals.parisNice.description');
-    } else if (route.from === 'London' || route.from === 'Londen') {
-      return t('deals.londonZurich.description');
-    } else {
-      return t('deals.barcelonaIbiza.description');
+    if (jets?.description) {
+      return jets.description;
     }
+    return `${operator} - ${jets ? `${jets.brand} ${jets.model}` : 'Private jet service'}`;
   };
 
   return (
     <div className="card-jetleg @media (hover: hover) { hover:scale-105 } transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
         <img 
-          src={image} 
-          alt={imageAlt} 
+          src={jets?.image_url || '/src/assets/jet-interior.jpg'} 
+          alt={jets ? `${jets.brand} ${jets.model}` : 'Private jet interior'} 
           className="w-full h-48 object-cover @media (hover: hover) { hover:scale-110 } transition-transform duration-300"
         />
         <div className="absolute top-4 right-4">
           <span className="deal-badge text-white bg-accent">
-            {discount}% {t('deals.discount')}
+            {operator}
           </span>
         </div>
       </div>
@@ -84,7 +106,7 @@ const FlightCard = ({
         <div className="flex justify-between items-start mb-4">
           <div className="flex-grow">
             <h3 className="text-xl font-bold text-foreground mb-1">
-              {route.from} ({route.fromCode}) → {route.to} ({route.toCode})
+              {extractCityName(departure_airport)} ({extractAirportCode(departure_airport)}) → {extractCityName(arrival_airport)} ({extractAirportCode(arrival_airport)})
             </h3>
             <p className="text-muted-foreground">
               {getRouteDescription()}
@@ -95,30 +117,34 @@ const FlightCard = ({
         <div className="space-y-3 mb-6 flex-grow">
           <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>{t('deals.date')}:</strong> {date}</span>
+            <span><strong>Datum:</strong> {formatDate(departure_time)}</span>
+          </div>
+          <div className="flex items-center text-sm text-muted-foreground">
+            <Clock className="h-4 w-4 mr-2 text-accent" />
+            <span><strong>Vertrek:</strong> {formatTime(departure_time)} - {formatTime(arrival_time)} ({flight_duration})</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Plane className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>{t('deals.aircraft')}:</strong> {aircraft}</span>
+            <span><strong>Vliegtuig:</strong> {jets ? `${jets.brand} ${jets.model}` : 'Aircraft details unavailable'}</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Users className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>{t('deals.passengers')}:</strong> {t('deals.upTo')} {maxPassengers}</span>
+            <span><strong>Beschikbaar:</strong> {available_seats} plaatsen</span>
           </div>
         </div>
         
         <div className="flex justify-between items-center mt-auto">
           <div>
             <p className="text-3xl font-bold text-foreground">
-              € {price.toLocaleString('nl-NL')}
+              € {price_per_seat.toLocaleString('nl-NL')}
             </p>
-            <p className="text-sm text-muted-foreground">{t('deals.perFlight')}</p>
+            <p className="text-sm text-muted-foreground">per persoon</p>
           </div>
           <button 
             onClick={handleBooking}
             className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground"
           >
-            {t('deals.bookNow')}
+            Boek Nu
           </button>
         </div>
       </div>
