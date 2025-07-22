@@ -40,21 +40,21 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
 
   return (
     <div className={`relative ${className}`}>
-      {/* Add extra padding to prevent clipping on mobile/tablet */}
-      <div className="px-2 sm:px-4 md:px-6">
+      {/* Increased padding to prevent clipping on mobile/tablet */}
+      <div className="px-4 sm:px-6 md:px-8">
         <Carousel
           setApi={setApi}
           className="w-full"
           opts={{
             align: "center",
-            loop: true,
+            loop: false, // Disabled infinite loop
           }}
         >
-          <CarouselContent className="-ml-3 sm:-ml-4 md:-ml-6">
+          <CarouselContent className="-ml-4 sm:-ml-6 md:-ml-8">
             {deals.map((deal) => (
-              <CarouselItem key={deal.id} className="pl-3 sm:pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3">
-                {/* Add padding around cards to prevent clipping when hovering */}
-                <div className="p-2 h-full">
+              <CarouselItem key={deal.id} className="pl-4 sm:pl-6 md:pl-8 md:basis-1/2 lg:basis-1/3">
+                {/* Increased padding around cards to prevent clipping when hovering */}
+                <div className="p-4 h-full">
                   <FlightCard {...deal} />
                 </div>
               </CarouselItem>
@@ -63,19 +63,25 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
           
           {/* Desktop Navigation Arrows */}
           <div className="hidden lg:block">
-            <CarouselPrevious className="absolute -left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
-            <CarouselNext className="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
+            <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
+            <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
           </div>
           
           {/* Tablet Navigation - Overlapping Arrows */}
           <div className="hidden sm:block lg:hidden">
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10" />
+            <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10" />
+            <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10" />
+          </div>
+
+          {/* Mobile Navigation - Overlapping Arrows */}
+          <div className="block sm:hidden">
+            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10 h-10 w-10" />
+            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10 h-10 w-10" />
           </div>
         </Carousel>
       </div>
 
-      {/* Mobile Navigation Dots Only */}
+      {/* Mobile Navigation Dots */}
       <div className="flex justify-center gap-2 mt-8 sm:hidden">
         {Array.from({ length: count }).map((_, index) => (
           <button
@@ -91,7 +97,7 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
         ))}
       </div>
 
-      {/* Tablet Navigation - Dots Only */}
+      {/* Tablet Navigation - Dots */}
       <div className="hidden sm:flex lg:hidden justify-center gap-2 mt-6">
         {Array.from({ length: count }).map((_, index) => (
           <button

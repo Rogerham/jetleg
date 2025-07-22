@@ -58,8 +58,8 @@ const HowItWorks = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="bg-primary text-white py-20">
+      {/* Hero Section - Reduced height */}
+      <section className="bg-primary text-white py-12">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-hero mb-6">
@@ -78,8 +78,8 @@ const HowItWorks = () => {
           <div className="space-y-20">
             {steps.map((step, index) => (
               <div key={index} className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-16`}>
-                <div className="flex-1">
-                  <div className="flex items-center gap-4 mb-6">
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex items-center gap-4 mb-6 justify-center md:justify-start">
                     <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center">
                       <step.icon className="h-8 w-8 text-accent" />
                     </div>
@@ -98,7 +98,7 @@ const HowItWorks = () => {
                   
                   <ul className="space-y-3">
                     {step.details.map((detail, detailIndex) => (
-                      <li key={detailIndex} className="flex items-center gap-3">
+                      <li key={detailIndex} className="flex items-center gap-3 justify-center md:justify-start">
                         <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                         <span className="text-foreground">{detail}</span>
                       </li>
