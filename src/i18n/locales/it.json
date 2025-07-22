@@ -1,12 +1,11 @@
-
 {
   "nav": {
     "home": "Home",
     "deals": "Offerte",
     "howItWorks": "Come funziona",
     "about": "Chi siamo",
-    "contact": "Contatto",
-    "account": "Account",
+    "contact": "Contatto", 
+    "account": "Profilo",
     "login": "Accedi",
     "register": "Registrati",
     "myBookings": "Le mie prenotazioni",

@@ -1,4 +1,3 @@
-
 {
   "nav": {
     "home": "Inicio",
@@ -6,7 +5,7 @@
     "howItWorks": "Cómo funciona",
     "about": "Acerca de",
     "contact": "Contacto",
-    "account": "Cuenta",
+    "account": "Perfil",
     "login": "Iniciar sesión",
     "register": "Registrarse",
     "myBookings": "Mis reservas",
