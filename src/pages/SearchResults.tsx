@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
@@ -115,6 +114,27 @@ const SearchResults = () => {
     return airport.split('(')[0].trim();
   };
 
+  const getSearchResultsTitle = () => {
+    const fromText = searchData.from || 'Alle luchthavens';
+    const toText = searchData.to === 'Overal' ? 'alle bestemmingen' : searchData.to || 'alle bestemmingen';
+    return `Vluchten van ${fromText} naar ${toText}`;
+  };
+
+  const getDateDisplayText = () => {
+    if (!searchData.date) return 'Alle data';
+    
+    const flexibleOptions: { [key: string]: string } = {
+      'today': 'Vandaag',
+      'tomorrow': 'Morgen',
+      'weekend': 'Dit weekend',
+      'next-week': 'Volgende week',
+      'next-month': 'Volgende maand',
+      'flexible': 'Flexibele data'
+    };
+
+    return flexibleOptions[searchData.date] || searchData.date;
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -169,12 +189,12 @@ const SearchResults = () => {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
           <div>
             <h1 className="text-title text-foreground mb-2">
-              Vluchten van {searchData.from} naar {searchData.to}
+              {getSearchResultsTitle()}
             </h1>
             <p className="text-muted-foreground flex items-center gap-4">
               <span className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
-                {searchData.date}
+                {getDateDisplayText()}
               </span>
               <span className="flex items-center gap-1">
                 <Users className="h-4 w-4" />

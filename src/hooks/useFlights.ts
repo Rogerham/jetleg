@@ -53,11 +53,13 @@ export const useFlights = (searchParams?: {
         query = query.ilike('departure_airport', `%${searchParams.from.split('(')[0].trim()}%`);
       }
       
+      // Handle "Overal" destination - don't filter by destination
       if (searchParams?.to && searchParams.to !== 'Overal') {
         query = query.ilike('arrival_airport', `%${searchParams.to.split('(')[0].trim()}%`);
       }
 
-      if (searchParams?.date) {
+      // Handle flexible date options - only filter by date if it's a specific date
+      if (searchParams?.date && !['today', 'tomorrow', 'weekend', 'next-week', 'next-month', 'flexible'].includes(searchParams.date)) {
         const searchDate = new Date(searchParams.date);
         const nextDay = new Date(searchDate);
         nextDay.setDate(nextDay.getDate() + 1);
@@ -111,6 +113,37 @@ export const useFlightById = (flightId: string) => {
       }
 
       return data as Flight | null;
+    },
+  });
+};
+
+// Hook to get all available flights for deals sections
+export const useAllFlights = () => {
+  return useQuery({
+    queryKey: ['all-flights'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('flights')
+        .select(`
+          *,
+          jets (
+            brand,
+            model,
+            type,
+            seating_capacity,
+            range_km,
+            description,
+            image_url
+          )
+        `)
+        .order('price_per_seat', { ascending: true });
+
+      if (error) {
+        console.error('Error fetching all flights:', error);
+        throw error;
+      }
+
+      return data as Flight[];
     },
   });
 };
