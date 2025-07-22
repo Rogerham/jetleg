@@ -2,6 +2,7 @@
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface FlightCardProps {
   id: string;
@@ -33,6 +34,7 @@ const FlightCard = ({
 }: FlightCardProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleBooking = () => {
     // Navigate to the booking flow with the flight ID
@@ -53,6 +55,16 @@ const FlightCard = ({
     });
   };
 
+  const getRouteDescription = () => {
+    if (route.from === 'Paris' || route.from === 'Parijs') {
+      return t('deals.parisNice.description');
+    } else if (route.from === 'London' || route.from === 'Londen') {
+      return t('deals.londonZurich.description');
+    } else {
+      return t('deals.barcelonaIbiza.description');
+    }
+  };
+
   return (
     <div className="card-jetleg @media (hover: hover) { hover:scale-105 } transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
@@ -63,7 +75,7 @@ const FlightCard = ({
         />
         <div className="absolute top-4 right-4">
           <span className="deal-badge text-white bg-accent">
-            {discount}% Besparing
+            {discount}% {t('deals.discount')}
           </span>
         </div>
       </div>
@@ -75,9 +87,7 @@ const FlightCard = ({
               {route.from} ({route.fromCode}) → {route.to} ({route.toCode})
             </h3>
             <p className="text-muted-foreground">
-              {route.from === 'Parijs' ? 'Vlieg naar de Côte d\'Azur in stijl.' :
-               route.from === 'Londen' ? 'Perfect voor een zakelijke trip of een weekend in de Alpen.' :
-               'Start je vakantie op het Witte Eiland met ultieme luxe.'}
+              {getRouteDescription()}
             </p>
           </div>
         </div>
@@ -85,15 +95,15 @@ const FlightCard = ({
         <div className="space-y-3 mb-6 flex-grow">
           <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Datum:</strong> {date}</span>
+            <span><strong>{t('deals.date')}:</strong> {date}</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Plane className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Vliegtuig:</strong> {aircraft}</span>
+            <span><strong>{t('deals.aircraft')}:</strong> {aircraft}</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Users className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Passagiers:</strong> Tot {maxPassengers}</span>
+            <span><strong>{t('deals.passengers')}:</strong> {t('deals.upTo')} {maxPassengers}</span>
           </div>
         </div>
         
@@ -102,13 +112,13 @@ const FlightCard = ({
             <p className="text-3xl font-bold text-foreground">
               € {price.toLocaleString('nl-NL')}
             </p>
-            <p className="text-sm text-muted-foreground">per vlucht</p>
+            <p className="text-sm text-muted-foreground">{t('deals.perFlight')}</p>
           </div>
           <button 
             onClick={handleBooking}
             className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground"
           >
-            Boek Nu
+            {t('deals.bookNow')}
           </button>
         </div>
       </div>

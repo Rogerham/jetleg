@@ -1,28 +1,31 @@
 
 import { Plane, DollarSign, Clock, Shield } from 'lucide-react';
 import jetInteriorImage from '@/assets/jet-interior.jpg';
+import { useTranslation } from 'react-i18next';
 
 const HowItWorks = () => {
+  const { t } = useTranslation();
+
   const benefits = [
     {
       icon: DollarSign,
-      title: 'Tot 75% Besparing',
-      description: 'Bespaar tot 75% ten opzichte van reguliere privévluchten door gebruik te maken van empty leg positioneringsvluchten.'
+      title: t('howItWorks.benefits.savings.title'),
+      description: t('howItWorks.benefits.savings.description')
     },
     {
       icon: Clock,
-      title: 'Last-minute Beschikbaarheid',
-      description: 'Vind en boek exclusieve vluchten die binnenkort beschikbaar komen, perfect voor flexibele reizigers.'
+      title: t('howItWorks.benefits.availability.title'),
+      description: t('howItWorks.benefits.availability.description')
     },
     {
       icon: Plane,
-      title: 'Premium Vliegtuigen',
-      description: 'Vlieg in luxe jets van gecertificeerde operators met de hoogste veiligheids- en kwaliteitsnormen.'
+      title: t('howItWorks.benefits.premium.title'),
+      description: t('howItWorks.benefits.premium.description')
     },
     {
       icon: Shield,
-      title: 'Betrouwbaar & Veilig',
-      description: 'Alle operators zijn volledig gecertificeerd en voldoen aan de strengste Europese luchtvaartnormen.'
+      title: t('howItWorks.benefits.reliable.title'),
+      description: t('howItWorks.benefits.reliable.description')
     }
   ];
 
@@ -31,25 +34,16 @@ const HowItWorks = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-title text-foreground mb-6">
-            Wat is een "Empty Leg"?
+            {t('howItWorks.title')}
           </h2>
         </div>
         
         <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
           <div className="animate-fade-in">
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-              <p>
-                Een <strong className="text-foreground">empty leg vlucht</strong>, ook wel "positioning flight" genoemd, 
-                is een privévliegtuig dat leeg vliegt na het afzetten van passagiers, of op weg is om passagiers op te halen.
-              </p>
-              <p>
-                Omdat het vliegtuig deze vlucht sowieso moet maken, bieden chartermaatschappijen deze "lege" stoelen aan 
-                met een aanzienlijke korting - <strong className="text-accent">vaak tot wel 75% van de normale prijs</strong>.
-              </p>
-              <p>
-                Jetleg centraliseert het aanbod van honderden betrouwbare operatoren, zodat jij gemakkelijk de perfecte 
-                deal kunt vinden en boeken. Het is de slimste manier om de luxe van privévliegen te ervaren.
-              </p>
+              <p dangerouslySetInnerHTML={{ __html: t('howItWorks.description1') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('howItWorks.description2') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('howItWorks.description3') }} />
             </div>
           </div>
           

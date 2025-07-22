@@ -1,11 +1,14 @@
+
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,34 +20,27 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: Phone,
-      title: 'Telefoon',
-      details: ['+32 1 234 56 789', 'Ma-Vr: 08:00 - 20:00', 'Za-Zo: 10:00 - 18:00']
+      title: t('contact.info.phone.title'),
+      details: t('contact.info.phone.details', { returnObjects: true }) as string[]
     },
     {
       icon: Mail,
-      title: 'E-mail',
-      details: ['info@jetleg.be', 'support@jetleg.be', 'Respons binnen 2 uur']
+      title: t('contact.info.email.title'),
+      details: t('contact.info.email.details', { returnObjects: true }) as string[]
     },
     {
       icon: MapPin,
-      title: 'Adres',
-      details: ['Jetleg BV', 'Luchthavenlaan 42', '1930 Zaventem, België']
+      title: t('contact.info.address.title'),
+      details: t('contact.info.address.details', { returnObjects: true }) as string[]
     },
     {
       icon: Clock,
-      title: 'Openingstijden',
-      details: ['Maandag - Vrijdag: 08:00 - 20:00', 'Weekend: 10:00 - 18:00', '24/7 noodlijn beschikbaar']
+      title: t('contact.info.hours.title'),
+      details: t('contact.info.hours.details', { returnObjects: true }) as string[]
     }
   ];
 
-  const subjects = [
-    'Algemene vraag',
-    'Boekingshulp',
-    'Klacht',
-    'Partnerschap',
-    'Media aanvraag',
-    'Anders'
-  ];
+  const subjects = t('contact.form.subjects', { returnObjects: true }) as string[];
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -58,8 +54,8 @@ const Contact = () => {
     
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Incomplete gegevens",
-        description: "Vul alle verplichte velden in.",
+        title: t('contact.validation.incomplete'),
+        description: t('contact.validation.fillRequired'),
         variant: "destructive"
       });
       return;
@@ -67,8 +63,8 @@ const Contact = () => {
 
     // Simulate form submission
     toast({
-      title: "Bericht verzonden!",
-      description: "We nemen binnen 24 uur contact met je op.",
+      title: t('contact.validation.success'),
+      description: t('contact.validation.response'),
     });
 
     // Reset form
@@ -88,10 +84,9 @@ const Contact = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-20">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="text-hero mb-6">Contact</h1>
+          <h1 className="text-hero mb-6">{t('contact.hero.title')}</h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Heb je vragen over onze vluchten of wil je hulp bij je boeking? 
-            Ons vriendelijke team staat klaar om je te helpen.
+            {t('contact.hero.subtitle')}
           </p>
         </div>
       </section>
@@ -119,13 +114,13 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="card-jetleg p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-6">Stuur ons een bericht</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-6">{t('contact.form.title')}</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Naam *
+                      {t('contact.form.name')} {t('contact.form.required')}
                     </label>
                     <input
                       type="text"
@@ -137,7 +132,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      E-mailadres *
+                      {t('contact.form.email')} {t('contact.form.required')}
                     </label>
                     <input
                       type="email"
@@ -152,7 +147,7 @@ const Contact = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Telefoonnummer
+                      {t('contact.form.phone')}
                     </label>
                     <input
                       type="tel"
@@ -163,14 +158,14 @@ const Contact = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Onderwerp
+                      {t('contact.form.subject')}
                     </label>
                     <select
                       value={formData.subject}
                       onChange={(e) => handleInputChange('subject', e.target.value)}
                       className="input-jetleg"
                     >
-                      <option value="">Selecteer onderwerp</option>
+                      <option value="">{t('contact.form.selectSubject')}</option>
                       {subjects.map((subject) => (
                         <option key={subject} value={subject}>{subject}</option>
                       ))}
@@ -180,21 +175,21 @@ const Contact = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Bericht *
+                    {t('contact.form.message')} {t('contact.form.required')}
                   </label>
                   <textarea
                     value={formData.message}
                     onChange={(e) => handleInputChange('message', e.target.value)}
                     rows={6}
                     className="input-jetleg resize-none"
-                    placeholder="Beschrijf je vraag of opmerking..."
+                    placeholder={t('contact.form.messagePlaceholder')}
                     required
                   />
                 </div>
 
                 <button type="submit" className="btn-jetleg-primary w-full flex items-center justify-center gap-2">
                   <Send className="h-5 w-5" />
-                  Verstuur bericht
+                  {t('contact.form.submit')}
                 </button>
               </form>
             </div>
@@ -205,59 +200,48 @@ const Contact = () => {
               <div className="card-jetleg p-6">
                 <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                   <MessageCircle className="h-5 w-5 text-accent" />
-                  Veelgestelde vragen
+                  {t('contact.faq.title')}
                 </h3>
                 <div className="space-y-3">
-                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors">
-                    Hoe boek ik een empty leg vlucht?
-                  </a>
-                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors">
-                    Wat zijn de annuleringsvoorwaarden?
-                  </a>
-                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors">
-                    Welke documenten heb ik nodig?
-                  </a>
-                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors">
-                    Kan ik mijn vlucht wijzigen?
-                  </a>
-                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors">
-                    Hoe werkt de betaling?
-                  </a>
+                  {(t('contact.faq.questions', { returnObjects: true }) as string[]).map((question, index) => (
+                    <a key={index} href="#" className="block text-muted-foreground hover:text-accent transition-colors">
+                      {question}
+                    </a>
+                  ))}
                 </div>
               </div>
 
               {/* Emergency Contact */}
               <div className="card-jetleg p-6 bg-destructive/5 border-destructive/20">
-                <h3 className="font-semibold text-foreground mb-4">Noodcontact</h3>
+                <h3 className="font-semibold text-foreground mb-4">{t('contact.emergency.title')}</h3>
                 <p className="text-muted-foreground mb-3">
-                  Voor dringende zaken buiten kantooruren kun je ons 24/7 bereiken:
+                  {t('contact.emergency.description')}
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-destructive" />
-                    <span className="font-medium text-foreground">+32 800 123 456</span>
+                    <span className="font-medium text-foreground">{t('contact.emergency.phone')}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-destructive" />
-                    <span className="font-medium text-foreground">emergency@jetleg.be</span>
+                    <span className="font-medium text-foreground">{t('contact.emergency.email')}</span>
                   </div>
                 </div>
               </div>
 
               {/* Map placeholder */}
               <div className="card-jetleg p-6">
-                <h3 className="font-semibold text-foreground mb-4">Bezoekadres</h3>
+                <h3 className="font-semibold text-foreground mb-4">{t('contact.location.title')}</h3>
                 <div className="bg-muted/30 h-48 rounded-lg flex items-center justify-center">
                   <div className="text-center">
                     <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-muted-foreground">
-                      Luchthavenlaan 42<br />
-                      1930 Zaventem, België
+                    <p className="text-muted-foreground whitespace-pre-line">
+                      {t('contact.location.address')}
                     </p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground mt-3">
-                  Gelegen op 5 minuten van Brussels Airport. Gratis parkeren beschikbaar.
+                  {t('contact.location.note')}
                 </p>
               </div>
             </div>

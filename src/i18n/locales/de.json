@@ -1,3 +1,4 @@
+
 {
   "nav": {
     "home": "Startseite",
@@ -24,6 +25,133 @@
     "copyright": "Alle Rechte vorbehalten.",
     "privacy": "Datenschutz",
     "terms": "Bedingungen"
+  },
+  "hero": {
+    "title": "Fliegen Sie privat, zahlen Sie weniger",
+    "subtitle": "Entdecken Sie exklusive Leerflüge und erleben Sie Luxusreisen für einen Bruchteil des Preises.",
+    "searchPlaceholder": "Von wo?",
+    "destinationPlaceholder": "Wohin?",
+    "datePlaceholder": "Abflugdatum",
+    "passengersLabel": "Passagiere",
+    "searchButton": "Flüge suchen",
+    "flexibleDates": "Flexible Daten",
+    "everywhere": "Überall"
+  },
+  "deals": {
+    "title": "Vorgestellte Empty Leg Angebote",
+    "subtitle": "Entdecken Sie Luxusflüge zu unschlagbaren Preisen",
+    "viewAll": "Alle Angebote anzeigen",
+    "bookNow": "Jetzt buchen",
+    "perFlight": "pro Flug",
+    "discount": "Rabatt",
+    "date": "Datum",
+    "aircraft": "Flugzeug",
+    "passengers": "Passagiere",
+    "upTo": "Bis zu",
+    "parisNice": {
+      "description": "Fliegen Sie stilvoll an die Côte d'Azur."
+    },
+    "londonZurich": {
+      "description": "Perfekt für eine Geschäftsreise oder ein Wochenende in den Alpen."
+    },
+    "barcelonaIbiza": {
+      "description": "Beginnen Sie Ihren Urlaub auf der Weißen Insel mit ultimativem Luxus."
+    }
+  },
+  "howItWorks": {
+    "title": "Was ist ein \"Empty Leg\"?",
+    "description1": "Ein Empty Leg Flug, auch \"Positionierungsflug\" genannt, ist ein Privatjet, der leer fliegt, nachdem er Passagiere abgesetzt hat, oder auf dem Weg ist, Passagiere abzuholen.",
+    "description2": "Da das Flugzeug diesen Flug sowieso machen muss, bieten Charterunternehmen diese \"leeren\" Sitze mit einem erheblichen Rabatt an - oft bis zu 75% vom normalen Preis.",
+    "description3": "Jetleg zentralisiert das Angebot von Hunderten zuverlässiger Betreiber, damit Sie leicht das perfekte Angebot finden und buchen können. Es ist der klügste Weg, den Luxus des Privatfliegens zu erleben.",
+    "benefits": {
+      "savings": {
+        "title": "Bis zu 75% Ersparnis",
+        "description": "Sparen Sie bis zu 75% im Vergleich zu regulären Privatflügen durch die Nutzung von Empty Leg Positionierungsflügen."
+      },
+      "availability": {
+        "title": "Last-Minute Verfügbarkeit",
+        "description": "Finden und buchen Sie exklusive Flüge, die bald verfügbar werden, perfekt für flexible Reisende."
+      },
+      "premium": {
+        "title": "Premium Flugzeuge",
+        "description": "Fliegen Sie in Luxusjets von zertifizierten Betreibern mit den höchsten Sicherheits- und Qualitätsstandards."
+      },
+      "reliable": {
+        "title": "Zuverlässig & Sicher",
+        "description": "Alle Betreiber sind vollständig zertifiziert und erfüllen die strengsten europäischen Luftfahrtstandards."
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Kontakt",
+      "subtitle": "Haben Sie Fragen zu unseren Flügen oder benötigen Hilfe bei Ihrer Buchung? Unser freundliches Team ist bereit, Ihnen zu helfen."
+    },
+    "info": {
+      "phone": {
+        "title": "Telefon",
+        "details": ["+32 1 234 56 789", "Mo-Fr: 08:00 - 20:00", "Sa-So: 10:00 - 18:00"]
+      },
+      "email": {
+        "title": "E-Mail",
+        "details": ["info@jetleg.com", "support@jetleg.com", "Antwort innerhalb von 2 Stunden"]
+      },
+      "address": {
+        "title": "Adresse",
+        "details": ["Jetleg BV", "Flughafenallee 42", "1930 Zaventem, Belgien"]
+      },
+      "hours": {
+        "title": "Öffnungszeiten",
+        "details": ["Montag - Freitag: 08:00 - 20:00", "Wochenende: 10:00 - 18:00", "24/7 Notfallleitung verfügbar"]
+      }
+    },
+    "form": {
+      "title": "Senden Sie uns eine Nachricht",
+      "name": "Name",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefonnummer",
+      "subject": "Betreff",
+      "message": "Nachricht",
+      "submit": "Nachricht senden",
+      "required": "*",
+      "messagePlaceholder": "Beschreiben Sie Ihre Frage oder Bemerkung...",
+      "selectSubject": "Betreff auswählen",
+      "subjects": [
+        "Allgemeine Frage",
+        "Buchungshilfe",
+        "Beschwerde",
+        "Partnerschaft",
+        "Medienanfrage",
+        "Sonstiges"
+      ]
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "questions": [
+        "Wie buche ich einen Empty Leg Flug?",
+        "Was sind die Stornierungsbedingungen?",
+        "Welche Dokumente benötige ich?",
+        "Kann ich meinen Flug ändern?",
+        "Wie funktioniert die Zahlung?"
+      ]
+    },
+    "emergency": {
+      "title": "Notfallkontakt",
+      "description": "Für dringende Angelegenheiten außerhalb der Geschäftszeiten können Sie uns 24/7 erreichen:",
+      "phone": "+32 800 123 456",
+      "email": "emergency@jetleg.com"
+    },
+    "location": {
+      "title": "Besuchsadresse",
+      "address": "Flughafenallee 42\n1930 Zaventem, Belgien",
+      "note": "5 Minuten vom Flughafen Brüssel entfernt. Kostenlose Parkplätze verfügbar."
+    },
+    "validation": {
+      "incomplete": "Unvollständige Daten",
+      "fillRequired": "Füllen Sie alle Pflichtfelder aus.",
+      "success": "Nachricht gesendet!",
+      "response": "Wir werden uns innerhalb von 24 Stunden bei Ihnen melden."
+    }
   },
   "about": {
     "hero": {
