@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -17,30 +18,25 @@ const Navigation = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  // Handle scroll behavior for all screen sizes
+  // Handle scroll behavior with smoother transitions
   useEffect(() => {
-    let lastScrollY = window.scrollY;
+    let ticking = false;
     
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down and past 100px
-        setIsScrolled(true);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setIsScrolled(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          setIsScrolled(currentScrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
     };
   }, []);
 
@@ -56,17 +52,17 @@ const Navigation = () => {
   }, [isUserMenuOpen]);
 
   return (
-    <header className={`bg-card shadow-lg sticky top-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'py-2' : 'py-4'
+    <header className={`bg-card shadow-lg sticky top-0 z-50 transition-all duration-200 ease-out ${
+      isScrolled ? 'py-3' : 'py-4'
     }`}>
       <nav className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="hover:opacity-80 transition-jetleg">
+          <Link to="/" className="hover:opacity-80 transition-opacity duration-200">
             <img 
               src="/lovable-uploads/98279cd3-d5a1-4405-ae12-29b927f1dbd6.png" 
               alt="Jetleg - The smartest way to fly private" 
-              className={`w-auto transition-all duration-300 ${
-                isScrolled ? 'h-12' : 'h-20'
+              className={`w-auto transition-all duration-200 ease-out ${
+                isScrolled ? 'h-14' : 'h-16'
               }`} 
             />
           </Link>

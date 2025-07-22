@@ -62,15 +62,15 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
           </CarouselContent>
           
           {/* Desktop Navigation Arrows */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <CarouselPrevious className="absolute -left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
             <CarouselNext className="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
           </div>
         </Carousel>
       </div>
 
-      {/* Mobile/Tablet Navigation Dots */}
-      <div className="flex justify-center gap-2 mt-8 md:hidden">
+      {/* Mobile Navigation Dots */}
+      <div className="flex justify-center gap-2 mt-8 sm:hidden">
         {Array.from({ length: count }).map((_, index) => (
           <button
             key={index}
@@ -85,24 +85,43 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
         ))}
       </div>
 
-      {/* Tablet Navigation Arrows */}
-      <div className="hidden sm:flex md:hidden justify-center gap-4 mt-6">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => api?.scrollPrev()}
-          className="h-8 w-8 bg-white/90 hover:bg-white border-border shadow"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => api?.scrollNext()}
-          className="h-8 w-8 bg-white/90 hover:bg-white border-border shadow"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
+      {/* Tablet Navigation - Both Dots and Arrows */}
+      <div className="hidden sm:flex lg:hidden flex-col items-center gap-4 mt-6">
+        {/* Navigation Dots for Tablet */}
+        <div className="flex justify-center gap-2">
+          {Array.from({ length: count }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollTo(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                current === index + 1
+                  ? 'bg-primary w-6'
+                  : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+        
+        {/* Navigation Arrows for Tablet */}
+        <div className="flex justify-center gap-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => api?.scrollPrev()}
+            className="h-8 w-8 bg-white/90 hover:bg-white border-border shadow"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => api?.scrollNext()}
+            className="h-8 w-8 bg-white/90 hover:bg-white border-border shadow"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );

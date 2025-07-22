@@ -16,12 +16,33 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
   }, [minDuration, maxDuration]);
 
   const handleRangeChange = (newRange: number[]) => {
-    setRange(newRange);
-    onDurationChange(newRange[0], newRange[1]);
+    // Ensure minimum gap of 0.5 hours between handles
+    const minGap = 0.5;
+    let [newMin, newMax] = newRange;
+    
+    if (newMax - newMin < minGap) {
+      if (newMin !== range[0]) {
+        // User moved min handle, adjust max
+        newMax = Math.min(20, newMin + minGap);
+      } else {
+        // User moved max handle, adjust min
+        newMin = Math.max(0.5, newMax - minGap);
+      }
+    }
+    
+    const adjustedRange = [newMin, newMax];
+    setRange(adjustedRange);
+    onDurationChange(adjustedRange[0], adjustedRange[1]);
   };
 
   const formatHours = (hours: number) => {
-    return hours === Math.floor(hours) ? `${hours}h` : `${hours}h`;
+    if (hours === Math.floor(hours)) {
+      return `${hours}h`;
+    } else {
+      const wholeHours = Math.floor(hours);
+      const minutes = Math.round((hours - wholeHours) * 60);
+      return wholeHours > 0 ? `${wholeHours}h ${minutes}m` : `${minutes}m`;
+    }
   };
 
   return (
@@ -34,6 +55,7 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
           max={20}
           step={0.5}
           className="w-full"
+          aria-label="Flight duration range"
         />
       </div>
       
@@ -48,16 +70,16 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
           <input
             type="number"
             min="0.5"
-            max="20"
+            max="19.5"
             step="0.5"
             value={range[0]}
             onChange={e => {
-              const newMin = Math.max(0.5, Math.min(parseFloat(e.target.value) || 0.5, range[1]));
+              const newMin = Math.max(0.5, Math.min(parseFloat(e.target.value) || 0.5, range[1] - 0.5));
               const newRange = [newMin, range[1]];
               setRange(newRange);
               onDurationChange(newRange[0], newRange[1]);
             }}
-            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:ring-2 focus:ring-accent/20"
+            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:ring-2 focus:ring-accent/20 text-sm"
             placeholder="0.5"
           />
         </div>
@@ -65,17 +87,17 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
           <label className="block text-xs text-muted-foreground mb-1">Maximum</label>
           <input
             type="number"
-            min="0.5"
+            min="1"
             max="20"
             step="0.5"
             value={range[1]}
             onChange={e => {
-              const newMax = Math.min(20, Math.max(parseFloat(e.target.value) || 20, range[0]));
+              const newMax = Math.min(20, Math.max(parseFloat(e.target.value) || 20, range[0] + 0.5));
               const newRange = [range[0], newMax];
               setRange(newRange);
               onDurationChange(newRange[0], newRange[1]);
             }}
-            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:ring-2 focus:ring-accent/20"
+            className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:ring-2 focus:ring-accent/20 text-sm"
             placeholder="20"
           />
         </div>
