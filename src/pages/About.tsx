@@ -1,63 +1,65 @@
 
 import { Plane, Users, Award, Globe, Shield, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const About = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const stats = [{
     number: '500+',
-    label: 'Tevreden klanten',
+    label: t('about.stats.customers'),
     icon: Users
   }, {
     number: '50+',
-    label: 'Bestemmingen',
+    label: t('about.stats.destinations'),
     icon: Globe
   }, {
     number: '98%',
-    label: 'Tevredenheidsscore',
+    label: t('about.stats.satisfaction'),
     icon: Award
   }, {
     number: '24/7',
-    label: 'Klantenservice',
+    label: t('about.stats.support'),
     icon: Clock
   }];
 
   const team = [{
-    name: 'Thomas Janssen',
-    role: 'CEO & Oprichter',
-    description: 'Met 15 jaar ervaring in de luchtvaart, leidde Thomas de revolutie in private jet reizen.',
+    name: t('about.team.xavier.name'),
+    role: t('about.team.xavier.role'),
+    description: t('about.team.xavier.description'),
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face'
   }, {
-    name: 'Sarah De Vries',
-    role: 'Head of Operations',
-    description: 'Sarah zorgt ervoor dat elke vlucht perfect verloopt, van boeking tot landing.',
+    name: t('about.team.carley.name'),
+    role: t('about.team.carley.role'),
+    description: t('about.team.carley.description'),
     image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face'
   }, {
-    name: 'Marc Dubois',
-    role: 'Chief Technology Officer',
-    description: 'Marc ontwikkelt de technologie die onze platform zo gebruiksvriendelijk maakt.',
+    name: t('about.team.marc.name'),
+    role: t('about.team.marc.role'),
+    description: t('about.team.marc.description'),
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face'
   }];
 
   const values = [{
     icon: Shield,
-    title: 'Veiligheid eerst',
-    description: 'We werken alleen samen met gecertificeerde operators die voldoen aan de hoogste veiligheidsnormen.'
+    title: t('about.values.safety.title'),
+    description: t('about.values.safety.description')
   }, {
     icon: Award,
-    title: 'Excellentie',
-    description: 'Elke vlucht wordt verzorgd met de grootste aandacht voor detail en service.'
+    title: t('about.values.excellence.title'),
+    description: t('about.values.excellence.description')
   }, {
     icon: Users,
-    title: 'Klantgericht',
-    description: 'Onze klanten staan centraal in alles wat we doen, van boeking tot nazorg.'
+    title: t('about.values.customerCentric.title'),
+    description: t('about.values.customerCentric.description')
   }, {
     icon: Globe,
-    title: 'Toegankelijkheid',
-    description: 'We maken luxe reizen toegankelijk door ongebruikte capaciteit optimaal te benutten.'
+    title: t('about.values.accessibility.title'),
+    description: t('about.values.accessibility.description')
   }];
 
   const handleSearchFlights = () => {
@@ -75,9 +77,9 @@ const About = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-20">
         <div className="container mx-auto px-6 text-center">
-          <h1 className="text-hero mb-6">Over Jetleg</h1>
+          <h1 className="text-hero mb-6">{t('about.hero.title')}</h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            We revolutioneren private jet reizen door empty leg vluchten toegankelijk en betaalbaar te maken voor iedereen.
+            {t('about.hero.subtitle')}
           </p>
         </div>
       </section>
@@ -87,19 +89,15 @@ const About = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-title mb-6 text-foreground">Onze missie</h2>
+              <h2 className="text-title mb-6 text-foreground">{t('about.mission.title')}</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Jetleg werd opgericht met een simpele maar krachtige missie: luxe reizen democratiseren. 
-                We geloven dat iedereen moet kunnen genieten van de voordelen van private jet reizen, 
-                zonder de traditionele hoge kosten.
+                {t('about.mission.paragraph1')}
               </p>
               <p className="text-lg text-muted-foreground mb-6">
-                Door gebruik te maken van empty leg vluchten - vluchten die anders leeg zouden vliegen - 
-                bieden we onze klanten de mogelijkheid om te reizen in stijl tegen een fractie van de normale prijs.
+                {t('about.mission.paragraph2')}
               </p>
               <p className="text-lg text-muted-foreground">
-                Onze technologie verbindt reizigers direct met beschikbare vluchten, waardoor we zowel 
-                economische als ecologische voordelen creëren.
+                {t('about.mission.paragraph3')}
               </p>
             </div>
             <div className="relative">
@@ -116,7 +114,7 @@ const About = () => {
       {/* Stats Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-6">
-          <h2 className="text-title text-center mb-12 text-foreground">Jetleg in cijfers</h2>
+          <h2 className="text-title text-center mb-12 text-foreground">{t('about.stats.title')}</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
@@ -134,7 +132,7 @@ const About = () => {
       {/* Values Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <h2 className="text-title text-center mb-12 text-foreground">Onze waarden</h2>
+          <h2 className="text-title text-center mb-12 text-foreground">{t('about.values.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div key={index} className="card-jetleg p-6 text-center">
@@ -152,7 +150,7 @@ const About = () => {
       {/* Team Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-6">
-          <h2 className="text-title text-center mb-12 text-foreground">Ons team</h2>
+          <h2 className="text-title text-center mb-12 text-foreground">{t('about.team.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((member, index) => (
               <div key={index} className="card-jetleg p-6 text-center">
@@ -173,22 +171,22 @@ const About = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] text-white">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-6">Klaar om je volgende avontuur te beginnen?</h2>
+          <h2 className="text-3xl font-bold mb-6">{t('about.cta.title')}</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Ontdek onze beschikbare vluchten en ervaar zelf waarom duizenden reizigers voor Jetleg kiezen.
+            {t('about.cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={handleSearchFlights}
               className="bg-white text-accent font-semibold px-8 py-3 rounded-xl hover:bg-white/90 transition-all"
             >
-              Bekijk vluchten
+              {t('about.cta.viewFlights')}
             </button>
             <button 
               onClick={handleContact}
               className="border-2 border-white text-white font-semibold px-8 py-3 rounded-xl hover:bg-white hover:text-accent transition-all"
             >
-              Contact opnemen
+              {t('about.cta.contact')}
             </button>
           </div>
         </div>

@@ -1,0 +1,91 @@
+
+{
+  "nav": {
+    "home": "Startseite",
+    "deals": "Angebote",
+    "howItWorks": "Wie es funktioniert",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "account": "Konto",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "myBookings": "Meine Buchungen",
+    "profile": "Profil"
+  },
+  "footer": {
+    "brandDescription": "Wir machen Luxus-Privatjet-Reisen durch intelligente Technologie und Leerflüge zugänglich.",
+    "menu": "Menü",
+    "support": "Support",
+    "faq": "FAQ",
+    "customerService": "Kundendienst",
+    "operators": "Betreiber",
+    "contact": "Kontakt",
+    "email": "hello@jetleg.com",
+    "phone": "+32 (0)1 234 56 789",
+    "copyright": "Alle Rechte vorbehalten.",
+    "privacy": "Datenschutz",
+    "terms": "Bedingungen"
+  },
+  "about": {
+    "hero": {
+      "title": "Über Jetleg",
+      "subtitle": "Wir revolutionieren Privatjet-Reisen, indem wir Leerflüge für alle zugänglich und erschwinglich machen."
+    },
+    "mission": {
+      "title": "Unsere Mission",
+      "paragraph1": "Jetleg wurde mit einer einfachen, aber mächtigen Mission gegründet: Luxusreisen zu demokratisieren. Wir glauben, dass jeder die Vorteile von Privatjet-Reisen genießen können sollte, ohne die traditionell hohen Kosten.",
+      "paragraph2": "Durch die Nutzung von Leerflügen - Flügen, die sonst leer fliegen würden - bieten wir unseren Kunden die Möglichkeit, stilvoll zu einem Bruchteil des normalen Preises zu reisen.",
+      "paragraph3": "Unsere Technologie verbindet Reisende direkt mit verfügbaren Flügen und schafft sowohl wirtschaftliche als auch ökologische Vorteile."
+    },
+    "stats": {
+      "title": "Jetleg in Zahlen",
+      "customers": "Zufriedene Kunden",
+      "destinations": "Reiseziele",
+      "satisfaction": "Zufriedenheitswert",
+      "support": "Kundendienst"
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "safety": {
+        "title": "Sicherheit zuerst",
+        "description": "Wir arbeiten nur mit zertifizierten Betreibern zusammen, die die höchsten Sicherheitsstandards erfüllen."
+      },
+      "excellence": {
+        "title": "Exzellenz",
+        "description": "Jeder Flug wird mit größter Aufmerksamkeit für Details und Service abgewickelt."
+      },
+      "customerCentric": {
+        "title": "Kundenorientiert",
+        "description": "Unsere Kunden stehen im Mittelpunkt von allem, was wir tun, von der Buchung bis zur Nachbetreuung."
+      },
+      "accessibility": {
+        "title": "Zugänglichkeit",
+        "description": "Wir machen Luxusreisen zugänglich, indem wir ungenutzte Kapazitäten optimal nutzen."
+      }
+    },
+    "team": {
+      "title": "Unser Team",
+      "xavier": {
+        "name": "Xavier Verhoestraete",
+        "role": "CEO & Mitgründer",
+        "description": "Mit 15 Jahren Erfahrung in der Luftfahrt führte Xavier die Revolution bei Privatjet-Reisen an."
+      },
+      "carley": {
+        "name": "Carley Hamaway",
+        "role": "CTO & Mitgründerin",
+        "description": "Carley entwickelt die Technologie, die unsere Plattform so benutzerfreundlich macht."
+      },
+      "marc": {
+        "name": "Marc Dubois",
+        "role": "COO",
+        "description": "Marc sorgt dafür, dass jeder Flug perfekt verläuft, von der Buchung bis zur Landung."
+      }
+    },
+    "cta": {
+      "title": "Bereit, Ihr nächstes Abenteuer zu beginnen?",
+      "subtitle": "Entdecken Sie unsere verfügbaren Flüge und erleben Sie selbst, warum Tausende von Reisenden Jetleg wählen.",
+      "viewFlights": "Flüge anzeigen",
+      "contact": "Kontakt aufnehmen"
+    }
+  }
+}

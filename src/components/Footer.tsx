@@ -1,10 +1,12 @@
 
 import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleNavigation = (path: string) => {
     navigate(path);
@@ -18,7 +20,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <h4 className="text-2xl font-bold mb-4 text-white">Jetleg</h4>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              Wij maken luxe privéjet reizen toegankelijk door slimme technologie en empty leg vluchten.
+              {t('footer.brandDescription')}
             </p>
             <div className="flex space-x-4">
               <a 
@@ -40,26 +42,26 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div className="md:col-span-1 lg:col-span-1">
-            <h4 className="text-lg font-semibold mb-6 text-white">Menu</h4>
+            <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.menu')}</h4>
             <ul className="space-y-3">
               <li>
                 <Link to="/" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Home
+                  {t('nav.home')}
                 </Link>
               </li>
               <li>
                 <Link to="/top-deals" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Deals
+                  {t('nav.deals')}
                 </Link>
               </li>
               <li>
                 <Link to="/how-it-works" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Info
+                  {t('nav.howItWorks')}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Over Ons
+                  {t('nav.about')}
                 </Link>
               </li>
             </ul>
@@ -67,21 +69,21 @@ const Footer = () => {
           
           {/* Support */}
           <div className="md:col-span-1 lg:col-span-1">
-            <h4 className="text-lg font-semibold mb-6 text-white">Support</h4>
+            <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.support')}</h4>
             <ul className="space-y-3">
               <li>
                 <Link to="/faq" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  FAQ
+                  {t('footer.faq')}
                 </Link>
               </li>
               <li>
                 <Link to="/customer-service" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Service
+                  {t('footer.customerService')}
                 </Link>
               </li>
               <li>
                 <Link to="/for-operators" className="text-primary-foreground/80 hover:text-accent transition-jetleg">
-                  Operatoren
+                  {t('footer.operators')}
                 </Link>
               </li>
             </ul>
@@ -89,7 +91,7 @@ const Footer = () => {
           
           {/* Contact Info */}
           <div className="md:col-span-2 lg:col-span-1">
-            <h4 className="text-lg font-semibold mb-6 text-white">Contact</h4>
+            <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.contact')}</h4>
             <div className="space-y-4">
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-accent" />
@@ -97,7 +99,7 @@ const Footer = () => {
                   href="mailto:hello@jetleg.com" 
                   className="text-primary-foreground/80 hover:text-accent transition-jetleg"
                 >
-                  hello@jetleg.com
+                  {t('footer.email')}
                 </a>
               </div>
               <div className="flex items-center">
@@ -106,7 +108,7 @@ const Footer = () => {
                   href="tel:+32123456789" 
                   className="text-primary-foreground/80 hover:text-accent transition-jetleg"
                 >
-                  +32 (0)1 234 56 789
+                  {t('footer.phone')}
                 </a>
               </div>
             </div>
@@ -117,14 +119,14 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-primary-foreground/60 text-sm mb-4 md:mb-0">
-              &copy; {currentYear} Jetleg. Alle rechten voorbehouden.
+              &copy; {currentYear} Jetleg. {t('footer.copyright')}
             </p>
             <div className="flex space-x-6 text-sm">
               <Link to="/privacy-policy" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
-                Privacy
+                {t('footer.privacy')}
               </Link>
               <Link to="/terms-conditions" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
-                Voorwaarden
+                {t('footer.terms')}
               </Link>
             </div>
           </div>

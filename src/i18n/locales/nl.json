@@ -1,0 +1,91 @@
+
+{
+  "nav": {
+    "home": "Home",
+    "deals": "Deals",
+    "howItWorks": "Hoe het werkt",
+    "about": "Over ons",
+    "contact": "Contact",
+    "account": "Account",
+    "login": "Inloggen",
+    "register": "Registreren",
+    "myBookings": "Mijn boekingen",
+    "profile": "Profiel"
+  },
+  "footer": {
+    "brandDescription": "Wij maken luxe privéjet reizen toegankelijk door slimme technologie en empty leg vluchten.",
+    "menu": "Menu",
+    "support": "Support",
+    "faq": "FAQ",
+    "customerService": "Klantendienst",
+    "operators": "Operatoren",
+    "contact": "Contact",
+    "email": "hello@jetleg.com",
+    "phone": "+32 (0)1 234 56 789",
+    "copyright": "Alle rechten voorbehouden.",
+    "privacy": "Privacy",
+    "terms": "Voorwaarden"
+  },
+  "about": {
+    "hero": {
+      "title": "Over Jetleg",
+      "subtitle": "We revolutioneren private jet reizen door empty leg vluchten toegankelijk en betaalbaar te maken voor iedereen."
+    },
+    "mission": {
+      "title": "Onze missie",
+      "paragraph1": "Jetleg werd opgericht met een simpele maar krachtige missie: luxe reizen democratiseren. We geloven dat iedereen moet kunnen genieten van de voordelen van private jet reizen, zonder de traditionele hoge kosten.",
+      "paragraph2": "Door gebruik te maken van empty leg vluchten - vluchten die anders leeg zouden vliegen - bieden we onze klanten de mogelijkheid om te reizen in stijl tegen een fractie van de normale prijs.",
+      "paragraph3": "Onze technologie verbindt reizigers direct met beschikbare vluchten, waardoor we zowel economische als ecologische voordelen creëren."
+    },
+    "stats": {
+      "title": "Jetleg in cijfers",
+      "customers": "Tevreden klanten",
+      "destinations": "Bestemmingen",
+      "satisfaction": "Tevredenheidsscore",
+      "support": "Klantenservice"
+    },
+    "values": {
+      "title": "Onze waarden",
+      "safety": {
+        "title": "Veiligheid eerst",
+        "description": "We werken alleen samen met gecertificeerde operators die voldoen aan de hoogste veiligheidsnormen."
+      },
+      "excellence": {
+        "title": "Excellentie",
+        "description": "Elke vlucht wordt verzorgd met de grootste aandacht voor detail en service."
+      },
+      "customerCentric": {
+        "title": "Klantgericht",
+        "description": "Onze klanten staan centraal in alles wat we doen, van boeking tot nazorg."
+      },
+      "accessibility": {
+        "title": "Toegankelijkheid",
+        "description": "We maken luxe reizen toegankelijk door ongebruikte capaciteit optimaal te benutten."
+      }
+    },
+    "team": {
+      "title": "Ons team",
+      "xavier": {
+        "name": "Xavier Verhoestraete",
+        "role": "CEO & Co-founder",
+        "description": "Met 15 jaar ervaring in de luchtvaart, leidde Xavier de revolutie in private jet reizen."
+      },
+      "carley": {
+        "name": "Carley Hamaway",
+        "role": "CTO & Co-founder",
+        "description": "Carley ontwikkelt de technologie die onze platform zo gebruiksvriendelijk maakt."
+      },
+      "marc": {
+        "name": "Marc Dubois",
+        "role": "COO",
+        "description": "Marc zorgt ervoor dat elke vlucht perfect verloopt, van boeking tot landing."
+      }
+    },
+    "cta": {
+      "title": "Klaar om je volgende avontuur te beginnen?",
+      "subtitle": "Ontdek onze beschikbare vluchten en ervaar zelf waarom duizenden reizigers voor Jetleg kiezen.",
+      "viewFlights": "Bekijk vluchten",
+      "contact": "Contact opnemen"
+    }
+  }
+}

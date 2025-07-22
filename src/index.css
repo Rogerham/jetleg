@@ -8,8 +8,8 @@
 
 @layer base {
   :root {
-    /* Core brand colors */
-    --background: 248 250 252; /* slate-50 */
+    /* Core brand colors - All HSL values */
+    --background: 0 0% 100%; /* Pure white */
     --foreground: 222.2 84% 4.9%; /* slate-900 */
 
     --card: 0 0% 100%; /* white */
@@ -28,7 +28,7 @@
     --accent: 45 93% 47%; /* amber-500 */
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 240 4.8% 95.9%; /* slate-100 */
+    --muted: 210 40% 96.1%; /* slate-100 */
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --destructive: 0 84.2% 60.2%;

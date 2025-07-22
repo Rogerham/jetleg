@@ -1,0 +1,91 @@
+
+{
+  "nav": {
+    "home": "Accueil",
+    "deals": "Offres",
+    "howItWorks": "Comment ça marche",
+    "about": "À propos",
+    "contact": "Contact",
+    "account": "Compte",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "myBookings": "Mes réservations",
+    "profile": "Profil"
+  },
+  "footer": {
+    "brandDescription": "Nous rendons les voyages en jet privé de luxe accessibles grâce à une technologie intelligente et aux vols à vide.",
+    "menu": "Menu",
+    "support": "Support",
+    "faq": "FAQ",
+    "customerService": "Service client",
+    "operators": "Opérateurs",
+    "contact": "Contact",
+    "email": "hello@jetleg.com",
+    "phone": "+32 (0)1 234 56 789",
+    "copyright": "Tous droits réservés.",
+    "privacy": "Confidentialité",
+    "terms": "Conditions"
+  },
+  "about": {
+    "hero": {
+      "title": "À propos de Jetleg",
+      "subtitle": "Nous révolutionnons les voyages en jet privé en rendant les vols à vide accessibles et abordables pour tous."
+    },
+    "mission": {
+      "title": "Notre mission",
+      "paragraph1": "Jetleg a été fondé avec une mission simple mais puissante : démocratiser les voyages de luxe. Nous croyons que tout le monde devrait pouvoir profiter des avantages des voyages en jet privé, sans les coûts élevés traditionnels.",
+      "paragraph2": "En utilisant les vols à vide - des vols qui voleraient autrement vides - nous offrons à nos clients la possibilité de voyager avec style à une fraction du prix normal.",
+      "paragraph3": "Notre technologie connecte directement les voyageurs avec les vols disponibles, créant des avantages économiques et écologiques."
+    },
+    "stats": {
+      "title": "Jetleg en chiffres",
+      "customers": "Clients satisfaits",
+      "destinations": "Destinations",
+      "satisfaction": "Score de satisfaction",
+      "support": "Service client"
+    },
+    "values": {
+      "title": "Nos valeurs",
+      "safety": {
+        "title": "Sécurité d'abord",
+        "description": "Nous ne travaillons qu'avec des opérateurs certifiés qui répondent aux normes de sécurité les plus élevées."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "Chaque vol est géré avec la plus grande attention aux détails et au service."
+      },
+      "customerCentric": {
+        "title": "Centré sur le client",
+        "description": "Nos clients sont au centre de tout ce que nous faisons, de la réservation au suivi."
+      },
+      "accessibility": {
+        "title": "Accessibilité",
+        "description": "Nous rendons les voyages de luxe accessibles en utilisant de manière optimale la capacité inutilisée."
+      }
+    },
+    "team": {
+      "title": "Notre équipe",
+      "xavier": {
+        "name": "Xavier Verhoestraete",
+        "role": "PDG & Co-fondateur",
+        "description": "Avec 15 ans d'expérience dans l'aviation, Xavier a mené la révolution dans les voyages en jet privé."
+      },
+      "carley": {
+        "name": "Carley Hamaway",
+        "role": "CTO & Co-fondatrice",
+        "description": "Carley développe la technologie qui rend notre plateforme si conviviale."
+      },
+      "marc": {
+        "name": "Marc Dubois",
+        "role": "COO",
+        "description": "Marc s'assure que chaque vol se déroule parfaitement, de la réservation à l'atterrissage."
+      }
+    },
+    "cta": {
+      "title": "Prêt à commencer votre prochaine aventure ?",
+      "subtitle": "Découvrez nos vols disponibles et découvrez par vous-même pourquoi des milliers de voyageurs choisissent Jetleg.",
+      "viewFlights": "Voir les vols",
+      "contact": "Prendre contact"
+    }
+  }
+}
