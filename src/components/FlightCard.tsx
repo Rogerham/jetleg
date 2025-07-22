@@ -54,12 +54,12 @@ const FlightCard = ({
   };
 
   return (
-    <div className="card-jetleg animate-scale-hover">
+    <div className="card-jetleg @media (hover: hover) { hover:scale-105 } transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
         <img 
           src={image} 
           alt={imageAlt} 
-          className="w-full h-48 object-cover transition-jetleg hover:scale-110"
+          className="w-full h-48 object-cover @media (hover: hover) { hover:scale-110 } transition-transform duration-300"
         />
         <div className="absolute top-4 right-4">
           <span className="deal-badge text-white bg-accent">
@@ -68,9 +68,9 @@ const FlightCard = ({
         </div>
       </div>
       
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-4">
-          <div>
+          <div className="flex-grow">
             <h3 className="text-xl font-bold text-foreground mb-1">
               {route.from} ({route.fromCode}) → {route.to} ({route.toCode})
             </h3>
@@ -82,7 +82,7 @@ const FlightCard = ({
           </div>
         </div>
         
-        <div className="space-y-3 mb-6">
+        <div className="space-y-3 mb-6 flex-grow">
           <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-2 text-accent" />
             <span><strong>Datum:</strong> {date}</span>
@@ -97,7 +97,7 @@ const FlightCard = ({
           </div>
         </div>
         
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-auto">
           <div>
             <p className="text-3xl font-bold text-foreground">
               € {price.toLocaleString('nl-NL')}

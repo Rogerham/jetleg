@@ -271,7 +271,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 value={searchData.passengers}
                 onChange={value => handleInputChange('passengers', value)}
                 className="h-14"
-                hideArrows
+                hideArrows={false}
               />
             </div>
           </div>
@@ -279,7 +279,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           {/* Search Button */}
           <button type="submit" className="btn-jetleg-primary h-14 px-6 flex items-center justify-center gap-2 whitespace-nowrap w-full text-lg">
             <Search className="h-5 w-5" />
-            Zoek Vluchten
+            Zoeken
           </button>
         </div>
 
@@ -326,12 +326,12 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             )}
           </div>
           
-          {/* Swap Button - Horizontal on Desktop */}
-          <div className="flex-shrink-0 self-end mb-1">
+          {/* Swap Button - Horizontal on Desktop - Desktop Only with Clean Styling */}
+          <div className="hidden lg:flex flex-shrink-0 self-end mb-1">
             <button
               type="button"
               onClick={handleSwapLocations}
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
+              className="w-12 h-12 bg-transparent hover:bg-white/10 rounded-full flex items-center justify-center transition-all duration-200"
               title="Wissel vertrek en bestemming"
             >
               <ArrowLeftRight className="w-5 h-5 text-white" />
@@ -409,7 +409,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           </div>
           
           {/* Passengers Field */}
-          <div className="flex-shrink-0 w-24">
+          <div className="flex-shrink-0 w-32">
             <label htmlFor="passengers-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
               <Users className="h-4 w-4" />
               Pax
@@ -418,7 +418,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               value={searchData.passengers}
               onChange={value => handleInputChange('passengers', value)}
               className="h-12"
-              hideArrows
+              hideArrows={false}
             />
           </div>
           
@@ -426,7 +426,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           <div className="flex-shrink-0 self-end">
             <button type="submit" className="btn-jetleg-primary h-12 px-6 flex items-center justify-center gap-2 whitespace-nowrap">
               <Search className="h-5 w-5" />
-              Zoek Vluchten
+              Zoeken
             </button>
           </div>
         </div>

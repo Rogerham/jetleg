@@ -64,7 +64,7 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
         <Button
           variant="outline"
           className={cn(
-            "input-jetleg justify-start text-left font-normal h-12 lg:h-12 w-full",
+            "input-jetleg justify-start text-left font-normal h-12 lg:h-12 w-full bg-white/90 hover:bg-white border-input",
             !value && "text-muted-foreground",
             className
           )}
@@ -76,8 +76,8 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
         </Button>
       </PopoverTrigger>
       <PopoverContent 
-        className="w-[90vw] max-w-md p-0 bg-card border border-border shadow-lg md:w-96" 
-        align="start"
+        className="w-[400px] p-0 bg-card border border-border shadow-lg" 
+        align="center"
         sideOffset={8}
       >
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -101,13 +101,13 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
           </TabsList>
           
           <TabsContent value="calendar" className="mt-0">
-            <div className="p-4">
+            <div className="p-4 flex justify-center">
               <CalendarComponent
                 mode="single"
                 selected={selectedDate}
                 onSelect={handleDateSelect}
                 initialFocus
-                className="pointer-events-auto w-full"
+                className="pointer-events-auto"
                 disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
               />
             </div>
