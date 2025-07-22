@@ -1,3 +1,4 @@
+
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FlightCard from '@/components/FlightCard';
@@ -14,147 +15,183 @@ const TopDeals = () => {
   const allDeals = [
     {
       id: '1',
-      route: {
-        from: 'Parijs',
-        to: 'Nice',
-        fromCode: 'LBG',
-        toCode: 'NCE'
-      },
-      date: '28 juli 2025',
-      aircraft: 'Cessna Citation XLS',
-      maxPassengers: 8,
-      price: 4500,
-      discount: 30,
-      image: parisImage,
-      imageAlt: 'Luchtfoto van Parijs met de Eiffeltoren'
+      departure_airport: 'Parijs (LBG)',
+      arrival_airport: 'Nice (NCE)',
+      departure_time: '2025-07-28T09:00:00Z',
+      arrival_time: '2025-07-28T10:30:00Z',
+      price_per_seat: 4500,
+      available_seats: 8,
+      operator: 'Elite European Jets',
+      flight_duration: '1h 30m',
+      jets: {
+        brand: 'Cessna',
+        model: 'Citation XLS',
+        type: 'Mid-size Jet',
+        seating_capacity: 8,
+        range_km: 4074,
+        description: 'Luxurious mid-size jet voor European routes',
+        image_url: parisImage
+      }
     },
     {
       id: '2',
-      route: {
-        from: 'Londen',
-        to: 'Genève',
-        fromCode: 'FAB',
-        toCode: 'GVA'
-      },
-      date: '30 juli 2025',
-      aircraft: 'Embraer Phenom 300',
-      maxPassengers: 6,
-      price: 3800,
-      discount: 45,
-      image: londonImage,
-      imageAlt: 'Luchtfoto van Londen met de Thames'
+      departure_airport: 'Londen (FAB)',
+      arrival_airport: 'Genève (GVA)',
+      departure_time: '2025-07-30T11:00:00Z',
+      arrival_time: '2025-07-30T13:30:00Z',
+      price_per_seat: 3800,
+      available_seats: 6,
+      operator: 'British Elite Air',
+      flight_duration: '2h 30m',
+      jets: {
+        brand: 'Embraer',
+        model: 'Phenom 300',
+        type: 'Light Jet',
+        seating_capacity: 6,
+        range_km: 3334,
+        description: 'Modern light jet perfect for business travel',
+        image_url: londonImage
+      }
     },
     {
       id: '3',
-      route: {
-        from: 'Amsterdam',
-        to: 'Ibiza',
-        fromCode: 'AMS',
-        toCode: 'IBZ'
-      },
-      date: '2 augustus 2025',
-      aircraft: 'Bombardier Challenger 350',
-      maxPassengers: 9,
-      price: 7200,
-      discount: 25,
-      image: ibizaImage,
-      imageAlt: 'Luchtfoto van Ibiza kustlijn'
+      departure_airport: 'Amsterdam (AMS)',
+      arrival_airport: 'Ibiza (IBZ)',
+      departure_time: '2025-08-02T15:00:00Z',
+      arrival_time: '2025-08-02T17:30:00Z',
+      price_per_seat: 7200,
+      available_seats: 9,
+      operator: 'Dutch Elite Aviation',
+      flight_duration: '2h 30m',
+      jets: {
+        brand: 'Bombardier',
+        model: 'Challenger 350',
+        type: 'Super Mid-size Jet',
+        seating_capacity: 9,
+        range_km: 5926,
+        description: 'Spacious super mid-size jet for luxury travel',
+        image_url: ibizaImage
+      }
     },
     {
       id: '4',
-      route: {
-        from: 'Brussel',
-        to: 'Monaco',
-        fromCode: 'BRU',
-        toCode: 'MCM'
-      },
-      date: '5 augustus 2025',
-      aircraft: 'Cessna Citation CJ3+',
-      maxPassengers: 7,
-      price: 5200,
-      discount: 35,
-      image: jetInteriorImage,
-      imageAlt: 'Luxe privéjet interieur naar Monaco'
+      departure_airport: 'Brussel (BRU)',
+      arrival_airport: 'Monaco (MCM)',
+      departure_time: '2025-08-05T13:00:00Z',
+      arrival_time: '2025-08-05T15:00:00Z',
+      price_per_seat: 5200,
+      available_seats: 7,
+      operator: 'Monaco Elite Jets',
+      flight_duration: '2h 00m',
+      jets: {
+        brand: 'Cessna',
+        model: 'Citation CJ3+',
+        type: 'Light Jet',
+        seating_capacity: 7,
+        range_km: 3797,
+        description: 'Premium light jet to the French Riviera',
+        image_url: jetInteriorImage
+      }
     },
     {
       id: '5',
-      route: {
-        from: 'München',
-        to: 'Sankt Moritz',
-        fromCode: 'MUC',
-        toCode: 'SMV'
-      },
-      date: '8 augustus 2025',
-      aircraft: 'Pilatus PC-12',
-      maxPassengers: 8,
-      price: 3200,
-      discount: 40,
-      image: jetInteriorImage,
-      imageAlt: 'Privéjet naar de Alpen'
+      departure_airport: 'München (MUC)',
+      arrival_airport: 'Sankt Moritz (SMV)',
+      departure_time: '2025-08-08T08:00:00Z',
+      arrival_time: '2025-08-08T09:15:00Z',
+      price_per_seat: 3200,
+      available_seats: 8,
+      operator: 'Alpine Air Services',
+      flight_duration: '1h 15m',
+      jets: {
+        brand: 'Pilatus',
+        model: 'PC-12',
+        type: 'Turboprop',
+        seating_capacity: 8,
+        range_km: 2730,
+        description: 'Perfect turboprop for alpine destinations',
+        image_url: jetInteriorImage
+      }
     },
     {
       id: '6',
-      route: {
-        from: 'Madrid',
-        to: 'Mallorca',
-        fromCode: 'MAD',
-        toCode: 'PMI'
-      },
-      date: '10 augustus 2025',
-      aircraft: 'Embraer Legacy 450',
-      maxPassengers: 9,
-      price: 4800,
-      discount: 28,
-      image: ibizaImage,
-      imageAlt: 'Vlucht naar de Balearen'
+      departure_airport: 'Madrid (MAD)',
+      arrival_airport: 'Mallorca (PMI)',
+      departure_time: '2025-08-10T12:00:00Z',
+      arrival_time: '2025-08-10T13:30:00Z',
+      price_per_seat: 4800,
+      available_seats: 9,
+      operator: 'Iberian Elite',
+      flight_duration: '1h 30m',
+      jets: {
+        brand: 'Embraer',
+        model: 'Legacy 450',
+        type: 'Mid-size Jet',
+        seating_capacity: 9,
+        range_km: 4260,
+        description: 'Comfortable mid-size jet to the Balearic Islands',
+        image_url: ibizaImage
+      }
     },
     {
       id: '7',
-      route: {
-        from: 'Zürich',
-        to: 'Courchevel',
-        fromCode: 'ZUR',
-        toCode: 'CVF'
-      },
-      date: '12 augustus 2025',
-      aircraft: 'Cessna Citation Mustang',
-      maxPassengers: 4,
-      price: 2800,
-      discount: 50,
-      image: jetInteriorImage,
-      imageAlt: 'Vlucht naar Frans skigebied'
+      departure_airport: 'Zürich (ZUR)',
+      arrival_airport: 'Courchevel (CVF)',
+      departure_time: '2025-08-12T07:30:00Z',
+      arrival_time: '2025-08-12T08:45:00Z',
+      price_per_seat: 2800,
+      available_seats: 4,
+      operator: 'Swiss Alpine Jets',
+      flight_duration: '1h 15m',
+      jets: {
+        brand: 'Cessna',
+        model: 'Citation Mustang',
+        type: 'Very Light Jet',
+        seating_capacity: 4,
+        range_km: 2130,
+        description: 'Compact jet perfect for short alpine routes',
+        image_url: jetInteriorImage
+      }
     },
     {
       id: '8',
-      route: {
-        from: 'Rome',
-        to: 'Sardinië',
-        fromCode: 'FCO',
-        toCode: 'CAG'
-      },
-      date: '15 augustus 2025',
-      aircraft: 'Bombardier Learjet 75',
-      maxPassengers: 8,
-      price: 6500,
-      discount: 22,
-      image: jetInteriorImage,
-      imageAlt: 'Vlucht naar Sardinië'
+      departure_airport: 'Rome (FCO)',
+      arrival_airport: 'Sardinië (CAG)',
+      departure_time: '2025-08-15T14:30:00Z',
+      arrival_time: '2025-08-15T16:00:00Z',
+      price_per_seat: 6500,
+      available_seats: 8,
+      operator: 'Italian Premium Air',
+      flight_duration: '1h 30m',
+      jets: {
+        brand: 'Bombardier',
+        model: 'Learjet 75',
+        type: 'Mid-size Jet',
+        seating_capacity: 8,
+        range_km: 3815,
+        description: 'Stylish mid-size jet to beautiful Sardinia',
+        image_url: jetInteriorImage
+      }
     },
     {
       id: '9',
-      route: {
-        from: 'Düsseldorf',
-        to: 'Sylt',
-        fromCode: 'DUS',
-        toCode: 'GWT'
-      },
-      date: '18 augustus 2025',
-      aircraft: 'King Air 350',
-      maxPassengers: 11,
-      price: 2200,
-      discount: 55,
-      image: londonImage,
-      imageAlt: 'Vlucht naar Noordzee-eiland'
+      departure_airport: 'Düsseldorf (DUS)',
+      arrival_airport: 'Sylt (GWT)',
+      departure_time: '2025-08-18T10:00:00Z',
+      arrival_time: '2025-08-18T11:00:00Z',
+      price_per_seat: 2200,
+      available_seats: 11,
+      operator: 'North Sea Aviation',
+      flight_duration: '1h 00m',
+      jets: {
+        brand: 'King Air',
+        model: '350',
+        type: 'Turboprop',
+        seating_capacity: 11,
+        range_km: 1806,
+        description: 'Reliable turboprop to the North Sea island',
+        image_url: londonImage
+      }
     }
   ];
 

@@ -14,51 +14,63 @@ const DealsSection = () => {
   const featuredDeals = [
     {
       id: '1',
-      route: {
-        from: 'Paris',
-        to: 'Nice',
-        fromCode: 'CDG',
-        toCode: 'NCE'
-      },
-      date: '12 Dec 2024',
-      aircraft: 'Citation CJ3',
-      maxPassengers: 6,
-      price: 8500,
-      discount: 65,
-      image: parisImage,
-      imageAlt: 'Paris aerial view'
+      departure_airport: 'Paris (CDG)',
+      arrival_airport: 'Nice (NCE)',
+      departure_time: '2024-12-12T10:00:00Z',
+      arrival_time: '2024-12-12T11:30:00Z',
+      price_per_seat: 8500,
+      available_seats: 6,
+      operator: 'Elite Jets',
+      flight_duration: '1h 30m',
+      jets: {
+        brand: 'Cessna',
+        model: 'Citation CJ3',
+        type: 'Light Jet',
+        seating_capacity: 6,
+        range_km: 3700,
+        description: 'Luxurious light jet perfect for European routes',
+        image_url: parisImage
+      }
     },
     {
       id: '2',
-      route: {
-        from: 'London',
-        to: 'Zurich',
-        fromCode: 'LTN',
-        toCode: 'ZUR'
-      },
-      date: '15 Dec 2024',
-      aircraft: 'Phenom 300',
-      maxPassengers: 8,
-      price: 12000,
-      discount: 58,
-      image: londonImage,
-      imageAlt: 'London aerial view'
+      departure_airport: 'London (LTN)',
+      arrival_airport: 'Zurich (ZUR)',
+      departure_time: '2024-12-15T14:00:00Z',
+      arrival_time: '2024-12-15T16:30:00Z',
+      price_per_seat: 12000,
+      available_seats: 8,
+      operator: 'Sky Elite',
+      flight_duration: '2h 30m',
+      jets: {
+        brand: 'Embraer',
+        model: 'Phenom 300',
+        type: 'Light Jet',
+        seating_capacity: 8,
+        range_km: 3334,
+        description: 'Modern and efficient jet for business travel',
+        image_url: londonImage
+      }
     },
     {
       id: '3',
-      route: {
-        from: 'Barcelona',
-        to: 'Ibiza',
-        fromCode: 'BCN',
-        toCode: 'IBZ'
-      },
-      date: '18 Dec 2024',
-      aircraft: 'King Air 350',
-      maxPassengers: 9,
-      price: 4200,
-      discount: 72,
-      image: ibizaImage,
-      imageAlt: 'Ibiza aerial view'
+      departure_airport: 'Barcelona (BCN)',
+      arrival_airport: 'Ibiza (IBZ)',
+      departure_time: '2024-12-18T16:30:00Z',
+      arrival_time: '2024-12-18T17:45:00Z',
+      price_per_seat: 4200,
+      available_seats: 9,
+      operator: 'Mediterranean Air',
+      flight_duration: '1h 15m',
+      jets: {
+        brand: 'King Air',
+        model: '350',
+        type: 'Turboprop',
+        seating_capacity: 9,
+        range_km: 1806,
+        description: 'Perfect for short Mediterranean hops',
+        image_url: ibizaImage
+      }
     }
   ];
 
