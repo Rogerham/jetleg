@@ -1,193 +1,254 @@
+
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import PageBreadcrumb from '@/components/PageBreadcrumb';
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
+  const { toast } = useToast();
   const { t } = useTranslation();
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
-    message: '',
+    message: ''
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const contactInfo = [
+    {
+      icon: Phone,
+      title: t('contact.info.phone.title'),
+      details: t('contact.info.phone.details', { returnObjects: true }) as string[]
+    },
+    {
+      icon: Mail,
+      title: t('contact.info.email.title'),
+      details: t('contact.info.email.details', { returnObjects: true }) as string[]
+    },
+    {
+      icon: MapPin,
+      title: t('contact.info.address.title'),
+      details: t('contact.info.address.details', { returnObjects: true }) as string[]
+    },
+    {
+      icon: Clock,
+      title: t('contact.info.hours.title'),
+      details: t('contact.info.hours.details', { returnObjects: true }) as string[]
+    }
+  ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const subjects = t('contact.form.subjects', { returnObjects: true }) as string[];
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: t('contact.validation.incomplete'),
+        description: t('contact.validation.fillRequired'),
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Simulate form submission
+    toast({
+      title: t('contact.validation.success'),
+      description: t('contact.validation.response'),
+    });
+
+    // Reset form
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitSuccess(false);
-    setSubmitError('');
-
-    try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-    } catch (error) {
-      setSubmitError(t('contact.submitError') || 'Er is een fout opgetreden. Probeer het later opnieuw.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navigation />
       
-      <main>
-        {/* Breadcrumb Section */}
-        <section className="py-6 bg-muted/20">
-          <div className="container mx-auto px-6">
-            <PageBreadcrumb 
-              items={[
-                { label: t('nav.contact') }
-              ]}
-            />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-20">
+        <div className="container mx-auto px-6 text-center">
+          <h1 className="text-hero mb-6">{t('contact.hero.title')}</h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            {t('contact.hero.subtitle')}
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Info Cards */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {contactInfo.map((info, index) => (
+              <div key={index} className="card-jetleg p-6 text-center">
+                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <info.icon className="h-8 w-8 text-accent" />
+                </div>
+                <h3 className="font-semibold text-foreground mb-3">{info.title}</h3>
+                <div className="space-y-1">
+                  {info.details.map((detail, i) => (
+                    <p key={i} className="text-muted-foreground text-sm">{detail}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        </section>
 
-        {/* Hero Section */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-6 max-w-4xl">
-            <h1 className="text-title text-foreground mb-6">{t('contact.title')}</h1>
-            <p className="text-lg text-muted-foreground mb-12">{t('contact.description')}</p>
+          {/* Contact Form & Info */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div className="card-jetleg p-8">
+              <h2 className="text-2xl font-semibold text-foreground mb-6">{t('contact.form.title')}</h2>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      {t('contact.form.name')} {t('contact.form.required')}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      className="input-jetleg"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      {t('contact.form.email')} {t('contact.form.required')}
+                    </label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      className="input-jetleg"
+                      required
+                    />
+                  </div>
+                </div>
 
-            {/* Contact Info */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <div className="flex items-start gap-4">
-                <Mail className="h-6 w-6 text-accent" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">{t('contact.email')}</h3>
-                  <p className="text-muted-foreground">info@jetleg.com</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      {t('contact.form.phone')}
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      className="input-jetleg"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      {t('contact.form.subject')}
+                    </label>
+                    <select
+                      value={formData.subject}
+                      onChange={(e) => handleInputChange('subject', e.target.value)}
+                      className="input-jetleg"
+                    >
+                      <option value="">{t('contact.form.selectSubject')}</option>
+                      {subjects.map((subject) => (
+                        <option key={subject} value={subject}>{subject}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Phone className="h-6 w-6 text-accent" />
+
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">{t('contact.phone')}</h3>
-                  <p className="text-muted-foreground">+31 20 123 4567</p>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    {t('contact.form.message')} {t('contact.form.required')}
+                  </label>
+                  <textarea
+                    value={formData.message}
+                    onChange={(e) => handleInputChange('message', e.target.value)}
+                    rows={6}
+                    className="input-jetleg resize-none"
+                    placeholder={t('contact.form.messagePlaceholder')}
+                    required
+                  />
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <MapPin className="h-6 w-6 text-accent" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">{t('contact.address')}</h3>
-                  <p className="text-muted-foreground">Keizersgracht 123, 1015 CJ Amsterdam</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <Clock className="h-6 w-6 text-accent" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">{t('contact.openingHours')}</h3>
-                  <p className="text-muted-foreground">{t('contact.openingHoursDetails')}</p>
-                </div>
-              </div>
+
+                <button type="submit" className="btn-jetleg-primary w-full flex items-center justify-center gap-2">
+                  <Send className="h-5 w-5" />
+                  {t('contact.form.submit')}
+                </button>
+              </form>
             </div>
 
-            {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
-                    {t('contact.form.name')}
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                    placeholder={t('contact.form.namePlaceholder')}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
-                    {t('contact.form.email')}
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                    placeholder={t('contact.form.emailPlaceholder')}
-                  />
+            {/* Additional Info */}
+            <div className="space-y-8">
+              {/* FAQ Quick Links */}
+              <div className="card-jetleg p-6">
+                <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5 text-accent" />
+                  {t('contact.faq.title')}
+                </h3>
+                <div className="space-y-3">
+                  {(t('contact.faq.questions', { returnObjects: true }) as string[]).map((question, index) => (
+                    <a key={index} href="#" className="block text-muted-foreground hover:text-accent transition-colors">
+                      {question}
+                    </a>
+                  ))}
                 </div>
               </div>
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-1">
-                  {t('contact.form.subject')}
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                  placeholder={t('contact.form.subjectPlaceholder')}
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">
-                  {t('contact.form.message')}
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                  placeholder={t('contact.form.messagePlaceholder')}
-                />
+
+              {/* Emergency Contact */}
+              <div className="card-jetleg p-6 bg-destructive/5 border-destructive/20">
+                <h3 className="font-semibold text-foreground mb-4">{t('contact.emergency.title')}</h3>
+                <p className="text-muted-foreground mb-3">
+                  {t('contact.emergency.description')}
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-destructive" />
+                    <span className="font-medium text-foreground">{t('contact.emergency.phone')}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-destructive" />
+                    <span className="font-medium text-foreground">{t('contact.emergency.email')}</span>
+                  </div>
+                </div>
               </div>
 
-              {submitError && (
-                <p className="text-destructive text-sm">{submitError}</p>
-              )}
-              {submitSuccess && (
-                <p className="text-green-600 text-sm">{t('contact.submitSuccess')}</p>
-              )}
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-jetleg-primary inline-flex items-center gap-2"
-              >
-                <Send className="h-5 w-5" />
-                {isSubmitting ? t('contact.sending') : t('contact.sendMessage')}
-              </button>
-            </form>
+              {/* Map placeholder */}
+              <div className="card-jetleg p-6">
+                <h3 className="font-semibold text-foreground mb-4">{t('contact.location.title')}</h3>
+                <div className="bg-muted/30 h-48 rounded-lg flex items-center justify-center">
+                  <div className="text-center">
+                    <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-muted-foreground whitespace-pre-line">
+                      {t('contact.location.address')}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3">
+                  {t('contact.location.note')}
+                </p>
+              </div>
+            </div>
           </div>
-        </section>
-      </main>
-      
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
