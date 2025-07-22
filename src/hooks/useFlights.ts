@@ -49,30 +49,97 @@ export const useFlights = (searchParams?: {
         `);
 
       // Apply filters if search params are provided
-      if (searchParams?.from) {
-        query = query.ilike('departure_airport', `%${searchParams.from.split('(')[0].trim()}%`);
+      if (searchParams?.from && searchParams.from.trim() !== '') {
+        const fromCity = searchParams.from.split('(')[0].trim();
+        query = query.ilike('departure_airport', `%${fromCity}%`);
       }
       
       // Handle "Overal" destination - don't filter by destination
-      if (searchParams?.to && searchParams.to !== 'Overal') {
-        query = query.ilike('arrival_airport', `%${searchParams.to.split('(')[0].trim()}%`);
+      if (searchParams?.to && searchParams.to !== 'Overal' && searchParams.to.trim() !== '') {
+        const toCity = searchParams.to.split('(')[0].trim();
+        query = query.ilike('arrival_airport', `%${toCity}%`);
       }
 
-      // Handle flexible date options - only filter by date if it's a specific date
-      if (searchParams?.date && !['today', 'tomorrow', 'weekend', 'next-week', 'next-month', 'flexible'].includes(searchParams.date)) {
-        const searchDate = new Date(searchParams.date);
-        const nextDay = new Date(searchDate);
-        nextDay.setDate(nextDay.getDate() + 1);
-        
-        query = query
-          .gte('departure_time', searchDate.toISOString())
-          .lt('departure_time', nextDay.toISOString());
+      // Handle flexible date options
+      if (searchParams?.date && searchParams.date !== 'flexible') {
+        if (!['today', 'tomorrow', 'weekend', 'next-week', 'next-month'].includes(searchParams.date)) {
+          // Specific date selected
+          const searchDate = new Date(searchParams.date);
+          const nextDay = new Date(searchDate);
+          nextDay.setDate(nextDay.getDate() + 1);
+          
+          query = query
+            .gte('departure_time', searchDate.toISOString())
+            .lt('departure_time', nextDay.toISOString());
+        } else {
+          // Handle flexible date options
+          const now = new Date();
+          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          
+          switch (searchParams.date) {
+            case 'today':
+              const tomorrow = new Date(today);
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              query = query
+                .gte('departure_time', today.toISOString())
+                .lt('departure_time', tomorrow.toISOString());
+              break;
+              
+            case 'tomorrow':
+              const tomorrowStart = new Date(today);
+              tomorrowStart.setDate(tomorrowStart.getDate() + 1);
+              const tomorrowEnd = new Date(tomorrowStart);
+              tomorrowEnd.setDate(tomorrowEnd.getDate() + 1);
+              query = query
+                .gte('departure_time', tomorrowStart.toISOString())
+                .lt('departure_time', tomorrowEnd.toISOString());
+              break;
+              
+            case 'weekend':
+              // Next weekend (Saturday and Sunday)
+              const nextSaturday = new Date(today);
+              const daysUntilSaturday = (6 - today.getDay()) % 7;
+              nextSaturday.setDate(today.getDate() + (daysUntilSaturday === 0 ? 7 : daysUntilSaturday));
+              const nextMonday = new Date(nextSaturday);
+              nextMonday.setDate(nextSaturday.getDate() + 2);
+              query = query
+                .gte('departure_time', nextSaturday.toISOString())
+                .lt('departure_time', nextMonday.toISOString());
+              break;
+              
+            case 'next-week':
+              const nextWeek = new Date(today);
+              nextWeek.setDate(today.getDate() + 7);
+              const weekAfter = new Date(nextWeek);
+              weekAfter.setDate(nextWeek.getDate() + 7);
+              query = query
+                .gte('departure_time', nextWeek.toISOString())
+                .lt('departure_time', weekAfter.toISOString());
+              break;
+              
+            case 'next-month':
+              const nextMonth = new Date(today);
+              nextMonth.setMonth(today.getMonth() + 1);
+              const monthAfter = new Date(nextMonth);
+              monthAfter.setMonth(nextMonth.getMonth() + 1);
+              query = query
+                .gte('departure_time', nextMonth.toISOString())
+                .lt('departure_time', monthAfter.toISOString());
+              break;
+          }
+        }
       }
 
       if (searchParams?.passengers) {
         const passengerCount = parseInt(searchParams.passengers);
-        query = query.gte('available_seats', passengerCount);
+        if (!isNaN(passengerCount)) {
+          query = query.gte('available_seats', passengerCount);
+        }
       }
+
+      // Always show future flights only
+      const now = new Date().toISOString();
+      query = query.gte('departure_time', now);
 
       const { data, error } = await query.order('departure_time');
 
@@ -80,6 +147,13 @@ export const useFlights = (searchParams?: {
         console.error('Error fetching flights:', error);
         throw error;
       }
+
+      console.log(`Found ${data?.length || 0} flights matching search criteria:`, {
+        from: searchParams?.from,
+        to: searchParams?.to,
+        date: searchParams?.date,
+        passengers: searchParams?.passengers
+      });
 
       return data as Flight[];
     },
@@ -122,6 +196,8 @@ export const useAllFlights = () => {
   return useQuery({
     queryKey: ['all-flights'],
     queryFn: async () => {
+      const now = new Date().toISOString();
+      
       const { data, error } = await supabase
         .from('flights')
         .select(`
@@ -136,6 +212,7 @@ export const useAllFlights = () => {
             image_url
           )
         `)
+        .gte('departure_time', now)
         .order('price_per_seat', { ascending: true });
 
       if (error) {
@@ -143,6 +220,7 @@ export const useAllFlights = () => {
         throw error;
       }
 
+      console.log(`Found ${data?.length || 0} total available flights`);
       return data as Flight[];
     },
   });
