@@ -1,14 +1,14 @@
 
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import FlightCard from '@/components/FlightCard';
-import { ArrowLeft, Plane } from 'lucide-react';
+import DestinationDealCard from '@/components/DestinationDealCard';
+import { ArrowLeft, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useDealsFlights } from '@/hooks/useFlights';
+import { useDestinationDeals } from '@/hooks/useDestinationDeals';
 
 const TopDeals = () => {
   const navigate = useNavigate();
-  const { data: flights = [], isLoading, error } = useDealsFlights();
+  const { data: destinationDeals = [], isLoading, error } = useDestinationDeals();
 
   if (isLoading) {
     return (
@@ -28,9 +28,9 @@ const TopDeals = () => {
             </div>
             
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Nieuwste Empty Leg Deals</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Ontdek onze volledige collectie van last-minute privéjet aanbiedingen naar de mooiste bestemmingen in Europa en daarbuiten.
+                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Gegroepeerd per bestemming voor het beste overzicht.
               </p>
             </div>
           </div>
@@ -40,9 +40,9 @@ const TopDeals = () => {
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
-                <Plane className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">Deals laden...</h3>
-                <p className="text-muted-foreground">We zoeken de beste beschikbare deals voor je.</p>
+                <MapPin className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">Bestemmingen laden...</h3>
+                <p className="text-muted-foreground">We zoeken de beste beschikbare bestemmingen voor je.</p>
               </div>
             </div>
           </div>
@@ -71,9 +71,9 @@ const TopDeals = () => {
             </div>
             
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Nieuwste Empty Leg Deals</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Ontdek onze volledige collectie van last-minute privéjet aanbiedingen naar de mooiste bestemmingen in Europa en daarbuiten.
+                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Gegroepeerd per bestemming voor het beste overzicht.
               </p>
             </div>
           </div>
@@ -82,9 +82,9 @@ const TopDeals = () => {
         <section className="py-20">
           <div className="container mx-auto px-6">
             <div className="text-center py-20">
-              <Plane className="h-16 w-16 text-destructive mx-auto mb-4" />
+              <MapPin className="h-16 w-16 text-destructive mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-foreground mb-2">Er is een fout opgetreden</h3>
-              <p className="text-muted-foreground mb-4">We konden geen deals laden. Probeer het opnieuw.</p>
+              <p className="text-muted-foreground mb-4">We konden geen bestemmingen laden. Probeer het opnieuw.</p>
               <button
                 onClick={() => window.location.reload()}
                 className="btn-jetleg-primary"
@@ -118,43 +118,63 @@ const TopDeals = () => {
           </div>
           
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Nieuwste Empty Leg Deals</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Ontdek onze volledige collectie van last-minute privéjet aanbiedingen naar de mooiste bestemmingen in Europa en daarbuiten.
+              Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Gegroepeerd per bestemming voor het beste overzicht.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Deals Grid */}
+      {/* Destinations Grid */}
       <section className="py-20">
         <div className="container mx-auto px-6">
-          {flights.length === 0 ? (
+          {destinationDeals.length === 0 ? (
             <div className="text-center py-20">
-              <Plane className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">Geen deals beschikbaar</h3>
+              <MapPin className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">Geen bestemmingen beschikbaar</h3>
               <p className="text-muted-foreground mb-4">
-                Er zijn momenteel geen deals beschikbaar. Kom later terug voor nieuwe aanbiedingen.
+                Er zijn momenteel geen bestemmingen beschikbaar. Kom later terug voor nieuwe aanbiedingen.
               </p>
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {flights.map(deal => (
-                  <div key={deal.id} className="h-full">
-                    <FlightCard {...deal} />
+              <div className="text-center mb-12">
+                <h2 className="text-2xl font-bold text-foreground mb-2">
+                  {destinationDeals.length} Unieke Bestemmingen
+                </h2>
+                <p className="text-muted-foreground">
+                  Elk met meerdere vluchten en operators om uit te kiezen
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {destinationDeals.map((deal, index) => (
+                  <div key={deal.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <DestinationDealCard deal={deal} />
                   </div>
                 ))}
               </div>
               
-              {/* Load More */}
-              <div className="text-center mt-12">
-                <p className="text-muted-foreground mb-4">
-                  Meer deals worden dagelijks toegevoegd. Meld je aan voor onze nieuwsbrief voor de laatste aanbiedingen.
-                </p>
-                <button className="btn-jetleg-outline">
-                  Nieuwsbrief Aanmelden
-                </button>
+              {/* Additional Info */}
+              <div className="text-center mt-16 p-8 bg-muted/30 rounded-lg">
+                <h3 className="text-xl font-semibold text-foreground mb-4">
+                  Waarom bestemmingen kiezen?
+                </h3>
+                <div className="grid md:grid-cols-3 gap-6 text-sm text-muted-foreground">
+                  <div>
+                    <MapPin className="h-8 w-8 text-accent mx-auto mb-2" />
+                    <p><strong>Betere keuze:</strong> Zie alle opties per bestemming in één overzicht</p>
+                  </div>
+                  <div>
+                    <MapPin className="h-8 w-8 text-accent mx-auto mb-2" />
+                    <p><strong>Beste prijzen:</strong> Vergelijk verschillende operators en tijden</p>
+                  </div>
+                  <div>
+                    <MapPin className="h-8 w-8 text-accent mx-auto mb-2" />
+                    <p><strong>Meer flexibiliteit:</strong> Kies uit meerdere vertrekmomenten</p>
+                  </div>
+                </div>
               </div>
             </>
           )}
