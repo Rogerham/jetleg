@@ -2,6 +2,7 @@
 import { Clock, Users, Plane, MapPin } from 'lucide-react';
 import { formatDistance } from 'date-fns';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { extractAirportCode, extractCityName } from '@/utils/flightUtils';
 import type { Flight } from '@/hooks/useFlights';
 
 interface ResponsiveFlightCardProps extends Flight {
@@ -20,6 +21,19 @@ const ResponsiveFlightCard = ({
     console.log('Booking flight:', flight.id);
   };
 
+  // Helper functions to get the correct data
+  const getFromCity = () => extractCityName(flight.departure_airport);
+  const getToCity = () => extractCityName(flight.arrival_airport);
+  const getAircraftName = () => flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet';
+  const getImageUrl = () => flight.jets?.image_url || '/src/assets/hero-bg.jpg';
+  const getPassengerCount = () => flight.available_seats;
+  const formatTime = (dateString: string) => {
+    return new Date(dateString).toLocaleTimeString('nl-NL', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="card-jetleg p-4 sm:p-6 hover:scale-105 transition-all duration-200 h-full flex flex-col">
       {/* Mobile Layout - No Image */}
@@ -28,29 +42,29 @@ const ResponsiveFlightCard = ({
           <div className="flex-1">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <MapPin className="h-4 w-4 text-accent" />
-              <span>{flight.from} → {flight.to}</span>
+              <span>{getFromCity()} → {getToCity()}</span>
             </div>
-            <h3 className="font-semibold text-foreground mb-2">{flight.aircraft}</h3>
+            <h3 className="font-semibold text-foreground mb-2">{getAircraftName()}</h3>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                <span>{flight.duration}</span>
+                <span>{flight.flight_duration}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Users className="h-4 w-4" />
-                <span>{flight.passengers} pax</span>
+                <span>{getPassengerCount()} pax</span>
               </div>
             </div>
           </div>
           <div className="text-right">
             <p className="text-sm text-muted-foreground">vanaf</p>
-            <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price)}</p>
+            <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price_per_seat)}</p>
           </div>
         </div>
         
         <div className="flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            <p>Vertrek: {flight.departureTime}</p>
+            <p>Vertrek: {formatTime(flight.departure_time)}</p>
             <p>Operator: {flight.operator}</p>
           </div>
           <button 
@@ -68,27 +82,27 @@ const ResponsiveFlightCard = ({
           <div className="flex-1">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <MapPin className="h-4 w-4 text-accent" />
-              <span>{flight.from} → {flight.to}</span>
+              <span>{getFromCity()} → {getToCity()}</span>
             </div>
-            <h3 className="font-semibold text-foreground mb-2">{flight.aircraft}</h3>
+            <h3 className="font-semibold text-foreground mb-2">{getAircraftName()}</h3>
             <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                <span>{flight.duration}</span>
+                <span>{flight.flight_duration}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Users className="h-4 w-4" />
-                <span>{flight.passengers} pax</span>
+                <span>{getPassengerCount()} pax</span>
               </div>
             </div>
             <div className="text-sm text-muted-foreground mb-4">
-              <p>Vertrek: {flight.departureTime}</p>
+              <p>Vertrek: {formatTime(flight.departure_time)}</p>
               <p>Operator: {flight.operator}</p>
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">vanaf</p>
-                <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price)}</p>
+                <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price_per_seat)}</p>
               </div>
               <button 
                 onClick={handleBookNow}
@@ -101,8 +115,8 @@ const ResponsiveFlightCard = ({
           {showImage && (
             <div className="w-32 h-24 flex-shrink-0">
               <img 
-                src={flight.imageUrl} 
-                alt={flight.aircraft}
+                src={getImageUrl()} 
+                alt={getAircraftName()}
                 className="w-full h-full object-cover rounded-lg"
                 onError={(e) => {
                   e.currentTarget.src = '/src/assets/hero-bg.jpg';
@@ -119,8 +133,8 @@ const ResponsiveFlightCard = ({
           {showImage && imagePosition === 'left' && (
             <div className="w-32 h-24 flex-shrink-0">
               <img 
-                src={flight.imageUrl} 
-                alt={flight.aircraft}
+                src={getImageUrl()} 
+                alt={getAircraftName()}
                 className="w-full h-full object-cover rounded-lg"
                 onError={(e) => {
                   e.currentTarget.src = '/src/assets/hero-bg.jpg';
@@ -132,21 +146,21 @@ const ResponsiveFlightCard = ({
           <div className="flex-1">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <MapPin className="h-4 w-4 text-accent" />
-              <span>{flight.from} → {flight.to}</span>
+              <span>{getFromCity()} → {getToCity()}</span>
             </div>
-            <h3 className="font-semibold text-foreground mb-2">{flight.aircraft}</h3>
+            <h3 className="font-semibold text-foreground mb-2">{getAircraftName()}</h3>
             <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                <span>{flight.duration}</span>
+                <span>{flight.flight_duration}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Users className="h-4 w-4" />
-                <span>{flight.passengers} pax</span>
+                <span>{getPassengerCount()} pax</span>
               </div>
             </div>
             <div className="text-sm text-muted-foreground">
-              <p>Vertrek: {flight.departureTime}</p>
+              <p>Vertrek: {formatTime(flight.departure_time)}</p>
               <p>Operator: {flight.operator}</p>
             </div>
           </div>
@@ -154,8 +168,8 @@ const ResponsiveFlightCard = ({
           {showImage && imagePosition === 'right' && (
             <div className="w-32 h-24 flex-shrink-0">
               <img 
-                src={flight.imageUrl} 
-                alt={flight.aircraft}
+                src={getImageUrl()} 
+                alt={getAircraftName()}
                 className="w-full h-full object-cover rounded-lg"
                 onError={(e) => {
                   e.currentTarget.src = '/src/assets/hero-bg.jpg';
@@ -167,7 +181,7 @@ const ResponsiveFlightCard = ({
           <div className="flex flex-col items-end justify-between">
             <div className="text-right">
               <p className="text-sm text-muted-foreground">vanaf</p>
-              <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price)}</p>
+              <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price_per_seat)}</p>
             </div>
             <button 
               onClick={handleBookNow}
