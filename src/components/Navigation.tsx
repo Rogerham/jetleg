@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -32,9 +31,13 @@ const Navigation = () => {
   return (
     <header className="bg-card shadow-lg sticky top-0 z-50">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-primary">
-          <Link to="/" className="hover:text-accent transition-jetleg">
-            Jetleg
+        <div className="flex items-center">
+          <Link to="/" className="hover:opacity-80 transition-jetleg">
+            <img 
+              src="/lovable-uploads/98279cd3-d5a1-4405-ae12-29b927f1dbd6.png" 
+              alt="Jetleg - The smartest way to fly private" 
+              className="h-8 w-auto"
+            />
           </Link>
         </div>
         
