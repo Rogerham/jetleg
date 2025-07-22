@@ -1,6 +1,34 @@
 
 /**
- * Parses flight duration string into minutes for comparison
+ * Parses flight duration string into hours for comparison
+ * Handles formats like "2h 30m", "1h 45min", "45m", "3h", etc.
+ */
+export const parseDurationToHours = (duration: string): number => {
+  if (!duration) return 0;
+  
+  // Remove extra spaces and convert to lowercase
+  const cleanDuration = duration.toLowerCase().trim();
+  
+  let totalMinutes = 0;
+  
+  // Match hours (h or hour/hours)
+  const hoursMatch = cleanDuration.match(/(\d+)\s*h(?:our)?s?/);
+  if (hoursMatch) {
+    totalMinutes += parseInt(hoursMatch[1]) * 60;
+  }
+  
+  // Match minutes (m, min, minute/minutes)
+  const minutesMatch = cleanDuration.match(/(\d+)\s*m(?:in)?(?:ute)?s?/);
+  if (minutesMatch) {
+    totalMinutes += parseInt(minutesMatch[1]);
+  }
+  
+  // Convert to hours with one decimal place
+  return Math.round((totalMinutes / 60) * 10) / 10;
+};
+
+/**
+ * Parses flight duration string into minutes for comparison (legacy support)
  * Handles formats like "2h 30m", "1h 45min", "45m", "3h", etc.
  */
 export const parseDurationToMinutes = (duration: string): number => {
@@ -24,6 +52,24 @@ export const parseDurationToMinutes = (duration: string): number => {
   }
   
   return totalMinutes;
+};
+
+/**
+ * Formats hours back to duration string
+ */
+export const formatHoursToDuration = (hours: number): string => {
+  if (hours === 0) return '0h';
+  
+  const wholeHours = Math.floor(hours);
+  const minutes = Math.round((hours - wholeHours) * 60);
+  
+  if (wholeHours === 0) {
+    return `${minutes}m`;
+  } else if (minutes === 0) {
+    return `${wholeHours}h`;
+  } else {
+    return `${wholeHours}h ${minutes}m`;
+  }
 };
 
 /**

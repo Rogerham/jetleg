@@ -1,9 +1,9 @@
-
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { extractAirportCode, extractCityName } from '@/utils/flightUtils';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 interface FlightCardProps {
   id: string;
@@ -43,6 +43,7 @@ const FlightCard = ({
   const { toast } = useToast();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { formatPrice } = useCurrency();
 
   const handleBooking = () => {
     navigate(`/booking/${id}`, {
@@ -143,7 +144,7 @@ const FlightCard = ({
         <div className="flex justify-between items-center mt-auto">
           <div>
             <p className="text-3xl font-bold text-foreground">
-              € {price_per_seat.toLocaleString('nl-NL')}
+              {formatPrice(price_per_seat)}
             </p>
           </div>
           <button 

@@ -1,6 +1,6 @@
 
 import { X } from 'lucide-react';
-import { formatMinutesToDuration } from '@/utils/durationUtils';
+import { formatHoursToDuration } from '@/utils/durationUtils';
 
 interface Filter {
   key: string;
@@ -64,21 +64,21 @@ const ActiveFilters = ({ filters, onRemoveFilter, onClearAll }: ActiveFiltersPro
     });
   }
 
-  if (filters.minDuration > 0) {
+  if (filters.minDuration > 0.5) {
     activeFilters.push({
       key: 'minDuration',
-      label: `Min. duur: ${formatMinutesToDuration(filters.minDuration)}`,
+      label: `Min. duur: ${formatHoursToDuration(filters.minDuration)}`,
       value: filters.minDuration,
-      defaultValue: 0
+      defaultValue: 0.5
     });
   }
 
-  if (filters.maxDuration < 600) {
+  if (filters.maxDuration < 20) {
     activeFilters.push({
       key: 'maxDuration',
-      label: `Max. duur: ${formatMinutesToDuration(filters.maxDuration)}`,
+      label: `Max. duur: ${formatHoursToDuration(filters.maxDuration)}`,
       value: filters.maxDuration,
-      defaultValue: 600
+      defaultValue: 20
     });
   }
 

@@ -3,8 +3,10 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
+import DurationRangeSlider from '@/components/DurationRangeSlider';
 import { useFlights, type Flight } from '@/hooks/useFlights';
-import { parseDurationToMinutes } from '@/utils/durationUtils';
+import { parseDurationToHours } from '@/utils/durationUtils';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -12,13 +14,14 @@ const SearchResults = () => {
   const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [sortBy, setSortBy] = useState('price');
+  const { formatPrice } = useCurrency();
   const [filters, setFilters] = useState({
     minPrice: 0,
     maxPrice: 10000,
     minPassengers: 1,
     maxPassengers: 20,
-    minDuration: 0,
-    maxDuration: 600, // 10 hours in minutes
+    minDuration: 0.5,
+    maxDuration: 20,
     aircraft: '',
     timeOfDay: 'any'
   });
@@ -49,9 +52,9 @@ const SearchResults = () => {
       const jetCapacity = flight.jets?.seating_capacity || 8;
       if (jetCapacity > filters.maxPassengers) return false;
 
-      // Duration filter
-      const flightDurationMinutes = parseDurationToMinutes(flight.flight_duration);
-      if (flightDurationMinutes < filters.minDuration || flightDurationMinutes > filters.maxDuration) return false;
+      // Duration filter (now in hours)
+      const flightDurationHours = parseDurationToHours(flight.flight_duration);
+      if (flightDurationHours < filters.minDuration || flightDurationHours > filters.maxDuration) return false;
 
       // Aircraft filter
       if (filters.aircraft) {
@@ -75,8 +78,8 @@ const SearchResults = () => {
         case 'price':
           return a.price_per_seat - b.price_per_seat;
         case 'duration':
-          const aDuration = parseDurationToMinutes(a.flight_duration);
-          const bDuration = parseDurationToMinutes(b.flight_duration);
+          const aDuration = parseDurationToHours(a.flight_duration);
+          const bDuration = parseDurationToHours(b.flight_duration);
           return aDuration - bDuration;
         case 'departure':
           return new Date(a.departure_time).getTime() - new Date(b.departure_time).getTime();
@@ -95,14 +98,22 @@ const SearchResults = () => {
     }));
   };
 
+  const handleDurationChange = (min: number, max: number) => {
+    setFilters(prev => ({
+      ...prev,
+      minDuration: min,
+      maxDuration: max
+    }));
+  };
+
   const handleRemoveFilter = (key: string) => {
     const defaultFilters = {
       minPrice: 0,
       maxPrice: 10000,
       minPassengers: 1,
       maxPassengers: 20,
-      minDuration: 0,
-      maxDuration: 600,
+      minDuration: 0.5,
+      maxDuration: 20,
       aircraft: '',
       timeOfDay: 'any'
     };
@@ -118,8 +129,8 @@ const SearchResults = () => {
       maxPrice: 10000,
       minPassengers: 1,
       maxPassengers: 20,
-      minDuration: 0,
-      maxDuration: 600,
+      minDuration: 0.5,
+      maxDuration: 20,
       aircraft: '',
       timeOfDay: 'any'
     });
@@ -266,7 +277,7 @@ const SearchResults = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
           <div className={`lg:col-span-1 ${isFilterOpen ? 'block' : 'hidden lg:block'}`}>
-            <div className="card-jetleg p-6 sticky top-6">
+            <div className="card-jetleg p-6 sticky top-6" style={{ backgroundColor: '#bad5ff' }}>
               <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Filter className="h-5 w-5" />
                 Filters
@@ -345,39 +356,13 @@ const SearchResults = () => {
               {/* Flight Duration Range */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-foreground mb-3">
-                  Vliegduur (minuten)
+                  Vliegduur (uren)
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs text-muted-foreground mb-1">Minimum</label>
-                    <input
-                      type="number"
-                      min="0"
-                      max="1440"
-                      step="15"
-                      value={filters.minDuration}
-                      onChange={e => handleFilterChange('minDuration', parseInt(e.target.value) || 0)}
-                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:ring-2 focus:ring-accent/20"
-                      placeholder="0"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-muted-foreground mb-1">Maximum</label>
-                    <input
-                      type="number"
-                      min="0"
-                      max="1440"
-                      step="15"
-                      value={filters.maxDuration}
-                      onChange={e => handleFilterChange('maxDuration', parseInt(e.target.value) || 1440)}
-                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:ring-2 focus:ring-accent/20"
-                      placeholder="600"
-                    />
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Bijvoorbeeld: 90 min = 1h 30m, 240 min = 4h
-                </p>
+                <DurationRangeSlider
+                  minDuration={filters.minDuration}
+                  maxDuration={filters.maxDuration}
+                  onDurationChange={handleDurationChange}
+                />
               </div>
 
               {/* Time of Day */}
@@ -492,7 +477,7 @@ const SearchResults = () => {
                         {/* Price & Book */}
                         <div className="lg:col-span-1 text-center lg:text-right">
                           <div className="text-2xl font-bold text-foreground mb-4">
-                            €{flight.price_per_seat.toLocaleString()}
+                            {formatPrice(flight.price_per_seat)}
                           </div>
                           <button
                             onClick={() => navigate(`/booking/${flight.id}`, {

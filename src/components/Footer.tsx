@@ -2,6 +2,7 @@
 import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import CurrencySelector from './CurrencySelector';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -121,13 +122,14 @@ const Footer = () => {
             <p className="text-primary-foreground/60 text-sm mb-4 md:mb-0">
               &copy; {currentYear} Jetleg. {t('footer.copyright')}
             </p>
-            <div className="flex space-x-6 text-sm">
+            <div className="flex items-center space-x-6 text-sm">
               <Link to="/privacy-policy" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
                 {t('footer.privacy')}
               </Link>
               <Link to="/terms-conditions" className="text-primary-foreground/60 hover:text-accent transition-jetleg">
                 {t('footer.terms')}
               </Link>
+              <CurrencySelector />
             </div>
           </div>
         </div>
