@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
@@ -35,8 +36,8 @@ const SearchResults = () => {
     filtered = filtered.filter(flight => {
       if (flight.price_per_seat > filters.maxPrice) return false;
       if (flight.available_seats < filters.minPassengers) return false;
-      if (flight.jets && flight.jets.seating_capacity > filters.maxPassengers) return false;
-      if (filters.aircraft && flight.jets && !`${flight.jets.brand} ${flight.jets.model}`.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
+      if (flight.jets.seating_capacity > filters.maxPassengers) return false;
+      if (filters.aircraft && !`${flight.jets.brand} ${flight.jets.model}`.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
       if (filters.timeOfDay !== 'any') {
         const hour = new Date(flight.departure_time).getHours();
         if (filters.timeOfDay === 'morning' && (hour < 6 || hour >= 12)) return false;
@@ -399,7 +400,7 @@ const SearchResults = () => {
                           
                           <div className="space-y-1">
                             <div className="font-medium text-foreground">
-                              {flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Aircraft details unavailable'}
+                              {flight.jets.brand} {flight.jets.model}
                             </div>
                             <div className="text-sm text-muted-foreground flex items-center gap-4">
                               <span className="flex items-center gap-1">
@@ -417,8 +418,8 @@ const SearchResults = () => {
                         {/* Image */}
                         <div className="lg:col-span-1">
                           <img
-                            src={flight.jets?.image_url || '/src/assets/jet-interior.jpg'}
-                            alt={flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private jet interior'}
+                            src={flight.jets.image_url}
+                            alt={`${flight.jets.brand} ${flight.jets.model}`}
                             className="w-full h-24 object-cover rounded-lg"
                           />
                         </div>

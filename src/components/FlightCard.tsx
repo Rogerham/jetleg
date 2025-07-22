@@ -15,8 +15,8 @@ interface FlightCardProps {
   available_seats: number;
   operator: string;
   flight_duration: string;
-  jet_id?: number | null;
-  jets?: {
+  jet_id: number;
+  jets: {
     brand: string;
     model: string;
     type: string;
@@ -43,9 +43,6 @@ const FlightCard = ({
   const { toast } = useToast();
   const navigate = useNavigate();
   const { t } = useTranslation();
-
-  // Debug logging to understand aircraft details
-  console.log(`Flight ${id}: jet_id=${jet_id}, jets=`, jets);
 
   const handleBooking = () => {
     navigate(`/booking/${id}`, {
@@ -79,28 +76,22 @@ const FlightCard = ({
   };
 
   const getRouteDescription = () => {
-    if (jets?.description) {
+    if (jets.description) {
       return jets.description;
     }
-    return `${operator} - ${jets ? `${jets.brand} ${jets.model}` : 'Private jet service'}`;
+    return `${operator} - ${jets.brand} ${jets.model}`;
   };
 
   const getAircraftDetails = () => {
-    if (jets && jets.brand && jets.model) {
-      return `${jets.brand} ${jets.model}`;
-    }
-    if (jet_id) {
-      return `Aircraft ID: ${jet_id}`;
-    }
-    return 'Aircraft details loading...';
+    return `${jets.brand} ${jets.model}`;
   };
 
   return (
     <div className="card-jetleg @media (hover: hover) { hover:scale-105 } transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
         <img 
-          src={jets?.image_url || '/src/assets/jet-interior.jpg'} 
-          alt={jets ? `${jets.brand} ${jets.model}` : 'Private jet interior'} 
+          src={jets.image_url} 
+          alt={`${jets.brand} ${jets.model}`} 
           className="w-full h-48 object-cover @media (hover: hover) { hover:scale-110 } transition-transform duration-300"
         />
         <div className="absolute top-4 right-4">

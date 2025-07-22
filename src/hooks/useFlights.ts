@@ -13,8 +13,8 @@ export interface Flight {
   available_seats: number;
   operator: string;
   flight_duration: string;
-  jet_id: number | null;
-  jets?: {
+  jet_id: number;
+  jets: {
     brand: string;
     model: string;
     type: string;
