@@ -1,8 +1,12 @@
+
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Search, Calendar, Plane, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const HowItWorks = () => {
+  const navigate = useNavigate();
+  
   const steps = [
     {
       icon: Search,
@@ -45,6 +49,10 @@ const HowItWorks = () => {
       ]
     }
   ];
+
+  const handleFAQClick = () => {
+    navigate('/faq');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -98,7 +106,8 @@ const HowItWorks = () => {
                   </ul>
                 </div>
                 
-                <div className="flex-1 max-w-md">
+                {/* Hide visual cards on tablet and mobile */}
+                <div className="flex-1 max-w-md hidden lg:block">
                   <div className="card-jetleg p-8">
                     <div className="w-full h-48 bg-gradient-to-br from-accent/10 to-primary/10 rounded-xl flex items-center justify-center">
                       <step.icon className="h-20 w-20 text-accent/50" />
@@ -151,6 +160,16 @@ const HowItWorks = () => {
                 </p>
               </div>
             ))}
+          </div>
+          
+          {/* FAQ Navigation Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={handleFAQClick}
+              className="btn-jetleg-primary"
+            >
+              Bekijk alle veelgestelde vragen
+            </button>
           </div>
         </div>
       </section>
