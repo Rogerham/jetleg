@@ -1,16 +1,15 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Users, Plane, ArrowUpDown, ArrowLeftRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { worldwideAirports, type Airport } from '@/data/airports';
 import PassengerCounter from './PassengerCounter';
 import EnhancedDatePicker from './EnhancedDatePicker';
-
 interface SearchWithSuggestionsProps {
   className?: string;
 }
-
-const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) => {
+const SearchWithSuggestions = ({
+  className = ''
+}: SearchWithSuggestionsProps) => {
   const navigate = useNavigate();
   const [searchData, setSearchData] = useState({
     from: '',
@@ -18,7 +17,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
     date: '',
     passengers: '1'
   });
-  
   const [suggestions, setSuggestions] = useState<{
     from: Airport[];
     to: Airport[];
@@ -26,82 +24,96 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
     from: [],
     to: []
   });
-  
   const [activeSuggestion, setActiveSuggestion] = useState<{
     field: 'from' | 'to' | null;
   }>({
     field: null
   });
-  
   const fromInputRef = useRef<HTMLInputElement>(null);
   const toInputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
-        setActiveSuggestion({ field: null });
+        setActiveSuggestion({
+          field: null
+        });
       }
     };
-    
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
   const handleInputChange = (field: string, value: string) => {
-    setSearchData(prev => ({ ...prev, [field]: value }));
-    
+    setSearchData(prev => ({
+      ...prev,
+      [field]: value
+    }));
     if (field === 'from' || field === 'to') {
       if (value.length > 0 && value !== 'Overal') {
-        const filtered = worldwideAirports.filter(airport =>
-          airport.name.toLowerCase().includes(value.toLowerCase()) ||
-          airport.city.toLowerCase().includes(value.toLowerCase()) ||
-          airport.code.toLowerCase().includes(value.toLowerCase()) ||
-          airport.country.toLowerCase().includes(value.toLowerCase())
-        );
-        
-        setSuggestions(prev => ({ ...prev, [field]: filtered.slice(0, 8) }));
-        setActiveSuggestion({ field: field as 'from' | 'to' });
+        const filtered = worldwideAirports.filter(airport => airport.name.toLowerCase().includes(value.toLowerCase()) || airport.city.toLowerCase().includes(value.toLowerCase()) || airport.code.toLowerCase().includes(value.toLowerCase()) || airport.country.toLowerCase().includes(value.toLowerCase()));
+        setSuggestions(prev => ({
+          ...prev,
+          [field]: filtered.slice(0, 8)
+        }));
+        setActiveSuggestion({
+          field: field as 'from' | 'to'
+        });
       } else {
-        setSuggestions(prev => ({ ...prev, [field]: [] }));
+        setSuggestions(prev => ({
+          ...prev,
+          [field]: []
+        }));
         if (value !== 'Overal') {
-          setActiveSuggestion({ field: null });
+          setActiveSuggestion({
+            field: null
+          });
         }
       }
     }
   };
-
   const handleInputFocus = (field: 'from' | 'to') => {
     const value = searchData[field];
     if (value.length > 0 && value !== 'Overal') {
-      const filtered = worldwideAirports.filter(airport =>
-        airport.name.toLowerCase().includes(value.toLowerCase()) ||
-        airport.city.toLowerCase().includes(value.toLowerCase()) ||
-        airport.code.toLowerCase().includes(value.toLowerCase()) ||
-        airport.country.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(prev => ({ ...prev, [field]: filtered.slice(0, 8) }));
+      const filtered = worldwideAirports.filter(airport => airport.name.toLowerCase().includes(value.toLowerCase()) || airport.city.toLowerCase().includes(value.toLowerCase()) || airport.code.toLowerCase().includes(value.toLowerCase()) || airport.country.toLowerCase().includes(value.toLowerCase()));
+      setSuggestions(prev => ({
+        ...prev,
+        [field]: filtered.slice(0, 8)
+      }));
     }
-    setActiveSuggestion({ field });
+    setActiveSuggestion({
+      field
+    });
   };
-
   const handleSuggestionClick = (field: 'from' | 'to', airport: Airport) => {
     const airportText = `${airport.city} (${airport.code})`;
-    setSearchData(prev => ({ ...prev, [field]: airportText }));
-    setActiveSuggestion({ field: null });
-    setSuggestions(prev => ({ ...prev, [field]: [] }));
-    
+    setSearchData(prev => ({
+      ...prev,
+      [field]: airportText
+    }));
+    setActiveSuggestion({
+      field: null
+    });
+    setSuggestions(prev => ({
+      ...prev,
+      [field]: []
+    }));
     if (field === 'from' && toInputRef.current) {
       toInputRef.current.focus();
     }
   };
-
   const handleEverywhere = () => {
-    setSearchData(prev => ({ ...prev, to: 'Overal' }));
-    setActiveSuggestion({ field: null });
-    setSuggestions(prev => ({ ...prev, to: [] }));
+    setSearchData(prev => ({
+      ...prev,
+      to: 'Overal'
+    }));
+    setActiveSuggestion({
+      field: null
+    });
+    setSuggestions(prev => ({
+      ...prev,
+      to: []
+    }));
   };
-
   const handleSwapLocations = () => {
     setSearchData(prev => ({
       ...prev,
@@ -109,25 +121,20 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
       to: prev.from
     }));
   };
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchData.from || !searchData.to || !searchData.date) {
       return;
     }
-    
     const searchParams = new URLSearchParams({
       from: searchData.from,
       to: searchData.to,
       date: searchData.date,
       passengers: searchData.passengers
     });
-    
     navigate(`/search-results?${searchParams.toString()}`);
   };
-
-  return (
-    <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
+  return <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
       <form onSubmit={handleSearch} className="space-y-6">
         {/* Mobile Layout */}
         <div className="lg:hidden space-y-6">
@@ -139,27 +146,10 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 <MapPin className="h-4 w-4" />
                 Van
               </label>
-              <input
-                ref={fromInputRef}
-                type="text"
-                id="from"
-                value={searchData.from}
-                onChange={e => handleInputChange('from', e.target.value)}
-                onFocus={() => handleInputFocus('from')}
-                placeholder="bv. Brussel"
-                className="input-jetleg h-14 w-full"
-                required
-              />
+              <input ref={fromInputRef} type="text" id="from" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-14 w-full" required />
               
-              {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
-                <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                  {suggestions.from.map(airport => (
-                    <button
-                      key={airport.code}
-                      type="button"
-                      onClick={() => handleSuggestionClick('from', airport)}
-                      className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100"
-                    >
+              {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                  {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                           <Plane className="h-4 w-4 text-accent" />
@@ -169,23 +159,12 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                           <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
                         </div>
                       </div>
-                    </button>
-                  ))}
-                </div>
-              )}
+                    </button>)}
+                </div>}
             </div>
             
             {/* Swap Button - Vertical on Mobile */}
-            <div className="flex justify-center">
-              <button
-                type="button"
-                onClick={handleSwapLocations}
-                className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                title="Wissel vertrek en bestemming"
-              >
-                <ArrowUpDown className="w-5 h-5 text-white" />
-              </button>
-            </div>
+            
             
             {/* To Field */}
             <div className="relative">
@@ -193,25 +172,10 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 <MapPin className="h-4 w-4" />
                 Naar
               </label>
-              <input
-                ref={toInputRef}
-                type="text"
-                id="to"
-                value={searchData.to}
-                onChange={e => handleInputChange('to', e.target.value)}
-                onFocus={() => handleInputFocus('to')}
-                placeholder="bv. Nice"
-                className="input-jetleg h-14 w-full"
-                required
-              />
+              <input ref={toInputRef} type="text" id="to" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-14 w-full" required />
               
-              {activeSuggestion.field === 'to' && (
-                <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                  <button
-                    type="button"
-                    onClick={handleEverywhere}
-                    className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white"
-                  >
+              {activeSuggestion.field === 'to' && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                  <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
                         <Search className="h-4 w-4 text-white" />
@@ -223,13 +187,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                     </div>
                   </button>
                   
-                  {suggestions.to.map(airport => (
-                    <button
-                      key={airport.code}
-                      type="button"
-                      onClick={() => handleSuggestionClick('to', airport)}
-                      className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white"
-                    >
+                  {suggestions.to.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('to', airport)} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                           <Plane className="h-4 w-4 text-accent" />
@@ -239,10 +197,8 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                           <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
                         </div>
                       </div>
-                    </button>
-                  ))}
-                </div>
-              )}
+                    </button>)}
+                </div>}
             </div>
           </div>
           
@@ -254,11 +210,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 <Search className="h-4 w-4" />
                 Datum
               </label>
-              <EnhancedDatePicker
-                value={searchData.date}
-                onChange={value => handleInputChange('date', value)}
-                className="w-full h-14"
-              />
+              <EnhancedDatePicker value={searchData.date} onChange={value => handleInputChange('date', value)} className="w-full h-14" />
             </div>
             
             {/* Passengers Field */}
@@ -267,12 +219,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 <Users className="h-4 w-4" />
                 Pax
               </label>
-              <PassengerCounter
-                value={searchData.passengers}
-                onChange={value => handleInputChange('passengers', value)}
-                className="h-14"
-                hideArrows={false}
-              />
+              <PassengerCounter value={searchData.passengers} onChange={value => handleInputChange('passengers', value)} className="h-14" hideArrows={false} />
             </div>
           </div>
           
@@ -291,26 +238,10 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               <MapPin className="h-4 w-4" />
               Van
             </label>
-            <input
-              type="text"
-              id="from-desktop"
-              value={searchData.from}
-              onChange={e => handleInputChange('from', e.target.value)}
-              onFocus={() => handleInputFocus('from')}
-              placeholder="bv. Brussel"
-              className="input-jetleg h-12"
-              required
-            />
+            <input type="text" id="from-desktop" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-12" required />
             
-            {activeSuggestion.field === 'from' && suggestions.from.length > 0 && (
-              <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                {suggestions.from.map(airport => (
-                  <button
-                    key={airport.code}
-                    type="button"
-                    onClick={() => handleSuggestionClick('from', airport)}
-                    className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100"
-                  >
+            {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                         <Plane className="h-4 w-4 text-accent" />
@@ -320,20 +251,13 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                         <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
                       </div>
                     </div>
-                  </button>
-                ))}
-              </div>
-            )}
+                  </button>)}
+              </div>}
           </div>
           
           {/* Swap Button - Horizontal on Desktop - Desktop Only with Clean Styling */}
           <div className="hidden lg:flex flex-shrink-0 self-end mb-1">
-            <button
-              type="button"
-              onClick={handleSwapLocations}
-              className="w-12 h-12 bg-transparent hover:bg-white/10 rounded-full flex items-center justify-center transition-all duration-200"
-              title="Wissel vertrek en bestemming"
-            >
+            <button type="button" onClick={handleSwapLocations} className="w-12 h-12 bg-transparent hover:bg-white/10 rounded-full flex items-center justify-center transition-all duration-200" title="Wissel vertrek en bestemming">
               <ArrowLeftRight className="w-5 h-5 text-white" />
             </button>
           </div>
@@ -344,24 +268,10 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               <MapPin className="h-4 w-4" />
               Naar
             </label>
-            <input
-              type="text"
-              id="to-desktop"
-              value={searchData.to}
-              onChange={e => handleInputChange('to', e.target.value)}
-              onFocus={() => handleInputFocus('to')}
-              placeholder="bv. Nice"
-              className="input-jetleg h-12"
-              required
-            />
+            <input type="text" id="to-desktop" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-12" required />
             
-            {activeSuggestion.field === 'to' && (
-              <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                <button
-                  type="button"
-                  onClick={handleEverywhere}
-                  className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white"
-                >
+            {activeSuggestion.field === 'to' && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
                       <Search className="h-4 w-4 text-white" />
@@ -373,13 +283,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                   </div>
                 </button>
                 
-                {suggestions.to.map(airport => (
-                  <button
-                    key={airport.code}
-                    type="button"
-                    onClick={() => handleSuggestionClick('to', airport)}
-                    className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white"
-                  >
+                {suggestions.to.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('to', airport)} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                         <Plane className="h-4 w-4 text-accent" />
@@ -389,10 +293,8 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                         <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
                       </div>
                     </div>
-                  </button>
-                ))}
-              </div>
-            )}
+                  </button>)}
+              </div>}
           </div>
           
           {/* Date Field */}
@@ -401,11 +303,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               <Search className="h-4 w-4" />
               Datum
             </label>
-            <EnhancedDatePicker
-              value={searchData.date}
-              onChange={value => handleInputChange('date', value)}
-              className="h-12"
-            />
+            <EnhancedDatePicker value={searchData.date} onChange={value => handleInputChange('date', value)} className="h-12" />
           </div>
           
           {/* Passengers Field */}
@@ -414,12 +312,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               <Users className="h-4 w-4" />
               Pax
             </label>
-            <PassengerCounter
-              value={searchData.passengers}
-              onChange={value => handleInputChange('passengers', value)}
-              className="h-12"
-              hideArrows={false}
-            />
+            <PassengerCounter value={searchData.passengers} onChange={value => handleInputChange('passengers', value)} className="h-12" hideArrows={false} />
           </div>
           
           {/* Search Button */}
@@ -431,8 +324,6 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           </div>
         </div>
       </form>
-    </div>
-  );
+    </div>;
 };
-
 export default SearchWithSuggestions;
