@@ -34,9 +34,7 @@ const Navigation = () => {
         </div>
         
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className={`${isActive('/') ? 'text-accent' : 'text-muted-foreground'} hover:text-accent transition-jetleg font-medium`}>
-            {t('nav.home')}
-          </Link>
+          
           <Link to="/top-deals" className={`${isActive('/top-deals') ? 'text-accent' : 'text-muted-foreground'} hover:text-accent transition-jetleg font-medium`}>
             {t('nav.deals')}
           </Link>
