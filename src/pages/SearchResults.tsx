@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar } from 'lucide-react';
@@ -32,13 +31,20 @@ const SearchResults = () => {
   useEffect(() => {
     let filtered = [...flights];
 
-    // Apply filters
+    // Apply filters with null checks for jets data
     filtered = filtered.filter(flight => {
       if (flight.price_per_seat > filters.maxPrice) return false;
       if (flight.available_seats < filters.minPassengers) return false;
-      if (flight.jets.seating_capacity > filters.maxPassengers) return false;
       
-      if (filters.aircraft && !`${flight.jets.brand} ${flight.jets.model}`.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
+      // Handle null jets data safely
+      const jetCapacity = flight.jets?.seating_capacity || 8;
+      if (jetCapacity > filters.maxPassengers) return false;
+      
+      if (filters.aircraft) {
+        const aircraftName = flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet';
+        if (!aircraftName.toLowerCase().includes(filters.aircraft.toLowerCase())) return false;
+      }
+      
       if (filters.timeOfDay !== 'any') {
         const hour = new Date(flight.departure_time).getHours();
         if (filters.timeOfDay === 'morning' && (hour < 6 || hour >= 12)) return false;
@@ -131,14 +137,15 @@ const SearchResults = () => {
       'weekend': 'Dit weekend',
       'next-week': 'Volgende week',
       'next-month': 'Volgende maand',
-      'flexible': 'Flexibele data'
+      'flexible': 'Flexibele data',
+      'fully-flexible': 'Flexibele data'
     };
 
     return flexibleOptions[searchData.date] || searchData.date;
   };
 
   const getImageUrl = (flight: Flight) => {
-    return flight.jets.image_url || '/src/assets/jet-interior.jpg';
+    return flight.jets?.image_url || '/src/assets/jet-interior.jpg';
   };
 
   if (isLoading) {
@@ -405,7 +412,7 @@ const SearchResults = () => {
                           
                           <div className="space-y-1">
                             <div className="font-medium text-foreground">
-                              {flight.jets.brand} {flight.jets.model}
+                              {flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet'}
                             </div>
                             <div className="text-sm text-muted-foreground flex items-center gap-4">
                               <span className="flex items-center gap-1">
@@ -424,7 +431,7 @@ const SearchResults = () => {
                         <div className="lg:col-span-1">
                           <img
                             src={getImageUrl(flight)}
-                            alt={`${flight.jets.brand} ${flight.jets.model}`}
+                            alt={flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet'}
                             className="w-full h-24 object-cover rounded-lg"
                             onError={(e) => {
                               e.currentTarget.src = '/src/assets/jet-interior.jpg';

@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { deduplicateFlightsByRoute } from '@/utils/flightUtils';
@@ -70,8 +69,8 @@ export const useFlights = (searchParams?: {
         query = query.ilike('arrival_airport', `%${toCity}%`);
       }
 
-      // Handle flexible date options
-      if (searchParams?.date && searchParams.date !== 'flexible') {
+      // Handle flexible date options - treat 'fully-flexible' same as 'flexible'
+      if (searchParams?.date && searchParams.date !== 'flexible' && searchParams.date !== 'fully-flexible') {
         if (!['today', 'tomorrow', 'weekend', 'next-week', 'next-month'].includes(searchParams.date)) {
           // Specific date selected
           const searchDate = new Date(searchParams.date);
