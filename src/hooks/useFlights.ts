@@ -1,6 +1,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { deduplicateFlightsByRoute } from '@/utils/flightUtils';
 
 export interface Flight {
   id: string;
@@ -37,7 +38,7 @@ export const useFlights = (searchParams?: {
         .from('flights')
         .select(`
           *,
-          jets (
+          jets!flights_jet_id_fkey (
             brand,
             model,
             type,
@@ -168,7 +169,7 @@ export const useFlightById = (flightId: string) => {
         .from('flights')
         .select(`
           *,
-          jets (
+          jets!flights_jet_id_fkey (
             brand,
             model,
             type,
@@ -191,7 +192,7 @@ export const useFlightById = (flightId: string) => {
   });
 };
 
-// Hook to get all available flights for deals sections - now sorted by departure time (most recent first)
+// Hook to get all available flights for deals sections - with de-duplication by route
 export const useAllFlights = () => {
   return useQuery({
     queryKey: ['all-flights'],
@@ -202,7 +203,7 @@ export const useAllFlights = () => {
         .from('flights')
         .select(`
           *,
-          jets (
+          jets!flights_jet_id_fkey (
             brand,
             model,
             type,
@@ -222,6 +223,44 @@ export const useAllFlights = () => {
 
       console.log(`Found ${data?.length || 0} total available flights`);
       return data as Flight[];
+    },
+  });
+};
+
+// New hook specifically for deals sections with de-duplication
+export const useDealsFlights = () => {
+  return useQuery({
+    queryKey: ['deals-flights'],
+    queryFn: async () => {
+      const now = new Date().toISOString();
+      
+      const { data, error } = await supabase
+        .from('flights')
+        .select(`
+          *,
+          jets!flights_jet_id_fkey (
+            brand,
+            model,
+            type,
+            seating_capacity,
+            range_km,
+            description,
+            image_url
+          )
+        `)
+        .gte('departure_time', now)
+        .order('departure_time', { ascending: true });
+
+      if (error) {
+        console.error('Error fetching deals flights:', error);
+        throw error;
+      }
+
+      // De-duplicate flights by route for deals sections
+      const deduplicatedFlights = deduplicateFlightsByRoute(data as Flight[]);
+      
+      console.log(`Found ${data?.length || 0} total flights, de-duplicated to ${deduplicatedFlights.length} unique routes for deals`);
+      return deduplicatedFlights;
     },
   });
 };

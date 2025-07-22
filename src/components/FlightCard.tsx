@@ -3,6 +3,7 @@ import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { extractAirportCode, extractCityName } from '@/utils/flightUtils';
 
 interface FlightCardProps {
   id: string;
@@ -43,7 +44,7 @@ const FlightCard = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // Debug logging to understand why aircraft details might be missing
+  // Debug logging to understand aircraft details
   console.log(`Flight ${id}: jet_id=${jet_id}, jets=`, jets);
 
   const handleBooking = () => {
@@ -77,15 +78,6 @@ const FlightCard = ({
     return new Date(dateString).toLocaleDateString('nl-NL');
   };
 
-  const extractAirportCode = (airport: string) => {
-    const match = airport.match(/\(([^)]+)\)/);
-    return match ? match[1] : airport.slice(-3);
-  };
-
-  const extractCityName = (airport: string) => {
-    return airport.split('(')[0].trim();
-  };
-
   const getRouteDescription = () => {
     if (jets?.description) {
       return jets.description;
@@ -98,9 +90,9 @@ const FlightCard = ({
       return `${jets.brand} ${jets.model}`;
     }
     if (jet_id) {
-      return `Aircraft ID: ${jet_id} (Details loading...)`;
+      return `Aircraft ID: ${jet_id}`;
     }
-    return 'Aircraft details being updated';
+    return 'Aircraft details loading...';
   };
 
   return (

@@ -4,11 +4,11 @@ import Footer from '@/components/Footer';
 import FlightCard from '@/components/FlightCard';
 import { ArrowLeft, Plane } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAllFlights } from '@/hooks/useFlights';
+import { useDealsFlights } from '@/hooks/useFlights';
 
 const TopDeals = () => {
   const navigate = useNavigate();
-  const { data: flights = [], isLoading, error } = useAllFlights();
+  const { data: flights = [], isLoading, error } = useDealsFlights();
 
   if (isLoading) {
     return (

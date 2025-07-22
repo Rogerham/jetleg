@@ -3,12 +3,12 @@ import { Eye } from 'lucide-react';
 import FlightCard from './FlightCard';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAllFlights } from '@/hooks/useFlights';
+import { useDealsFlights } from '@/hooks/useFlights';
 
 const DealsSection = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { data: flights = [], isLoading, error } = useAllFlights();
+  const { data: flights = [], isLoading, error } = useDealsFlights();
 
   // Get the first 3 flights as featured deals
   const featuredDeals = flights.slice(0, 3);
