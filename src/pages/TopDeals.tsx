@@ -141,10 +141,10 @@ const TopDeals = () => {
             <>
               <div className="text-center mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  {destinationDeals.length} Unieke Bestemmingen
+                  Unieke Bestemmingen
                 </h2>
                 <p className="text-muted-foreground">
-                  Elk met meerdere vluchten en operators om uit te kiezen
+                  Wees er snel bij om als eerste de droomcharter naar jouw favoriete bestemming te boeken. 'First come, first served.'
                 </p>
               </div>
               
@@ -154,27 +154,6 @@ const TopDeals = () => {
                     <DestinationDealCard deal={deal} />
                   </div>
                 ))}
-              </div>
-              
-              {/* Additional Info */}
-              <div className="text-center mt-16 p-8 bg-muted/30 rounded-lg">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
-                  Waarom bestemmingen kiezen?
-                </h3>
-                <div className="grid md:grid-cols-3 gap-6 text-sm text-muted-foreground">
-                  <div>
-                    <MapPin className="h-8 w-8 text-accent mx-auto mb-2" />
-                    <p><strong>Betere keuze:</strong> Zie alle opties per bestemming in één overzicht</p>
-                  </div>
-                  <div>
-                    <MapPin className="h-8 w-8 text-accent mx-auto mb-2" />
-                    <p><strong>Beste prijzen:</strong> Vergelijk verschillende operators en tijden</p>
-                  </div>
-                  <div>
-                    <MapPin className="h-8 w-8 text-accent mx-auto mb-2" />
-                    <p><strong>Meer flexibiliteit:</strong> Kies uit meerdere vertrekmomenten</p>
-                  </div>
-                </div>
               </div>
             </>
           )}

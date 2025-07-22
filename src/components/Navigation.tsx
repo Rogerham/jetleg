@@ -17,23 +17,18 @@ const Navigation = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  // Handle scroll behavior for mobile header
+  // Handle scroll behavior for all screen sizes
   useEffect(() => {
     let lastScrollY = window.scrollY;
     
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Only apply on mobile screens
-      if (window.innerWidth < 768) {
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down and past 100px
-          setIsScrolled(true);
-        } else if (currentScrollY < lastScrollY) {
-          // Scrolling up
-          setIsScrolled(false);
-        }
-      } else {
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past 100px
+        setIsScrolled(true);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
         setIsScrolled(false);
       }
       
@@ -62,7 +57,7 @@ const Navigation = () => {
 
   return (
     <header className={`bg-card shadow-lg sticky top-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'md:py-4 py-2' : 'py-4'
+      isScrolled ? 'py-2' : 'py-4'
     }`}>
       <nav className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center">

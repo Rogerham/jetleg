@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ChevronDown, DollarSign } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
 const CurrencySelector = () => {
@@ -21,7 +21,6 @@ const CurrencySelector = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-3 py-2 text-sm text-primary-foreground/80 hover:text-accent transition-colors"
       >
-        <DollarSign className="h-4 w-4" />
         <span>{currentCurrency.symbol} {currentCurrency.code}</span>
         <ChevronDown className="h-3 w-3" />
       </button>
