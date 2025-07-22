@@ -21,7 +21,7 @@ export interface Flight {
     seating_capacity: number;
     range_km: number;
     description: string;
-    image_url: string;
+    image_url: string | null;
   };
 }
 

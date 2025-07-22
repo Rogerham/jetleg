@@ -65,7 +65,6 @@ export type Database = {
         Row: {
           arrival_airport: string
           arrival_time: string
-          available_seats: number
           created_at: string
           departure_airport: string
           departure_time: string
@@ -78,7 +77,6 @@ export type Database = {
         Insert: {
           arrival_airport: string
           arrival_time: string
-          available_seats?: number
           created_at?: string
           departure_airport: string
           departure_time: string
@@ -91,7 +89,6 @@ export type Database = {
         Update: {
           arrival_airport?: string
           arrival_time?: string
-          available_seats?: number
           created_at?: string
           departure_airport?: string
           departure_time?: string

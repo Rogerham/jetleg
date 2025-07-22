@@ -1,3 +1,4 @@
+
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +23,8 @@ interface FlightCardProps {
     seating_capacity: number;
     range_km: number;
     description: string;
-    image_url: string;
-  } | null;
+    image_url: string | null;
+  };
 }
 
 const FlightCard = ({ 
@@ -43,17 +44,6 @@ const FlightCard = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // Add null checks and fallback values
-  const jetData = jets || {
-    brand: 'Unknown',
-    model: 'Aircraft',
-    type: 'Private Jet',
-    seating_capacity: available_seats,
-    range_km: 0,
-    description: `${operator} - Private Aircraft`,
-    image_url: '/src/assets/jet-interior.jpg'
-  };
-
   const handleBooking = () => {
     navigate(`/booking/${id}`, {
       state: {
@@ -68,7 +58,7 @@ const FlightCard = ({
           operator,
           flight_duration,
           jet_id,
-          jets: jetData
+          jets
         }
       }
     });
@@ -86,22 +76,27 @@ const FlightCard = ({
   };
 
   const getRouteDescription = () => {
-    if (jetData.description) {
-      return jetData.description;
+    if (jets.description) {
+      return jets.description;
     }
-    return `${operator} - ${jetData.brand} ${jetData.model}`;
+    return `${operator} - ${jets.brand} ${jets.model}`;
   };
 
   const getAircraftDetails = () => {
-    return `${jetData.brand} ${jetData.model}`;
+    return `${jets.brand} ${jets.model}`;
+  };
+
+  const getImageUrl = () => {
+    // Use actual jet image if available, otherwise fallback to default
+    return jets.image_url || '/src/assets/jet-interior.jpg';
   };
 
   return (
     <div className="card-jetleg hover:scale-[1.03] transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
         <img 
-          src={jetData.image_url} 
-          alt={`${jetData.brand} ${jetData.model}`} 
+          src={getImageUrl()} 
+          alt={`${jets.brand} ${jets.model}`} 
           className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
           onError={(e) => {
             // Fallback image if the original fails to load
