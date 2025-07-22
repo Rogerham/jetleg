@@ -1,9 +1,10 @@
+
 import { useState, useEffect, useRef } from 'react';
-import { MapPin, Search, Users, Plane, ArrowLeftRight } from 'lucide-react';
+import { MapPin, Search, Users, Plane, ArrowUpDown, ArrowLeftRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { worldwideAirports, type Airport } from '@/data/airports';
 import PassengerCounter from './PassengerCounter';
-import FlexibleDatePicker from './FlexibleDatePicker';
+import EnhancedDatePicker from './EnhancedDatePicker';
 
 interface SearchWithSuggestionsProps {
   className?: string;
@@ -174,7 +175,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
               )}
             </div>
             
-            {/* Swap Button */}
+            {/* Swap Button - Vertical on Mobile */}
             <div className="flex justify-center">
               <button
                 type="button"
@@ -182,7 +183,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
                 className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
                 title="Wissel vertrek en bestemming"
               >
-                <ArrowLeftRight className="w-5 h-5 text-white" />
+                <ArrowUpDown className="w-5 h-5 text-white" />
               </button>
             </div>
             
@@ -247,16 +248,16 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           
           {/* Date and Passengers Row */}
           <div className="grid grid-cols-3 gap-4">
-            {/* Flexible Date Field */}
+            {/* Enhanced Date Field */}
             <div className="col-span-2">
               <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <Search className="h-4 w-4" />
                 Datum
               </label>
-              <FlexibleDatePicker
+              <EnhancedDatePicker
                 value={searchData.date}
                 onChange={value => handleInputChange('date', value)}
-                className="w-full"
+                className="w-full h-14"
               />
             </div>
             
@@ -325,7 +326,7 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
             )}
           </div>
           
-          {/* Swap Button */}
+          {/* Swap Button - Horizontal on Desktop */}
           <div className="flex-shrink-0 self-end mb-1">
             <button
               type="button"
@@ -395,14 +396,15 @@ const SearchWithSuggestions = ({ className = '' }: SearchWithSuggestionsProps) =
           </div>
           
           {/* Date Field */}
-          <div className="flex-shrink-0 w-40">
+          <div className="flex-shrink-0 w-48">
             <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
               <Search className="h-4 w-4" />
               Datum
             </label>
-            <FlexibleDatePicker
+            <EnhancedDatePicker
               value={searchData.date}
               onChange={value => handleInputChange('date', value)}
+              className="h-12"
             />
           </div>
           
