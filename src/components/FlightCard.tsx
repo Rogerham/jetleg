@@ -24,7 +24,7 @@ interface FlightCardProps {
     range_km: number;
     description: string;
     image_url: string | null;
-  };
+  } | null;
 }
 
 const FlightCard = ({ 
@@ -76,19 +76,23 @@ const FlightCard = ({
   };
 
   const getRouteDescription = () => {
-    if (jets.description) {
+    if (jets?.description) {
       return jets.description;
     }
-    return `${operator} - ${jets.brand} ${jets.model}`;
+    return jets ? `${operator} - ${jets.brand} ${jets.model}` : `${operator} - Private Jet`;
   };
 
   const getAircraftDetails = () => {
-    return `${jets.brand} ${jets.model}`;
+    return jets ? `${jets.brand} ${jets.model}` : 'Private Jet';
   };
 
   const getImageUrl = () => {
-    // Use actual jet image if available, otherwise fallback to default
-    return jets.image_url || '/src/assets/jet-interior.jpg';
+    // Check if jets object exists and has a valid image_url
+    if (jets?.image_url) {
+      return jets.image_url;
+    }
+    // Fallback to default image
+    return '/src/assets/jet-interior.jpg';
   };
 
   return (
@@ -96,7 +100,7 @@ const FlightCard = ({
       <div className="relative overflow-hidden">
         <img 
           src={getImageUrl()} 
-          alt={`${jets.brand} ${jets.model}`} 
+          alt={jets ? `${jets.brand} ${jets.model}` : 'Private Jet'} 
           className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
           onError={(e) => {
             // Fallback image if the original fails to load

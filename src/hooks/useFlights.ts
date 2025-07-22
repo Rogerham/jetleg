@@ -22,7 +22,7 @@ export interface Flight {
     range_km: number;
     description: string;
     image_url: string | null;
-  };
+  } | null;
 }
 
 export const useFlights = (searchParams?: {
