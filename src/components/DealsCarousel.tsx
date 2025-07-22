@@ -5,23 +5,10 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import FlightCard from './FlightCard';
 import { Button } from '@/components/ui/button';
 import type { CarouselApi } from '@/components/ui/carousel';
-
-interface Deal {
-  id: string;
-  departure: string;
-  destination: string;
-  departureTime: string;
-  arrivalTime: string;
-  price: number;
-  aircraftType: string;
-  availableSeats: number;
-  duration: string;
-  departureDate: string;
-  image: string;
-}
+import type { Flight } from '@/hooks/useFlights';
 
 interface DealsCarouselProps {
-  deals: Deal[];
+  deals: Flight[];
   className?: string;
 }
 

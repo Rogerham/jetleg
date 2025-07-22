@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDealsFlights } from '@/hooks/useFlights';
 import DealsCarousel from './DealsCarousel';
+import FlightCard from './FlightCard';
 
 const DealsSection = () => {
   const navigate = useNavigate();
@@ -73,8 +74,8 @@ const DealsSection = () => {
           <div className="hidden lg:grid grid-cols-3 gap-8">
             {featuredDeals.slice(0, 3).map((deal, index) => (
               <div key={deal.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="h-full [&_*]:hover:scale-100">
-                  <div {...deal} />
+                <div className="h-full">
+                  <FlightCard {...deal} />
                 </div>
               </div>
             ))}
