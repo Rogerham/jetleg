@@ -195,7 +195,7 @@ const SearchResults = () => {
           <div className="flex items-center gap-4">
             {/* Sort Dropdown */}
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Sorteer op:</span>
+              <span className="text-sm text-muted-foreground">Sorteer:</span>
               <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
                 <option value="price">Prijs (laag naar hoog)</option>
                 <option value="duration">Vliegduur</option>
