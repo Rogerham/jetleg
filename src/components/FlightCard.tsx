@@ -87,12 +87,8 @@ const FlightCard = ({
   };
 
   const getImageUrl = () => {
-    // Check if jets object exists and has a valid image_url
-    if (jets?.image_url) {
-      return jets.image_url;
-    }
-    // Fallback to default image
-    return '/src/assets/jet-interior.jpg';
+    // Use the jet's image_url, or fallback to default
+    return jets?.image_url || '/src/assets/jet-interior.jpg';
   };
 
   return (

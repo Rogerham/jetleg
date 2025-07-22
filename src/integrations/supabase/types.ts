@@ -71,6 +71,7 @@ export type Database = {
           departure_time: string
           flight_duration: string
           id: string
+          img_destination: string | null
           jet_id: number | null
           operator: string
           price_per_seat: number
@@ -84,6 +85,7 @@ export type Database = {
           departure_time: string
           flight_duration: string
           id?: string
+          img_destination?: string | null
           jet_id?: number | null
           operator: string
           price_per_seat: number
@@ -97,6 +99,7 @@ export type Database = {
           departure_time?: string
           flight_duration?: string
           id?: string
+          img_destination?: string | null
           jet_id?: number | null
           operator?: string
           price_per_seat?: number
