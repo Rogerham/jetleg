@@ -76,6 +76,7 @@
   }
 
   .dark {
+    /* ... keep existing code (dark theme variables) */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
@@ -139,11 +140,26 @@
     @apply border-2 border-accent text-accent font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent hover:text-primary-foreground hover:scale-105 active:scale-95;
   }
 
-  /* Jetleg Card */
+  /* Jetleg Card - Updated with reduced hover scale and better mobile behavior */
   .card-jetleg {
-    @apply bg-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-card-hover)];
+    @apply bg-card rounded-2xl overflow-hidden transition-all duration-300;
     box-shadow: var(--shadow-card);
     background: var(--gradient-card);
+  }
+  
+  /* Enhanced hover effects with better mobile support */
+  @media (hover: hover) {
+    .card-jetleg:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+  
+  /* Prevent hover effects on touch devices to avoid clipping */
+  @media (hover: none) {
+    .card-jetleg:hover {
+      transform: none;
+    }
   }
 
   /* Hero Background */
@@ -178,8 +194,9 @@
     transition: var(--transition-smooth);
   }
 
+  /* Updated hover scale animation with reduced scale */
   .animate-scale-hover:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   /* Date input styling */

@@ -3,17 +3,51 @@ import { Menu, X, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const isActive = (path: string) => location.pathname === path;
+
+  // Handle scroll behavior for mobile header
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Only apply on mobile screens
+      if (window.innerWidth < 768) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down and past 100px
+          setIsScrolled(true);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up
+          setIsScrolled(false);
+        }
+      } else {
+        setIsScrolled(false);
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -25,16 +59,25 @@ const Navigation = () => {
       return () => document.removeEventListener('click', handleClickOutside);
     }
   }, [isUserMenuOpen]);
-  return <header className="bg-card shadow-lg sticky top-0 z-50">
-      <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+
+  return (
+    <header className={`bg-card shadow-lg sticky top-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'md:py-4 py-2' : 'py-4'
+    }`}>
+      <nav className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="hover:opacity-80 transition-jetleg">
-            <img src="/lovable-uploads/98279cd3-d5a1-4405-ae12-29b927f1dbd6.png" alt="Jetleg - The smartest way to fly private" className="h-20 w-auto" />
+            <img 
+              src="/lovable-uploads/98279cd3-d5a1-4405-ae12-29b927f1dbd6.png" 
+              alt="Jetleg - The smartest way to fly private" 
+              className={`w-auto transition-all duration-300 ${
+                isScrolled ? 'h-12' : 'h-20'
+              }`} 
+            />
           </Link>
         </div>
         
         <div className="hidden md:flex items-center space-x-8">
-          
           <Link to="/top-deals" className={`${isActive('/top-deals') ? 'text-accent' : 'text-muted-foreground'} hover:text-accent transition-jetleg font-medium`}>
             {t('nav.deals')}
           </Link>
@@ -54,15 +97,15 @@ const Navigation = () => {
           
           <div className="relative">
             <button onClick={e => {
-            e.stopPropagation();
-            setIsUserMenuOpen(!isUserMenuOpen);
-          }} className="flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-accent transition-jetleg">
+              e.stopPropagation();
+              setIsUserMenuOpen(!isUserMenuOpen);
+            }} className="flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-accent transition-jetleg">
               <User className="h-5 w-5" />
               <span>{t('nav.account')}</span>
             </button>
             
-            {/* User Dropdown */}
-            {isUserMenuOpen && <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg z-50">
+            {isUserMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg z-50">
                 <div className="py-1">
                   <Link to="/login" className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors" onClick={() => setIsUserMenuOpen(false)}>
                     {t('nav.login')}
@@ -78,7 +121,8 @@ const Navigation = () => {
                     {t('nav.profile')}
                   </Link>
                 </div>
-              </div>}
+              </div>
+            )}
           </div>
         </div>
         
@@ -90,8 +134,8 @@ const Navigation = () => {
         </div>
       </nav>
       
-      {/* Mobile Menu */}
-      {isMenuOpen && <div className="md:hidden px-6 pb-4 bg-card border-t border-border">
+      {isMenuOpen && (
+        <div className="md:hidden px-6 pb-4 bg-card border-t border-border">
           <Link to="/" className={`block py-3 ${isActive('/') ? 'text-accent' : 'text-muted-foreground'} hover:text-accent transition-jetleg`} onClick={() => setIsMenuOpen(false)}>
             {t('nav.home')}
           </Link>
@@ -118,7 +162,10 @@ const Navigation = () => {
               {t('nav.myBookings')}
             </Link>
           </div>
-        </div>}
-    </header>;
+        </div>
+      )}
+    </header>
+  );
 };
+
 export default Navigation;

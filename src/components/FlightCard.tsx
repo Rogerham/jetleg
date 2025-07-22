@@ -1,4 +1,3 @@
-
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
@@ -98,12 +97,12 @@ const FlightCard = ({
   };
 
   return (
-    <div className="card-jetleg @media (hover: hover) { hover:scale-105 } transition-all duration-200 h-full flex flex-col">
+    <div className="card-jetleg hover:scale-[1.03] transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
         <img 
           src={jetData.image_url} 
           alt={`${jetData.brand} ${jetData.model}`} 
-          className="w-full h-48 object-cover @media (hover: hover) { hover:scale-110 } transition-transform duration-300"
+          className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
           onError={(e) => {
             // Fallback image if the original fails to load
             e.currentTarget.src = '/src/assets/jet-interior.jpg';
