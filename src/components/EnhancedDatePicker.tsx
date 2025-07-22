@@ -23,7 +23,6 @@ const EnhancedDatePicker = ({ value, onChange, className }: EnhancedDatePickerPr
     { label: 'Dit weekend', value: 'weekend' },
     { label: 'Volgende week', value: 'next-week' },
     { label: 'Volgende maand', value: 'next-month' },
-    { label: 'Specifieke maand', value: 'specific-month' },
     { label: 'Volledig flexibel', value: 'fully-flexible' }
   ];
 

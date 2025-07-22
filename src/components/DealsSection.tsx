@@ -17,7 +17,7 @@ const DealsSection = () => {
   if (isLoading) {
     return (
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 md:px-8 lg:px-6">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-title text-foreground mb-4">
               {t('deals.title')}
@@ -39,7 +39,7 @@ const DealsSection = () => {
   if (error || featuredDeals.length === 0) {
     return (
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 md:px-8 lg:px-6">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-title text-foreground mb-4">
               {t('deals.title')}
@@ -58,7 +58,7 @@ const DealsSection = () => {
 
   return (
     <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 md:px-8 lg:px-6">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-title text-foreground mb-4">
             {t('deals.title')}

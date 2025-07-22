@@ -12,8 +12,8 @@ const HeroSection = () => {
     }}>
       <div className="container mx-auto px-6 py-12 md:py-16 text-center">
         <div className="animate-fade-in">
-          <h1 className="text-hero mb-6 text-white">{t('hero.title')}</h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
+          <h1 className="text-hero mb-6 text-white drop-shadow-lg">{t('hero.title')}</h1>
+          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto drop-shadow-md">
             {t('hero.subtitle')}
           </p>
         </div>
