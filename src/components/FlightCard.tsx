@@ -24,7 +24,7 @@ interface FlightCardProps {
     range_km: number;
     description: string;
     image_url: string;
-  };
+  } | null;
 }
 
 const FlightCard = ({ 
@@ -44,6 +44,17 @@ const FlightCard = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  // Add null checks and fallback values
+  const jetData = jets || {
+    brand: 'Unknown',
+    model: 'Aircraft',
+    type: 'Private Jet',
+    seating_capacity: available_seats,
+    range_km: 0,
+    description: `${operator} - Private Aircraft`,
+    image_url: '/src/assets/jet-interior.jpg'
+  };
+
   const handleBooking = () => {
     navigate(`/booking/${id}`, {
       state: {
@@ -58,7 +69,7 @@ const FlightCard = ({
           operator,
           flight_duration,
           jet_id,
-          jets
+          jets: jetData
         }
       }
     });
@@ -76,23 +87,27 @@ const FlightCard = ({
   };
 
   const getRouteDescription = () => {
-    if (jets.description) {
-      return jets.description;
+    if (jetData.description) {
+      return jetData.description;
     }
-    return `${operator} - ${jets.brand} ${jets.model}`;
+    return `${operator} - ${jetData.brand} ${jetData.model}`;
   };
 
   const getAircraftDetails = () => {
-    return `${jets.brand} ${jets.model}`;
+    return `${jetData.brand} ${jetData.model}`;
   };
 
   return (
     <div className="card-jetleg @media (hover: hover) { hover:scale-105 } transition-all duration-200 h-full flex flex-col">
       <div className="relative overflow-hidden">
         <img 
-          src={jets.image_url} 
-          alt={`${jets.brand} ${jets.model}`} 
+          src={jetData.image_url} 
+          alt={`${jetData.brand} ${jetData.model}`} 
           className="w-full h-48 object-cover @media (hover: hover) { hover:scale-110 } transition-transform duration-300"
+          onError={(e) => {
+            // Fallback image if the original fails to load
+            e.currentTarget.src = '/src/assets/jet-interior.jpg';
+          }}
         />
         <div className="absolute top-4 right-4">
           <span className="deal-badge text-white bg-accent">
