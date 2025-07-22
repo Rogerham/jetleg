@@ -37,7 +37,16 @@ export const useFlights = (searchParams?: {
       let query = supabase
         .from('flights')
         .select(`
-          *,
+          id,
+          departure_airport,
+          arrival_airport,
+          departure_time,
+          arrival_time,
+          price_per_seat,
+          available_seats,
+          operator,
+          flight_duration,
+          jet_id,
           jets!flights_jet_id_fkey (
             brand,
             model,
@@ -168,7 +177,16 @@ export const useFlightById = (flightId: string) => {
       const { data, error } = await supabase
         .from('flights')
         .select(`
-          *,
+          id,
+          departure_airport,
+          arrival_airport,
+          departure_time,
+          arrival_time,
+          price_per_seat,
+          available_seats,
+          operator,
+          flight_duration,
+          jet_id,
           jets!flights_jet_id_fkey (
             brand,
             model,
@@ -202,7 +220,16 @@ export const useAllFlights = () => {
       const { data, error } = await supabase
         .from('flights')
         .select(`
-          *,
+          id,
+          departure_airport,
+          arrival_airport,
+          departure_time,
+          arrival_time,
+          price_per_seat,
+          available_seats,
+          operator,
+          flight_duration,
+          jet_id,
           jets!flights_jet_id_fkey (
             brand,
             model,
@@ -237,7 +264,16 @@ export const useDealsFlights = () => {
       const { data, error } = await supabase
         .from('flights')
         .select(`
-          *,
+          id,
+          departure_airport,
+          arrival_airport,
+          departure_time,
+          arrival_time,
+          price_per_seat,
+          available_seats,
+          operator,
+          flight_duration,
+          jet_id,
           jets!flights_jet_id_fkey (
             brand,
             model,
