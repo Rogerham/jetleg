@@ -1,17 +1,28 @@
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { user, signIn } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect to home if user is already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,12 +33,26 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const { error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        if (error.message.includes('Invalid login credentials')) {
+          toast.error('Ongeldige inloggegevens. Controleer je e-mail en wachtwoord.');
+        } else if (error.message.includes('Email not confirmed')) {
+          toast.error('Bevestig je e-mailadres voordat je inloggt. Controleer je inbox.');
+        } else {
+          toast.error('Er is een fout opgetreden bij het inloggen. Probeer het opnieuw.');
+        }
+      } else {
+        toast.success('Succesvol ingelogd!');
+        navigate('/');
+      }
+    } catch (error) {
+      toast.error('Er is een onverwachte fout opgetreden. Probeer het opnieuw.');
+    } finally {
       setIsLoading(false);
-      // Handle login logic here
-      console.log('Login attempt:', formData);
-    }, 1000);
+    }
   };
 
   return (
@@ -104,7 +129,7 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-jetleg-primary"
+                className="w-full btn-jetleg-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Bezig met inloggen...' : 'Inloggen'}
               </button>

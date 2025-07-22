@@ -1,11 +1,15 @@
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, Phone } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { user, signUp } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,6 +22,13 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Redirect to home if user is already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -28,16 +39,46 @@ const Register = () => {
     setIsLoading(true);
     
     if (formData.password !== formData.confirmPassword) {
-      alert('Wachtwoorden komen niet overeen');
+      toast.error('Wachtwoorden komen niet overeen');
+      setIsLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      toast.error('Wachtwoord moet minstens 6 tekens lang zijn');
       setIsLoading(false);
       return;
     }
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const { error } = await signUp(
+        formData.email,
+        formData.password,
+        formData.firstName,
+        formData.lastName,
+        formData.phone
+      );
+      
+      if (error) {
+        if (error.message.includes('User already registered')) {
+          toast.error('Dit e-mailadres is al geregistreerd. Probeer in te loggen.');
+        } else if (error.message.includes('Password should be at least 6 characters')) {
+          toast.error('Wachtwoord moet minstens 6 tekens lang zijn');
+        } else if (error.message.includes('Unable to validate email address')) {
+          toast.error('Ongeldig e-mailadres. Controleer je invoer.');
+        } else {
+          toast.error('Er is een fout opgetreden bij het registreren. Probeer het opnieuw.');
+        }
+      } else {
+        toast.success('Account succesvol aangemaakt! Controleer je e-mail om je account te bevestigen.');
+        // Redirect to login page after successful registration
+        navigate('/login');
+      }
+    } catch (error) {
+      toast.error('Er is een onverwachte fout opgetreden. Probeer het opnieuw.');
+    } finally {
       setIsLoading(false);
-      console.log('Registration attempt:', formData);
-    }, 1000);
+    }
   };
 
   return (
@@ -143,6 +184,7 @@ const Register = () => {
                     className="w-full pl-10 pr-12 py-3 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors"
                     placeholder="••••••••"
                     required
+                    minLength={6}
                   />
                   <button
                     type="button"
@@ -152,6 +194,7 @@ const Register = () => {
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
+                <p className="text-xs text-muted-foreground mt-1">Minimaal 6 tekens</p>
               </div>
 
               <div>
@@ -202,7 +245,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-jetleg-primary"
+                className="w-full btn-jetleg-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Account aanmaken...' : 'Registreren'}
               </button>
