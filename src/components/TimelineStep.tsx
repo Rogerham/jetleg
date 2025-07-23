@@ -22,7 +22,7 @@ const TimelineStep = ({
   isEven = false,
   onVisible 
 }: TimelineStepProps) => {
-  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.5 });
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
 
   React.useEffect(() => {
     if (isVisible) {
@@ -37,16 +37,18 @@ const TimelineStep = ({
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-30 translate-y-8'
       }`}
     >
-      {/* Timeline dot - centered */}
+      {/* Timeline dot - centered, desktop only with numbers */}
       <div className="absolute left-1/2 transform -translate-x-1/2 z-10 hidden lg:block">
         <div className={`w-12 h-12 rounded-full border-4 border-background transition-all duration-500 flex items-center justify-center ${
           isVisible 
             ? 'bg-accent scale-110 shadow-lg' 
-            : 'bg-muted scale-100'
+            : 'bg-muted/50 scale-100'
         }`}>
-          <Icon className={`h-5 w-5 transition-colors duration-300 ${
+          <span className={`text-lg font-bold transition-colors duration-300 ${
             isVisible ? 'text-white' : 'text-muted-foreground'
-          }`} />
+          }`}>
+            {stepNumber}
+          </span>
         </div>
       </div>
 
@@ -99,13 +101,13 @@ const TimelineStep = ({
           </div>
         </div>
 
-        {/* Visual element - alternates sides on desktop */}
-        <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'} ${isEven ? 'lg:pr-8' : 'lg:pl-8'}`}>
+        {/* Visual element - desktop only with improved contrast */}
+        <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'} ${isEven ? 'lg:pr-8' : 'lg:pl-8'} hidden lg:block`}>
           <div className={`transition-all duration-700 delay-300 ${
             isVisible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
           }`}>
-            <div className="w-full max-w-md mx-auto h-64 sm:h-80 bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl flex items-center justify-center shadow-lg">
-              <Icon className="h-20 w-20 sm:h-24 sm:w-24 text-accent/30" />
+            <div className="w-full max-w-md mx-auto h-64 sm:h-80 bg-gradient-to-br from-accent/20 to-accent/10 border border-accent/20 rounded-3xl flex items-center justify-center shadow-xl backdrop-blur-sm">
+              <Icon className="h-20 w-20 sm:h-24 sm:w-24 text-accent/60" />
             </div>
           </div>
         </div>
