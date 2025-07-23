@@ -1,4 +1,3 @@
-
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import DestinationDealCard from '@/components/DestinationDealCard';
@@ -30,7 +29,7 @@ const TopDeals = () => {
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Gegroepeerd per bestemming voor het beste overzicht.
+                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.
               </p>
             </div>
           </div>
@@ -73,7 +72,7 @@ const TopDeals = () => {
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Gegroepeerd per bestemming voor het beste overzicht.
+                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.
               </p>
             </div>
           </div>
@@ -120,7 +119,7 @@ const TopDeals = () => {
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Gegroepeerd per bestemming voor het beste overzicht.
+              Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.
             </p>
           </div>
         </div>
@@ -132,19 +131,22 @@ const TopDeals = () => {
           {destinationDeals.length === 0 ? (
             <div className="text-center py-20">
               <MapPin className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">Geen bestemmingen beschikbaar</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Nog geen vluchten beschikbaar</h3>
               <p className="text-muted-foreground mb-4">
-                Er zijn momenteel geen bestemmingen beschikbaar. Kom later terug voor nieuwe aanbiedingen.
+                Er zijn momenteel geen vluchten beschikbaar naar onze exclusieve bestemmingen. Kom later terug voor nieuwe aanbiedingen.
               </p>
             </div>
           ) : (
             <>
               <div className="text-center mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Unieke Bestemmingen
+                  Exclusieve Bestemmingen
                 </h2>
                 <p className="text-muted-foreground">
                   Wees er snel bij om als eerste de droomcharter naar jouw favoriete bestemming te boeken. 'First come, first served.'
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  {destinationDeals.length} bestemmingen beschikbaar
                 </p>
               </div>
               

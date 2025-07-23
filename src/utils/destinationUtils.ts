@@ -3,25 +3,53 @@ import { Flight } from '@/hooks/useFlights';
 import { DestinationDeal } from '@/types/destinationDeals';
 import { extractAirportCode, extractCityName } from './flightUtils';
 
-// Default destination images mapping
-const DESTINATION_IMAGES: Record<string, string> = {
-  'Paris': '/src/assets/paris-aerial.jpg',
-  'London': '/src/assets/london-aerial.jpg',
-  'Ibiza': '/src/assets/ibiza-aerial.jpg',
-  // Add more as needed
+// The 12 specific destinations we want to feature
+const FEATURED_DESTINATIONS = [
+  'Barcelona', 'Berlin', 'Cannes', 'Dubai', 'Courchevel', 
+  'London', 'Los Angeles', 'Madrid', 'Monaco', 'New York', 'Paris', 'Geneva'
+];
+
+// Country mapping for the 12 featured destinations
+const DESTINATION_COUNTRIES: Record<string, string> = {
+  'Barcelona': 'Spanje',
+  'Berlin': 'Duitsland',
+  'Cannes': 'Frankrijk',
+  'Dubai': 'Verenigde Arabische Emiraten',
+  'Courchevel': 'Frankrijk',
+  'London': 'Verenigd Koninkrijk',
+  'Los Angeles': 'Verenigde Staten',
+  'Madrid': 'Spanje',
+  'Monaco': 'Monaco',
+  'New York': 'Verenigde Staten',
+  'Paris': 'Frankrijk',
+  'Geneva': 'Zwitserland'
 };
 
 // Default fallback image
 const DEFAULT_DESTINATION_IMAGE = '/src/assets/hero-bg.jpg';
 
 /**
- * Groups flights by destination and creates DestinationDeal objects
+ * Groups flights by destination and creates DestinationDeal objects for the 12 featured destinations
  */
 export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] => {
+  console.log(`Processing ${flights.length} flights for destination deals`);
+  
+  // Filter flights to only include our 12 featured destinations
+  const featuredFlights = flights.filter(flight => {
+    const destinationCity = extractCityName(flight.arrival_airport);
+    const isFeatured = FEATURED_DESTINATIONS.includes(destinationCity);
+    if (isFeatured) {
+      console.log(`Found flight to featured destination: ${destinationCity}`);
+    }
+    return isFeatured;
+  });
+
+  console.log(`Filtered to ${featuredFlights.length} flights for featured destinations`);
+
   const destinationMap = new Map<string, Flight[]>();
   
   // Group flights by destination city
-  flights.forEach(flight => {
+  featuredFlights.forEach(flight => {
     const destinationCity = extractCityName(flight.arrival_airport);
     const destinationCode = extractAirportCode(flight.arrival_airport);
     const key = `${destinationCity}-${destinationCode}`;
@@ -43,8 +71,11 @@ export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] 
     const totalAvailableSeats = flights.reduce((sum, f) => sum + f.available_seats, 0);
     const operators = [...new Set(flights.map(f => f.operator))];
     
-    // Get country from airport string (simple extraction)
-    const country = extractCountryFromAirport(flights[0].arrival_airport);
+    // Get country from our mapping
+    const country = DESTINATION_COUNTRIES[destinationCity] || 'Europa';
+    
+    // Get image URL - prioritize img_destination from flights, then fallback
+    const imageUrl = getDestinationImageUrl(flights, destinationCity);
     
     // Create destination deal
     const destinationDeal: DestinationDeal = {
@@ -56,33 +87,37 @@ export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] 
       minPrice,
       totalAvailableSeats,
       operators,
-      imageUrl: DESTINATION_IMAGES[destinationCity] || DEFAULT_DESTINATION_IMAGE,
+      imageUrl,
       description: generateDestinationDescription(destinationCity, country, operators.length)
     };
     
+    console.log(`Created destination deal for ${destinationCity}: ${flights.length} flights, min price ${minPrice}`);
     destinationDeals.push(destinationDeal);
   });
   
-  // Sort by min price and limit to 12
-  return destinationDeals
-    .sort((a, b) => a.minPrice - b.minPrice)
-    .slice(0, 12);
+  // Sort by min price and ensure we have all destinations
+  const sortedDeals = destinationDeals.sort((a, b) => a.minPrice - b.minPrice);
+  
+  console.log(`Final destination deals: ${sortedDeals.length} destinations`);
+  return sortedDeals;
 };
 
 /**
- * Extract country from airport string (basic implementation)
+ * Get the best image URL for a destination
  */
-const extractCountryFromAirport = (airport: string): string => {
-  // This is a simplified implementation
-  // In a real app, you'd have a proper airport database
-  if (airport.includes('France') || airport.includes('Paris')) return 'Frankrijk';
-  if (airport.includes('UK') || airport.includes('London') || airport.includes('England')) return 'Verenigd Koninkrijk';
-  if (airport.includes('Spain') || airport.includes('Madrid') || airport.includes('Barcelona') || airport.includes('Ibiza')) return 'Spanje';
-  if (airport.includes('Italy') || airport.includes('Rome') || airport.includes('Milan')) return 'Italië';
-  if (airport.includes('Germany') || airport.includes('Berlin') || airport.includes('Munich')) return 'Duitsland';
-  if (airport.includes('Netherlands') || airport.includes('Amsterdam')) return 'Nederland';
+const getDestinationImageUrl = (flights: Flight[], destinationCity: string): string => {
+  // First, try to find a flight with img_destination
+  const flightWithImage = flights.find(flight => flight.img_destination && flight.img_destination.trim() !== '');
   
-  return 'Europa'; // Default fallback
+  if (flightWithImage?.img_destination) {
+    console.log(`Using img_destination for ${destinationCity}: ${flightWithImage.img_destination}`);
+    return flightWithImage.img_destination;
+  }
+  
+  // Fallback to destination-photos storage bucket
+  const fallbackUrl = `https://dtvvyopjzdmbnpgwhkbi.supabase.co/storage/v1/object/public/destination-photos/${destinationCity.toLowerCase()}.jpg`;
+  console.log(`Using fallback image for ${destinationCity}: ${fallbackUrl}`);
+  return fallbackUrl;
 };
 
 /**

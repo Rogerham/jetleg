@@ -11,16 +11,18 @@ export const useDestinationDeals = () => {
     queryKey: ['destination-deals', flights.length],
     queryFn: async (): Promise<DestinationDeal[]> => {
       if (flights.length === 0) {
+        console.log('No flights available for destination deals');
         return [];
       }
       
+      console.log(`Processing ${flights.length} flights for destination deals`);
       const destinationDeals = groupFlightsByDestination(flights);
-      console.log(`Processed ${flights.length} flights into ${destinationDeals.length} destination deals`);
+      console.log(`Generated ${destinationDeals.length} destination deals from ${flights.length} flights`);
       
       return destinationDeals;
     },
     enabled: !flightsLoading && flights.length > 0,
-    // Use the flights loading state and error
+    // Return the loading state and error from flights query
     meta: {
       isLoading: flightsLoading,
       error: flightsError

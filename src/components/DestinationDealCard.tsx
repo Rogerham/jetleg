@@ -27,6 +27,22 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
     });
   };
 
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.currentTarget;
+    console.log(`Image failed to load for ${deal.destination}: ${target.src}`);
+    
+    // Try fallback to destination-photos bucket
+    if (!target.src.includes('destination-photos')) {
+      const fallbackUrl = `https://dtvvyopjzdmbnpgwhkbi.supabase.co/storage/v1/object/public/destination-photos/${deal.destination.toLowerCase()}.jpg`;
+      console.log(`Trying fallback image: ${fallbackUrl}`);
+      target.src = fallbackUrl;
+    } else {
+      // Final fallback to default hero image
+      console.log(`Using final fallback image for ${deal.destination}`);
+      target.src = '/src/assets/hero-bg.jpg';
+    }
+  };
+
   const bestFlight = getBestFlightForDestination(deal);
 
   return (
@@ -36,9 +52,7 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
           src={deal.imageUrl} 
           alt={`${deal.destination}, ${deal.country}`}
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-          onError={(e) => {
-            e.currentTarget.src = '/src/assets/hero-bg.jpg';
-          }}
+          onError={handleImageError}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <div className="absolute top-4 left-4">
