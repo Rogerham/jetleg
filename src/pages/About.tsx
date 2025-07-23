@@ -1,92 +1,71 @@
-
 import { Plane, Users, Award, Globe, Shield, Clock, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-
 const About = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
-
-  const stats = [
-    {
-      number: '500+',
-      label: t('about.stats.customers'),
-      icon: Users
-    },
-    {
-      number: '50+',
-      label: t('about.stats.destinations'),
-      icon: Globe
-    },
-    {
-      number: '98%',
-      label: t('about.stats.satisfaction'),
-      icon: Award
-    },
-    {
-      number: '24/7',
-      label: t('about.stats.support'),
-      icon: Clock
-    }
-  ];
-
-  const team = [
-    {
-      name: t('about.team.xavier.name'),
-      role: t('about.team.xavier.role'),
-      description: t('about.team.xavier.description')
-    },
-    {
-      name: t('about.team.carley.name'),
-      role: t('about.team.carley.role'),
-      description: t('about.team.carley.description')
-    },
-    {
-      name: t('about.team.marc.name'),
-      role: t('about.team.marc.role'),
-      description: t('about.team.marc.description')
-    }
-  ];
-
-  const values = [
-    {
-      icon: Shield,
-      title: t('about.values.safety.title'),
-      description: t('about.values.safety.description')
-    },
-    {
-      icon: Award,
-      title: t('about.values.excellence.title'),
-      description: t('about.values.excellence.description')
-    },
-    {
-      icon: Users,
-      title: t('about.values.customerCentric.title'),
-      description: t('about.values.customerCentric.description')
-    },
-    {
-      icon: Globe,
-      title: t('about.values.accessibility.title'),
-      description: t('about.values.accessibility.description')
-    }
-  ];
-
+  const {
+    t
+  } = useTranslation();
+  const stats = [{
+    number: '500+',
+    label: t('about.stats.customers'),
+    icon: Users
+  }, {
+    number: '50+',
+    label: t('about.stats.destinations'),
+    icon: Globe
+  }, {
+    number: '98%',
+    label: t('about.stats.satisfaction'),
+    icon: Award
+  }, {
+    number: '24/7',
+    label: t('about.stats.support'),
+    icon: Clock
+  }];
+  const team = [{
+    name: t('about.team.xavier.name'),
+    role: t('about.team.xavier.role'),
+    description: t('about.team.xavier.description')
+  }, {
+    name: t('about.team.carley.name'),
+    role: t('about.team.carley.role'),
+    description: t('about.team.carley.description')
+  }, {
+    name: t('about.team.marc.name'),
+    role: t('about.team.marc.role'),
+    description: t('about.team.marc.description')
+  }];
+  const values = [{
+    icon: Shield,
+    title: t('about.values.safety.title'),
+    description: t('about.values.safety.description')
+  }, {
+    icon: Award,
+    title: t('about.values.excellence.title'),
+    description: t('about.values.excellence.description')
+  }, {
+    icon: Users,
+    title: t('about.values.customerCentric.title'),
+    description: t('about.values.customerCentric.description')
+  }, {
+    icon: Globe,
+    title: t('about.values.accessibility.title'),
+    description: t('about.values.accessibility.description')
+  }];
   const handleSearchFlights = () => {
     navigate('/');
   };
-
   const handleContact = () => {
     navigate('/contact');
   };
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Navigation />
       
       {/* Hero Section - Reduced height */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-13">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-hero mb-4">{t('about.hero.title')}</h1>
           <p className="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">
@@ -112,11 +91,7 @@ const About = () => {
               </p>
             </div>
             <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600&h=400&fit=crop"
-                alt="Luxe private jet interieur"
-                className="rounded-2xl shadow-lg"
-              />
+              <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600&h=400&fit=crop" alt="Luxe private jet interieur" className="rounded-2xl shadow-lg" />
             </div>
           </div>
         </div>
@@ -127,15 +102,13 @@ const About = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-title text-center mb-12 text-foreground">{t('about.stats.title')}</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+            {stats.map((stat, index) => <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="h-8 w-8 text-accent" />
                 </div>
                 <div className="text-3xl font-bold text-foreground mb-2">{stat.number}</div>
                 <div className="text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -145,15 +118,13 @@ const About = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-title text-center mb-12 text-white">{t('about.values.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div key={index} className="card-jetleg p-6 text-center">
+            {values.map((value, index) => <div key={index} className="card-jetleg p-6 text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <value.icon className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-3">{value.title}</h3>
                 <p className="text-muted-foreground">{value.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -163,16 +134,14 @@ const About = () => {
         <div className="container mx-auto px-6">
           <h2 className="text-title text-center mb-12 text-foreground">{t('about.team.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <div key={index} className="card-jetleg p-6 text-center">
+            {team.map((member, index) => <div key={index} className="card-jetleg p-6 text-center">
                 <div className="w-24 h-24 rounded-full mx-auto mb-4 bg-accent/10 flex items-center justify-center">
                   <User className="w-12 h-12 text-accent" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-1">{member.name}</h3>
                 <div className="text-accent font-medium mb-3">{member.role}</div>
                 <p className="text-muted-foreground">{member.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -185,16 +154,10 @@ const About = () => {
             {t('about.cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={handleSearchFlights}
-              className="bg-white text-accent font-semibold px-8 py-3 rounded-xl hover:bg-white/90 transition-all"
-            >
+            <button onClick={handleSearchFlights} className="bg-white text-accent font-semibold px-8 py-3 rounded-xl hover:bg-white/90 transition-all">
               {t('about.cta.viewFlights')}
             </button>
-            <button
-              onClick={handleContact}
-              className="border-2 border-white text-white font-semibold px-8 py-3 rounded-xl hover:bg-white hover:text-accent transition-all"
-            >
+            <button onClick={handleContact} className="border-2 border-white text-white font-semibold px-8 py-3 rounded-xl hover:bg-white hover:text-accent transition-all">
               {t('about.cta.contact')}
             </button>
           </div>
@@ -202,8 +165,6 @@ const About = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
