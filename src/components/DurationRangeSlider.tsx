@@ -17,6 +17,7 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
 
   const handleRangeChange = (newRange: number[]) => {
     setRange(newRange);
+    // Immediate callback without any debouncing to ensure smooth operation
     onDurationChange(newRange[0], newRange[1]);
   };
 
