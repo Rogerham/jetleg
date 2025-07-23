@@ -16,6 +16,8 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
 
   useEffect(() => {
     if (!api) {
@@ -24,9 +26,13 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
 
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
+    setCanScrollPrev(api.canScrollPrev());
+    setCanScrollNext(api.canScrollNext());
 
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1);
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
     });
   }, [api]);
 
@@ -66,23 +72,18 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
             <CarouselPrevious className="absolute -left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
             <CarouselNext className="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg" />
           </div>
-          
-          {/* Tablet Navigation - Overlapping Arrows */}
-          <div className="hidden sm:block lg:hidden">
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-border shadow-lg z-10" />
-          </div>
         </Carousel>
       </div>
 
-      {/* Mobile Navigation - Non-overlapping buttons above dots */}
-      <div className="flex justify-center items-center gap-4 mt-4 sm:hidden">
+      {/* Mobile & Tablet Navigation - Non-overlapping buttons above dots */}
+      <div className="flex justify-center items-center gap-4 mt-4 lg:hidden">
         <Button
           variant="outline"
           size="sm"
           onClick={() => api?.scrollPrev()}
-          disabled={current === 1}
-          className="h-8 w-8 p-0"
+          className={`h-8 w-8 p-0 transition-all duration-200 ${
+            !canScrollPrev ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -106,27 +107,12 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
           variant="outline"
           size="sm"
           onClick={() => api?.scrollNext()}
-          disabled={current === count}
-          className="h-8 w-8 p-0"
+          className={`h-8 w-8 p-0 transition-all duration-200 ${
+            !canScrollNext ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
-      </div>
-
-      {/* Tablet Navigation - Dots Only */}
-      <div className="hidden sm:flex lg:hidden justify-center gap-2 mt-6">
-        {Array.from({ length: count }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => scrollTo(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-200 ${
-              current === index + 1
-                ? 'bg-primary w-6'
-                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </div>
   );

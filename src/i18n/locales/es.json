@@ -57,6 +57,14 @@
       "description": "Comienza tus vacaciones en la Isla Blanca con lujo supremo."
     }
   },
+  "flight": {
+    "date": "Fecha:",
+    "departure": "Salida:",
+    "aircraft": "Aeronave:",
+    "available": "Disponible:",
+    "seats": "asientos",
+    "bookNow": "Reservar ahora"
+  },
   "topDeals": {
     "title": "Destinos Principales",
     "subtitle": "Descubre las mejores ofertas empty leg a los destinos más hermosos de Europa. Destinos exclusivos como Barcelona, París, Londres y más.",

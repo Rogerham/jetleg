@@ -57,6 +57,14 @@
       "description": "Start je vakantie op het Witte Eiland met ultieme luxe."
     }
   },
+  "flight": {
+    "date": "Datum:",
+    "departure": "Vertrek:",
+    "aircraft": "Vliegtuig:",
+    "available": "Beschikbaar:",
+    "seats": "plaatsen",
+    "bookNow": "Boek Nu"
+  },
   "topDeals": {
     "title": "Top Bestemmingen",
     "subtitle": "Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.",

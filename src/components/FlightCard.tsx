@@ -1,3 +1,4 @@
+
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
@@ -125,19 +126,19 @@ const FlightCard = ({
         <div className="space-y-3 mb-6 flex-grow">
           <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Datum:</strong> {formatDate(departure_time)}</span>
+            <span><strong>{t('flight.date')}</strong> {formatDate(departure_time)}</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Clock className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Vertrek:</strong> {formatTime(departure_time)} - {formatTime(arrival_time)} ({flight_duration})</span>
+            <span><strong>{t('flight.departure')}</strong> {formatTime(departure_time)} - {formatTime(arrival_time)} ({flight_duration})</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Plane className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Vliegtuig:</strong> {getAircraftDetails()}</span>
+            <span><strong>{t('flight.aircraft')}</strong> {getAircraftDetails()}</span>
           </div>
           <div className="flex items-center text-sm text-muted-foreground">
             <Users className="h-4 w-4 mr-2 text-accent" />
-            <span><strong>Beschikbaar:</strong> {available_seats} plaatsen</span>
+            <span><strong>{t('flight.available')}</strong> {available_seats} {t('flight.seats')}</span>
           </div>
         </div>
         
@@ -151,7 +152,7 @@ const FlightCard = ({
             onClick={handleBooking}
             className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground"
           >
-            Boek Nu
+            {t('flight.bookNow')}
           </button>
         </div>
       </div>

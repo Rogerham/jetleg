@@ -1,8 +1,7 @@
-
 {
   "nav": {
     "home": "Home",
-    "deals": "Deals",
+    "deals": "Deals", 
     "howItWorks": "How it works",
     "about": "About us",
     "contact": "Contact",
@@ -57,6 +56,14 @@
     "barcelonaIbiza": {
       "description": "Start your vacation on the White Island with ultimate luxury."
     }
+  },
+  "flight": {
+    "date": "Date:",
+    "departure": "Departure:",
+    "aircraft": "Aircraft:",
+    "available": "Available:",
+    "seats": "seats",
+    "bookNow": "Book Now"
   },
   "topDeals": {
     "title": "Top Destinations",

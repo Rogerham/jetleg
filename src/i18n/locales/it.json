@@ -1,10 +1,10 @@
 {
   "nav": {
     "home": "Home",
-    "deals": "Offerte",
+    "deals": "Offerte", 
     "howItWorks": "Come funziona",
     "about": "Chi siamo",
-    "contact": "Contatto", 
+    "contact": "Contatto",
     "account": "Profilo",
     "login": "Accedi",
     "register": "Registrati",
@@ -56,6 +56,14 @@
     "barcelonaIbiza": {
       "description": "Inizia la tua vacanza sull'Isola Bianca con lusso supremo."
     }
+  },
+  "flight": {
+    "date": "Data:",
+    "departure": "Partenza:",
+    "aircraft": "Aereo:",
+    "available": "Disponibile:",
+    "seats": "posti",
+    "bookNow": "Prenota ora"
   },
   "topDeals": {
     "title": "Destinazioni Principali",

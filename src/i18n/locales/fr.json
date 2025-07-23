@@ -57,6 +57,14 @@
       "description": "Commencez vos vacances sur l'Île Blanche avec un luxe ultime."
     }
   },
+  "flight": {
+    "date": "Date:",
+    "departure": "Départ:",
+    "aircraft": "Avion:",
+    "available": "Disponible:",
+    "seats": "places",
+    "bookNow": "Réserver"
+  },
   "topDeals": {
     "title": "Destinations Principales",
     "subtitle": "Découvrez les meilleures offres empty leg vers les plus belles destinations d'Europe. Destinations exclusives comme Barcelone, Paris, Londres et plus.",

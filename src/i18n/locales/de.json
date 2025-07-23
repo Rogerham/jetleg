@@ -57,6 +57,14 @@
       "description": "Beginnen Sie Ihren Urlaub auf der Weißen Insel mit ultimativem Luxus."
     }
   },
+  "flight": {
+    "date": "Datum:",
+    "departure": "Abflug:",
+    "aircraft": "Flugzeug:",
+    "available": "Verfügbar:",
+    "seats": "Plätze",
+    "bookNow": "Jetzt buchen"
+  },
   "topDeals": {
     "title": "Top-Destinationen",
     "subtitle": "Entdecken Sie die besten Empty Leg Angebote zu Europas schönsten Destinationen. Exklusive Destinationen wie Barcelona, Paris, London und mehr.",
