@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Slider } from '@/components/ui/slider';
 
 interface DurationRangeSliderProps {
@@ -15,31 +15,16 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
     setRange([minDuration, maxDuration]);
   }, [minDuration, maxDuration]);
 
-  const handleRangeChange = (newRange: number[]) => {
+  const handleRangeChange = useCallback((newRange: number[]) => {
     // Ensure we have exactly 2 values
     if (newRange.length !== 2) return;
     
-    // Ensure minimum gap of 0.5 hours between handles
-    const minGap = 0.5;
+    // Simple validation - ensure proper order and bounds
     let [newMin, newMax] = newRange;
     
     // Ensure proper order
     if (newMin > newMax) {
       [newMin, newMax] = [newMax, newMin];
-    }
-    
-    // Apply minimum gap constraint
-    if (newMax - newMin < minGap) {
-      // Determine which handle was moved based on the previous state
-      const minChanged = Math.abs(newMin - range[0]) > Math.abs(newMax - range[1]);
-      
-      if (minChanged) {
-        // Min handle was moved, adjust max accordingly
-        newMax = Math.min(20, newMin + minGap);
-      } else {
-        // Max handle was moved, adjust min accordingly
-        newMin = Math.max(0.5, newMax - minGap);
-      }
     }
     
     // Ensure bounds
@@ -49,7 +34,7 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
     const adjustedRange = [newMin, newMax];
     setRange(adjustedRange);
     onDurationChange(adjustedRange[0], adjustedRange[1]);
-  };
+  }, [onDurationChange]);
 
   const formatHours = (hours: number) => {
     if (hours === Math.floor(hours)) {
