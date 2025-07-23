@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { deduplicateFlightsByRoute } from '@/utils/flightUtils';
@@ -13,6 +14,7 @@ export interface Flight {
   operator: string;
   flight_duration: string;
   jet_id: number;
+  img_destination?: string; // Add the missing property
   jets: {
     brand: string;
     model: string;
@@ -46,6 +48,7 @@ export const useFlights = (searchParams?: {
           operator,
           flight_duration,
           jet_id,
+          img_destination,
           jets!flights_jet_id_fkey (
             brand,
             model,
@@ -186,6 +189,7 @@ export const useFlightById = (flightId: string) => {
           operator,
           flight_duration,
           jet_id,
+          img_destination,
           jets!flights_jet_id_fkey (
             brand,
             model,
@@ -229,6 +233,7 @@ export const useAllFlights = () => {
           operator,
           flight_duration,
           jet_id,
+          img_destination,
           jets!flights_jet_id_fkey (
             brand,
             model,
@@ -273,6 +278,7 @@ export const useDealsFlights = () => {
           operator,
           flight_duration,
           jet_id,
+          img_destination,
           jets!flights_jet_id_fkey (
             brand,
             model,
