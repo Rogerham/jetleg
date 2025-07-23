@@ -15,7 +15,7 @@ interface TimelineStepProps {
 }
 
 const TimelineStep = ({ 
-  icon, 
+  icon: Icon, 
   stepNumber, 
   title, 
   description, 
@@ -43,7 +43,7 @@ const TimelineStep = ({
         <div className={`flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-16`}>
           <div className="flex-1 lg:pl-16">
             <StepIndicator 
-              icon={icon} 
+              icon={Icon} 
               stepNumber={stepNumber} 
               isActive={isVisible} 
             />
@@ -81,7 +81,7 @@ const TimelineStep = ({
             isVisible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
           }`}>
             <div className="w-80 h-64 bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl flex items-center justify-center">
-              <icon className="h-24 w-24 text-accent/20" />
+              <Icon className="h-24 w-24 text-accent/20" />
             </div>
           </div>
         </div>
