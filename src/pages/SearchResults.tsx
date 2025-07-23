@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar, X } from 'lucide-react';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
 import DurationRangeSlider from '@/components/DurationRangeSlider';
@@ -352,6 +354,8 @@ const SearchResults = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
+      
       {/* Search Bar - Reduced height */}
       <div className="bg-primary text-white py-6">
         <div className="container mx-auto px-6">
@@ -537,6 +541,8 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };

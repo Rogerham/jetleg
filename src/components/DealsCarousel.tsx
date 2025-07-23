@@ -52,7 +52,7 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
           setApi={setApi}
           className="w-full"
           opts={{
-            align: "center",
+            align: "start",
             loop: false,
           }}
         >
