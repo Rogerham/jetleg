@@ -145,6 +145,71 @@
         "title": "Betrouwbaar & Veilig",
         "description": "Alle operators zijn volledig gecertificeerd en voldoen aan de strengste Europese luchtvaartnormen."
       }
+    },
+    "hero": {
+      "title": "Hoe werkt Jetleg?",
+      "subtitle": "Ontdek hoe eenvoudig het is om last-minute privéjet deals te boeken met Jetleg. Van zoeken tot landen, wij maken het proces zo simpel mogelijk."
+    },
+    "step": "Stap",
+    "steps": {
+      "search": {
+        "title": "Vind je ideale vlucht",
+        "description": "Gebruik onze geavanceerde zoekmachine om empty leg vluchten naar je gewenste bestemming te vinden. Filter op prijs, datum, vliegtuigtype en meer.",
+        "details": [
+          "Zoek door duizenden beschikbare empty legs",
+          "Real-time beschikbaarheid en prijzen",
+          "Flexibele zoekopties voor beste deals"
+        ]
+      },
+      "book": {
+        "title": "Boek direct online",
+        "description": "Reserveer je vlucht met slechts een paar klikken. Ons veilige boekingsproces is snel en transparant, zonder verborgen kosten.",
+        "details": [
+          "Veilige online betaling",
+          "Directe bevestiging per e-mail",
+          "24/7 klantenservice beschikbaar"
+        ]
+      },
+      "fly": {
+        "title": "Geniet van je vlucht",
+        "description": "Stap aan boord van je privéjet en ervaar ultieme luxe en comfort. Onze gecertificeerde operators zorgen voor een onvergetelijke vliegervaring.",
+        "details": [
+          "Luxe privéjet ervaring",
+          "Persoonlijke service aan boord",
+          "Flexibele vertrek- en aankomsttijden"
+        ]
+      },
+      "arrive": {
+        "title": "Aankomst op bestemming",
+        "description": "Kom uitgerust en op tijd aan op je bestemming. Met een privéjet vlieg je direct, zonder overstappen of wachttijden op drukke luchthavens.",
+        "details": [
+          "Directe vluchten naar kleinere luchthavens",
+          "Snellere in- en uitcheckprocedures",
+          "Meer tijd voor wat echt belangrijk is"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde vragen",
+      "subtitle": "Alles wat je moet weten over empty leg vluchten",
+      "viewAll": "Bekijk alles",
+      "questions": [
+        "Wat is een empty leg vlucht?",
+        "Hoe ver van tevoren moet ik boeken?",
+        "Kan ik mijn boeking wijzigen?",
+        "Wat is er inbegrepen in de prijs?"
+      ],
+      "answers": [
+        "Een empty leg vlucht is een privéjet die leeg terugvliegt naar zijn basis of naar een nieuwe klant. Deze vluchten worden aangeboden tegen sterk gereduceerde prijzen.",
+        "Empty legs zijn vaak last-minute beschikbaar, van een paar uur tot een paar dagen van tevoren. Hoe flexibeler je bent, hoe meer kans op geweldige deals.",
+        "Wijzigingen zijn beperkt en afhankelijk van de specifieke vlucht. Neem contact op met onze klantenservice voor meer informatie over je boeking.",
+        "De prijs bevat de complete vlucht, brandstof, bemanning en standaard catering. Extra services kunnen tegen meerprijs worden toegevoegd."
+      ]
+    },
+    "cta": {
+      "title": "Klaar om te beginnen?",
+      "subtitle": "Start je zoektocht naar de perfecte empty leg deal en ervaar privéjet reizen zoals nooit tevoren.",
+      "button": "Zoek Empty Legs"
     }
   },
   "contact": {

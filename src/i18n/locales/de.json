@@ -145,6 +145,71 @@
         "title": "Zuverlässig & Sicher",
         "description": "Alle Betreiber sind vollständig zertifiziert und erfüllen die strengsten europäischen Luftfahrtstandards."
       }
+    },
+    "hero": {
+      "title": "Wie funktioniert Jetleg?",
+      "subtitle": "Entdecken Sie, wie einfach es ist, Last-Minute-Privatjet-Angebote mit Jetleg zu buchen. Von der Suche bis zur Landung machen wir den Prozess so einfach wie möglich."
+    },
+    "step": "Schritt",
+    "steps": {
+      "search": {
+        "title": "Finden Sie Ihren idealen Flug",
+        "description": "Nutzen Sie unsere erweiterte Suchmaschine, um Empty Leg Flüge zu Ihrem gewünschten Ziel zu finden. Filtern Sie nach Preis, Datum, Flugzeugtyp und mehr.",
+        "details": [
+          "Durchsuchen Sie Tausende verfügbarer Empty Legs",
+          "Echtzeitverfügbarkeit und Preise",
+          "Flexible Suchoptionen für beste Angebote"
+        ]
+      },
+      "book": {
+        "title": "Direkt online buchen",
+        "description": "Reservieren Sie Ihren Flug mit nur wenigen Klicks. Unser sicherer Buchungsprozess ist schnell und transparent, ohne versteckte Kosten.",
+        "details": [
+          "Sichere Online-Zahlung",
+          "Sofortige Bestätigung per E-Mail",
+          "24/7 Kundendienst verfügbar"
+        ]
+      },
+      "fly": {
+        "title": "Genießen Sie Ihren Flug",
+        "description": "Besteigen Sie Ihren Privatjet und erleben Sie ultimativen Luxus und Komfort. Unsere zertifizierten Betreiber sorgen für ein unvergessliches Flugerlebnis.",
+        "details": [
+          "Luxus-Privatjet-Erlebnis",
+          "Persönlicher Service an Bord",
+          "Flexible Abflug- und Ankunftszeiten"
+        ]
+      },
+      "arrive": {
+        "title": "Ankunft am Ziel",
+        "description": "Kommen Sie erfrischt und pünktlich an Ihrem Ziel an. Mit einem Privatjet fliegen Sie direkt, ohne Umsteigen oder Wartezeiten an überfüllten Flughäfen.",
+        "details": [
+          "Direktflüge zu kleineren Flughäfen",
+          "Schnellere Check-in- und Check-out-Verfahren",
+          "Mehr Zeit für das, was wirklich wichtig ist"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "subtitle": "Alles was Sie über Empty Leg Flüge wissen müssen",
+      "viewAll": "Alle anzeigen",
+      "questions": [
+        "Was ist ein Empty Leg Flug?",
+        "Wie weit im Voraus muss ich buchen?",
+        "Kann ich meine Buchung ändern?",
+        "Was ist im Preis enthalten?"
+      ],
+      "answers": [
+        "Ein Empty Leg Flug ist ein Privatjet, der leer zu seiner Basis oder zu einem neuen Kunden zurückfliegt. Diese Flüge werden zu stark reduzierten Preisen angeboten.",
+        "Empty Legs sind oft kurzfristig verfügbar, von wenigen Stunden bis zu wenigen Tagen im Voraus. Je flexibler Sie sind, desto bessere Chancen auf tolle Angebote.",
+        "Änderungen sind begrenzt und hängen vom spezifischen Flug ab. Kontaktieren Sie unseren Kundendienst für weitere Informationen zu Ihrer Buchung.",
+        "Der Preis beinhaltet den kompletten Flug, Treibstoff, Crew und Standard-Catering. Zusätzliche Services können gegen Aufpreis hinzugefügt werden."
+      ]
+    },
+    "cta": {
+      "title": "Bereit loszulegen?",
+      "subtitle": "Beginnen Sie Ihre Suche nach dem perfekten Empty Leg Angebot und erleben Sie Privatjet-Reisen wie nie zuvor.",
+      "button": "Empty Legs suchen"
     }
   },
   "contact": {

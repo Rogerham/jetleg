@@ -56,7 +56,7 @@ const TimelineContainer = () => {
     setActiveStep(stepNumber - 1);
   }, []);
 
-  // Enhanced scroll tracking for smoother timeline progress
+  // Enhanced scroll tracking - ensures timeline reaches 100% at step 4
   useEffect(() => {
     const handleScroll = () => {
       const timelineSection = document.querySelector('[data-timeline-section]');
@@ -67,10 +67,15 @@ const TimelineContainer = () => {
       const sectionHeight = rect.height;
       const windowHeight = window.innerHeight;
       
-      // Calculate progress based on how much of the section has been scrolled through
+      // Calculate progress based on scroll position within the section
       const scrolled = Math.max(0, windowHeight - sectionTop);
-      const totalScrollDistance = sectionHeight + windowHeight;
-      const progress = Math.min(1, Math.max(0, scrolled / totalScrollDistance));
+      const totalScrollDistance = sectionHeight + windowHeight * 0.5; // Reduced for earlier completion
+      let progress = Math.min(1, Math.max(0, scrolled / totalScrollDistance));
+      
+      // Ensure progress reaches 100% when at step 4 (index 3)
+      if (activeStep >= 3) {
+        progress = Math.max(progress, 1);
+      }
       
       setScrollProgress(progress);
     };
@@ -79,7 +84,7 @@ const TimelineContainer = () => {
     handleScroll(); // Initial calculation
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeStep]);
 
   return (
     <section data-timeline-section className="py-20 bg-background relative">

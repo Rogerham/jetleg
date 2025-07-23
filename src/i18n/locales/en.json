@@ -1,4 +1,3 @@
-
 {
   "nav": {
     "home": "Home",
@@ -193,7 +192,7 @@
     "faq": {
       "title": "Frequently asked questions",
       "subtitle": "Everything you need to know about empty leg flights",
-      "viewAll": "View all frequently asked questions",
+      "viewAll": "View all",
       "questions": [
         "What is an empty leg flight?",
         "How far in advance do I need to book?",

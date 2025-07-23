@@ -1,10 +1,10 @@
 {
   "nav": {
     "home": "Accueil",
-    "deals": "Offres",
+    "deals": "Offres", 
     "howItWorks": "Comment ça marche",
     "about": "À propos",
-    "contact": "Contact", 
+    "contact": "Contact",
     "account": "Profil",
     "login": "Connexion",
     "register": "S'inscrire",
@@ -145,6 +145,71 @@
         "title": "Fiable et Sûr",
         "description": "Tous les opérateurs sont entièrement certifiés et respectent les normes d'aviation européennes les plus strictes."
       }
+    },
+    "hero": {
+      "title": "Comment fonctionne Jetleg?",
+      "subtitle": "Découvrez à quel point il est facile de réserver des offres de jets privés de dernière minute avec Jetleg. De la recherche à l'atterrissage, nous rendons le processus aussi simple que possible."
+    },
+    "step": "Étape",
+    "steps": {
+      "search": {
+        "title": "Trouvez votre vol idéal",
+        "description": "Utilisez notre moteur de recherche avancé pour trouver des vols empty leg vers votre destination souhaitée. Filtrez par prix, date, type d'avion et plus.",
+        "details": [
+          "Recherchez parmi des milliers d'empty legs disponibles",
+          "Disponibilité et tarification en temps réel",
+          "Options de recherche flexibles pour les meilleures offres"
+        ]
+      },
+      "book": {
+        "title": "Réservez directement en ligne",
+        "description": "Réservez votre vol en quelques clics seulement. Notre processus de réservation sécurisé est rapide et transparent, sans coûts cachés.",
+        "details": [
+          "Paiement en ligne sécurisé",
+          "Confirmation instantanée par e-mail",
+          "Service client 24/7 disponible"
+        ]
+      },
+      "fly": {
+        "title": "Profitez de votre vol",
+        "description": "Montez à bord de votre jet privé et vivez un luxe et un confort ultimes. Nos opérateurs certifiés garantissent une expérience de vol inoubliable.",
+        "details": [
+          "Expérience de jet privé de luxe",
+          "Service personnel à bord",
+          "Horaires de départ et d'arrivée flexibles"
+        ]
+      },
+      "arrive": {
+        "title": "Arrivée à destination",
+        "description": "Arrivez rafraîchi et à l'heure à votre destination. Avec un jet privé, vous volez directement, sans correspondances ni temps d'attente dans les aéroports bondés.",
+        "details": [
+          "Vols directs vers des aéroports plus petits",
+          "Procédures d'enregistrement et de sortie plus rapides",
+          "Plus de temps pour ce qui compte vraiment"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Questions fréquemment posées",
+      "subtitle": "Tout ce que vous devez savoir sur les vols empty leg",
+      "viewAll": "Voir tout",
+      "questions": [
+        "Qu'est-ce qu'un vol empty leg?",
+        "Combien de temps à l'avance dois-je réserver?",
+        "Puis-je modifier ma réservation?",
+        "Qu'est-ce qui est inclus dans le prix?"
+      ],
+      "answers": [
+        "Un vol empty leg est un jet privé qui retourne à vide vers sa base ou vers un nouveau client. Ces vols sont proposés à des prix fortement réduits.",
+        "Les empty legs sont souvent disponibles en dernière minute, de quelques heures à quelques jours à l'avance. Plus vous êtes flexible, plus vous avez de chances d'obtenir de bonnes affaires.",
+        "Les modifications sont limitées et dépendent du vol spécifique. Contactez notre service client pour plus d'informations sur votre réservation.",
+        "Le prix comprend le vol complet, le carburant, l'équipage et la restauration standard. Des services supplémentaires peuvent être ajoutés moyennant un supplément."
+      ]
+    },
+    "cta": {
+      "title": "Prêt à commencer?",
+      "subtitle": "Commencez votre recherche de l'offre empty leg parfaite et découvrez les voyages en jet privé comme jamais auparavant.",
+      "button": "Rechercher Empty Legs"
     }
   },
   "contact": {
