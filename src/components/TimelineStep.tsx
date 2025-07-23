@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { LucideIcon, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface TimelineStepProps {
@@ -22,6 +23,7 @@ const TimelineStep = ({
   isEven = false,
   onVisible 
 }: TimelineStepProps) => {
+  const { t } = useTranslation();
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
 
   React.useEffect(() => {
@@ -69,7 +71,7 @@ const TimelineStep = ({
             <div className={`text-sm font-semibold transition-colors duration-300 ${
               isVisible ? 'text-accent' : 'text-muted-foreground'
             }`}>
-              Stap {stepNumber}
+              {t('howItWorks.step')} {stepNumber}
             </div>
           </div>
 

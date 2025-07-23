@@ -1,3 +1,4 @@
+
 {
   "nav": {
     "home": "Home",
@@ -145,6 +146,71 @@
         "title": "Reliable & Safe",
         "description": "All operators are fully certified and meet the strictest European aviation standards."
       }
+    },
+    "hero": {
+      "title": "How does Jetleg work?",
+      "subtitle": "Discover how easy it is to book last-minute private jet deals with Jetleg. From searching to landing, we make the process as simple as possible."
+    },
+    "step": "Step",
+    "steps": {
+      "search": {
+        "title": "Find your ideal flight",
+        "description": "Use our advanced search engine to find empty leg flights to your desired destination. Filter by price, date, aircraft type and more.",
+        "details": [
+          "Search thousands of available empty legs",
+          "Real-time availability and pricing",
+          "Flexible search options for best deals"
+        ]
+      },
+      "book": {
+        "title": "Book directly online",
+        "description": "Reserve your flight with just a few clicks. Our secure booking process is fast and transparent, with no hidden costs.",
+        "details": [
+          "Secure online payment",
+          "Instant confirmation by email",
+          "24/7 customer service available"
+        ]
+      },
+      "fly": {
+        "title": "Enjoy your flight",
+        "description": "Board your private jet and experience ultimate luxury and comfort. Our certified operators ensure an unforgettable flight experience.",
+        "details": [
+          "Luxury private jet experience",
+          "Personal service on board",
+          "Flexible departure and arrival times"
+        ]
+      },
+      "arrive": {
+        "title": "Arrival at destination",
+        "description": "Arrive refreshed and on time at your destination. With private jet you fly direct, without transfers or waiting times at busy airports.",
+        "details": [
+          "Direct flights to smaller airports",
+          "Faster check-in and check-out procedures",
+          "More time for what really matters"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about empty leg flights",
+      "viewAll": "View all frequently asked questions",
+      "questions": [
+        "What is an empty leg flight?",
+        "How far in advance do I need to book?",
+        "Can I change my booking?",
+        "What is included in the price?"
+      ],
+      "answers": [
+        "An empty leg flight is a private jet that flies empty back to its base or to a new customer. These flights are offered at heavily reduced prices.",
+        "Empty legs are often available last-minute, from a few hours to a few days in advance. The more flexible you are, the better chance of great deals.",
+        "Changes are limited and depend on the specific flight. Contact our customer service for more information about your booking.",
+        "The price includes the complete flight, fuel, crew and standard catering. Extra services can be added for an additional fee."
+      ]
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Start your search for the perfect empty leg deal and experience private jet travel like never before.",
+      "button": "Search Empty Legs"
     }
   },
   "contact": {

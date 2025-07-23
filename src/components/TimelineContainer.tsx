@@ -1,51 +1,53 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { Search, Calendar, Plane, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import TimelineStep from './TimelineStep';
 
 const TimelineContainer = () => {
+  const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const steps = [
     {
       icon: Search,
-      title: "Zoek je ideale vlucht",
-      description: "Gebruik onze geavanceerde zoekmachine om empty leg vluchten te vinden naar jouw gewenste bestemming. Filter op prijs, datum, vliegtuigtype en meer.",
+      title: t('howItWorks.steps.search.title'),
+      description: t('howItWorks.steps.search.description'),
       details: [
-        "Doorzoek duizenden beschikbare empty legs",
-        "Real-time beschikbaarheid en prijzen", 
-        "Flexibele zoekopties voor beste deals"
+        t('howItWorks.steps.search.details.0'),
+        t('howItWorks.steps.search.details.1'),
+        t('howItWorks.steps.search.details.2')
       ]
     },
     {
       icon: Calendar,
-      title: "Boek direct online",
-      description: "Reserveer je vlucht met slechts een paar klikken. Ons veilige boekingsproces is snel en transparant, zonder verborgen kosten.",
+      title: t('howItWorks.steps.book.title'),
+      description: t('howItWorks.steps.book.description'),
       details: [
-        "Veilige online betaling",
-        "Directe bevestiging per email",
-        "24/7 klantenservice beschikbaar"
+        t('howItWorks.steps.book.details.0'),
+        t('howItWorks.steps.book.details.1'),
+        t('howItWorks.steps.book.details.2')
       ]
     },
     {
       icon: Plane,
-      title: "Geniet van je vlucht",
-      description: "Stap aan boord van je privéjet en ervaar de ultieme luxe en comfort. Onze gecertificeerde operators zorgen voor een onvergetelijke vliegervaring.",
+      title: t('howItWorks.steps.fly.title'),
+      description: t('howItWorks.steps.fly.description'),
       details: [
-        "Luxe privéjet ervaring",
-        "Persoonlijke service aan boord",
-        "Flexibele vertrek- en aankomsttijden"
+        t('howItWorks.steps.fly.details.0'),
+        t('howItWorks.steps.fly.details.1'),
+        t('howItWorks.steps.fly.details.2')
       ]
     },
     {
       icon: CheckCircle,
-      title: "Aankomst op bestemming",
-      description: "Kom uitgerust en op tijd aan op je bestemming. Met privéjet vlieg je direct, zonder omreizen of wachttijden op drukke luchthavens.",
+      title: t('howItWorks.steps.arrive.title'),
+      description: t('howItWorks.steps.arrive.description'),
       details: [
-        "Directe vluchten naar kleinere luchthavens",
-        "Snellere in- en uitcheck procedures",
-        "Meer tijd voor wat echt belangrijk is"
+        t('howItWorks.steps.arrive.details.0'),
+        t('howItWorks.steps.arrive.details.1'),
+        t('howItWorks.steps.arrive.details.2')
       ]
     }
   ];
@@ -82,27 +84,20 @@ const TimelineContainer = () => {
   return (
     <section data-timeline-section className="py-20 bg-background relative">
       <div className="container mx-auto px-6">
-        {/* Enhanced timeline line - centered and responsive to scroll */}
+        {/* Clean timeline line - centered and responsive to scroll */}
         <div className="absolute left-1/2 transform -translate-x-0.5 hidden lg:block" style={{
           top: '10rem',
           bottom: '10rem',
           width: '3px',
-          background: 'linear-gradient(to bottom, hsl(var(--muted)), hsl(var(--accent)), hsl(var(--muted)))',
+          background: 'hsl(var(--muted))',
           borderRadius: '2px'
         }}>
-          {/* Enhanced active progress indicator with smoother animation */}
+          {/* Clean progress indicator without glow */}
           <div 
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-accent to-accent/80 transition-all duration-300 ease-out rounded-full shadow-lg"
+            className="absolute top-0 left-0 w-full bg-accent transition-all duration-300 ease-out rounded-full"
             style={{ 
-              height: `${scrollProgress * 100}%`,
-              background: `linear-gradient(to bottom, hsl(var(--accent)), hsl(var(--accent)) ${Math.max(20, scrollProgress * 100)}%, hsl(var(--accent)/0.6))`
+              height: `${scrollProgress * 100}%`
             }}
-          />
-          
-          {/* Glow effect for the progress line */}
-          <div 
-            className="absolute top-0 left-1/2 transform -translate-x-1/2 w-6 bg-accent/20 transition-all duration-300 ease-out blur-sm"
-            style={{ height: `${scrollProgress * 100}%` }}
           />
         </div>
 
