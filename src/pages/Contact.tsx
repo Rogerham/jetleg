@@ -1,14 +1,16 @@
-
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
-
 const Contact = () => {
-  const { toast } = useToast();
-  const { t } = useTranslation();
+  const {
+    toast
+  } = useToast();
+  const {
+    t
+  } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,42 +18,42 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-
-  const contactInfo = [
-    {
-      icon: Phone,
-      title: t('contact.info.phone.title'),
-      details: t('contact.info.phone.details', { returnObjects: true }) as string[]
-    },
-    {
-      icon: Mail,
-      title: t('contact.info.email.title'),
-      details: t('contact.info.email.details', { returnObjects: true }) as string[]
-    },
-    {
-      icon: MapPin,
-      title: t('contact.info.address.title'),
-      details: t('contact.info.address.details', { returnObjects: true }) as string[]
-    },
-    {
-      icon: Clock,
-      title: t('contact.info.hours.title'),
-      details: t('contact.info.hours.details', { returnObjects: true }) as string[]
-    }
-  ];
-
-  const subjects = t('contact.form.subjects', { returnObjects: true }) as string[];
-
+  const contactInfo = [{
+    icon: Phone,
+    title: t('contact.info.phone.title'),
+    details: t('contact.info.phone.details', {
+      returnObjects: true
+    }) as string[]
+  }, {
+    icon: Mail,
+    title: t('contact.info.email.title'),
+    details: t('contact.info.email.details', {
+      returnObjects: true
+    }) as string[]
+  }, {
+    icon: MapPin,
+    title: t('contact.info.address.title'),
+    details: t('contact.info.address.details', {
+      returnObjects: true
+    }) as string[]
+  }, {
+    icon: Clock,
+    title: t('contact.info.hours.title'),
+    details: t('contact.info.hours.details', {
+      returnObjects: true
+    }) as string[]
+  }];
+  const subjects = t('contact.form.subjects', {
+    returnObjects: true
+  }) as string[];
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: t('contact.validation.incomplete'),
@@ -64,7 +66,7 @@ const Contact = () => {
     // Simulate form submission
     toast({
       title: t('contact.validation.success'),
-      description: t('contact.validation.response'),
+      description: t('contact.validation.response')
     });
 
     // Reset form
@@ -76,13 +78,11 @@ const Contact = () => {
       message: ''
     });
   };
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-20">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-hero mb-6">{t('contact.hero.title')}</h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
@@ -95,19 +95,15 @@ const Contact = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {contactInfo.map((info, index) => (
-              <div key={index} className="card-jetleg p-6 text-center">
+            {contactInfo.map((info, index) => <div key={index} className="card-jetleg p-6 text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <info.icon className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-3">{info.title}</h3>
                 <div className="space-y-1">
-                  {info.details.map((detail, i) => (
-                    <p key={i} className="text-muted-foreground text-sm">{detail}</p>
-                  ))}
+                  {info.details.map((detail, i) => <p key={i} className="text-muted-foreground text-sm">{detail}</p>)}
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Contact Form & Info */}
@@ -122,25 +118,13 @@ const Contact = () => {
                     <label className="block text-sm font-medium text-foreground mb-2">
                       {t('contact.form.name')} {t('contact.form.required')}
                     </label>
-                    <input
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      className="input-jetleg"
-                      required
-                    />
+                    <input type="text" value={formData.name} onChange={e => handleInputChange('name', e.target.value)} className="input-jetleg" required />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
                       {t('contact.form.email')} {t('contact.form.required')}
                     </label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="input-jetleg"
-                      required
-                    />
+                    <input type="email" value={formData.email} onChange={e => handleInputChange('email', e.target.value)} className="input-jetleg" required />
                   </div>
                 </div>
 
@@ -149,26 +133,15 @@ const Contact = () => {
                     <label className="block text-sm font-medium text-foreground mb-2">
                       {t('contact.form.phone')}
                     </label>
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="input-jetleg"
-                    />
+                    <input type="tel" value={formData.phone} onChange={e => handleInputChange('phone', e.target.value)} className="input-jetleg" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
                       {t('contact.form.subject')}
                     </label>
-                    <select
-                      value={formData.subject}
-                      onChange={(e) => handleInputChange('subject', e.target.value)}
-                      className="input-jetleg"
-                    >
+                    <select value={formData.subject} onChange={e => handleInputChange('subject', e.target.value)} className="input-jetleg">
                       <option value="">{t('contact.form.selectSubject')}</option>
-                      {subjects.map((subject) => (
-                        <option key={subject} value={subject}>{subject}</option>
-                      ))}
+                      {subjects.map(subject => <option key={subject} value={subject}>{subject}</option>)}
                     </select>
                   </div>
                 </div>
@@ -177,14 +150,7 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-foreground mb-2">
                     {t('contact.form.message')} {t('contact.form.required')}
                   </label>
-                  <textarea
-                    value={formData.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
-                    rows={6}
-                    className="input-jetleg resize-none"
-                    placeholder={t('contact.form.messagePlaceholder')}
-                    required
-                  />
+                  <textarea value={formData.message} onChange={e => handleInputChange('message', e.target.value)} rows={6} className="input-jetleg resize-none" placeholder={t('contact.form.messagePlaceholder')} required />
                 </div>
 
                 <button type="submit" className="btn-jetleg-primary w-full flex items-center justify-center gap-2">
@@ -203,11 +169,11 @@ const Contact = () => {
                   {t('contact.faq.title')}
                 </h3>
                 <div className="space-y-3">
-                  {(t('contact.faq.questions', { returnObjects: true }) as string[]).map((question, index) => (
-                    <a key={index} href="#" className="block text-muted-foreground hover:text-accent transition-colors">
+                  {(t('contact.faq.questions', {
+                  returnObjects: true
+                }) as string[]).map((question, index) => <a key={index} href="#" className="block text-muted-foreground hover:text-accent transition-colors">
                       {question}
-                    </a>
-                  ))}
+                    </a>)}
                 </div>
               </div>
 
@@ -250,8 +216,6 @@ const Contact = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Contact;
