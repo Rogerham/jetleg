@@ -38,7 +38,7 @@
     "everywhere": "Everywhere"
   },
   "deals": {
-    "title": "Featured Empty Leg Deals",
+    "title": "Last minute flights",
     "subtitle": "Discover luxury flights at unbeatable prices",
     "viewAll": "View all deals",
     "bookNow": "Book Now",
@@ -57,6 +57,63 @@
     "barcelonaIbiza": {
       "description": "Start your vacation on the White Island with ultimate luxury."
     }
+  },
+  "topDeals": {
+    "title": "Top Destinations",
+    "subtitle": "Discover the best empty leg deals to Europe's most beautiful destinations. Exclusive destinations like Barcelona, Paris, London and more.",
+    "backToHome": "Back to home",
+    "exclusiveDestinations": "Exclusive Destinations",
+    "firstComeFirstServed": "Be quick to be the first to book the dream charter to your favorite destination. 'First come, first served.'",
+    "destinationsAvailable": "destinations available",
+    "loading": {
+      "title": "Destinations loading...",
+      "description": "We're searching for the best available destinations for you."
+    },
+    "error": {
+      "title": "An error occurred",
+      "description": "We couldn't load destinations. Please try again.",
+      "retry": "Try again"
+    },
+    "noFlights": {
+      "title": "No flights available yet",
+      "description": "There are currently no flights available to our exclusive destinations. Come back later for new offers."
+    }
+  },
+  "destinations": {
+    "Barcelona": "Barcelona",
+    "Berlin": "Berlin",
+    "Cannes": "Cannes",
+    "Dubai": "Dubai",
+    "Courchevel": "Courchevel",
+    "London": "London",
+    "Los Angeles": "Los Angeles",
+    "Madrid": "Madrid",
+    "Monaco": "Monaco",
+    "New York": "New York",
+    "Paris": "Paris",
+    "Geneva": "Geneva"
+  },
+  "countries": {
+    "Spain": "Spain",
+    "Germany": "Germany",
+    "France": "France",
+    "UAE": "United Arab Emirates",
+    "UK": "United Kingdom",
+    "USA": "United States",
+    "Monaco": "Monaco",
+    "Switzerland": "Switzerland"
+  },
+  "destinationDeals": {
+    "from": "From",
+    "viewDeals": "View Deals",
+    "flightsAvailable": "flights available",
+    "seats": "seats",
+    "operators": "operators",
+    "more": "more",
+    "discoverDestination": "Discover {{destination}}, {{country}} with {{count}} available {{operators}}",
+    "operator": "operator",
+    "oneOperator": "operator",
+    "multipleOperators": "operators"
   },
   "howItWorks": {
     "title": "What is an \"Empty Leg\"?",

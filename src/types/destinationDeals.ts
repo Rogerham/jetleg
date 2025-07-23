@@ -5,11 +5,11 @@ export interface DestinationDeal {
   id: string;
   destination: string;
   destinationCode: string;
-  country: string;
+  countryKey: string; // Translation key for country instead of translated text
   flights: Flight[];
   minPrice: number;
   totalAvailableSeats: number;
   operators: string[];
   imageUrl: string;
-  description: string;
+  operatorCount: number; // Add operator count field
 }

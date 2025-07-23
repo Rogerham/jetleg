@@ -1,4 +1,3 @@
-
 {
   "nav": {
     "home": "Home",
@@ -38,7 +37,7 @@
     "everywhere": "Overal"
   },
   "deals": {
-    "title": "Uitgelichte Empty Leg Deals",
+    "title": "Last minute vluchten",
     "subtitle": "Ontdek luxe vluchten tegen onverslaanbare prijzen",
     "viewAll": "Bekijk alle deals",
     "bookNow": "Boek Nu",
@@ -57,6 +56,63 @@
     "barcelonaIbiza": {
       "description": "Start je vakantie op het Witte Eiland met ultieme luxe."
     }
+  },
+  "topDeals": {
+    "title": "Top Bestemmingen",
+    "subtitle": "Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.",
+    "backToHome": "Terug naar home",
+    "exclusiveDestinations": "Exclusieve Bestemmingen",
+    "firstComeFirstServed": "Wees er snel bij om als eerste de droomcharter naar jouw favoriete bestemming te boeken. 'First come, first served.'",
+    "destinationsAvailable": "bestemmingen beschikbaar",
+    "loading": {
+      "title": "Bestemmingen laden...",
+      "description": "We zoeken de beste beschikbare bestemmingen voor je."
+    },
+    "error": {
+      "title": "Er is een fout opgetreden",
+      "description": "We konden geen bestemmingen laden. Probeer het opnieuw.",
+      "retry": "Opnieuw proberen"
+    },
+    "noFlights": {
+      "title": "Nog geen vluchten beschikbaar",
+      "description": "Er zijn momenteel geen vluchten beschikbaar naar onze exclusieve bestemmingen. Kom later terug voor nieuwe aanbiedingen."
+    }
+  },
+  "destinations": {
+    "Barcelona": "Barcelona",
+    "Berlin": "Berlijn",
+    "Cannes": "Cannes",
+    "Dubai": "Dubai",
+    "Courchevel": "Courchevel",
+    "London": "Londen",
+    "Los Angeles": "Los Angeles",
+    "Madrid": "Madrid",
+    "Monaco": "Monaco",
+    "New York": "New York",
+    "Paris": "Parijs",
+    "Geneva": "Genève"
+  },
+  "countries": {
+    "Spain": "Spanje",
+    "Germany": "Duitsland",
+    "France": "Frankrijk",
+    "UAE": "Verenigde Arabische Emiraten",
+    "UK": "Verenigd Koninkrijk",
+    "USA": "Verenigde Staten",
+    "Monaco": "Monaco",
+    "Switzerland": "Zwitserland"
+  },
+  "destinationDeals": {
+    "from": "Vanaf",
+    "viewDeals": "Bekijk Deals",
+    "flightsAvailable": "vluchten beschikbaar",
+    "seats": "plaatsen",
+    "operators": "operatoren",
+    "more": "meer",
+    "discoverDestination": "Ontdek {{destination}}, {{country}} met {{count}} beschikbare {{operators}}",
+    "operator": "operator",
+    "oneOperator": "operator",
+    "multipleOperators": "operatoren"
   },
   "howItWorks": {
     "title": "Wat is een \"Empty Leg\"?",

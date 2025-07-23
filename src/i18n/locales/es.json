@@ -1,9 +1,8 @@
-
 {
   "nav": {
     "home": "Inicio",
     "deals": "Ofertas",
-    "howItWorks": "Cómo funciona",
+    "howItWorks": "Cómo funciona", 
     "about": "Acerca de",
     "contact": "Contacto",
     "account": "Perfil",
@@ -38,7 +37,7 @@
     "everywhere": "En todas partes"
   },
   "deals": {
-    "title": "Ofertas Empty Leg Destacadas",
+    "title": "Vuelos de última hora",
     "subtitle": "Descubre vuelos de lujo a precios imbatibles",
     "viewAll": "Ver todas las ofertas",
     "bookNow": "Reservar ahora",
@@ -57,6 +56,63 @@
     "barcelonaIbiza": {
       "description": "Comienza tus vacaciones en la Isla Blanca con lujo supremo."
     }
+  },
+  "topDeals": {
+    "title": "Destinos Principales",
+    "subtitle": "Descubre las mejores ofertas empty leg a los destinos más hermosos de Europa. Destinos exclusivos como Barcelona, París, Londres y más.",
+    "backToHome": "Volver al inicio",
+    "exclusiveDestinations": "Destinos Exclusivos",
+    "firstComeFirstServed": "Sé rápido para ser el primero en reservar el charter de ensueño a tu destino favorito. 'Primero en llegar, primero en ser atendido.'",
+    "destinationsAvailable": "destinos disponibles",
+    "loading": {
+      "title": "Cargando destinos...",
+      "description": "Estamos buscando los mejores destinos disponibles para ti."
+    },
+    "error": {
+      "title": "Ha ocurrido un error",
+      "description": "No pudimos cargar los destinos. Por favor, inténtalo de nuevo.",
+      "retry": "Intentar de nuevo"
+    },
+    "noFlights": {
+      "title": "Aún no hay vuelos disponibles",
+      "description": "Actualmente no hay vuelos disponibles a nuestros destinos exclusivos. Regresa más tarde para nuevas ofertas."
+    }
+  },
+  "destinations": {
+    "Barcelona": "Barcelona",
+    "Berlin": "Berlín",
+    "Cannes": "Cannes",
+    "Dubai": "Dubái",
+    "Courchevel": "Courchevel",
+    "London": "Londres",
+    "Los Angeles": "Los Ángeles",
+    "Madrid": "Madrid",
+    "Monaco": "Mónaco",
+    "New York": "Nueva York",
+    "Paris": "París",
+    "Geneva": "Ginebra"
+  },
+  "countries": {
+    "Spain": "España",
+    "Germany": "Alemania",
+    "France": "Francia",
+    "UAE": "Emiratos Árabes Unidos",
+    "UK": "Reino Unido",
+    "USA": "Estados Unidos",
+    "Monaco": "Mónaco",
+    "Switzerland": "Suiza"
+  },
+  "destinationDeals": {
+    "from": "Desde",
+    "viewDeals": "Ver Ofertas",
+    "flightsAvailable": "vuelos disponibles",
+    "seats": "asientos",
+    "operators": "operadores",
+    "more": "más",
+    "discoverDestination": "Descubre {{destination}}, {{country}} con {{count}} {{operators}} disponible{{plural}}",
+    "operator": "operador",
+    "oneOperator": "operador",
+    "multipleOperators": "operadores"
   },
   "howItWorks": {
     "title": "¿Qué es un \"Empty Leg\"?",

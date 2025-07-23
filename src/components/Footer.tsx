@@ -41,8 +41,8 @@ const Footer = () => {
             </div>
           </div>
           
-          {/* Quick Links */}
-          <div className="md:col-span-1 lg:col-span-1">
+          {/* Quick Links - Hidden on tablet and mobile */}
+          <div className="hidden lg:block md:col-span-1 lg:col-span-1">
             <h4 className="text-lg font-semibold mb-6 text-white">{t('footer.menu')}</h4>
             <ul className="space-y-3">
               <li>

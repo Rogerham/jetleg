@@ -9,24 +9,21 @@ const FEATURED_DESTINATIONS = [
   'London', 'Los Angeles', 'Madrid', 'Monaco', 'New York', 'Paris', 'Geneva'
 ];
 
-// Country mapping for the 12 featured destinations
-const DESTINATION_COUNTRIES: Record<string, string> = {
-  'Barcelona': 'Spanje',
-  'Berlin': 'Duitsland',
-  'Cannes': 'Frankrijk',
-  'Dubai': 'Verenigde Arabische Emiraten',
-  'Courchevel': 'Frankrijk',
-  'London': 'Verenigd Koninkrijk',
-  'Los Angeles': 'Verenigde Staten',
-  'Madrid': 'Spanje',
+// Country mapping for the 12 featured destinations using translation keys
+const DESTINATION_COUNTRY_KEYS: Record<string, string> = {
+  'Barcelona': 'Spain',
+  'Berlin': 'Germany',
+  'Cannes': 'France',
+  'Dubai': 'UAE',
+  'Courchevel': 'France',
+  'London': 'UK',
+  'Los Angeles': 'USA',
+  'Madrid': 'Spain',
   'Monaco': 'Monaco',
-  'New York': 'Verenigde Staten',
-  'Paris': 'Frankrijk',
-  'Geneva': 'Zwitserland'
+  'New York': 'USA',
+  'Paris': 'France',
+  'Geneva': 'Switzerland'
 };
-
-// Default fallback image
-const DEFAULT_DESTINATION_IMAGE = '/src/assets/hero-bg.jpg';
 
 /**
  * Groups flights by destination and creates DestinationDeal objects for the 12 featured destinations
@@ -71,8 +68,8 @@ export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] 
     const totalAvailableSeats = flights.reduce((sum, f) => sum + f.available_seats, 0);
     const operators = [...new Set(flights.map(f => f.operator))];
     
-    // Get country from our mapping
-    const country = DESTINATION_COUNTRIES[destinationCity] || 'Europa';
+    // Get country key from our mapping
+    const countryKey = DESTINATION_COUNTRY_KEYS[destinationCity] || 'Europe';
     
     // Get image URL - prioritize img_destination from flights, then fallback
     const imageUrl = getDestinationImageUrl(flights, destinationCity);
@@ -82,13 +79,13 @@ export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] 
       id: `dest-${destinationCode.toLowerCase()}`,
       destination: destinationCity,
       destinationCode,
-      country,
+      countryKey, // Store the translation key instead of translated text
       flights,
       minPrice,
       totalAvailableSeats,
       operators,
       imageUrl,
-      description: generateDestinationDescription(destinationCity, country, operators.length)
+      operatorCount: operators.length
     };
     
     console.log(`Created destination deal for ${destinationCity}: ${flights.length} flights, min price ${minPrice}`);
@@ -118,14 +115,6 @@ const getDestinationImageUrl = (flights: Flight[], destinationCity: string): str
   const fallbackUrl = `https://dtvvyopjzdmbnpgwhkbi.supabase.co/storage/v1/object/public/destination-photos/${destinationCity.toLowerCase()}.jpg`;
   console.log(`Using fallback image for ${destinationCity}: ${fallbackUrl}`);
   return fallbackUrl;
-};
-
-/**
- * Generate a description for the destination
- */
-const generateDestinationDescription = (destination: string, country: string, operatorCount: number): string => {
-  const flightText = operatorCount === 1 ? 'operator' : 'operators';
-  return `Ontdek ${destination}, ${country} met ${operatorCount} beschikbare ${flightText}`;
 };
 
 /**

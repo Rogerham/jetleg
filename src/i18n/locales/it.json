@@ -1,4 +1,3 @@
-
 {
   "nav": {
     "home": "Home",
@@ -38,7 +37,7 @@
     "everywhere": "Ovunque"
   },
   "deals": {
-    "title": "Offerte Empty Leg in Evidenza",
+    "title": "Voli dell'ultimo minuto",
     "subtitle": "Scopri voli di lusso a prezzi imbattibili",
     "viewAll": "Vedi tutte le offerte",
     "bookNow": "Prenota ora",
@@ -57,6 +56,63 @@
     "barcelonaIbiza": {
       "description": "Inizia la tua vacanza sull'Isola Bianca con lusso supremo."
     }
+  },
+  "topDeals": {
+    "title": "Destinazioni Principali",
+    "subtitle": "Scopri le migliori offerte empty leg verso le più belle destinazioni d'Europa. Destinazioni esclusive come Barcellona, Parigi, Londra e altro ancora.",
+    "backToHome": "Torna alla home",
+    "exclusiveDestinations": "Destinazioni Esclusive",
+    "firstComeFirstServed": "Sii veloce per essere il primo a prenotare il charter dei sogni verso la tua destinazione preferita. 'Chi primo arriva, meglio alloggia.'",
+    "destinationsAvailable": "destinazioni disponibili",
+    "loading": {
+      "title": "Caricamento destinazioni...",
+      "description": "Stiamo cercando le migliori destinazioni disponibili per te."
+    },
+    "error": {
+      "title": "Si è verificato un errore",
+      "description": "Non siamo riusciti a caricare le destinazioni. Riprova.",
+      "retry": "Riprova"
+    },
+    "noFlights": {
+      "title": "Nessun volo ancora disponibile",
+      "description": "Al momento non ci sono voli disponibili verso le nostre destinazioni esclusive. Torna più tardi per nuove offerte."
+    }
+  },
+  "destinations": {
+    "Barcelona": "Barcellona",
+    "Berlin": "Berlino",
+    "Cannes": "Cannes",
+    "Dubai": "Dubai",
+    "Courchevel": "Courchevel",
+    "London": "Londra",
+    "Los Angeles": "Los Angeles",
+    "Madrid": "Madrid",
+    "Monaco": "Monaco",
+    "New York": "New York",
+    "Paris": "Parigi",
+    "Geneva": "Ginevra"
+  },
+  "countries": {
+    "Spain": "Spagna",
+    "Germany": "Germania",
+    "France": "Francia",
+    "UAE": "Emirati Arabi Uniti",
+    "UK": "Regno Unito",
+    "USA": "Stati Uniti",
+    "Monaco": "Monaco",
+    "Switzerland": "Svizzera"
+  },
+  "destinationDeals": {
+    "from": "Da",
+    "viewDeals": "Vedi Offerte",
+    "flightsAvailable": "voli disponibili",
+    "seats": "posti",
+    "operators": "operatori",
+    "more": "di più",
+    "discoverDestination": "Scopri {{destination}}, {{country}} con {{count}} {{operators}} disponibil{{plural}}",
+    "operator": "operatore",
+    "oneOperator": "operatore",
+    "multipleOperators": "operatori"
   },
   "howItWorks": {
     "title": "Cos'è un \"Empty Leg\"?",

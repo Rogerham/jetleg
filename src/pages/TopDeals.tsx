@@ -1,12 +1,15 @@
+
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import DestinationDealCard from '@/components/DestinationDealCard';
 import { ArrowLeft, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useDestinationDeals } from '@/hooks/useDestinationDeals';
 
 const TopDeals = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { data: destinationDeals = [], isLoading, error } = useDestinationDeals();
 
   if (isLoading) {
@@ -22,14 +25,14 @@ const TopDeals = () => {
                 className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
               >
                 <ArrowLeft className="h-5 w-5" />
-                Terug naar home
+                {t('topDeals.backToHome')}
               </button>
             </div>
             
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('topDeals.title')}</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.
+                {t('topDeals.subtitle')}
               </p>
             </div>
           </div>
@@ -40,8 +43,8 @@ const TopDeals = () => {
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
                 <MapPin className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">Bestemmingen laden...</h3>
-                <p className="text-muted-foreground">We zoeken de beste beschikbare bestemmingen voor je.</p>
+                <h3 className="text-xl font-semibold text-foreground mb-2">{t('topDeals.loading.title')}</h3>
+                <p className="text-muted-foreground">{t('topDeals.loading.description')}</p>
               </div>
             </div>
           </div>
@@ -65,14 +68,14 @@ const TopDeals = () => {
                 className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
               >
                 <ArrowLeft className="h-5 w-5" />
-                Terug naar home
+                {t('topDeals.backToHome')}
               </button>
             </div>
             
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('topDeals.title')}</h1>
               <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.
+                {t('topDeals.subtitle')}
               </p>
             </div>
           </div>
@@ -82,13 +85,13 @@ const TopDeals = () => {
           <div className="container mx-auto px-6">
             <div className="text-center py-20">
               <MapPin className="h-16 w-16 text-destructive mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">Er is een fout opgetreden</h3>
-              <p className="text-muted-foreground mb-4">We konden geen bestemmingen laden. Probeer het opnieuw.</p>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{t('topDeals.error.title')}</h3>
+              <p className="text-muted-foreground mb-4">{t('topDeals.error.description')}</p>
               <button
                 onClick={() => window.location.reload()}
                 className="btn-jetleg-primary"
               >
-                Opnieuw proberen
+                {t('topDeals.error.retry')}
               </button>
             </div>
           </div>
@@ -112,14 +115,14 @@ const TopDeals = () => {
               className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
-              Terug naar home
+              {t('topDeals.backToHome')}
             </button>
           </div>
           
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Top Bestemmingen</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('topDeals.title')}</h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.
+              {t('topDeals.subtitle')}
             </p>
           </div>
         </div>
@@ -131,22 +134,22 @@ const TopDeals = () => {
           {destinationDeals.length === 0 ? (
             <div className="text-center py-20">
               <MapPin className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">Nog geen vluchten beschikbaar</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{t('topDeals.noFlights.title')}</h3>
               <p className="text-muted-foreground mb-4">
-                Er zijn momenteel geen vluchten beschikbaar naar onze exclusieve bestemmingen. Kom later terug voor nieuwe aanbiedingen.
+                {t('topDeals.noFlights.description')}
               </p>
             </div>
           ) : (
             <>
               <div className="text-center mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Exclusieve Bestemmingen
+                  {t('topDeals.exclusiveDestinations')}
                 </h2>
                 <p className="text-muted-foreground">
-                  Wees er snel bij om als eerste de droomcharter naar jouw favoriete bestemming te boeken. 'First come, first served.'
+                  {t('topDeals.firstComeFirstServed')}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  {destinationDeals.length} bestemmingen beschikbaar
+                  {destinationDeals.length} {t('topDeals.destinationsAvailable')}
                 </p>
               </div>
               
