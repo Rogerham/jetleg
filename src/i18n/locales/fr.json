@@ -63,7 +63,8 @@
     "aircraft": "Avion:",
     "available": "Disponible:",
     "seats": "places",
-    "bookNow": "Réserver"
+    "bookNow": "Réserver",
+    "privateJet": "Jet Privé"
   },
   "topDeals": {
     "title": "Destinations Principales",

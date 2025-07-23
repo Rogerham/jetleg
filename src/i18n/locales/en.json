@@ -63,7 +63,8 @@
     "aircraft": "Aircraft:",
     "available": "Available:",
     "seats": "seats",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "privateJet": "Private Jet"
   },
   "topDeals": {
     "title": "Top Destinations",

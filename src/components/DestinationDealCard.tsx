@@ -16,12 +16,19 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
   const { t } = useTranslation();
 
   const handleExploreDeals = () => {
-    // Navigate to search results with the destination pre-filled
-    navigate('/search-results', {
+    // Navigate to search results with proper URL parameters and state
+    const searchParams = new URLSearchParams({
+      from: 'Alle luchthavens',
+      to: `${deal.destination} (${deal.destinationCode})`,
+      date: 'flexible',
+      passengers: '1'
+    });
+    
+    navigate(`/search-results?${searchParams.toString()}`, {
       state: {
         searchParams: {
+          from: 'Alle luchthavens',
           to: `${deal.destination} (${deal.destinationCode})`,
-          from: '',
           date: 'flexible',
           passengers: '1'
         }

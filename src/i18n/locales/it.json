@@ -63,7 +63,8 @@
     "aircraft": "Aereo:",
     "available": "Disponibile:",
     "seats": "posti",
-    "bookNow": "Prenota ora"
+    "bookNow": "Prenota ora",
+    "privateJet": "Jet Privato"
   },
   "topDeals": {
     "title": "Destinazioni Principali",

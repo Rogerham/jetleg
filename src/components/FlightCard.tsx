@@ -81,11 +81,11 @@ const FlightCard = ({
     if (jets?.description) {
       return jets.description;
     }
-    return jets ? `${operator} - ${jets.brand} ${jets.model}` : `${operator} - Private Jet`;
+    return jets ? `${operator} - ${jets.brand} ${jets.model}` : `${operator} - ${t('flight.privateJet')}`;
   };
 
   const getAircraftDetails = () => {
-    return jets ? `${jets.brand} ${jets.model}` : 'Private Jet';
+    return jets ? `${jets.brand} ${jets.model}` : t('flight.privateJet');
   };
 
   const getImageUrl = () => {
@@ -98,7 +98,7 @@ const FlightCard = ({
       <div className="relative overflow-hidden">
         <img 
           src={getImageUrl()} 
-          alt={jets ? `${jets.brand} ${jets.model}` : 'Private Jet'} 
+          alt={jets ? `${jets.brand} ${jets.model}` : t('flight.privateJet')} 
           className="w-full h-48 object-cover hover:scale-110 transition-transform duration-300"
           onError={(e) => {
             e.currentTarget.src = '/src/assets/jet-interior.jpg';
