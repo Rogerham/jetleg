@@ -10,6 +10,7 @@ import { useFlights, type Flight } from '@/hooks/useFlights';
 import { parseDurationToHours } from '@/utils/durationUtils';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { Button } from '@/components/ui/button';
+
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const SearchResults = () => {
     isLoading,
     error
   } = useFlights(searchData);
+
   useEffect(() => {
     let filtered = [...flights];
 
@@ -90,12 +92,14 @@ const SearchResults = () => {
     });
     setFilteredFlights(filtered);
   }, [flights, filters, sortBy]);
+
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
   };
+
   const handleDurationChange = (min: number, max: number) => {
     setFilters(prev => ({
       ...prev,
@@ -103,6 +107,7 @@ const SearchResults = () => {
       maxDuration: max
     }));
   };
+
   const handleRemoveFilter = (key: string) => {
     const defaultFilters = {
       minPrice: 0,
@@ -119,6 +124,7 @@ const SearchResults = () => {
       [key]: defaultFilters[key as keyof typeof defaultFilters]
     }));
   };
+
   const handleClearAllFilters = () => {
     setFilters({
       minPrice: 0,
@@ -131,27 +137,33 @@ const SearchResults = () => {
       timeOfDay: 'any'
     });
   };
+
   const formatTime = (dateString: string) => {
     return new Date(dateString).toLocaleTimeString('nl-NL', {
       hour: '2-digit',
       minute: '2-digit'
     });
   };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('nl-NL');
   };
+
   const extractAirportCode = (airport: string) => {
     const match = airport.match(/\(([^)]+)\)/);
     return match ? match[1] : airport.slice(-3);
   };
+
   const extractCityName = (airport: string) => {
     return airport.split('(')[0].trim();
   };
+
   const getSearchResultsTitle = () => {
     const fromText = searchData.from || 'Alle luchthavens';
     const toText = searchData.to === 'Overal' ? 'alle bestemmingen' : searchData.to || 'alle bestemmingen';
     return `Vluchten van ${fromText} naar ${toText}`;
   };
+
   const getDateDisplayText = () => {
     if (!searchData.date) return 'Alle data';
     const flexibleOptions: {
@@ -167,15 +179,17 @@ const SearchResults = () => {
     };
     return flexibleOptions[searchData.date] || searchData.date;
   };
+
   const getImageUrl = (flight: Flight) => {
     return flight.jets?.image_url || '/src/assets/jet-interior.jpg';
   };
+
   const FilterSection = ({
     isMobile = false
   }: {
     isMobile?: boolean;
   }) => <div className={`${isMobile ? 'bg-background border border-border rounded-lg' : 'card-jetleg'} p-6 ${!isMobile ? 'sticky top-6' : ''}`} style={!isMobile ? {
-    backgroundColor: '#bad5ff'
+    backgroundColor: '#c9f1ff'
   } : {}}>
       {isMobile && <div className="flex justify-between items-center mb-4">
           <h3 className="font-semibold text-foreground flex items-center gap-2">
@@ -264,6 +278,7 @@ const SearchResults = () => {
         Wis alle filters
       </button>
     </div>;
+
   if (isLoading) {
     return <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -273,6 +288,7 @@ const SearchResults = () => {
         </div>
       </div>;
   }
+
   if (error) {
     return <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -285,6 +301,7 @@ const SearchResults = () => {
         </div>
       </div>;
   }
+
   return <div className="min-h-screen bg-background">
       <Navigation />
       
@@ -443,4 +460,5 @@ const SearchResults = () => {
       <Footer />
     </div>;
 };
+
 export default SearchResults;

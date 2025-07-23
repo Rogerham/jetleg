@@ -15,7 +15,7 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
   const { formatPrice } = useCurrency();
   const { t } = useTranslation();
 
-  const handleExploreDeals = () => {
+  const handleCardClick = () => {
     // Navigate to search results with proper URL parameters and state
     const searchParams = new URLSearchParams({
       from: 'Alle luchthavens',
@@ -70,7 +70,10 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
   });
 
   return (
-    <div className="card-jetleg hover:scale-[1.03] transition-all duration-200 h-full flex flex-col group">
+    <div 
+      className="card-jetleg hover:scale-[1.03] transition-all duration-200 h-full flex flex-col group cursor-pointer"
+      onClick={handleCardClick}
+    >
       <div className="relative overflow-hidden">
         <img 
           src={deal.imageUrl} 
@@ -124,7 +127,10 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
             </p>
           </div>
           <button 
-            onClick={handleExploreDeals}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click when button is clicked
+              handleCardClick();
+            }}
             className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground"
           >
             {t('destinationDeals.viewDeals')}
