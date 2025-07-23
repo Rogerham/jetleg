@@ -2,7 +2,6 @@
 import React from 'react';
 import { LucideIcon, CheckCircle } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import StepIndicator from './StepIndicator';
 
 interface TimelineStepProps {
   icon: LucideIcon;
@@ -23,9 +22,8 @@ const TimelineStep = ({
   isEven = false,
   onVisible 
 }: TimelineStepProps) => {
-  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.4 });
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.5 });
 
-  // Notify parent when this step becomes visible
   React.useEffect(() => {
     if (isVisible) {
       onVisible(stepNumber);
@@ -35,28 +33,52 @@ const TimelineStep = ({
   return (
     <div 
       ref={elementRef}
-      className={`min-h-screen flex items-center py-20 transition-all duration-700 ${
+      className={`relative transition-all duration-700 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-30 translate-y-8'
       }`}
     >
-      <div className="container mx-auto px-6">
-        <div className={`flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-16`}>
-          <div className="flex-1 lg:pl-16">
-            <StepIndicator 
-              icon={Icon} 
-              stepNumber={stepNumber} 
-              isActive={isVisible} 
-            />
-            
-            <h2 className={`text-title text-foreground mb-4 transition-all duration-500 ${
-              isVisible ? 'translate-x-0' : isEven ? 'translate-x-8' : '-translate-x-8'
+      {/* Timeline dot - centered */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 z-10 hidden lg:block">
+        <div className={`w-12 h-12 rounded-full border-4 border-background transition-all duration-500 flex items-center justify-center ${
+          isVisible 
+            ? 'bg-accent scale-110 shadow-lg' 
+            : 'bg-muted scale-100'
+        }`}>
+          <Icon className={`h-5 w-5 transition-colors duration-300 ${
+            isVisible ? 'text-white' : 'text-muted-foreground'
+          }`} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        {/* Content - alternates sides on desktop */}
+        <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'} ${isEven ? 'lg:pl-8' : 'lg:pr-8'}`}>
+          {/* Mobile step indicator */}
+          <div className="flex items-center gap-4 mb-6 lg:hidden">
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+              isVisible 
+                ? 'bg-accent scale-110' 
+                : 'bg-accent/20'
             }`}>
+              <Icon className={`h-6 w-6 transition-colors duration-300 ${
+                isVisible ? 'text-white' : 'text-muted-foreground'
+              }`} />
+            </div>
+            <div className={`text-sm font-semibold transition-colors duration-300 ${
+              isVisible ? 'text-accent' : 'text-muted-foreground'
+            }`}>
+              Stap {stepNumber}
+            </div>
+          </div>
+
+          <div className={`transition-all duration-500 ${
+            isVisible ? 'translate-x-0' : isEven ? 'translate-x-8' : '-translate-x-8'
+          }`}>
+            <h2 className="text-title text-foreground mb-4">
               {title}
             </h2>
             
-            <p className={`text-lg text-muted-foreground mb-6 transition-all duration-500 delay-100 ${
-              isVisible ? 'translate-x-0' : isEven ? 'translate-x-8' : '-translate-x-8'
-            }`}>
+            <p className="text-lg text-muted-foreground mb-6">
               {description}
             </p>
             
@@ -65,7 +87,7 @@ const TimelineStep = ({
                 <li 
                   key={index} 
                   className={`flex items-center gap-3 transition-all duration-500 ${
-                    isVisible ? 'translate-x-0 opacity-100' : isEven ? 'translate-x-8 opacity-0' : '-translate-x-8 opacity-0'
+                    isVisible ? 'translate-x-0 opacity-100' : isEven ? 'translate-x-4 opacity-0' : '-translate-x-4 opacity-0'
                   }`}
                   style={{ transitionDelay: `${200 + index * 100}ms` }}
                 >
@@ -75,13 +97,15 @@ const TimelineStep = ({
               ))}
             </ul>
           </div>
-          
-          {/* Visual element - could be an illustration or animation */}
-          <div className={`flex-1 flex justify-center transition-all duration-700 delay-300 ${
+        </div>
+
+        {/* Visual element - alternates sides on desktop */}
+        <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'} ${isEven ? 'lg:pr-8' : 'lg:pl-8'}`}>
+          <div className={`transition-all duration-700 delay-300 ${
             isVisible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
           }`}>
-            <div className="w-80 h-64 bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl flex items-center justify-center">
-              <Icon className="h-24 w-24 text-accent/20" />
+            <div className="w-full max-w-md mx-auto h-64 sm:h-80 bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl flex items-center justify-center shadow-lg">
+              <Icon className="h-20 w-20 sm:h-24 sm:w-24 text-accent/30" />
             </div>
           </div>
         </div>

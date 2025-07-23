@@ -74,7 +74,6 @@ const HowItWorks = () => {
             ))}
           </div>
           
-          {/* FAQ Navigation Button */}
           <div className="text-center mt-12">
             <button onClick={handleFAQClick} className="btn-jetleg-primary">
               Bekijk alle veelgestelde vragen
