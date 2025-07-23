@@ -142,7 +142,8 @@ const FlightCard = ({
           </div>
         </div>
         
-        <div className="flex justify-between items-center mt-auto">
+        {/* Mobile: Stack price and button vertically, Desktop: Side by side */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mt-auto">
           <div>
             <p className="text-3xl font-bold text-foreground">
               {formatPrice(price_per_seat)}
@@ -150,7 +151,7 @@ const FlightCard = ({
           </div>
           <button 
             onClick={handleBooking}
-            className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground"
+            className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground w-full sm:w-auto"
           >
             {t('flight.bookNow')}
           </button>

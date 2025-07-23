@@ -1,11 +1,12 @@
 
 import { useQuery } from '@tanstack/react-query';
-import { useDealsFlights } from './useFlights';
+import { useAllFlights } from './useFlights';
 import { groupFlightsByDestination } from '@/utils/destinationUtils';
 import { DestinationDeal } from '@/types/destinationDeals';
 
 export const useDestinationDeals = () => {
-  const { data: flights = [], isLoading: flightsLoading, error: flightsError } = useDealsFlights();
+  // Use ALL flights (not deduplicated) to get accurate counts for destination deals
+  const { data: flights = [], isLoading: flightsLoading, error: flightsError } = useAllFlights();
 
   return useQuery({
     queryKey: ['destination-deals', flights.length],

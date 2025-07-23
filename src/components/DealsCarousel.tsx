@@ -25,12 +25,12 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
     }
 
     setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap());
     setCanScrollPrev(api.canScrollPrev());
     setCanScrollNext(api.canScrollNext());
 
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
+      setCurrent(api.selectedScrollSnap());
       setCanScrollPrev(api.canScrollPrev());
       setCanScrollNext(api.canScrollNext());
     });
@@ -93,7 +93,7 @@ const DealsCarousel = ({ deals, className = '' }: DealsCarouselProps) => {
               key={index}
               onClick={() => scrollTo(index)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                current === index + 1
+                current === index
                   ? 'bg-primary w-6'
                   : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
               }`}

@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { deduplicateFlightsByRoute } from '@/utils/flightUtils';
@@ -61,7 +60,8 @@ export const useFlights = (searchParams?: {
         `);
 
       // Apply filters if search params are provided
-      if (searchParams?.from && searchParams.from.trim() !== '') {
+      // Handle "Alle luchthavens" - don't filter by departure if this is selected
+      if (searchParams?.from && searchParams.from.trim() !== '' && searchParams.from !== 'Alle luchthavens') {
         const fromCity = searchParams.from.split('(')[0].trim();
         query = query.ilike('departure_airport', `%${fromCity}%`);
       }

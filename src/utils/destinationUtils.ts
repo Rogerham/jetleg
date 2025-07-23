@@ -27,6 +27,7 @@ const DESTINATION_COUNTRY_KEYS: Record<string, string> = {
 
 /**
  * Groups flights by destination and creates DestinationDeal objects for the 12 featured destinations
+ * Uses ALL flights (not deduplicated) to get accurate flight counts
  */
 export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] => {
   console.log(`Processing ${flights.length} flights for destination deals`);
@@ -63,7 +64,7 @@ export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] 
   destinationMap.forEach((flights, key) => {
     const [destinationCity, destinationCode] = key.split('-');
     
-    // Calculate aggregated data
+    // Calculate aggregated data using ALL flights (not deduplicated)
     const minPrice = Math.min(...flights.map(f => f.price_per_seat));
     const totalAvailableSeats = flights.reduce((sum, f) => sum + f.available_seats, 0);
     const operators = [...new Set(flights.map(f => f.operator))];
@@ -80,7 +81,7 @@ export const groupFlightsByDestination = (flights: Flight[]): DestinationDeal[] 
       destination: destinationCity,
       destinationCode,
       countryKey, // Store the translation key instead of translated text
-      flights,
+      flights, // Use ALL flights for accurate counting
       minPrice,
       totalAvailableSeats,
       operators,
