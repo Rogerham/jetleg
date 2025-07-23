@@ -188,7 +188,7 @@ const SearchResults = () => {
     isMobile = false
   }: {
     isMobile?: boolean;
-  }) => <div className={`${isMobile ? 'bg-background border border-border rounded-lg' : 'bg-[#c9f1ff] border border-border rounded-lg'} p-6 ${!isMobile ? 'sticky top-6' : ''}`}>
+  }) => <div className={`${isMobile ? 'bg-background border border-border rounded-lg' : 'bg-[#def0fd] border border-border rounded-lg'} p-6 ${!isMobile ? 'sticky top-6' : ''}`}>
       {isMobile && <div className="flex justify-between items-center mb-4">
           <h3 className="font-semibold text-foreground flex items-center gap-2">
             <Filter className="h-5 w-5" />
@@ -303,12 +303,13 @@ const SearchResults = () => {
   return <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Search Bar - Reduced height */}
+      {/* Search Bar - Pre-filled with current search parameters */}
       <div className="bg-primary text-white py-6">
         <div className="container mx-auto px-6">
-          
-          
-          <SearchWithSuggestions className="max-w-none" />
+          <SearchWithSuggestions 
+            className="max-w-none"
+            initialValues={searchData}
+          />
         </div>
       </div>
 
@@ -320,11 +321,12 @@ const SearchResults = () => {
               {getSearchResultsTitle()}
             </h1>
             <p className="text-muted-foreground flex items-center gap-4">
-              <span className="flex items-center gap-1">
+              {/* Hide date and passengers on mobile, show only on desktop */}
+              <span className="hidden lg:flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
                 {getDateDisplayText()}
               </span>
-              <span className="flex items-center gap-1">
+              <span className="hidden lg:flex items-center gap-1">
                 <Users className="h-4 w-4" />
                 {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
               </span>
@@ -360,7 +362,7 @@ const SearchResults = () => {
 
         {/* Mobile/Tablet Filter Overlay */}
         {isFilterOpen && <div className="fixed inset-0 bg-black/50 z-50 lg:hidden">
-            <div className="absolute inset-x-0 top-0 bg-[#c9f1ff] max-h-screen overflow-y-auto">
+            <div className="absolute inset-x-0 top-0 bg-[#def0fd] max-h-screen overflow-y-auto">
               <FilterSection isMobile={true} />
             </div>
           </div>}

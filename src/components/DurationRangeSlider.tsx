@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Slider } from '@/components/ui/slider';
 
 interface DurationRangeSliderProps {
@@ -15,26 +15,10 @@ const DurationRangeSlider = ({ minDuration, maxDuration, onDurationChange }: Dur
     setRange([minDuration, maxDuration]);
   }, [minDuration, maxDuration]);
 
-  const handleRangeChange = useCallback((newRange: number[]) => {
-    // Ensure we have exactly 2 values
-    if (newRange.length !== 2) return;
-    
-    // Simple validation - ensure proper order and bounds
-    let [newMin, newMax] = newRange;
-    
-    // Ensure proper order
-    if (newMin > newMax) {
-      [newMin, newMax] = [newMax, newMin];
-    }
-    
-    // Ensure bounds
-    newMin = Math.max(0.5, Math.min(newMin, 19.5));
-    newMax = Math.min(20, Math.max(newMax, 1));
-    
-    const adjustedRange = [newMin, newMax];
-    setRange(adjustedRange);
-    onDurationChange(adjustedRange[0], adjustedRange[1]);
-  }, [onDurationChange]);
+  const handleRangeChange = (newRange: number[]) => {
+    setRange(newRange);
+    onDurationChange(newRange[0], newRange[1]);
+  };
 
   const formatHours = (hours: number) => {
     if (hours === Math.floor(hours)) {

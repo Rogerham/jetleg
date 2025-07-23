@@ -4,18 +4,27 @@ import { useNavigate } from 'react-router-dom';
 import { worldwideAirports, type Airport } from '@/data/airports';
 import PassengerCounter from './PassengerCounter';
 import EnhancedDatePicker from './EnhancedDatePicker';
+
 interface SearchWithSuggestionsProps {
   className?: string;
+  initialValues?: {
+    from?: string;
+    to?: string;
+    date?: string;
+    passengers?: string;
+  };
 }
+
 const SearchWithSuggestions = ({
-  className = ''
+  className = '',
+  initialValues
 }: SearchWithSuggestionsProps) => {
   const navigate = useNavigate();
   const [searchData, setSearchData] = useState({
-    from: '',
-    to: '',
-    date: '',
-    passengers: '1'
+    from: initialValues?.from || '',
+    to: initialValues?.to || '',
+    date: initialValues?.date || '',
+    passengers: initialValues?.passengers || '1'
   });
   const [suggestions, setSuggestions] = useState<{
     from: Airport[];
@@ -32,6 +41,7 @@ const SearchWithSuggestions = ({
   const fromInputRef = useRef<HTMLInputElement>(null);
   const toInputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
@@ -43,6 +53,18 @@ const SearchWithSuggestions = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (initialValues) {
+      setSearchData({
+        from: initialValues.from || '',
+        to: initialValues.to || '',
+        date: initialValues.date || '',
+        passengers: initialValues.passengers || '1'
+      });
+    }
+  }, [initialValues]);
+
   const handleInputChange = (field: string, value: string) => {
     setSearchData(prev => ({
       ...prev,
@@ -71,6 +93,7 @@ const SearchWithSuggestions = ({
       }
     }
   };
+
   const handleInputFocus = (field: 'from' | 'to') => {
     const value = searchData[field];
     if (value.length > 0 && value !== 'Overal') {
@@ -84,6 +107,7 @@ const SearchWithSuggestions = ({
       field
     });
   };
+
   const handleSuggestionClick = (field: 'from' | 'to', airport: Airport) => {
     const airportText = `${airport.city} (${airport.code})`;
     setSearchData(prev => ({
@@ -101,6 +125,7 @@ const SearchWithSuggestions = ({
       toInputRef.current.focus();
     }
   };
+
   const handleEverywhere = () => {
     setSearchData(prev => ({
       ...prev,
@@ -114,6 +139,7 @@ const SearchWithSuggestions = ({
       to: []
     }));
   };
+
   const handleSwapLocations = () => {
     setSearchData(prev => ({
       ...prev,
@@ -121,6 +147,7 @@ const SearchWithSuggestions = ({
       to: prev.from
     }));
   };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchData.from || !searchData.to || !searchData.date) {
@@ -134,6 +161,7 @@ const SearchWithSuggestions = ({
     });
     navigate(`/search-results?${searchParams.toString()}`);
   };
+
   return <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
       <form onSubmit={handleSearch} className="space-y-6">
         {/* Mobile Layout */}
@@ -326,4 +354,5 @@ const SearchWithSuggestions = ({
       </form>
     </div>;
 };
+
 export default SearchWithSuggestions;
