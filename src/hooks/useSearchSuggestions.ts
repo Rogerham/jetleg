@@ -1,7 +1,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import { airports } from '@/data/airports';
+import { worldwideAirports } from '@/data/airports';
 
 interface SearchSuggestion {
   value: string;
@@ -20,6 +20,11 @@ const POPULAR_ROUTES = [
   { from: 'Munich (MUC)', to: 'Barcelona (BCN)', frequency: 70 },
   { from: 'Berlin (BER)', to: 'Rome (FCO)', frequency: 65 }
 ];
+
+// Convert airport objects to display format
+const airportsDisplayList = worldwideAirports.map(airport => 
+  `${airport.city} (${airport.code})`
+);
 
 export const useSearchSuggestions = (query: string, field: 'from' | 'to') => {
   return useQuery({
@@ -48,7 +53,7 @@ export const useSearchSuggestions = (query: string, field: 'from' | 'to') => {
       }
 
       // Add airport matches
-      const airportMatches = airports
+      const airportMatches = airportsDisplayList
         .filter(airport => airport.toLowerCase().includes(queryLower))
         .slice(0, 6)
         .map(airport => ({

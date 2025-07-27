@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Search, MapPin, Calendar, Users, Plane } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { airports } from '@/data/airports';
+import { worldwideAirports } from '@/data/airports';
 import EnhancedDatePicker from '@/components/EnhancedDatePicker';
 import PassengerCounter from '@/components/PassengerCounter';
 import SearchFormValidation from '@/components/SearchFormValidation';
@@ -62,6 +62,11 @@ const EnhancedSearchWithSuggestions = ({
   const fromRef = useRef<HTMLInputElement>(null);
   const toRef = useRef<HTMLInputElement>(null);
 
+  // Convert airport objects to display format
+  const airportsDisplayList = worldwideAirports.map(airport => 
+    `${airport.city} (${airport.code})`
+  );
+
   // Popular routes for suggestions
   const popularRoutes = [
     { from: 'London (LGW)', to: 'Paris (CDG)' },
@@ -108,7 +113,7 @@ const EnhancedSearchWithSuggestions = ({
   const getSuggestions = (query: string, field: 'from' | 'to'): string[] => {
     if (query.length < 2) return [];
 
-    const airportSuggestions = airports
+    const airportSuggestions = airportsDisplayList
       .filter(airport => 
         airport.toLowerCase().includes(query.toLowerCase())
       )
@@ -194,7 +199,13 @@ const EnhancedSearchWithSuggestions = ({
       if (onSearch) {
         onSearch(searchValues);
       } else {
-        const searchParams = new URLSearchParams(searchValues);
+        // Convert SearchValues to URLSearchParams format
+        const searchParams = new URLSearchParams({
+          from: searchValues.from,
+          to: searchValues.to,
+          date: searchValues.date,
+          passengers: searchValues.passengers
+        });
         navigate(`/search-results?${searchParams.toString()}`);
       }
     } catch (error) {
