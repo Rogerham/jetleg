@@ -1,0 +1,35 @@
+
+{
+  "common": {
+    "dismiss": "Dismiss",
+    "tryAgain": "Try Again",
+    "loadMore": "Load More"
+  },
+  "search": {
+    "validation": {
+      "fromRequired": "Please select a departure location",
+      "toRequired": "Please select a destination", 
+      "dateRequired": "Please select a departure date",
+      "passengersRequired": "Please select number of passengers"
+    },
+    "searching": "Searching...",
+    "searchingFlights": "Searching flights...",
+    "loadingMore": "Loading more flights...",
+    "loadMore": "Load {{remaining}} more flights",
+    "resultsCount": "{{count}} flights found",
+    "filteredFrom": "filtered from {{total}}",
+    "tryAgainLater": "Please try again later",
+    "passenger": "passenger",
+    "passengers": "passengers",
+    "allDates": "All dates",
+    "today": "Today", 
+    "tomorrow": "Tomorrow",
+    "thisWeekend": "This weekend",
+    "nextWeek": "Next week",
+    "nextMonth": "Next month",
+    "flexibleDates": "Flexible dates",
+    "searchResultsFromTo": "Flights from {{from}} to {{to}}",
+    "allAirports": "All airports",
+    "everywhere": "Everywhere"
+  }
+}
