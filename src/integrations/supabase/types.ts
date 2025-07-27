@@ -59,6 +59,20 @@ export type Database = {
             referencedRelation: "flights"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_bookings_flight_id"
+            columns: ["flight_id"]
+            isOneToOne: false
+            referencedRelation: "flights"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_bookings_user_id"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
         ]
       }
       flights: {
@@ -105,6 +119,13 @@ export type Database = {
           price_per_seat?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_flights_jet_id"
+            columns: ["jet_id"]
+            isOneToOne: false
+            referencedRelation: "jets"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "flights_jet_id_fkey"
             columns: ["jet_id"]
