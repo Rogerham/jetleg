@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      alert_preferences: {
+        Row: {
+          created_at: string
+          email_address: string | null
+          email_notifications: boolean | null
+          id: string
+          phone_notifications: boolean | null
+          phone_number: string | null
+          saved_search_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email_address?: string | null
+          email_notifications?: boolean | null
+          id?: string
+          phone_notifications?: boolean | null
+          phone_number?: string | null
+          saved_search_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email_address?: string | null
+          email_notifications?: boolean | null
+          id?: string
+          phone_notifications?: boolean | null
+          phone_number?: string | null
+          saved_search_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alert_preferences_saved_search_id_fkey"
+            columns: ["saved_search_id"]
+            isOneToOne: false
+            referencedRelation: "saved_searches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           booking_status: string
@@ -195,6 +236,30 @@ export type Database = {
           last_name?: string | null
           phone?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      saved_searches: {
+        Row: {
+          created_at: string
+          id: string
+          search_criteria: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          search_criteria: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          search_criteria?: Json
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

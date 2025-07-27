@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar, X } from 'lucide-react';
@@ -5,6 +6,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
+import SaveSearchButton from '@/components/SaveSearchButton';
 import CustomDurationSlider from '@/components/CustomDurationSlider';
 import { useFlights, type Flight } from '@/hooks/useFlights';
 import { parseDurationToHours } from '@/utils/durationUtils';
@@ -30,12 +32,15 @@ const SearchResults = () => {
     aircraft: '',
     timeOfDay: 'any'
   });
+  
   const searchData = {
     from: searchParams.get('from') || '',
     to: searchParams.get('to') || '',
     date: searchParams.get('date') || '',
-    passengers: searchParams.get('passengers') || '1'
+    passengers: searchParams.get('passengers') || '1',
+    filters
   };
+
   const {
     data: flights = [],
     isLoading,
@@ -321,7 +326,6 @@ const SearchResults = () => {
               {getSearchResultsTitle()}
             </h1>
             <p className="text-muted-foreground flex items-center gap-4">
-              {/* Hide date and passengers on mobile, show only on desktop */}
               <span className="hidden lg:flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
                 {getDateDisplayText()}
@@ -337,6 +341,9 @@ const SearchResults = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            {/* Save Search Button */}
+            <SaveSearchButton searchCriteria={searchData} />
+
             {/* Mobile/Tablet Filter Toggle */}
             <div className="block lg:hidden">
               <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2">
