@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { Plus, Minus } from 'lucide-react';
 
 interface PassengerCounterProps {
-  value: string;
-  onChange: (value: string) => void;
+  value: number;
+  onChange: (value: number) => void;
   className?: string;
   hideArrows?: boolean;
 }
@@ -15,10 +15,10 @@ const PassengerCounter = ({
   className = '',
   hideArrows = false
 }: PassengerCounterProps) => {
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value.toString());
 
   useEffect(() => {
-    setInputValue(value);
+    setInputValue(value.toString());
   }, [value]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,15 +28,15 @@ const PassengerCounter = ({
     // Validate and update parent
     const num = parseInt(newValue);
     if (num >= 1 && num <= 20) {
-      onChange(newValue);
+      onChange(num);
     }
   };
 
   const increment = () => {
     const num = parseInt(inputValue);
     if (num < 20) {
-      const newValue = (num + 1).toString();
-      setInputValue(newValue);
+      const newValue = num + 1;
+      setInputValue(newValue.toString());
       onChange(newValue);
     }
   };
@@ -44,8 +44,8 @@ const PassengerCounter = ({
   const decrement = () => {
     const num = parseInt(inputValue);
     if (num > 1) {
-      const newValue = (num - 1).toString();
-      setInputValue(newValue);
+      const newValue = num - 1;
+      setInputValue(newValue.toString());
       onChange(newValue);
     }
   };
@@ -53,7 +53,7 @@ const PassengerCounter = ({
   const handleBlur = () => {
     const num = parseInt(inputValue);
     if (isNaN(num) || num < 1 || num > 20) {
-      setInputValue(value);
+      setInputValue(value.toString());
     }
   };
 
