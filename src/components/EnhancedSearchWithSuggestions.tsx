@@ -237,6 +237,11 @@ const EnhancedSearchWithSuggestions = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Helper function to check if a field has validation errors
+  const hasFieldError = (fieldName: string) => {
+    return validationErrors.some(error => error.field === fieldName);
+  };
+
   return (
     <div className={`w-full ${className}`}>
       <SearchFormValidation 
@@ -262,8 +267,15 @@ const EnhancedSearchWithSuggestions = ({
                 setShowSuggestions(prev => ({ ...prev, from: true }));
               }
             }}
-            className={validationErrors.some(e => e.field === 'from') ? 'border-destructive' : ''}
+            className={hasFieldError('from') ? 'border-destructive ring-1 ring-destructive' : ''}
           />
+          
+          {/* Show inline error for from field */}
+          {hasFieldError('from') && (
+            <div className="absolute -bottom-5 left-0 text-xs text-destructive">
+              Selecteer een vertreklocatie
+            </div>
+          )}
           
           {showSuggestions.from && suggestions.from.length > 0 && (
             <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-popover border border-border rounded-md shadow-lg max-h-48 overflow-y-auto">
@@ -303,8 +315,15 @@ const EnhancedSearchWithSuggestions = ({
                 setShowSuggestions(prev => ({ ...prev, to: true }));
               }
             }}
-            className={validationErrors.some(e => e.field === 'to') ? 'border-destructive' : ''}
+            className={hasFieldError('to') ? 'border-destructive ring-1 ring-destructive' : ''}
           />
+          
+          {/* Show inline error for to field */}
+          {hasFieldError('to') && (
+            <div className="absolute -bottom-5 left-0 text-xs text-destructive">
+              Selecteer een bestemming
+            </div>
+          )}
           
           {showSuggestions.to && suggestions.to.length > 0 && (
             <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-popover border border-border rounded-md shadow-lg max-h-48 overflow-y-auto">
@@ -328,7 +347,7 @@ const EnhancedSearchWithSuggestions = ({
         </div>
 
         {/* Date Field */}
-        <div>
+        <div className="relative">
           <label className="block text-sm font-medium text-foreground mb-2">
             <Calendar className="h-4 w-4 inline mr-1" />
             {t('search.date')}
@@ -339,12 +358,12 @@ const EnhancedSearchWithSuggestions = ({
               setSearchValues(prev => ({ ...prev, date: value }));
               setValidationErrors(prev => prev.filter(error => error.field !== 'date'));
             }}
-            className={validationErrors.some(e => e.field === 'date') ? 'border-destructive' : ''}
+            hasError={hasFieldError('date')}
           />
         </div>
 
         {/* Passengers Field */}
-        <div>
+        <div className="relative">
           <label className="block text-sm font-medium text-foreground mb-2">
             <Users className="h-4 w-4 inline mr-1" />
             {t('search.passengers')}
@@ -356,10 +375,17 @@ const EnhancedSearchWithSuggestions = ({
               setValidationErrors(prev => prev.filter(error => error.field !== 'passengers'));
             }}
           />
+          
+          {/* Show inline error for passengers field */}
+          {hasFieldError('passengers') && (
+            <div className="absolute -bottom-5 left-0 text-xs text-destructive">
+              Selecteer het aantal passagiers
+            </div>
+          )}
         </div>
 
         {/* Search Button */}
-        <div className="md:col-span-4 flex justify-center mt-4">
+        <div className="md:col-span-4 flex justify-center mt-6">
           <Button
             onClick={handleSearch}
             disabled={isSearching}
