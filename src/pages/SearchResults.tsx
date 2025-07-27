@@ -320,7 +320,7 @@ const SearchResults = () => {
 
       <div className="container mx-auto px-6 py-8">
         {/* Results Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8">
+        <div className="flex flex-col gap-4 mb-8">
           <div>
             <h1 className="text-title text-foreground mb-2">
               {getSearchResultsTitle()}
@@ -340,26 +340,31 @@ const SearchResults = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
-            {/* Save Search Button */}
+          {/* Save Search Button - Positioned above controls on mobile */}
+          <div className="flex justify-center lg:justify-start mb-4 lg:mb-0">
             <SaveSearchButton searchCriteria={searchData} />
+          </div>
 
-            {/* Mobile/Tablet Filter Toggle */}
-            <div className="block lg:hidden">
-              <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4" />
-                Filters
-              </Button>
-            </div>
+          {/* Filter and Sort Controls */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="flex items-center gap-4 w-full sm:w-auto">
+              {/* Mobile/Tablet Filter Toggle */}
+              <div className="block lg:hidden">
+                <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2">
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Filters
+                </Button>
+              </div>
 
-            {/* Sort Dropdown */}
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Sorteer:</span>
-              <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
-                <option value="price">Prijs (laag naar hoog)</option>
-                <option value="duration">Vliegduur</option>
-                <option value="departure">Vertrektijd</option>
-              </select>
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2 flex-1 sm:flex-initial">
+                <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
+                <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 sm:flex-initial px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
+                  <option value="price">Prijs (laag naar hoog)</option>
+                  <option value="duration">Vliegduur</option>
+                  <option value="departure">Vertrektijd</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>

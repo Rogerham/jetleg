@@ -1,9 +1,11 @@
+
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Search, MapPin, Calendar, Users, Plane } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Plane, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { worldwideAirports } from '@/data/airports';
 import EnhancedDatePicker from '@/components/EnhancedDatePicker';
 import PassengerCounter from '@/components/PassengerCounter';
@@ -81,28 +83,28 @@ const EnhancedSearchWithSuggestions = ({
     if (!searchValues.from.trim()) {
       errors.push({
         field: 'from',
-        message: t('search.validation.fromRequired') || 'Please select a departure location'
+        message: 'Selecteer een vertreklocatie'
       });
     }
 
     if (!searchValues.to.trim()) {
       errors.push({
         field: 'to',
-        message: t('search.validation.toRequired') || 'Please select a destination'
+        message: 'Selecteer een bestemming'
       });
     }
 
     if (!searchValues.date.trim()) {
       errors.push({
         field: 'date',
-        message: t('search.validation.dateRequired') || 'Please select a departure date'
+        message: 'Selecteer een vertrekdatum om te kunnen zoeken'
       });
     }
 
     if (!searchValues.passengers || parseInt(searchValues.passengers) < 1) {
       errors.push({
         field: 'passengers',
-        message: t('search.validation.passengersRequired') || 'Please select number of passengers'
+        message: 'Selecteer het aantal passagiers'
       });
     }
 
@@ -188,6 +190,8 @@ const EnhancedSearchWithSuggestions = ({
     
     if (errors.length > 0) {
       setValidationErrors(errors);
+      // Scroll to top to show validation errors
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 

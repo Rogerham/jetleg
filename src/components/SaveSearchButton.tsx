@@ -33,15 +33,14 @@ const SaveSearchButton = ({ searchCriteria }: SaveSearchButtonProps) => {
 
   return (
     <>
-      <Button 
-        variant="outline" 
+      <button 
         onClick={handleSaveSearch}
         disabled={isSaving}
-        className="flex items-center gap-2"
+        className="group flex items-center gap-2 px-4 py-2 text-sm font-medium text-accent hover:text-accent/80 border border-accent/20 hover:border-accent/40 rounded-full bg-accent/5 hover:bg-accent/10 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Heart className="h-4 w-4" />
-        {isSaving ? 'Saving...' : 'Save Search'}
-      </Button>
+        <Heart className="h-4 w-4 group-hover:scale-110 transition-transform" />
+        <span>{isSaving ? 'Opslaan...' : 'Zoekopdracht opslaan'}</span>
+      </button>
 
       <AlertPreferencesDialog
         isOpen={showAlertDialog}
