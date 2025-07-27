@@ -5,7 +5,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
-import DurationRangeSlider from '@/components/DurationRangeSlider';
+import CustomDurationSlider from '@/components/CustomDurationSlider';
 import { useFlights, type Flight } from '@/hooks/useFlights';
 import { parseDurationToHours } from '@/utils/durationUtils';
 import { useCurrency } from '@/contexts/CurrencyContext';
@@ -188,7 +188,7 @@ const SearchResults = () => {
     isMobile = false
   }: {
     isMobile?: boolean;
-  }) => <div className={`${isMobile ? 'bg-background border border-border rounded-lg' : 'bg-[#def0fd] border border-border rounded-lg'} p-6 ${!isMobile ? 'sticky top-6' : ''}`}>
+  }) => <div className={`${isMobile ? 'bg-background border border-border rounded-lg' : 'border border-border rounded-lg'} p-6 ${!isMobile ? 'sticky top-6' : ''}`} style={{ backgroundColor: isMobile ? undefined : '#ebfaff' }}>
       {isMobile && <div className="flex justify-between items-center mb-4">
           <h3 className="font-semibold text-foreground flex items-center gap-2">
             <Filter className="h-5 w-5" />
@@ -243,7 +243,7 @@ const SearchResults = () => {
         <label className="block text-sm font-medium text-foreground mb-3">
           Vliegduur (uren)
         </label>
-        <DurationRangeSlider minDuration={filters.minDuration} maxDuration={filters.maxDuration} onDurationChange={handleDurationChange} />
+        <CustomDurationSlider minDuration={filters.minDuration} maxDuration={filters.maxDuration} onDurationChange={handleDurationChange} />
       </div>
 
       {/* Time of Day */}
@@ -362,7 +362,7 @@ const SearchResults = () => {
 
         {/* Mobile/Tablet Filter Overlay */}
         {isFilterOpen && <div className="fixed inset-0 bg-black/50 z-50 lg:hidden">
-            <div className="absolute inset-x-0 top-0 bg-[#def0fd] max-h-screen overflow-y-auto">
+            <div className="absolute inset-x-0 top-0 max-h-screen overflow-y-auto" style={{ backgroundColor: '#ebfaff' }}>
               <FilterSection isMobile={true} />
             </div>
           </div>}
