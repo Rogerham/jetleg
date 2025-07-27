@@ -17,10 +17,6 @@ const SearchResults = () => {
   const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [sortBy, setSortBy] = useState('price');
-  
-  // Edit mode - easily change this color value
-  const FILTER_BACKGROUND_COLOR = '#c9f1ff'; // Light blue color - easily editable
-  
   const {
     formatPrice
   } = useCurrency();
@@ -192,10 +188,7 @@ const SearchResults = () => {
     isMobile = false
   }: {
     isMobile?: boolean;
-  }) => <div 
-      className={`border border-border rounded-lg p-6 ${!isMobile ? 'sticky top-6' : ''}`}
-      style={{ backgroundColor: FILTER_BACKGROUND_COLOR }}
-    >
+  }) => <div className={`${isMobile ? 'bg-background border border-border rounded-lg' : 'bg-[#def0fd] border border-border rounded-lg'} p-6 ${!isMobile ? 'sticky top-6' : ''}`}>
       {isMobile && <div className="flex justify-between items-center mb-4">
           <h3 className="font-semibold text-foreground flex items-center gap-2">
             <Filter className="h-5 w-5" />
@@ -369,10 +362,7 @@ const SearchResults = () => {
 
         {/* Mobile/Tablet Filter Overlay */}
         {isFilterOpen && <div className="fixed inset-0 bg-black/50 z-50 lg:hidden">
-            <div 
-              className="absolute inset-x-0 top-0 max-h-screen overflow-y-auto"
-              style={{ backgroundColor: FILTER_BACKGROUND_COLOR }}
-            >
+            <div className="absolute inset-x-0 top-0 bg-[#def0fd] max-h-screen overflow-y-auto">
               <FilterSection isMobile={true} />
             </div>
           </div>}
