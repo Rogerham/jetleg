@@ -94,6 +94,13 @@ const SearchWithSuggestions = ({
     }
   };
 
+  const handlePassengerChange = (value: number) => {
+    setSearchData(prev => ({
+      ...prev,
+      passengers: value.toString()
+    }));
+  };
+
   const handleInputFocus = (field: 'from' | 'to') => {
     const value = searchData[field];
     if (value.length > 0 && value !== 'Overal') {
@@ -247,7 +254,7 @@ const SearchWithSuggestions = ({
                 <Users className="h-4 w-4" />
                 Pax
               </label>
-              <PassengerCounter value={searchData.passengers} onChange={value => handleInputChange('passengers', value)} className="h-14" hideArrows={false} />
+              <PassengerCounter value={parseInt(searchData.passengers)} onChange={handlePassengerChange} className="h-14" hideArrows={false} />
             </div>
           </div>
           
@@ -340,7 +347,7 @@ const SearchWithSuggestions = ({
               <Users className="h-4 w-4" />
               Pax
             </label>
-            <PassengerCounter value={searchData.passengers} onChange={value => handleInputChange('passengers', value)} className="h-12" hideArrows={false} />
+            <PassengerCounter value={parseInt(searchData.passengers)} onChange={handlePassengerChange} className="h-12" hideArrows={false} />
           </div>
           
           {/* Search Button */}
