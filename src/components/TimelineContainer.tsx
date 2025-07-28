@@ -81,12 +81,12 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     <div ref={stepRef} className="relative w-full">
       {/* Mobile/Tablet Layout (FIXED) */}
       <div className="lg:hidden flex items-start">
-        <div className="absolute left-8 flex items-center justify-center -translate-x-1/2">
+        <div className="absolute left-10 flex items-center justify-center -translate-x-1/2">
           <div className="z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg">
             <Icon className="h-6 w-6" />
           </div>
         </div>
-        <div className="w-full pl-20">
+        <div className="w-full pl-24">
           {mobileContent}
         </div>
       </div>
@@ -148,7 +148,7 @@ const TimelineContainer = () => {
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6 relative">
         {/* Vertical Timeline Line (FIXED) */}
-        <div className="absolute top-0 bottom-0 lg:left-1/2 left-8 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+        <div className="absolute top-0 bottom-0 lg:left-1/2 left-10 w-[3px] -translate-x-1/2 bg-muted rounded-full">
           <div 
             className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
             style={{ height: `${scrollProgress * 100}%` }}
