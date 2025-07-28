@@ -30,7 +30,9 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
           onVisible(stepNumber);
         }
       },
-      { threshold: 0.6 }
+      { 
+        threshold: 0.8 // <-- DE FIX: Verhoogde drempel voor nauwkeurigheid
+      }
     );
 
     const currentRef = stepRef.current;
@@ -132,7 +134,7 @@ const TimelineContainer = () => {
   ];
 
   const handleStepVisible = useCallback((stepNumber: number) => {
-    setActiveStep(stepNumber - 1);
+    setActiveStep(prevStep => Math.max(prevStep, stepNumber - 1));
   }, []);
 
   useEffect(() => {
@@ -140,9 +142,9 @@ const TimelineContainer = () => {
       if (!timelineRef.current) return;
       const rect = timelineRef.current.getBoundingClientRect();
       
-      const triggerPoint = window.innerHeight * 0.5; // Start animation when timeline hits middle of the screen
+      const triggerPoint = window.innerHeight * 0.5;
       const scrollAmount = triggerPoint - rect.top;
-      const totalScrollableHeight = rect.height - window.innerHeight * 0.5; // End animation when bottom hits middle
+      const totalScrollableHeight = rect.height - window.innerHeight * 0.5;
       
       const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
       setScrollProgress(progress);
