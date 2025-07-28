@@ -30,8 +30,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
           onVisible(stepNumber);
         }
       },
-      // Higher threshold makes activation less sensitive
-      { threshold: 0.8 } 
+      { threshold: 0.6 }
     );
 
     if (stepRef.current) {
@@ -45,15 +44,16 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-  // Unified content block
+  // Content for both mobile and desktop
   const contentBlock = (
     <>
       <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-4">{description}</p>
       <ul className="space-y-2">
         {details.map((detail, index) => (
-          <li key={index} className="flex items-start gap-3">
-            <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
+          <li key={index} className={`flex items-start gap-3 ${!isEven ? 'lg:justify-end' : ''}`}>
+            {!isEven && <span className="text-muted-foreground text-right hidden lg:inline">{detail}</span>}
+            <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <span className="text-muted-foreground">{detail}</span>
           </li>
         ))}
@@ -63,31 +63,29 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
 
   return (
     <div ref={stepRef} className="relative w-full">
-      {/* Mobile/Tablet Layout (Flexbox Rebuild for perfect alignment) */}
-      <div className="lg:hidden flex items-start gap-6">
-        {/* Icon and Line Column */}
+      {/* Mobile/Tablet Layout (Flexbox Rebuild) */}
+      <div className="lg:hidden flex gap-6">
         <div className="flex flex-col items-center w-12 flex-shrink-0">
-          <div className={cn("w-0.5 h-6", isFirst ? 'bg-transparent' : 'bg-muted')} />
+          <div className={cn("w-0.5 flex-grow", isFirst ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
           <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
             <Icon className="h-6 w-6" />
           </div>
-          <div className={cn("w-0.5 flex-grow", isLast ? 'bg-transparent' : 'bg-muted')} />
+          <div className={cn("w-0.5 flex-grow", isLast ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
         </div>
-        {/* Content Column */}
-        <div className={cn("flex-grow transition-opacity duration-500 pb-16 pt-1", isActive ? 'opacity-100' : 'opacity-60')}>
+        <div className={cn("flex-grow transition-opacity duration-500 pb-12", isActive ? 'opacity-100' : 'opacity-50')}>
           {contentBlock}
         </div>
       </div>
 
-      {/* Desktop Layout (Staggered) */}
+      {/* Desktop Layout (Original Staggered) */}
       <div className="hidden lg:grid grid-cols-12 gap-8 items-center">
-        {isEven ? <div className="col-span-5"></div> : <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-60')}>{contentBlock}</div>}
+        {isEven ? <div className="col-span-5"></div> : <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>{contentBlock}</div>}
         <div className="col-span-2 flex justify-center">
             <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
                 <Icon className="h-8 w-8" />
             </div>
         </div>
-        {isEven ? <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-60')}>{contentBlock}</div> : <div className="col-span-5"></div>}
+        {isEven ? <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>{contentBlock}</div> : <div className="col-span-5"></div>}
       </div>
     </div>
   );
@@ -109,7 +107,7 @@ const TimelineContainer = () => {
   ];
 
   const handleStepVisible = useCallback((stepNumber: number) => {
-    setActiveStep(prev => Math.max(prev, stepNumber - 1));
+    setActiveStep(stepNumber - 1);
   }, []);
 
   return (
