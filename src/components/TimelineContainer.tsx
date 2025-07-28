@@ -116,7 +116,8 @@ const TimelineContainer = () => {
 
   return (
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-6">
+      {/* UPDATE: 'relative' toegevoegd aan de container om als ankerpunt te dienen */}
+      <div className="container mx-auto px-6 relative">
         <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
           <div 
             className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
