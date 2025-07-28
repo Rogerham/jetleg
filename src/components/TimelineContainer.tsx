@@ -33,31 +33,23 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
       { threshold: 0.6 }
     );
 
-    if (stepRef.current) {
-      observer.observe(stepRef.current);
+    const currentRef = stepRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (stepRef.current) {
-        observer.unobserve(stepRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [onVisible, stepNumber]);
 
-  // Content for both mobile and desktop
+  // General content block
   const contentBlock = (
     <>
       <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-4">{description}</p>
-      <ul className="space-y-2">
-        {details.map((detail, index) => (
-          <li key={index} className={`flex items-start gap-3 ${!isEven ? 'lg:justify-end' : ''}`}>
-            {!isEven && <span className="text-muted-foreground text-right hidden lg:inline">{detail}</span>}
-            <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-            <span className="text-muted-foreground">{detail}</span>
-          </li>
-        ))}
-      </ul>
     </>
   );
 
@@ -72,20 +64,52 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
           </div>
           <div className={cn("w-0.5 flex-grow", isLast ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
         </div>
-        <div className={cn("flex-grow transition-opacity duration-500 pb-12", isActive ? 'opacity-100' : 'opacity-50')}>
+        <div className={cn("flex-grow transition-opacity duration-500 pb-16", isActive ? 'opacity-100' : 'opacity-50')}>
           {contentBlock}
+          <ul className="space-y-2 mt-4">
+            {details.map((detail, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground">{detail}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      {/* Desktop Layout (Original Staggered) */}
+      {/* Desktop Layout (Corrected) */}
       <div className="hidden lg:grid grid-cols-12 gap-8 items-center">
-        {isEven ? <div className="col-span-5"></div> : <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>{contentBlock}</div>}
+        {isEven ? <div className="col-span-5"></div> : 
+          <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
+            {contentBlock}
+            <ul className="space-y-2 mt-4">
+              {details.map((detail, index) => (
+                <li key={index} className="flex items-start gap-3 justify-end">
+                  <span className="text-muted-foreground text-right">{detail}</span>
+                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
         <div className="col-span-2 flex justify-center">
-            <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
-                <Icon className="h-8 w-8" />
-            </div>
+          <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
+            <Icon className="h-8 w-8" />
+          </div>
         </div>
-        {isEven ? <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>{contentBlock}</div> : <div className="col-span-5"></div>}
+        {isEven ? 
+          <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
+            {contentBlock}
+            <ul className="space-y-2 mt-4">
+              {details.map((detail, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">{detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div> : <div className="col-span-5"></div>
+        }
       </div>
     </div>
   );
@@ -116,7 +140,7 @@ const TimelineContainer = () => {
         {/* Vertical Timeline Line for Desktop */}
         <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full hidden lg:block" />
 
-        <div className="relative">
+        <div className="relative lg:space-y-56">
           {steps.map((step, index) => (
             <TimelineStep
               key={index}
