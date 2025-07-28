@@ -44,6 +44,23 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
+  // Content block for mobile/tablet (always left-aligned)
+  const mobileContent = (
+    <>
+      <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+      <p className="text-muted-foreground mb-4">{description}</p>
+      <ul className="space-y-2">
+        {details.map((detail, index) => (
+          <li key={index} className="flex items-start gap-3">
+            <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+            <span className="text-muted-foreground">{detail}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+
+  // Content block for desktop (staggered alignment)
   const desktopContent = (
     <>
       <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
@@ -62,19 +79,19 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
 
   return (
     <div ref={stepRef} className="relative w-full">
-      {/* Mobile/Tablet Layout */}
+      {/* Mobile/Tablet Layout (FIXED) */}
       <div className="lg:hidden flex items-start">
-        <div className="absolute left-0 flex items-center justify-center -translate-x-1/2">
+        <div className="absolute left-8 flex items-center justify-center -translate-x-1/2">
           <div className="z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg">
             <Icon className="h-6 w-6" />
           </div>
         </div>
-        <div className="w-full pl-12">
-          {desktopContent}
+        <div className="w-full pl-20">
+          {mobileContent}
         </div>
       </div>
 
-      {/* Desktop Layout (Fixed) */}
+      {/* Desktop Layout */}
       <div className="hidden lg:grid grid-cols-12 gap-8 items-center">
         {isEven ? <div className="col-span-5"></div> : <div className="col-span-5 text-right pr-8">{desktopContent}</div>}
         <div className="col-span-2 flex justify-center">
@@ -130,8 +147,8 @@ const TimelineContainer = () => {
   return (
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6 relative">
-        {/* Vertical Timeline Line */}
-        <div className="absolute top-0 bottom-0 lg:left-1/2 left-6 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+        {/* Vertical Timeline Line (FIXED) */}
+        <div className="absolute top-0 bottom-0 lg:left-1/2 left-8 w-[3px] -translate-x-1/2 bg-muted rounded-full">
           <div 
             className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
             style={{ height: `${scrollProgress * 100}%` }}
