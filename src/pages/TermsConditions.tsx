@@ -1,6 +1,9 @@
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 const TermsConditions = () => {
-  return (
-    <>
+  return <div className="min-h-screen bg-background">
+      <Navigation />
+      
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
         <div className="container mx-auto px-6">
@@ -228,7 +231,8 @@ const TermsConditions = () => {
           </div>
         </div>
       </section>
-    </>
-  );
+
+      <Footer />
+    </div>;
 };
 export default TermsConditions;

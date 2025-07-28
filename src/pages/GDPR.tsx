@@ -1,3 +1,5 @@
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import { Shield, Eye, Edit, Trash2, Download, XCircle } from 'lucide-react';
 
 const GDPR = () => {
@@ -35,7 +37,9 @@ const GDPR = () => {
   ];
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      
       {/* Hero Section */}
       <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-6">
@@ -319,7 +323,9 @@ const GDPR = () => {
           </div>
         </div>
       </section>
-    </>
+
+      <Footer />
+    </div>
   );
 };
 
