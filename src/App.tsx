@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ModularSearchDemo from "./pages/ModularSearchDemo";
+import SearchResults from "./pages/SearchResults";
 import "./i18n/config";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
                     {navItems.map(({ to, page }) => (
                       <Route key={to} path={to} element={page} />
                     ))}
+                    <Route path="/search-results" element={<SearchResults />} />
                     <Route path="/modular-demo" element={<ModularSearchDemo />} />
                   </Routes>
                 </Suspense>

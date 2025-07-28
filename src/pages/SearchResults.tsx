@@ -3,8 +3,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar, X, Heart, Bell } from 'lucide-react';
 
 // Component Imports
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
 import { Slider } from '@/components/ui/slider';
@@ -277,7 +275,6 @@ const SearchResults = () => {
   return (
     <TooltipProvider>
       <div className="min-h-screen bg-background">
-        <Navigation />
         
         <div className="bg-primary text-white py-6">
           <div className="container mx-auto px-6">
@@ -408,7 +405,6 @@ const SearchResults = () => {
           </div>
         </div>
         
-        <Footer />
       </div>
     </TooltipProvider>
   );

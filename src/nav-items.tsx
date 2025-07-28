@@ -11,7 +11,6 @@ import MyBookings from "./pages/MyBookings";
 import Profile from "./pages/Profile";
 import BookingFlow from "./pages/BookingFlow";
 import BookingConfirmation from "./pages/BookingConfirmation";
-import SearchResults from "./pages/SearchResults";
 import OptimizedSearchResults from "./pages/OptimizedSearchResults";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
@@ -88,12 +87,6 @@ export const navItems = [
     to: "/booking-confirmation/:id",
     icon: Plane,
     page: <BookingConfirmation />,
-  },
-  {
-    title: "Search Results",
-    to: "/search",
-    icon: Plane,
-    page: <SearchResults />,
   },
   {
     title: "Optimized Search Results",
