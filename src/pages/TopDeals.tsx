@@ -96,7 +96,12 @@ const TopDeals = () => {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
         <div className="container mx-auto px-6">
-          
+          <div className="flex items-center gap-4 mb-6">
+            <button onClick={() => navigate('/')} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+              <ArrowLeft className="h-5 w-5" />
+              {t('topDeals.backToHome')}
+            </button>
+          </div>
           
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('topDeals.title')}</h1>
