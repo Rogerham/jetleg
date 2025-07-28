@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { navItems } from "./nav-items";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ModularSearchDemo from "./pages/ModularSearchDemo";
@@ -22,6 +23,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <BrowserRouter>
+            <ScrollToTop />
             <div className="min-h-screen flex flex-col">
               <Navigation />
               <main className="flex-1">

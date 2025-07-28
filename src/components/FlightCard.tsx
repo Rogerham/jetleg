@@ -47,6 +47,7 @@ const FlightCard = ({
   const { formatPrice } = useCurrency();
 
   const handleBooking = () => {
+    // Navigate to the correct booking flow with flight data
     navigate(`/booking/${id}`, {
       state: {
         flight: {

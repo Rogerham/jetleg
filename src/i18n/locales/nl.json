@@ -1,3 +1,4 @@
+
 {
   "nav": {
     "home": "Home",
@@ -9,14 +10,15 @@
     "login": "Inloggen",
     "register": "Registreren",
     "myBookings": "Mijn boekingen",
-    "profile": "Profiel"
+    "profile": "Profiel",
+    "operators": "Operatoren"
   },
   "footer": {
     "brandDescription": "Wij maken luxe privéjet reizen toegankelijk door slimme technologie en empty leg vluchten.",
     "menu": "Menu",
-    "support": "Support",
+    "support": "Ondersteuning",
     "faq": "FAQ",
-    "customerService": "Klantendienst",
+    "customerService": "Klantenservice",
     "operators": "Operatoren",
     "contact": "Contact",
     "email": "hello@jetleg.com",
@@ -28,33 +30,34 @@
   "hero": {
     "title": "Vlieg privé, betaal minder",
     "subtitle": "Ontdek exclusieve empty leg vluchten en ervaar luxe reizen voor een fractie van de prijs.",
-    "searchPlaceholder": "Van waar?",
-    "destinationPlaceholder": "Naar waar?",
+    "searchPlaceholder": "Vanwaar?",
+    "destinationPlaceholder": "Waarheen?",
     "datePlaceholder": "Vertrekdatum",
     "passengersLabel": "Passagiers",
     "searchButton": "Zoek vluchten",
-    "flexibleDates": "Flexibele data",
+    "flexibleDates": "Flexibele datums",
     "everywhere": "Overal"
   },
   "deals": {
-    "title": "Last minute vluchten",
+    "title": "Last-minute vluchten",
     "subtitle": "Ontdek luxe vluchten tegen onverslaanbare prijzen",
     "viewAll": "Bekijk alle deals",
-    "bookNow": "Boek Nu",
+    "bookNow": "Boek nu",
     "perFlight": "per vlucht",
     "discount": "Korting",
     "date": "Datum",
     "aircraft": "Vliegtuig",
     "passengers": "Passagiers",
     "upTo": "Tot",
+    "from": "vanaf",
     "parisNice": {
-      "description": "Vlieg naar de Côte d'Azur in stijl."
+      "description": "Vlieg in stijl naar de Côte d'Azur."
     },
     "londonZurich": {
-      "description": "Perfect voor een zakelijke trip of een weekend in de Alpen."
+      "description": "Perfect voor een zakenreis of weekend in de Alpen."
     },
     "barcelonaIbiza": {
-      "description": "Start je vakantie op het Witte Eiland met ultieme luxe."
+      "description": "Begin je vakantie op het Witte Eiland met supreme luxe."
     }
   },
   "flight": {
@@ -62,29 +65,94 @@
     "departure": "Vertrek:",
     "aircraft": "Vliegtuig:",
     "available": "Beschikbaar:",
-    "seats": "plaatsen",
-    "bookNow": "Boek Nu",
+    "seats": "stoelen",
+    "bookNow": "Boek nu",
     "privateJet": "Privéjet"
+  },
+  "booking": {
+    "steps": {
+      "passengers": "Passagiers",
+      "payment": "Betaling", 
+      "confirmation": "Bevestiging",
+      "passengersDesc": "Voer gegevens in",
+      "paymentDesc": "Betalingsgegevens",
+      "confirmationDesc": "Controleer en bevestig"
+    },
+    "passengers": {
+      "title": "Passagiersgegevens",
+      "passenger": "Passagier",
+      "remove": "Verwijderen",
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "email": "E-mail",
+      "phone": "Telefoonnummer",
+      "dateOfBirth": "Geboortedatum",
+      "passportNumber": "Paspoortnummer",
+      "addPassenger": "Passagier toevoegen",
+      "required": "*"
+    },
+    "payment": {
+      "title": "Veilige betaling",
+      "method": "Creditcard / Debitkaart",
+      "cardNumber": "Kaartnummer",
+      "expiryDate": "Vervaldatum",
+      "cvv": "CVV",
+      "cardholderName": "Naam op kaart",
+      "billingAddress": "Factuuradres",
+      "street": "Straat en huisnummer",
+      "city": "Stad",
+      "postalCode": "Postcode",
+      "country": "Land"
+    },
+    "confirmation": {
+      "title": "Bevestiging",
+      "flightSummary": "Vluchtsamenvatting",
+      "route": "Route:",
+      "date": "Datum:",
+      "departure": "Vertrek:",
+      "aircraft": "Vliegtuig:",
+      "operator": "Operator:",
+      "passengers": "Passagiers",
+      "terms": "Ik ga akkoord met de algemene voorwaarden en privacybeleid",
+      "pay": "Betaal"
+    },
+    "navigation": {
+      "back": "Vorige",
+      "next": "Volgende",
+      "backToResults": "Terug naar resultaten"
+    },
+    "overview": {
+      "title": "Boekingoverzicht",
+      "pricePerPerson": "Prijs per persoon",
+      "passengers": "Aantal passagiers",
+      "total": "Totaal"
+    },
+    "validation": {
+      "incompleteData": "Incomplete gegevens",
+      "fillPassengers": "Vul alle passagiersgegevens in om door te gaan.",
+      "incompletePayment": "Incomplete betalingsgegevens",
+      "fillPayment": "Vul alle betalingsgegevens in om door te gaan."
+    }
   },
   "topDeals": {
     "title": "Top Bestemmingen",
-    "subtitle": "Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, London en meer.",
+    "subtitle": "Ontdek de beste empty leg deals naar Europa's mooiste bestemmingen. Exclusieve bestemmingen zoals Barcelona, Parijs, Londen en meer.",
     "backToHome": "Terug naar home",
     "exclusiveDestinations": "Exclusieve Bestemmingen",
-    "firstComeFirstServed": "Wees er snel bij om als eerste de droomcharter naar jouw favoriete bestemming te boeken. 'First come, first served.'",
+    "firstComeFirstServed": "Wees snel om als eerste jouw droom charter naar je favoriete bestemming te boeken. 'Wie het eerst komt, het eerst maalt.'",
     "destinationsAvailable": "bestemmingen beschikbaar",
     "loading": {
       "title": "Bestemmingen laden...",
-      "description": "We zoeken de beste beschikbare bestemmingen voor je."
+      "description": "We zoeken de beste beschikbare bestemmingen voor jou."
     },
     "error": {
       "title": "Er is een fout opgetreden",
-      "description": "We konden geen bestemmingen laden. Probeer het opnieuw.",
+      "description": "We konden de bestemmingen niet laden. Probeer het opnieuw.",
       "retry": "Opnieuw proberen"
     },
     "noFlights": {
       "title": "Nog geen vluchten beschikbaar",
-      "description": "Er zijn momenteel geen vluchten beschikbaar naar onze exclusieve bestemmingen. Kom later terug voor nieuwe aanbiedingen."
+      "description": "Er zijn momenteel geen vluchten beschikbaar naar onze exclusieve bestemmingen. Kom later terug voor nieuwe deals."
     }
   },
   "destinations": {
@@ -115,19 +183,19 @@
     "from": "Vanaf",
     "viewDeals": "Bekijk Deals",
     "flightsAvailable": "vluchten beschikbaar",
-    "seats": "plaatsen",
+    "seats": "stoelen",
     "operators": "operatoren",
     "more": "meer",
-    "discoverDestination": "Ontdek {{destination}}, {{country}} met {{count}} beschikbare {{operators}}",
+    "discoverDestination": "Ontdek {{destination}}, {{country}} met {{count}} {{operators}} beschikbaa{{plural}}",
     "operator": "operator",
     "oneOperator": "operator",
     "multipleOperators": "operatoren"
   },
   "howItWorks": {
     "title": "Wat is een \"Empty Leg\"?",
-    "description1": "Een empty leg vlucht, ook wel \"positioning flight\" genoemd, is een privévliegtuig dat leeg vliegt na het afzetten van passagiers, of op weg is om passagiers op te halen.",
-    "description2": "Omdat het vliegtuig deze vlucht sowieso moet maken, bieden chartermaatschappijen deze \"lege\" stoelen aan met een aanzienlijke korting - vaak tot wel 75% van de normale prijs.",
-    "description3": "Jetleg centraliseert het aanbod van honderden betrouwbare operatoren, zodat jij gemakkelijk de perfecte deal kunt vinden en boeken. Het is de slimste manier om de luxe van privévliegen te ervaren.",
+    "description1": "Een empty leg vlucht, ook wel \"positioneringsvlucht\" genoemd, is een privéjet die leeg vliegt nadat hij passagiers heeft afgezet, of onderweg is om passagiers op te halen.",
+    "description2": "Omdat het vliegtuig deze vlucht toch moet maken, bieden chartermaatschappijen deze \"lege\" stoelen aan met een aanzienlijke korting - vaak tot 75% van de normale prijs.",
+    "description3": "Jetleg centraliseert het aanbod van honderden betrouwbare operators, zodat je gemakkelijk de perfecte deal kunt vinden en boeken. Het is de slimste manier om de luxe van privévliegen te ervaren.",
     "benefits": {
       "savings": {
         "title": "Tot 75% Besparing",
@@ -139,83 +207,18 @@
       },
       "premium": {
         "title": "Premium Vliegtuigen",
-        "description": "Vlieg in luxe jets van gecertificeerde operators met de hoogste veiligheids- en kwaliteitsnormen."
+        "description": "Vlieg in luxe jets van gecertificeerde operators met de hoogste veiligheids- en kwaliteitsstandaarden."
       },
       "reliable": {
-        "title": "Betrouwbaar & Veilig",
+        "title": "Betrouwbaar en Veilig",
         "description": "Alle operators zijn volledig gecertificeerd en voldoen aan de strengste Europese luchtvaartnormen."
       }
-    },
-    "hero": {
-      "title": "Hoe werkt Jetleg?",
-      "subtitle": "Ontdek hoe eenvoudig het is om last-minute privéjet deals te boeken met Jetleg. Van zoeken tot landen, wij maken het proces zo simpel mogelijk."
-    },
-    "step": "Stap",
-    "steps": {
-      "search": {
-        "title": "Vind je ideale vlucht",
-        "description": "Gebruik onze geavanceerde zoekmachine om empty leg vluchten naar je gewenste bestemming te vinden. Filter op prijs, datum, vliegtuigtype en meer.",
-        "details": [
-          "Zoek door duizenden beschikbare empty legs",
-          "Real-time beschikbaarheid en prijzen",
-          "Flexibele zoekopties voor beste deals"
-        ]
-      },
-      "book": {
-        "title": "Boek direct online",
-        "description": "Reserveer je vlucht met slechts een paar klikken. Ons veilige boekingsproces is snel en transparant, zonder verborgen kosten.",
-        "details": [
-          "Veilige online betaling",
-          "Directe bevestiging per e-mail",
-          "24/7 klantenservice beschikbaar"
-        ]
-      },
-      "fly": {
-        "title": "Geniet van je vlucht",
-        "description": "Stap aan boord van je privéjet en ervaar ultieme luxe en comfort. Onze gecertificeerde operators zorgen voor een onvergetelijke vliegervaring.",
-        "details": [
-          "Luxe privéjet ervaring",
-          "Persoonlijke service aan boord",
-          "Flexibele vertrek- en aankomsttijden"
-        ]
-      },
-      "arrive": {
-        "title": "Aankomst op bestemming",
-        "description": "Kom uitgerust en op tijd aan op je bestemming. Met een privéjet vlieg je direct, zonder overstappen of wachttijden op drukke luchthavens.",
-        "details": [
-          "Directe vluchten naar kleinere luchthavens",
-          "Snellere in- en uitcheckprocedures",
-          "Meer tijd voor wat echt belangrijk is"
-        ]
-      }
-    },
-    "faq": {
-      "title": "Veelgestelde vragen",
-      "subtitle": "Alles wat je moet weten over empty leg vluchten",
-      "viewAll": "Bekijk alles",
-      "questions": [
-        "Wat is een empty leg vlucht?",
-        "Hoe ver van tevoren moet ik boeken?",
-        "Kan ik mijn boeking wijzigen?",
-        "Wat is er inbegrepen in de prijs?"
-      ],
-      "answers": [
-        "Een empty leg vlucht is een privéjet die leeg terugvliegt naar zijn basis of naar een nieuwe klant. Deze vluchten worden aangeboden tegen sterk gereduceerde prijzen.",
-        "Empty legs zijn vaak last-minute beschikbaar, van een paar uur tot een paar dagen van tevoren. Hoe flexibeler je bent, hoe meer kans op geweldige deals.",
-        "Wijzigingen zijn beperkt en afhankelijk van de specifieke vlucht. Neem contact op met onze klantenservice voor meer informatie over je boeking.",
-        "De prijs bevat de complete vlucht, brandstof, bemanning en standaard catering. Extra services kunnen tegen meerprijs worden toegevoegd."
-      ]
-    },
-    "cta": {
-      "title": "Klaar om te beginnen?",
-      "subtitle": "Start je zoektocht naar de perfecte empty leg deal en ervaar privéjet reizen zoals nooit tevoren.",
-      "button": "Zoek Empty Legs"
     }
   },
   "contact": {
     "hero": {
       "title": "Contact",
-      "subtitle": "Heb je vragen over onze vluchten of wil je hulp bij je boeking? Ons vriendelijke team staat klaar om je te helpen."
+      "subtitle": "Heb je vragen over onze vluchten of heb je hulp nodig bij je boeking? Ons vriendelijke team staat klaar om je te helpen."
     },
     "info": {
       "phone": {
@@ -224,7 +227,7 @@
       },
       "email": {
         "title": "E-mail",
-        "details": ["info@jetleg.com", "support@jetleg.com", "Respons binnen 2 uur"]
+        "details": ["info@jetleg.com", "support@jetleg.com", "Reactie binnen 2 uur"]
       },
       "address": {
         "title": "Adres",
@@ -242,7 +245,7 @@
       "phone": "Telefoonnummer",
       "subject": "Onderwerp",
       "message": "Bericht",
-      "submit": "Verstuur bericht",
+      "submit": "Verzend bericht",
       "required": "*",
       "messagePlaceholder": "Beschrijf je vraag of opmerking...",
       "selectSubject": "Selecteer onderwerp",
@@ -250,7 +253,7 @@
         "Algemene vraag",
         "Boekingshulp",
         "Klacht",
-        "Partnerschap",
+        "Partnership",
         "Media aanvraag",
         "Anders"
       ]
@@ -267,17 +270,17 @@
     },
     "emergency": {
       "title": "Noodcontact",
-      "description": "Voor dringende zaken buiten kantooruren kun je ons 24/7 bereiken:",
+      "description": "Voor urgente zaken buiten kantooruren kun je ons 24/7 bereiken:",
       "phone": "+32 800 123 456",
       "email": "emergency@jetleg.com"
     },
     "location": {
       "title": "Bezoekadres",
       "address": "Luchthavenlaan 42\n1930 Zaventem, België",
-      "note": "Gelegen op 5 minuten van Brussels Airport. Gratis parkeren beschikbaar."
+      "note": "Gelegen op 5 minuten van Brussels Airport. Gratis parking beschikbaar."
     },
     "validation": {
-      "incomplete": "Incomplete gegevens",
+      "incomplete": "Onvolledige gegevens",
       "fillRequired": "Vul alle verplichte velden in.",
       "success": "Bericht verzonden!",
       "response": "We nemen binnen 24 uur contact met je op."
@@ -286,13 +289,13 @@
   "about": {
     "hero": {
       "title": "Over Jetleg",
-      "subtitle": "We revolutioneren private jet reizen door empty leg vluchten toegankelijk en betaalbaar te maken voor iedereen."
+      "subtitle": "Wij revolutioneren privéjet reizen door empty leg vluchten toegankelijk en betaalbaar te maken voor iedereen."
     },
     "mission": {
       "title": "Onze missie",
-      "paragraph1": "Jetleg werd opgericht met een simpele maar krachtige missie: luxe reizen democratiseren. We geloven dat iedereen moet kunnen genieten van de voordelen van private jet reizen, zonder de traditionele hoge kosten.",
-      "paragraph2": "Door gebruik te maken van empty leg vluchten - vluchten die anders leeg zouden vliegen - bieden we onze klanten de mogelijkheid om te reizen in stijl tegen een fractie van de normale prijs.",
-      "paragraph3": "Onze technologie verbindt reizigers direct met beschikbare vluchten, waardoor we zowel economische als ecologische voordelen creëren."
+      "paragraph1": "Jetleg is opgericht met een eenvoudige maar krachtige missie: het democratiseren van luxe reizen. Wij geloven dat iedereen moet kunnen genieten van de voordelen van privéjet reizen, zonder de traditioneel hoge kosten.",
+      "paragraph2": "Door gebruik te maken van empty leg vluchten - vluchten die anders leeg zouden vliegen - bieden wij onze klanten de mogelijkheid om in stijl te reizen voor een fractie van de normale prijs.",
+      "paragraph3": "Onze technologie verbindt reizigers rechtstreeks met beschikbare vluchten, waardoor zowel economische als ecologische voordelen ontstaan."
     },
     "stats": {
       "title": "Jetleg in cijfers",
@@ -304,12 +307,12 @@
     "values": {
       "title": "Onze waarden",
       "safety": {
-        "title": "Veiligheid eerst",
-        "description": "We werken alleen samen met gecertificeerde operators die voldoen aan de hoogste veiligheidsnormen."
+        "title": "Veiligheid voorop",
+        "description": "We werken alleen met gecertificeerde operators die voldoen aan de hoogste veiligheidsnormen."
       },
       "excellence": {
         "title": "Excellentie",
-        "description": "Elke vlucht wordt verzorgd met de grootste aandacht voor detail en service."
+        "description": "Elke vlucht wordt behandeld met de grootste aandacht voor detail en service."
       },
       "customerCentric": {
         "title": "Klantgericht",
@@ -317,20 +320,20 @@
       },
       "accessibility": {
         "title": "Toegankelijkheid",
-        "description": "We maken luxe reizen toegankelijk door ongebruikte capaciteit optimaal te benutten."
+        "description": "We maken luxe reizen toegankelijk door optimaal gebruik te maken van onbenutte capaciteit."
       }
     },
     "team": {
       "title": "Ons team",
       "xavier": {
         "name": "Xavier Verhoestraete",
-        "role": "CEO & Co-founder",
-        "description": "Met 15 jaar ervaring in de luchtvaart, leidde Xavier de revolutie in private jet reizen."
+        "role": "CEO en Medeoprichter",
+        "description": "Met 15 jaar ervaring in de luchtvaart leidde Xavier de revolutie in privéjet reizen."
       },
       "carley": {
         "name": "Carley Hamaway",
-        "role": "CTO & Co-founder",
-        "description": "Carley ontwikkelt de technologie die onze platform zo gebruiksvriendelijk maakt."
+        "role": "CTO en Medeoprichter",
+        "description": "Carley ontwikkelt de technologie die ons platform zo gebruiksvriendelijk maakt."
       },
       "marc": {
         "name": "Marc Dubois",
@@ -342,7 +345,7 @@
       "title": "Klaar om je volgende avontuur te beginnen?",
       "subtitle": "Ontdek onze beschikbare vluchten en ervaar zelf waarom duizenden reizigers voor Jetleg kiezen.",
       "viewFlights": "Bekijk vluchten",
-      "contact": "Contact opnemen"
+      "contact": "Neem contact op"
     }
   }
 }

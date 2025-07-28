@@ -2,6 +2,8 @@
 import { Clock, Users, Plane, MapPin } from 'lucide-react';
 import { formatDistance } from 'date-fns';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { extractAirportCode, extractCityName } from '@/utils/flightUtils';
 import type { Flight } from '@/hooks/useFlights';
 
@@ -16,15 +18,22 @@ const ResponsiveFlightCard = ({
   ...flight 
 }: ResponsiveFlightCardProps) => {
   const { formatPrice } = useCurrency();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleBookNow = () => {
-    console.log('Booking flight:', flight.id);
+    // Navigate to the correct booking flow with flight data
+    navigate(`/booking/${flight.id}`, {
+      state: {
+        flight: flight
+      }
+    });
   };
 
   // Helper functions to get the correct data
   const getFromCity = () => extractCityName(flight.departure_airport);
   const getToCity = () => extractCityName(flight.arrival_airport);
-  const getAircraftName = () => flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet';
+  const getAircraftName = () => flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : t('flight.privateJet');
   const getImageUrl = () => flight.jets?.image_url || '/src/assets/hero-bg.jpg';
   const getPassengerCount = () => flight.available_seats;
   const formatTime = (dateString: string) => {
@@ -57,21 +66,21 @@ const ResponsiveFlightCard = ({
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-muted-foreground">vanaf</p>
+            <p className="text-sm text-muted-foreground">{t('deals.from')}</p>
             <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price_per_seat)}</p>
           </div>
         </div>
         
         <div className="flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
-            <p>Vertrek: {formatTime(flight.departure_time)}</p>
-            <p>Operator: {flight.operator}</p>
+            <p>{t('flight.departure')}: {formatTime(flight.departure_time)}</p>
+            <p>{t('nav.operators')}: {flight.operator}</p>
           </div>
           <button 
             onClick={handleBookNow}
             className="btn-jetleg-primary text-sm px-4 py-2"
           >
-            Boek Nu
+            {t('flight.bookNow')}
           </button>
         </div>
       </div>
@@ -96,19 +105,19 @@ const ResponsiveFlightCard = ({
               </div>
             </div>
             <div className="text-sm text-muted-foreground mb-4">
-              <p>Vertrek: {formatTime(flight.departure_time)}</p>
-              <p>Operator: {flight.operator}</p>
+              <p>{t('flight.departure')}: {formatTime(flight.departure_time)}</p>
+              <p>{t('nav.operators')}: {flight.operator}</p>
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">vanaf</p>
+                <p className="text-sm text-muted-foreground">{t('deals.from')}</p>
                 <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price_per_seat)}</p>
               </div>
               <button 
                 onClick={handleBookNow}
                 className="btn-jetleg-primary"
               >
-                Boek Nu
+                {t('flight.bookNow')}
               </button>
             </div>
           </div>
@@ -160,8 +169,8 @@ const ResponsiveFlightCard = ({
               </div>
             </div>
             <div className="text-sm text-muted-foreground">
-              <p>Vertrek: {formatTime(flight.departure_time)}</p>
-              <p>Operator: {flight.operator}</p>
+              <p>{t('flight.departure')}: {formatTime(flight.departure_time)}</p>
+              <p>{t('nav.operators')}: {flight.operator}</p>
             </div>
           </div>
           
@@ -180,14 +189,14 @@ const ResponsiveFlightCard = ({
           
           <div className="flex flex-col items-end justify-between">
             <div className="text-right">
-              <p className="text-sm text-muted-foreground">vanaf</p>
+              <p className="text-sm text-muted-foreground">{t('deals.from')}</p>
               <p className="text-2xl font-bold text-foreground">{formatPrice(flight.price_per_seat)}</p>
             </div>
             <button 
               onClick={handleBookNow}
               className="btn-jetleg-primary mt-4"
             >
-              Boek Nu
+              {t('flight.bookNow')}
             </button>
           </div>
         </div>
