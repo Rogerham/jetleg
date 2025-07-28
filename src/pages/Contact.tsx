@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -92,15 +93,11 @@ const Contact = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-hero mb-6">{t('contact.hero.title')}</h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            {t('contact.hero.subtitle')}
-          </p>
-        </div>
-      </section>
+      {/* Standardized Page Header */}
+      <PageHeader
+        title={t('contact.hero.title')}
+        subtitle={t('contact.hero.subtitle')}
+      />
 
       {/* Contact Info Cards */}
       <section className="py-20 bg-background">

@@ -1,58 +1,82 @@
+
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { Phone, Mail, MessageCircle, Clock, HelpCircle, FileText } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 const CustomerService = () => {
-  const contactMethods = [{
-    icon: Phone,
-    title: "Telefoon",
-    description: "Bel ons voor directe hulp",
-    contact: "+32 2 123 45 67",
-    availability: "Ma-Vr: 8:00 - 20:00, Za-Zo: 9:00 - 17:00"
-  }, {
-    icon: Mail,
-    title: "Email",
-    description: "Stuur ons een email",
-    contact: "support@jetleg.be",
-    availability: "Reactie binnen 2 uur"
-  }, {
-    icon: MessageCircle,
-    title: "Live Chat",
-    description: "Chat direct met onze experts",
-    contact: "Start chat in de rechter hoek",
-    availability: "24/7 beschikbaar"
-  }];
-  const serviceCategories = [{
-    icon: HelpCircle,
-    title: "Boekingshulp",
-    description: "Hulp bij het zoeken en boeken van je perfecte vlucht",
-    services: ["Vlucht zoeken en vergelijken", "Boekingsproces ondersteuning", "Betaling en factuurvragen", "Speciale verzoeken afhandelen"]
-  }, {
-    icon: FileText,
-    title: "Boekingsbeheer",
-    description: "Wijzigingen en vragen over bestaande boekingen",
-    services: ["Boekingsdetails wijzigen", "Annulering en terugbetalingen", "Vliegtuig- en tijdwijzigingen", "Reisdocumenten en vouchers"]
-  }, {
-    icon: Clock,
-    title: "Dag van de vlucht",
-    description: "Support op de dag van je vlucht",
-    services: ["Check-in informatie", "Vluchtvertragingen of annuleringen", "Terminal en bagagerichtlijnen", "Last-minute wijzigingen"]
-  }];
-  return <div className="min-h-screen bg-background">
+  const { t } = useTranslation();
+  
+  const contactMethods = [
+    {
+      icon: Phone,
+      title: t('customerService.contact.phone.title'),
+      description: t('customerService.contact.phone.description'),
+      contact: t('customerService.contact.phone.contact'),
+      availability: t('customerService.contact.phone.availability')
+    },
+    {
+      icon: Mail,
+      title: t('customerService.contact.email.title'),
+      description: t('customerService.contact.email.description'),
+      contact: t('customerService.contact.email.contact'),
+      availability: t('customerService.contact.email.availability')
+    },
+    {
+      icon: MessageCircle,
+      title: t('customerService.contact.chat.title'),
+      description: t('customerService.contact.chat.description'),
+      contact: t('customerService.contact.chat.contact'),
+      availability: t('customerService.contact.chat.availability')
+    }
+  ];
+
+  const serviceCategories = [
+    {
+      icon: HelpCircle,
+      title: t('customerService.services.booking.title'),
+      description: t('customerService.services.booking.description'),
+      services: [
+        t('customerService.services.booking.services.0'),
+        t('customerService.services.booking.services.1'),
+        t('customerService.services.booking.services.2'),
+        t('customerService.services.booking.services.3')
+      ]
+    },
+    {
+      icon: FileText,
+      title: t('customerService.services.management.title'),
+      description: t('customerService.services.management.description'),
+      services: [
+        t('customerService.services.management.services.0'),
+        t('customerService.services.management.services.1'),
+        t('customerService.services.management.services.2'),
+        t('customerService.services.management.services.3')
+      ]
+    },
+    {
+      icon: Clock,
+      title: t('customerService.services.dayOf.title'),
+      description: t('customerService.services.dayOf.description'),
+      services: [
+        t('customerService.services.dayOf.services.0'),
+        t('customerService.services.dayOf.services.1'),
+        t('customerService.services.dayOf.services.2'),
+        t('customerService.services.dayOf.services.3')
+      ]
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-hero mb-6">
-              Klantenservice
-            </h1>
-            <p className="text-xl text-white/90">
-              Ons ervaren team staat klaar om je te helpen met al je vragen over empty leg vluchten en boekingen.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Standardized Page Header */}
+      <PageHeader
+        title={t('customerService.hero.title')}
+        subtitle={t('customerService.hero.subtitle')}
+      />
 
       {/* Contact Methods */}
       <section className="py-20">
@@ -185,6 +209,8 @@ const CustomerService = () => {
       </section>
 
       <Footer />
-    </div>;
+    </div>
+  );
 };
+
 export default CustomerService;

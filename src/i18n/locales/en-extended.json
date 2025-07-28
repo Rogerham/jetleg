@@ -3,7 +3,8 @@
   "common": {
     "dismiss": "Dismiss",
     "tryAgain": "Try Again",
-    "loadMore": "Load More"
+    "loadMore": "Load More",
+    "backToHome": "Back to Home"
   },
   "search": {
     "validation": {
