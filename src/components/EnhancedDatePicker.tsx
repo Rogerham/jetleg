@@ -9,8 +9,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
-// --- Best Practice 1: Constanten buiten de component definiëren ---
-const FLEXIBLE_OPTIONS = [
+// --- Best Practice: Constanten definiëren als standaardwaarden ---
+const DEFAULT_FLEXIBLE_OPTIONS = [
   { label: 'Dit weekend', value: 'weekend' },
   { label: 'Volgende week', value: 'next-week' },
   { label: 'Volgende maand', value: 'next-month' },
@@ -23,12 +23,19 @@ const isDateInPast = (date: Date) => {
     return date < today;
 };
 
+interface FlexibleOption {
+  label: string;
+  value: string;
+}
+
 interface EnhancedDatePickerProps {
   value: string | null;
   onChange: (value: string | null) => void;
   className?: string;
   hasError?: boolean;
   errorMessage?: string;
+  // --- UPDATE: Volledige i18n ondersteuning ---
+  flexibleOptions?: FlexibleOption[];
   text?: {
     selectDate: string;
     invalidDate: string;
@@ -45,6 +52,7 @@ const EnhancedDatePicker = ({
   className,
   hasError,
   errorMessage = "Selecteer een geldige datum",
+  flexibleOptions = DEFAULT_FLEXIBLE_OPTIONS,
   text = {
     selectDate: 'Selecteer datum',
     invalidDate: 'Ongeldige datum',
@@ -56,7 +64,7 @@ const EnhancedDatePicker = ({
 }: EnhancedDatePickerProps) => {
   const [isOpen, setIsOpen] = useState(false);
   
-  const isFlexibleValue = useMemo(() => FLEXIBLE_OPTIONS.some(opt => opt.value === value), [value]);
+  const isFlexibleValue = useMemo(() => flexibleOptions.some(opt => opt.value === value), [value, flexibleOptions]);
   const initialTab = isFlexibleValue ? 'flexible' : 'calendar';
   const [activeTab, setActiveTab] = useState(initialTab);
 
@@ -81,7 +89,7 @@ const EnhancedDatePicker = ({
     }
   };
 
-  const handleFlexibleSelect = (option: typeof FLEXIBLE_OPTIONS[0]) => {
+  const handleFlexibleSelect = (option: FlexibleOption) => {
     onChange(option.value);
     setIsOpen(false);
   };
@@ -89,7 +97,7 @@ const EnhancedDatePicker = ({
   const displayValue = useMemo(() => {
     if (!value) return text.selectDate;
     
-    const flexibleOption = FLEXIBLE_OPTIONS.find(opt => opt.value === value);
+    const flexibleOption = flexibleOptions.find(opt => opt.value === value);
     if (flexibleOption) return flexibleOption.label;
     
     const date = parseISO(value);
@@ -98,7 +106,7 @@ const EnhancedDatePicker = ({
     }
     
     return text.invalidDate;
-  }, [value, text]);
+  }, [value, text, flexibleOptions]);
 
   return (
     <div className="relative">
@@ -117,13 +125,12 @@ const EnhancedDatePicker = ({
             <span className="truncate">{displayValue}</span>
           </Button>
         </PopoverTrigger>
-        {/* --- UPDATE: Popover is smaller gemaakt voor een betere pasvorm --- */}
+        {/* --- UPDATE: Popover is nu responsief --- */}
         <PopoverContent
-          className="w-[300px] p-0 bg-card border border-border shadow-lg"
+          className="w-auto max-w-[calc(100vw-2rem)] sm:w-auto p-0 bg-card border border-border shadow-lg"
           align="center"
           side="bottom"
           sideOffset={8}
-          avoidCollisions={false}
         >
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-muted/50 rounded-none rounded-t-lg">
@@ -145,8 +152,7 @@ const EnhancedDatePicker = ({
               </TabsTrigger>
             </TabsList>
             
-            {/* --- UPDATE: Kalender gecentreerd en natuurlijke breedte gegeven --- */}
-            <TabsContent value="calendar" className="mt-0 flex justify-center">
+            <TabsContent value="calendar" className="mt-0 flex justify-center p-2">
               <Calendar
                 mode="single"
                 selected={selectedDate}
@@ -155,6 +161,8 @@ const EnhancedDatePicker = ({
                 disabled={isDateInPast}
                 fixedWeeks
                 locale={nl}
+                // --- UPDATE: Verwijderd ongewenste focus-stijl op geselecteerde dag ---
+                className="[&.rdp-day_selected:focus]:bg-primary [&.rdp-day_selected]:text-primary-foreground"
               />
             </TabsContent>
             
@@ -167,7 +175,7 @@ const EnhancedDatePicker = ({
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {FLEXIBLE_OPTIONS.map((option) => (
+                  {flexibleOptions.map((option) => (
                     <Button
                       key={option.value}
                       variant={value === option.value ? "default" : "outline"}
