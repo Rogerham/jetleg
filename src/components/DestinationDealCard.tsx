@@ -1,20 +1,22 @@
-
 import { MapPin, Plane, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { DestinationDeal } from '@/types/destinationDeals';
 import { getBestFlightForDestination } from '@/utils/destinationUtils';
 import { useCurrency } from '@/contexts/CurrencyContext';
-
 interface DestinationDealCardProps {
   deal: DestinationDeal;
 }
-
-const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
+const DestinationDealCard = ({
+  deal
+}: DestinationDealCardProps) => {
   const navigate = useNavigate();
-  const { formatPrice } = useCurrency();
-  const { t } = useTranslation();
-
+  const {
+    formatPrice
+  } = useCurrency();
+  const {
+    t
+  } = useTranslation();
   const handleCardClick = () => {
     // Navigate to search results with proper URL parameters and state
     const searchParams = new URLSearchParams({
@@ -23,7 +25,6 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
       date: 'flexible',
       passengers: '1'
     });
-    
     navigate(`/search-results?${searchParams.toString()}`, {
       state: {
         searchParams: {
@@ -35,11 +36,10 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
       }
     });
   };
-
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget;
     console.log(`Image failed to load for ${deal.destination}: ${target.src}`);
-    
+
     // Try fallback to destination-photos bucket
     if (!target.src.includes('destination-photos')) {
       const fallbackUrl = `https://dtvvyopjzdmbnpgwhkbi.supabase.co/storage/v1/object/public/destination-photos/${deal.destination.toLowerCase()}.jpg`;
@@ -53,13 +53,15 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
   };
 
   // Get translated destination and country names
-  const translatedDestination = t(`destinations.${deal.destination}`, { defaultValue: deal.destination });
-  const translatedCountry = t(`countries.${deal.countryKey}`, { defaultValue: deal.countryKey });
+  const translatedDestination = t(`destinations.${deal.destination}`, {
+    defaultValue: deal.destination
+  });
+  const translatedCountry = t(`countries.${deal.countryKey}`, {
+    defaultValue: deal.countryKey
+  });
 
   // Get operator text with proper pluralization
-  const operatorText = deal.operatorCount === 1 
-    ? t('destinationDeals.oneOperator')
-    : t('destinationDeals.multipleOperators');
+  const operatorText = deal.operatorCount === 1 ? t('destinationDeals.oneOperator') : t('destinationDeals.multipleOperators');
 
   // Generate description using translation
   const description = t('destinationDeals.discoverDestination', {
@@ -68,24 +70,12 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
     count: deal.operatorCount,
     operators: operatorText
   });
-
-  return (
-    <div 
-      className="card-jetleg hover:scale-[1.03] transition-all duration-200 h-full flex flex-col group cursor-pointer"
-      onClick={handleCardClick}
-    >
+  return <div className="card-jetleg hover:scale-[1.03] transition-all duration-200 h-full flex flex-col group cursor-pointer" onClick={handleCardClick}>
       <div className="relative overflow-hidden">
-        <img 
-          src={deal.imageUrl} 
-          alt={`${translatedDestination}, ${translatedCountry}`}
-          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-          onError={handleImageError}
-        />
+        <img src={deal.imageUrl} alt={`${translatedDestination}, ${translatedCountry}`} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" onError={handleImageError} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <div className="absolute top-4 left-4">
-          <span className="deal-badge text-white bg-accent">
-            {t('destinationDeals.from')} {formatPrice(deal.minPrice)}
-          </span>
+          
         </div>
         <div className="absolute bottom-4 left-4 text-white">
           <h3 className="text-2xl font-bold mb-1">{translatedDestination}</h3>
@@ -126,19 +116,14 @@ const DestinationDealCard = ({ deal }: DestinationDealCardProps) => {
               {formatPrice(deal.minPrice)}
             </p>
           </div>
-          <button 
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent card click when button is clicked
-              handleCardClick();
-            }}
-            className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground"
-          >
+          <button onClick={e => {
+          e.stopPropagation(); // Prevent card click when button is clicked
+          handleCardClick();
+        }} className="btn-jetleg-secondary hover:bg-accent hover:text-primary-foreground">
             {t('destinationDeals.viewDeals')}
           </button>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default DestinationDealCard;
