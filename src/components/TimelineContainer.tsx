@@ -1,14 +1,15 @@
+
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Search, Calendar, Plane, CheckCircle, Icon } from 'lucide-react';
+import { Search, Calendar, Plane, CheckCircle, LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils'; // Aangenomen dat je de cn utility gebruikt
+import { cn } from '@/lib/utils';
 
 // =================================================================
 //  1. TIMELINE STEP COMPONENT (HYBRIDE VOOR ALLE SCHERMEN)
 // =================================================================
 
 interface TimelineStepProps {
-  icon: Icon;
+  icon: LucideIcon;
   stepNumber: number;
   title: string;
   description: string;
