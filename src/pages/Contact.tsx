@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import Navigation from '@/components/Navigation';
@@ -18,11 +17,12 @@ const Contact = () => {
     message: ''
   });
 
-  // Helper function to ensure we always get an array
+  // Helper function to ensure we always get an array of strings
   const getTranslationArray = (key: string): string[] => {
     const result = t(key, { returnObjects: true });
     if (Array.isArray(result)) {
-      return result;
+      // Filter and map to ensure all items are strings
+      return result.filter((item): item is string => typeof item === 'string');
     }
     // Fallback to empty array if translation fails or returns non-array
     return [];
