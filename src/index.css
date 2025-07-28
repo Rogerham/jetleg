@@ -1,36 +1,70 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Jetleg Design System - All colors, gradients, fonts, etc */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    /* Core brand colors - All HSL values */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 222.2 84% 4.9%; /* slate-900 */
+
+    --card: 0 0% 100%; /* white */
     --card-foreground: 222.2 84% 4.9%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+
+    /* Jetleg brand identity */
+    --primary: 222.2 47.4% 11.2%; /* slate-800 */
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
+
+    --secondary: 210 40% 96.1%; /* slate-100 */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 45 93% 47%; /* amber-500 */
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%; /* slate-100 */
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --input: 220 13% 91%;
+    --ring: 45 93% 47%; /* amber focus */
+
+    --radius: 0.75rem;
+
+    /* Jetleg specific colors */
+    --jetleg-blue: 217 91% 60%; /* blue-500 */
+    --jetleg-amber: 45 93% 47%; /* amber-500 */
+    --jetleg-amber-dark: 43 96% 56%; /* amber-400 */
+    --jetleg-success: 142 76% 36%; /* emerald-600 */
+    --jetleg-slate-light: 210 40% 96.1%; /* slate-100 */
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(222.2 47.4% 11.2% / 0.7), hsl(222.2 47.4% 11.2% / 0.5));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-button: linear-gradient(135deg, hsl(45 93% 47%), hsl(43 96% 56%));
+
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+    --shadow-card-hover: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.05);
+    --shadow-button: 0 4px 14px 0 hsl(45 93% 47% / 0.25);
+
+    /* Typography */
+    --font-size-hero: clamp(2.5rem, 5vw, 4rem);
+    --font-size-title: clamp(1.5rem, 3vw, 2.25rem);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -38,42 +72,46 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 10.6% 64.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
+    /* ... keep existing code (dark theme variables) */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
+
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
+
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
+
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
+
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 94.1%;
-    --sidebar-primary-foreground: 240 5.9% 10%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 10.6% 64.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -81,58 +119,115 @@
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
-    font-family: "Inter", sans-serif;
+    @apply bg-background text-foreground font-['Inter',sans-serif];
   }
 }
 
 @layer components {
-  /* Typography Classes - Compact Version */
-  .text-hero {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
-  }
-
-  .text-title {
-    @apply text-2xl md:text-3xl font-bold leading-tight;
-  }
-
-  .text-subtitle {
-    @apply text-lg md:text-xl font-medium leading-relaxed;
-  }
-
-  /* Button Styles */
+  /* Jetleg Button Variants */
   .btn-jetleg-primary {
-    @apply bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-colors duration-200;
+    @apply bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] text-primary-foreground font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95;
+    box-shadow: var(--shadow-button);
   }
 
   .btn-jetleg-secondary {
-    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground px-6 py-3 rounded-lg font-semibold transition-colors duration-200;
+    @apply bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-primary/90 hover:scale-105 active:scale-95;
   }
 
-  /* Card Styles */
+  .btn-jetleg-outline {
+    @apply border-2 border-accent text-accent font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-accent hover:text-primary-foreground hover:scale-105 active:scale-95;
+  }
+
+  /* Jetleg Card - Updated with reduced hover scale and better mobile behavior */
   .card-jetleg {
-    @apply bg-card text-card-foreground rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-border/50;
+    @apply bg-card rounded-2xl overflow-hidden transition-all duration-300;
+    box-shadow: var(--shadow-card);
+    background: var(--gradient-card);
+  }
+  
+  /* Enhanced hover effects with better mobile support */
+  @media (hover: hover) {
+    .card-jetleg:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+  
+  /* Prevent hover effects on touch devices to avoid clipping */
+  @media (hover: none) {
+    .card-jetleg:hover {
+      transform: none;
+    }
   }
 
+  /* Hero Background */
   .hero-jetleg {
-    @apply bg-cover bg-center bg-no-repeat;
+    background: var(--gradient-hero), url('/placeholder-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
   }
 
-  /* Animation Classes */
+  /* Search Form */
+  .search-form-jetleg {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 lg:p-6;
+  }
+
+  /* Input Field */
+  .input-jetleg {
+    @apply w-full px-4 py-3 rounded-xl border border-input bg-card text-foreground transition-all duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none;
+  }
+
+  /* Deal Badge */
+  .deal-badge {
+    @apply bg-[hsl(var(--jetleg-success))]/10 text-[hsl(var(--jetleg-success))] text-sm font-semibold px-3 py-1 rounded-full border border-[hsl(var(--jetleg-success))]/20;
+  }
+
+  /* Animation classes */
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out;
   }
 
   .animate-scale-hover {
-    transition: transform 0.3s ease;
+    transition: var(--transition-smooth);
   }
 
+  /* Updated hover scale animation with reduced scale */
   .animate-scale-hover:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
+  }
+
+  /* Date input styling */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply cursor-pointer opacity-50 hover:opacity-100;
   }
 }
 
+@layer utilities {
+  .text-hero {
+    font-size: var(--font-size-hero);
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .text-title {
+    font-size: var(--font-size-title);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .transition-jetleg {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-jetleg-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+/* Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -142,9 +237,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Remove default styling */
-button {
-  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
 }
