@@ -1,123 +1,162 @@
-
-import { useState, useCallback, useEffect } from 'react';
-import { Search, Calendar, Plane, CheckCircle } from 'lucide-react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+// VERWIJDERD: import { useInView } from 'react-intersection-observer';
+import { Search, Calendar, Plane, CheckCircle, Icon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import TimelineStep from './TimelineStep';
+import { cn } from '@/lib/utils'; // Aangenomen dat je de cn utility gebruikt
+
+// =================================================================
+//  1. TIMELINE STEP COMPONENT (AANGEPAST ZONDER EXTERNE DEPENDENCY)
+// =================================================================
+
+interface TimelineStepProps {
+  icon: Icon;
+  stepNumber: number;
+  title: string;
+  description: string;
+  details: string[];
+  isEven: boolean;
+  onVisible: (stepNumber: number) => void;
+}
+
+const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, onVisible }: TimelineStepProps) => {
+  // VERVANGING: Gebruik useRef om een referentie naar het DOM-element te krijgen.
+  const stepRef = useRef<HTMLDivElement>(null);
+
+  // VERVANGING: Gebruik de ingebouwde IntersectionObserver API.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Wanneer de stap voor 60% in beeld is...
+        if (entry.isIntersecting) {
+          onVisible(stepNumber);
+          // Stop met observeren nadat de stap zichtbaar is geweest.
+          if (stepRef.current) {
+            observer.unobserve(stepRef.current);
+          }
+        }
+      },
+      {
+        threshold: 0.6, // De stap wordt 'actief' als 60% zichtbaar is
+      }
+    );
+
+    if (stepRef.current) {
+      observer.observe(stepRef.current);
+    }
+
+    // Cleanup functie om de observer te verwijderen als de component unmount.
+    return () => {
+      if (stepRef.current) {
+        observer.unobserve(stepRef.current);
+      }
+    };
+  }, [onVisible, stepNumber]);
+
+
+  // Bepaalt de positionering voor de desktop layout
+  const desktopAlignment = isEven ? 'lg:flex-row-reverse' : 'lg:flex-row';
+  const desktopTextAlignment = isEven ? 'lg:text-left' : 'lg:text-right';
+  const desktopMargin = isEven ? 'lg:ml-auto' : 'lg:mr-auto';
+
+  return (
+    <div ref={stepRef} className={cn("flex w-full relative", desktopAlignment)}>
+      <div className="absolute lg:relative left-0 lg:left-auto flex lg:w-2/12 items-center justify-center">
+        <div className={cn(
+          "z-10 flex h-12 w-12 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg",
+          "lg:translate-x-0 transform -translate-x-1/2"
+        )}>
+          <Icon className="h-6 w-6 lg:h-8 lg:w-8" />
+        </div>
+      </div>
+      
+      <div className={cn(
+        "w-full pl-12 lg:pl-0 lg:w-5/12",
+        desktopMargin,
+        desktopTextAlignment
+      )}>
+        <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+        <p className="text-muted-foreground mb-4">{description}</p>
+        <ul className="space-y-2">
+          {details.map((detail, index) => (
+            <li key={index} className={cn(
+              "flex items-start gap-3",
+              isEven ? 'lg:justify-start' : 'lg:justify-end'
+            )}>
+              <CheckCircle className={cn("h-5 w-5 text-accent flex-shrink-0 mt-0.5", isEven && "lg:order-first")} />
+              <span className="text-muted-foreground">{detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <div className="hidden lg:block lg:w-5/12"></div>
+    </div>
+  );
+};
+
+
+// =================================================================
+//  2. TIMELINE CONTAINER COMPONENT (ONGEWIJZIGD)
+// =================================================================
 
 const TimelineContainer = () => {
   const { t } = useTranslation();
-  const [activeStep, setActiveStep] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const timelineRef = useRef<HTMLElement>(null);
 
   const steps = [
-    {
-      icon: Search,
-      title: t('howItWorks.steps.search.title'),
-      description: t('howItWorks.steps.search.description'),
-      details: [
-        t('howItWorks.steps.search.details.0'),
-        t('howItWorks.steps.search.details.1'),
-        t('howItWorks.steps.search.details.2')
-      ]
-    },
-    {
-      icon: Calendar,
-      title: t('howItWorks.steps.book.title'),
-      description: t('howItWorks.steps.book.description'),
-      details: [
-        t('howItWorks.steps.book.details.0'),
-        t('howItWorks.steps.book.details.1'),
-        t('howItWorks.steps.book.details.2')
-      ]
-    },
-    {
-      icon: Plane,
-      title: t('howItWorks.steps.fly.title'),
-      description: t('howItWorks.steps.fly.description'),
-      details: [
-        t('howItWorks.steps.fly.details.0'),
-        t('howItWorks.steps.fly.details.1'),
-        t('howItWorks.steps.fly.details.2')
-      ]
-    },
-    {
-      icon: CheckCircle,
-      title: t('howItWorks.steps.arrive.title'),
-      description: t('howItWorks.steps.arrive.description'),
-      details: [
-        t('howItWorks.steps.arrive.details.0'),
-        t('howItWorks.steps.arrive.details.1'),
-        t('howItWorks.steps.arrive.details.2')
-      ]
-    }
+    { icon: Search, title: t('howItWorks.steps.search.title', 'Zoek je vlucht'), description: t('howItWorks.steps.search.description', 'Vind de perfecte privéjet voor jouw reis.'), details: [t('howItWorks.steps.search.details.0', 'Kies vertrek- en aankomstlocaties.'), t('howItWorks.steps.search.details.1', 'Selecteer je reisdatum.'), t('howItWorks.steps.search.details.2', 'Vergelijk direct prijzen.')] },
+    { icon: Calendar, title: t('howItWorks.steps.book.title', 'Boek direct online'), description: t('howItWorks.steps.book.description', 'Bevestig je boeking in een paar simpele stappen.'), details: [t('howItWorks.steps.book.details.0', 'Veilige online betaling.'), t('howItWorks.steps.book.details.1', 'Ontvang direct bevestiging.'), t('howItWorks.steps.book.details.2', 'Beheer je boeking online.')] },
+    { icon: Plane, title: t('howItWorks.steps.fly.title', 'Geniet van je vlucht'), description: t('howItWorks.steps.fly.description', 'Ervaar het ultieme comfort en gemak.'), details: [t('howItWorks.steps.fly.details.0', 'Exclusieve toegang tot privé-terminals.'), t('howItWorks.steps.fly.details.1', 'Catering en service van wereldklasse.'), t('howItWorks.steps.fly.details.2', 'Reis in alle privacy en comfort.')] },
+    { icon: CheckCircle, title: t('howItWorks.steps.arrive.title', 'Kom verfrist aan'), description: t('howItWorks.steps.arrive.description', 'Land dichter bij je eindbestemming.'), details: [t('howItWorks.steps.arrive.details.0', 'Vermijd de drukte van grote luchthavens.'), t('howItWorks.steps.arrive.details.1', 'Naadloze transfer naar je eindbestemming.'), t('howItWorks.steps.arrive.details.2', 'Begin je reis ontspannen en efficiënt.')] }
   ];
 
-  const handleStepVisible = useCallback((stepNumber: number) => {
-    setActiveStep(stepNumber - 1);
-  }, []);
+  const handleStepVisible = useCallback(() => {}, []);
 
-  // Enhanced scroll tracking - ensures timeline reaches 100% at step 4
   useEffect(() => {
     const handleScroll = () => {
-      const timelineSection = document.querySelector('[data-timeline-section]');
-      if (!timelineSection) return;
+      if (!timelineRef.current) return;
 
-      const rect = timelineSection.getBoundingClientRect();
-      const sectionTop = rect.top;
-      const sectionHeight = rect.height;
+      const rect = timelineRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate progress based on scroll position within the section
-      const scrolled = Math.max(0, windowHeight - sectionTop);
-      const totalScrollDistance = sectionHeight + windowHeight * 0.5; // Reduced for earlier completion
-      let progress = Math.min(1, Math.max(0, scrolled / totalScrollDistance));
+      const scrollAmount = windowHeight - rect.top;
+      const totalScrollableHeight = rect.height + windowHeight;
       
-      // Ensure progress reaches 100% when at step 4 (index 3)
-      if (activeStep >= 3) {
-        progress = Math.max(progress, 1);
-      }
+      const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
       
       setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial calculation
+    handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeStep]);
+  }, []);
 
   return (
-    <section data-timeline-section className="py-20 bg-background relative">
+    <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Clean timeline line - centered and responsive to scroll */}
-        <div className="absolute left-1/2 transform -translate-x-0.5 hidden lg:block" style={{
-          top: '10rem',
-          bottom: '10rem',
-          width: '3px',
-          background: 'hsl(var(--muted))',
-          borderRadius: '2px'
-        }}>
-          {/* Clean progress indicator without glow */}
+        <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
           <div 
-            className="absolute top-0 left-0 w-full bg-accent transition-all duration-300 ease-out rounded-full"
-            style={{ 
-              height: `${scrollProgress * 100}%`
-            }}
+            className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
+            style={{ height: `${scrollProgress * 100}%` }}
           />
         </div>
 
-        <div className="space-y-32 lg:space-y-40">
+        <div className="relative space-y-24 lg:space-y-0">
           {steps.map((step, index) => (
-            <TimelineStep
-              key={index}
-              icon={step.icon}
-              stepNumber={index + 1}
-              title={step.title}
-              description={step.description}
-              details={step.details}
-              isEven={index % 2 === 1}
-              onVisible={handleStepVisible}
-            />
+            <div key={index} className="lg:mb-40 last:mb-0">
+              <TimelineStep
+                icon={step.icon}
+                stepNumber={index + 1}
+                title={step.title}
+                description={step.description}
+                details={step.details}
+                isEven={index % 2 === 1}
+                onVisible={handleStepVisible}
+              />
+            </div>
           ))}
         </div>
       </div>
