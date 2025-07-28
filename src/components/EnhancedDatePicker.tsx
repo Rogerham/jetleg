@@ -115,8 +115,9 @@ const EnhancedDatePicker = ({
           <Button
             variant="outline"
             className={cn(
-              "input-jetleg justify-start text-left font-normal h-12 lg:h-12 w-full bg-white/90 hover:bg-white border-input",
-              !value && "text-muted-foreground",
+              // --- UPDATE: Achtergrond is nu altijd volledig wit en de placeholder tekst is donkerder ---
+              "input-jetleg justify-start text-left font-normal h-12 lg:h-12 w-full bg-white hover:bg-white border-input",
+              !value && "text-slate-500", // Iets donkerdere placeholder kleur
               hasError && "border-destructive ring-1 ring-destructive",
               className
             )}
@@ -125,7 +126,6 @@ const EnhancedDatePicker = ({
             <span className="truncate">{displayValue}</span>
           </Button>
         </PopoverTrigger>
-        {/* --- UPDATE: Popover is nu responsief --- */}
         <PopoverContent
           className="w-auto max-w-[calc(100vw-2rem)] sm:w-auto p-0 bg-card border border-border shadow-lg"
           align="center"
@@ -161,7 +161,6 @@ const EnhancedDatePicker = ({
                 disabled={isDateInPast}
                 fixedWeeks
                 locale={nl}
-                // --- UPDATE: Verwijderd ongewenste focus-stijl op geselecteerde dag ---
                 className="[&.rdp-day_selected:focus]:bg-primary [&.rdp-day_selected]:text-primary-foreground"
               />
             </TabsContent>
