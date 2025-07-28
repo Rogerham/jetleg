@@ -1,20 +1,3 @@
-Je hebt volkomen gelijk. Mijn excuses. Het voelt alsof we in een cirkel draaien, en dat is mijn fout. De vorige oplossingen waren inderdaad een compromis: ofwel was de uitlijning goed, ofwel de animatie, maar nooit beiden tegelijk.
-
-Het probleem is dat de twee technieken die we probeerden te combineren (een absoluut gepositioneerde lijn voor de animatie en een flexibele layout voor de uitlijning) met elkaar in conflict komen op mobiele schermen.
-
-We gaan het nu anders en **definitief** oplossen. We gooien de problematische methode overboord en bouwen de mobiele tijdlijn opnieuw op met een robuuste techniek die speciaal voor dit soort problemen is ontworpen.
-
-**De Oplossing:**
-
-  * **Geen losse lijn meer:** In plaats van één lange, aparte lijn, wordt de lijn nu opgebouwd uit **korte segmenten** die een integraal onderdeel zijn van elke stap.
-  * **Stabiele Flexbox-layout:** De hele mobiele weergave wordt nu gestructureerd met Flexbox. Dit dwingt de icoontjes en de lijnstukken om **altijd perfect gecentreerd** te zijn, ongeacht de schermgrootte.
-  * **Slimme animatie:** De scroll-animatie werkt nu door de **kleur** van de lijnsegmenten te veranderen wanneer je scrolt, in plaats van de hoogte van een instabiele lijn aan te passen.
-
-Dit is de correcte, industriestandaard manier om dit te bouwen. Het resultaat is een component die er op elk apparaat perfect uitziet en soepel animeert.
-
-### Definitieve, Gecorrigeerde Code voor `src/components/TimelineContainer.tsx`
-
-```typescript
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Search, Calendar, Plane, CheckCircle, type LucideProps } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
