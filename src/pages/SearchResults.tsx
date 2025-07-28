@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar, X } from 'lucide-react';
+import { Filter, SlidersHorizontal, MapPin, Clock, Users, Plane, Star, ArrowLeft, Calendar, X, Heart, Bell } from 'lucide-react';
 
 // Component Imports
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
-import SaveSearchButton from '@/components/SaveSearchButton';
-import { Slider } from '@/components/ui/slider'; // Zorg ervoor dat deze import correct is
+// SaveSearchButton wordt nu direct in deze component afgehandeld
+// import SaveSearchButton from '@/components/SaveSearchButton'; 
+import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils'; // Zorg ervoor dat deze import correct is
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Tooltip voor iconen
+import { cn } from '@/lib/utils';
 
 // Hook & Context Imports
 import { useFlights, type Flight } from '@/hooks/useFlights';
@@ -19,7 +21,7 @@ import { useCurrency } from '@/contexts/CurrencyContext';
 
 
 // =================================================================
-//  GEÏNTEGREERDE CUSTOM DURATION SLIDER COMPONENT (MET AANPASSINGEN)
+//  GEÏNTEGREERDE CUSTOM DURATION SLIDER COMPONENT
 // =================================================================
 interface CustomDurationSliderProps {
   minDuration: number;
@@ -63,7 +65,6 @@ const CustomDurationSlider = ({
         min={min}
         max={max}
         step={step}
-        // De track (het niet-geselecteerde deel) is nu donkerder voor beter contrast
         className="w-full [&>span:first-child]:bg-slate-400"
       />
       <div className="flex justify-between text-sm font-medium text-foreground mt-2">
@@ -177,7 +178,6 @@ const SearchResults = () => {
   const formatTime = (dateString: string) => new Date(dateString).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
   const extractAirportCode = (airport: string) => (airport.match(/\(([^)]+)\)/) || [])[1] || airport.slice(-3);
   
-  // UPDATE: Functie geeft nu JSX terug voor gekleurde tekst
   const getSearchResultsTitle = () => {
     const fromText = searchData.from || 'Alle luchthavens';
     const toText = searchData.to === 'Overal' ? 'alle bestemmingen' : searchData.to || 'alle bestemmingen';
@@ -212,7 +212,7 @@ const SearchResults = () => {
         )}
       </div>
 
-      {/* Price Range */}
+      {/* Filter sections... */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-foreground mb-3">Prijs (€)</label>
         <div className="grid grid-cols-2 gap-3">
@@ -226,8 +226,6 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
-
-      {/* Passenger Count Range */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-foreground mb-3">Aantal passagiers</label>
         <div className="grid grid-cols-2 gap-3">
@@ -241,14 +239,10 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
-
-      {/* Flight Duration Range */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-foreground mb-3">Vliegduur (uren)</label>
         <CustomDurationSlider minDuration={filters.minDuration} maxDuration={filters.maxDuration} onDurationChange={handleDurationChange} />
       </div>
-
-      {/* Time of Day */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-foreground mb-2">Vertrektijd</label>
         <div className="space-y-2">
@@ -283,124 +277,145 @@ const SearchResults = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
-      <div className="bg-primary text-white py-6">
-        <div className="container mx-auto px-6">
-          <SearchWithSuggestions className="max-w-none" initialValues={searchData} />
-        </div>
-      </div>
-
-      <div className="container mx-auto px-6 py-8">
-        <div className="flex flex-col gap-4 mb-8">
-          {/* Title */}
-          <h1 className="text-title text-foreground">
-            {getSearchResultsTitle()}
-          </h1>
-
-          {/* UPDATE: Info line and Save Button now in a flex-wrap container */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
-              <Calendar className="h-4 w-4" />
-              {getDateDisplayText()}
-            </span>
-            <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
-              <Users className="h-4 w-4" />
-              {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
-            </span>
-            <span className="font-medium text-accent">
-              {filteredFlights.length} beschikbare vluchten
-            </span>
-            {/* De knop staat nu hier, en zal op mobiel naar de volgende regel springen */}
-            <SaveSearchButton searchCriteria={searchData} />
-          </div>
-
-          {/* Sort Controls */}
-          <div className="flex items-center gap-4 w-full sm:w-auto">
-            <div className="block lg:hidden">
-              <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
-            </div>
-            <div className="flex items-center gap-2 flex-1 sm:flex-initial">
-              <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
-              <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 sm:flex-initial px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
-                <option value="price">Prijs (laag naar hoog)</option>
-                <option value="duration">Vliegduur</option>
-                <option value="departure">Vertrektijd</option>
-              </select>
-            </div>
+    <TooltipProvider>
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        
+        <div className="bg-primary text-white py-6">
+          <div className="container mx-auto px-6">
+            <SearchWithSuggestions className="max-w-none" initialValues={searchData} />
           </div>
         </div>
 
-        <ActiveFilters filters={filters} onRemoveFilter={handleRemoveFilter} onClearAll={handleClearAllFilters} />
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col gap-4 mb-8">
+            <h1 className="text-title text-foreground">
+              {getSearchResultsTitle()}
+            </h1>
 
-        {isFilterOpen && (
-          <div className="fixed inset-0 bg-black/50 z-50 lg:hidden" onClick={() => setIsFilterOpen(false)}>
-            <div className="absolute inset-x-0 top-0 max-h-screen overflow-y-auto bg-background" onClick={e => e.stopPropagation()}>
-              <FilterSection isMobile={true} />
-            </div>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1 hidden lg:block"><FilterSection /></div>
-          <div className="lg:col-span-3">
-            {filteredFlights.length === 0 ? (
-              <div className="text-center py-12">
-                <Plane className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">Geen vluchten gevonden</h3>
-                <p className="text-muted-foreground mb-4">Probeer je zoekcriteria aan te passen of kies andere filters.</p>
-                <button onClick={handleClearAllFilters} className="btn-jetleg-primary">Reset filters</button>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
+                <Calendar className="h-4 w-4" />
+                {getDateDisplayText()}
+              </span>
+              <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
+                <Users className="h-4 w-4" />
+                {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
+              </span>
+              <span className="font-medium text-accent">
+                {filteredFlights.length} beschikbare vluchten
+              </span>
+              
+              {/* UPDATE: Icon buttons with tooltips */}
+              <div className="flex items-center gap-1">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" aria-label="Zoekopdracht opslaan">
+                      <Heart className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Zoekopdracht opslaan</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" aria-label="Ontvang meldingen">
+                      <Bell className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Ontvang meldingen voor deze zoekopdracht</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
-            ) : (
-              <div className="space-y-6">
-                {filteredFlights.map(flight => (
-                  <div key={flight.id} className="card-jetleg overflow-hidden">
-                    <div className="p-6">
-                      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
-                        <div className="lg:col-span-2">
-                          <div className="flex items-center gap-4 mb-3">
-                            <div className="text-center">
-                              <div className="text-xl font-bold text-foreground">{formatTime(flight.departure_time)}</div>
-                              <div className="text-sm text-muted-foreground">{extractAirportCode(flight.departure_airport)}</div>
+            </div>
+
+            <div className="flex items-center gap-4 w-full sm:w-auto">
+              <div className="block lg:hidden">
+                <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
+              </div>
+              <div className="flex items-center gap-2 flex-1 sm:flex-initial">
+                <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
+                <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 sm:flex-initial px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
+                  <option value="price">Prijs (laag naar hoog)</option>
+                  <option value="duration">Vliegduur</option>
+                  <option value="departure">Vertrektijd</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <ActiveFilters filters={filters} onRemoveFilter={handleRemoveFilter} onClearAll={handleClearAllFilters} />
+
+          {isFilterOpen && (
+            <div className="fixed inset-0 bg-black/50 z-50 lg:hidden" onClick={() => setIsFilterOpen(false)}>
+              <div className="absolute inset-x-0 top-0 max-h-screen overflow-y-auto bg-background" onClick={e => e.stopPropagation()}>
+                <FilterSection isMobile={true} />
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-1 hidden lg:block"><FilterSection /></div>
+            <div className="lg:col-span-3">
+              {filteredFlights.length === 0 ? (
+                <div className="text-center py-12">
+                  <Plane className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Geen vluchten gevonden</h3>
+                  <p className="text-muted-foreground mb-4">Probeer je zoekcriteria aan te passen of kies andere filters.</p>
+                  <button onClick={handleClearAllFilters} className="btn-jetleg-primary">Reset filters</button>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {filteredFlights.map(flight => (
+                    <div key={flight.id} className="card-jetleg overflow-hidden">
+                      <div className="p-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+                          <div className="lg:col-span-2">
+                            <div className="flex items-center gap-4 mb-3">
+                              <div className="text-center">
+                                <div className="text-xl font-bold text-foreground">{formatTime(flight.departure_time)}</div>
+                                <div className="text-sm text-muted-foreground">{extractAirportCode(flight.departure_airport)}</div>
+                              </div>
+                              <div className="flex-1 relative">
+                                <div className="border-t border-dashed border-border"></div>
+                                <div className="absolute top-[-8px] left-1/2 transform -translate-x-1/2 bg-background px-2"><Plane className="h-4 w-4 text-accent" /></div>
+                                <div className="text-center text-xs text-muted-foreground mt-1">{flight.flight_duration}</div>
+                              </div>
+                              <div className="text-center">
+                                <div className="text-xl font-bold text-foreground">{formatTime(flight.arrival_time)}</div>
+                                <div className="text-sm text-muted-foreground">{extractAirportCode(flight.arrival_airport)}</div>
+                              </div>
                             </div>
-                            <div className="flex-1 relative">
-                              <div className="border-t border-dashed border-border"></div>
-                              <div className="absolute top-[-8px] left-1/2 transform -translate-x-1/2 bg-background px-2"><Plane className="h-4 w-4 text-accent" /></div>
-                              <div className="text-center text-xs text-muted-foreground mt-1">{flight.flight_duration}</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="text-xl font-bold text-foreground">{formatTime(flight.arrival_time)}</div>
-                              <div className="text-sm text-muted-foreground">{extractAirportCode(flight.arrival_airport)}</div>
+                            <div className="space-y-1">
+                              <div className="font-medium text-foreground">{flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet'}</div>
+                              <div className="text-sm text-muted-foreground flex items-center gap-4">
+                                <span className="flex items-center gap-1"><Users className="h-3 w-3" />{flight.available_seats} beschikbaar</span>
+                                <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{flight.operator}</span>
+                              </div>
                             </div>
                           </div>
-                          <div className="space-y-1">
-                            <div className="font-medium text-foreground">{flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet'}</div>
-                            <div className="text-sm text-muted-foreground flex items-center gap-4">
-                              <span className="flex items-center gap-1"><Users className="h-3 w-3" />{flight.available_seats} beschikbaar</span>
-                              <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{flight.operator}</span>
-                            </div>
+                          <div className="lg:col-span-1 hidden lg:block">
+                            <img src={getImageUrl(flight)} alt={flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet'} className="w-full h-24 object-cover rounded-lg" onError={e => { e.currentTarget.src = '/src/assets/jet-interior.jpg'; }} />
                           </div>
-                        </div>
-                        <div className="lg:col-span-1 hidden lg:block">
-                          <img src={getImageUrl(flight)} alt={flight.jets ? `${flight.jets.brand} ${flight.jets.model}` : 'Private Jet'} className="w-full h-24 object-cover rounded-lg" onError={e => { e.currentTarget.src = '/src/assets/jet-interior.jpg'; }} />
-                        </div>
-                        <div className="lg:col-span-1 text-center lg:text-right">
-                          <div className="text-2xl font-bold text-foreground mb-4">{formatPrice(flight.price_per_seat)}</div>
-                          <button onClick={() => navigate(`/booking/${flight.id}`, { state: { flight } })} className="btn-jetleg-primary w-full lg:w-auto">Boek Nu</button>
+                          <div className="lg:col-span-1 text-center lg:text-right">
+                            <div className="text-2xl font-bold text-foreground mb-4">{formatPrice(flight.price_per_seat)}</div>
+                            <button onClick={() => navigate(`/booking/${flight.id}`, { state: { flight } })} className="btn-jetleg-primary w-full lg:w-auto">Boek Nu</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
+        
+        <Footer />
       </div>
-      
-      <Footer />
-    </div>
+    </TooltipProvider>
   );
 };
 
