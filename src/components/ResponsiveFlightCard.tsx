@@ -22,8 +22,8 @@ const ResponsiveFlightCard = ({
   const { t } = useTranslation();
 
   const handleBookNow = () => {
-    // Navigate to the correct booking flow with flight data
-    navigate(`/booking/${flight.id}`, {
+    // Navigate to the consolidated booking flow with flight data
+    navigate(`/booking-flow/${flight.id}`, {
       state: {
         flight: flight
       }

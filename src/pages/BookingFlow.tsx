@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check, CreditCard, Lock, Users, MapPin, Calendar, Plane } from 'lucide-react';
@@ -28,10 +27,13 @@ interface PaymentData {
 }
 
 const BookingFlow = () => {
-  const { flightId } = useParams();
+  const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
+  
+  // Handle different parameter names from different routes
+  const flightId = params.id || params.flightId;
   
   const [currentStep, setCurrentStep] = useState(1);
   const [passengers, setPassengers] = useState<Passenger[]>([

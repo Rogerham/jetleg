@@ -12,6 +12,7 @@ import { CurrencyProvider } from "./contexts/CurrencyContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ModularSearchDemo from "./pages/ModularSearchDemo";
 import SearchResults from "./pages/SearchResults";
+import BookingFlow from "./pages/BookingFlow";
 import "./i18n/config";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,10 @@ const App = () => (
                     ))}
                     <Route path="/search-results" element={<SearchResults />} />
                     <Route path="/modular-demo" element={<ModularSearchDemo />} />
+                    {/* Consolidated booking routes - all point to BookingFlow */}
+                    <Route path="/booking/:id" element={<BookingFlow />} />
+                    <Route path="/booking/:flightId" element={<BookingFlow />} />
+                    <Route path="/booking-flow/:flightId" element={<BookingFlow />} />
                   </Routes>
                 </Suspense>
               </main>

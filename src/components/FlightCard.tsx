@@ -1,4 +1,3 @@
-
 import { Plane, Clock, Users, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
@@ -47,8 +46,8 @@ const FlightCard = ({
   const { formatPrice } = useCurrency();
 
   const handleBooking = () => {
-    // Navigate to the correct booking flow with flight data
-    navigate(`/booking/${id}`, {
+    // Navigate to the consolidated booking flow with flight data
+    navigate(`/booking-flow/${id}`, {
       state: {
         flight: {
           id,
