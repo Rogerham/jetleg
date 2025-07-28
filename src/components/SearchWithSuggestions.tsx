@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { MapPin, Search, Users, Plane, ArrowUpDown, ArrowLeftRight } from 'lucide-react';
+import { MapPin, Search, Users, Plane, ArrowLeftRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { worldwideAirports, type Airport } from '@/data/airports';
 import PassengerCounter from './PassengerCounter';
 import EnhancedDatePicker from './EnhancedDatePicker';
+import { toast } from 'sonner';
 
 interface SearchWithSuggestionsProps {
   className?: string;
@@ -157,9 +158,21 @@ const SearchWithSuggestions = ({
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchData.from || !searchData.to || !searchData.date) {
-      return;
+    
+    // === DE AANPASSING ZIT HIER ===
+    if (!searchData.from) {
+        toast.error("Vul een vertreklocatie in.");
+        return;
     }
+    if (!searchData.to) {
+        toast.error("Vul een bestemming in.");
+        return;
+    }
+    if (!searchData.date) {
+        toast.error("Kies een datum.");
+        return;
+    }
+    
     const searchParams = new URLSearchParams({
       from: searchData.from,
       to: searchData.to,
@@ -169,7 +182,8 @@ const SearchWithSuggestions = ({
     navigate(`/search-results?${searchParams.toString()}`);
   };
 
-  return <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
+  return (
+    <div className={`search-form-jetleg max-w-6xl mx-auto animate-fade-in ${className}`} ref={suggestionsRef}>
       <form onSubmit={handleSearch} className="space-y-6">
         {/* Mobile Layout */}
         <div className="lg:hidden space-y-6">
@@ -181,7 +195,7 @@ const SearchWithSuggestions = ({
                 <MapPin className="h-4 w-4" />
                 Van
               </label>
-              <input ref={fromInputRef} type="text" id="from" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-14 w-full" required />
+              <input ref={fromInputRef} type="text" id="from" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-14 w-full" />
               
               {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                   {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
@@ -207,7 +221,7 @@ const SearchWithSuggestions = ({
                 <MapPin className="h-4 w-4" />
                 Naar
               </label>
-              <input ref={toInputRef} type="text" id="to" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-14 w-full" required />
+              <input ref={toInputRef} type="text" id="to" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-14 w-full" />
               
               {activeSuggestion.field === 'to' && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                   <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white">
@@ -273,7 +287,7 @@ const SearchWithSuggestions = ({
               <MapPin className="h-4 w-4" />
               Van
             </label>
-            <input type="text" id="from-desktop" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-12" required />
+            <input type="text" id="from-desktop" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-12" />
             
             {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                 {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
@@ -303,7 +317,7 @@ const SearchWithSuggestions = ({
               <MapPin className="h-4 w-4" />
               Naar
             </label>
-            <input type="text" id="to-desktop" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-12" required />
+            <input type="text" id="to-desktop" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-12" />
             
             {activeSuggestion.field === 'to' && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
                 <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white">
@@ -359,7 +373,8 @@ const SearchWithSuggestions = ({
           </div>
         </div>
       </form>
-    </div>;
+    </div>
+  );
 };
 
 export default SearchWithSuggestions;
