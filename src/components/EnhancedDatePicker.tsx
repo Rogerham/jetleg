@@ -115,9 +115,9 @@ const EnhancedDatePicker = ({
           <Button
             variant="outline"
             className={cn(
-              // --- UPDATE: Achtergrond is nu altijd volledig wit en de placeholder tekst is donkerder ---
+              // --- UPDATE: Placeholder kleur consistent gemaakt met andere inputs ---
               "input-jetleg justify-start text-left font-normal h-12 lg:h-12 w-full bg-white hover:bg-white border-input",
-              !value && "text-slate-500", // Iets donkerdere placeholder kleur
+              !value && "text-muted-foreground", // Standaardkleur voor placeholder-tekst
               hasError && "border-destructive ring-1 ring-destructive",
               className
             )}
