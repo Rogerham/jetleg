@@ -1,6 +1,4 @@
 
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import DestinationDealCard from '@/components/DestinationDealCard';
 import { MapPin } from 'lucide-react';
@@ -16,8 +14,6 @@ const TopDeals = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Navigation />
-        
         <PageHeader
           title={t('topDeals.title')}
           subtitle={t('topDeals.subtitle')}
@@ -36,8 +32,6 @@ const TopDeals = () => {
             </div>
           </div>
         </section>
-
-        <Footer />
       </div>
     );
   }
@@ -45,8 +39,6 @@ const TopDeals = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <Navigation />
-        
         <PageHeader
           title={t('topDeals.title')}
           subtitle={t('topDeals.subtitle')}
@@ -66,16 +58,12 @@ const TopDeals = () => {
             </div>
           </div>
         </section>
-
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
-      
       {/* Standardized Page Header */}
       <PageHeader
         title={t('topDeals.title')}
@@ -120,8 +108,6 @@ const TopDeals = () => {
           )}
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

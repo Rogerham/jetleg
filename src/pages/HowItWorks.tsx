@@ -1,6 +1,4 @@
 
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import TimelineContainer from '@/components/TimelineContainer';
 import PageHeader from '@/components/PageHeader';
 import { useNavigate } from 'react-router-dom';
@@ -35,8 +33,6 @@ const HowItWorks = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
-      
       {/* Standardized Page Header */}
       <PageHeader
         title={t('howItWorks.hero.title')}
@@ -95,8 +91,6 @@ const HowItWorks = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

@@ -44,42 +44,85 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-  const desktopAlignment = isEven ? 'lg:flex-row-reverse' : 'lg:flex-row';
-  const desktopTextAlignment = isEven ? 'lg:text-left' : 'lg:text-right';
-  const desktopMargin = isEven ? 'lg:ml-auto' : 'lg:mr-auto';
-
   return (
-    <div ref={stepRef} className={cn("flex w-full relative", desktopAlignment)}>
-      <div className="absolute lg:relative left-0 lg:left-auto flex lg:w-2/12 items-center justify-center">
-        <div className={cn(
-          "z-10 flex h-12 w-12 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg",
-          "lg:translate-x-0 transform -translate-x-1/2"
-        )}>
-          <Icon className="h-6 w-6 lg:h-8 lg:w-8" />
+    <div ref={stepRef} className="relative w-full">
+      {/* Mobile/Tablet Layout (unchanged) */}
+      <div className="lg:hidden flex items-start">
+        <div className="absolute left-0 flex items-center justify-center -translate-x-1/2">
+          <div className="z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg">
+            <Icon className="h-6 w-6" />
+          </div>
+        </div>
+        
+        <div className="w-full pl-12">
+          <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+          <p className="text-muted-foreground mb-4">{description}</p>
+          <ul className="space-y-2">
+            {details.map((detail, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                <span className="text-muted-foreground">{detail}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-      
-      <div className={cn(
-        "w-full pl-12 lg:pl-0 lg:w-5/12",
-        desktopMargin,
-        desktopTextAlignment
-      )}>
-        <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
-        <p className="text-muted-foreground mb-4">{description}</p>
-        <ul className="space-y-2">
-          {details.map((detail, index) => (
-            <li key={index} className={cn(
-              "flex items-start gap-3",
-              isEven ? 'lg:justify-start' : 'lg:justify-end'
-            )}>
-              <CheckCircle className={cn("h-5 w-5 text-accent flex-shrink-0 mt-0.5", isEven && "lg:order-first")} />
-              <span className="text-muted-foreground">{detail}</span>
-            </li>
-          ))}
-        </ul>
+
+      {/* Desktop Layout - Fixed */}
+      <div className="hidden lg:block">
+        <div className="grid grid-cols-12 gap-8 items-center">
+          {/* Left Content (for odd steps) */}
+          <div className={cn(
+            "col-span-5",
+            isEven ? "order-3" : "order-1",
+            isEven ? "text-left" : "text-right"
+          )}>
+            {!isEven && (
+              <div className="pr-8">
+                <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+                <p className="text-muted-foreground mb-4">{description}</p>
+                <ul className="space-y-2">
+                  {details.map((detail, index) => (
+                    <li key={index} className="flex items-start gap-3 justify-end">
+                      <span className="text-muted-foreground text-right">{detail}</span>
+                      <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          
+          {/* Center Icon - Always in the middle */}
+          <div className="col-span-2 order-2 flex justify-center">
+            <div className="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg">
+              <Icon className="h-8 w-8" />
+            </div>
+          </div>
+          
+          {/* Right Content (for even steps) */}
+          <div className={cn(
+            "col-span-5",
+            isEven ? "order-1" : "order-3",
+            isEven ? "text-left" : "text-right"
+          )}>
+            {isEven && (
+              <div className="pl-8">
+                <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+                <p className="text-muted-foreground mb-4">{description}</p>
+                <ul className="space-y-2">
+                  {details.map((detail, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-      
-      <div className="hidden lg:block lg:w-5/12"></div>
     </div>
   );
 };
@@ -110,7 +153,6 @@ const TimelineContainer = () => {
       if (!timelineRef.current) return;
       const rect = timelineRef.current.getBoundingClientRect();
       
-      // UPDATE: Scroll-progressie is nu gebaseerd op het midden van het scherm
       const triggerPoint = window.innerHeight / 2;
       const scrollAmount = triggerPoint - rect.top;
       const totalScrollableHeight = rect.height;
@@ -127,7 +169,8 @@ const TimelineContainer = () => {
   return (
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6 relative">
-        <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+        {/* Vertical Timeline Line */}
+        <div className="absolute top-0 bottom-0 lg:left-1/2 left-6 w-[3px] -translate-x-1/2 bg-muted rounded-full">
           <div 
             className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
             style={{ height: `${scrollProgress * 100}%` }}
