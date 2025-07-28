@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
-import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import Index from '@/pages/Index';
@@ -39,14 +38,12 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const { i18n } = useTranslation();
-
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CurrencyProvider>
           <Router>
-            <div className="min-h-screen bg-background text-foreground" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+            <div className="min-h-screen bg-background text-foreground">
               <Navigation />
               <OptimizedRouteProvider>
                 <Routes>
