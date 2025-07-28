@@ -64,7 +64,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     <div ref={stepRef} className="relative w-full lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
       {/* Mobile & Tablet Layout Structure */}
       <div className="lg:hidden relative pl-20 pb-16">
-        <div className="absolute left-8 top-2 -translate-x-1/2">
+        <div className="absolute left-8 top-0 -translate-x-1/2">
           <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
             <Icon className="h-6 w-6" />
           </div>
@@ -76,7 +76,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
       {isEven ? (
         <>
           <div className="hidden lg:block lg:col-span-5"></div>
-          <div className="hidden lg:flex lg:col-span-2 lg:justify-center pt-2">
+          <div className="hidden lg:flex lg:col-span-2 lg:justify-center">
              <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
               <Icon className="h-8 w-8" />
             </div>
@@ -86,7 +86,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
       ) : (
         <>
           <div className="hidden lg:block lg:col-span-5 text-right pr-8">{contentBlock}</div>
-           <div className="hidden lg:flex lg:col-span-2 lg:justify-center pt-2">
+           <div className="hidden lg:flex lg:col-span-2 lg:justify-center">
              <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
               <Icon className="h-8 w-8" />
             </div>
