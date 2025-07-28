@@ -1,9 +1,6 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 const PrivacyPolicy = () => {
-  return <div className="min-h-screen bg-background">
-      <Navigation />
-      
+  return (
+    <>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
         <div className="container mx-auto px-6">
@@ -180,8 +177,7 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
-    </div>;
+    </>
+  );
 };
 export default PrivacyPolicy;

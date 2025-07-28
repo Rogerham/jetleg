@@ -1,155 +1,103 @@
-
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import PageHeader from '@/components/PageHeader';
-import { useAuth } from '@/contexts/AuthContext';
-import { toast } from 'sonner';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const { user, signIn } = useAuth();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Redirect to home if user is already logged in
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    
     try {
-      const { error } = await signIn(formData.email, formData.password);
-      
-      if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          toast.error('Ongeldige inloggegevens. Controleer je e-mail en wachtwoord.');
-        } else if (error.message.includes('Email not confirmed')) {
-          toast.error('Bevestig je e-mailadres voordat je inloggt. Controleer je inbox.');
-        } else {
-          toast.error('Er is een fout opgetreden bij het inloggen. Probeer het opnieuw.');
-        }
-      } else {
-        toast.success('Succesvol ingelogd!');
-        navigate('/');
-      }
+      await login(email, password);
+      toast({
+        title: "Login Succesvol",
+        description: "Je wordt doorgestuurd naar je profiel.",
+      });
+      navigate('/profile');
     } catch (error) {
-      toast.error('Er is een onverwachte fout opgetreden. Probeer het opnieuw.');
-    } finally {
-      setIsLoading(false);
+      toast({
+        title: "Login Mislukt",
+        description: "Controleer je e-mail en wachtwoord.",
+        variant: "destructive",
+      });
     }
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
-      {/* Standardized Page Header */}
-      <PageHeader
-        title="Welkom terug"
-        subtitle="Log in om toegang te krijgen tot je account"
-      />
-      
-      <div className="container mx-auto px-6 py-16">
-        <div className="max-w-md mx-auto">
-          <div className="card-jetleg p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                  E-mailadres
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors"
-                    placeholder="je@email.com"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
-                  Wachtwoord
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className="w-full pl-10 pr-12 py-3 border border-border rounded-lg bg-background text-foreground focus:ring-2 focus:ring-accent/20 focus:border-accent transition-colors"
-                    placeholder="••••••••"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 text-accent focus:ring-accent border-border rounded"
-                  />
-                  <span className="ml-2 text-sm text-foreground">Onthoud mij</span>
-                </label>
-                <Link to="/forgot-password" className="text-sm text-accent hover:text-accent/80 transition-colors">
-                  Wachtwoord vergeten?
-                </Link>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full btn-jetleg-primary disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? 'Bezig met inloggen...' : 'Inloggen'}
-              </button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-muted-foreground">
-                Nog geen account?{' '}
-                <Link to="/register" className="text-accent hover:text-accent/80 transition-colors font-medium">
-                  Registreer hier
-                </Link>
-              </p>
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="max-w-md w-full space-y-8 card-jetleg p-10">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
+            {t('login.title')}
+          </h2>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            {t('login.or')} {' '}
+            <Link to="/register" className="font-medium text-accent hover:text-accent-dark">
+              {t('login.createAccount')}
+            </Link>
+          </p>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <div className="rounded-md shadow-sm -space-y-px">
+            <div>
+              <label htmlFor="email-address" className="sr-only">{t('login.email')}</label>
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="input-jetleg rounded-t-md"
+                placeholder={t('login.email')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="password">{t('login.password')}</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="input-jetleg rounded-b-md"
+                placeholder={t('login.password')}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </div>
-        </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-accent focus:ring-accent border-gray-300 rounded" />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
+                {t('login.rememberMe')}
+              </label>
+            </div>
+
+            <div className="text-sm">
+              <a href="#" className="font-medium text-accent hover:text-accent-dark">
+                {t('login.forgotPassword')}
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" className="btn-jetleg-primary w-full">
+              {t('login.signIn')}
+            </button>
+          </div>
+        </form>
       </div>
-      
-      <Footer />
     </div>
   );
 };

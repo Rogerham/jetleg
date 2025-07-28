@@ -1,11 +1,6 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-
 const CookiePolicy = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
+    <>
       {/* Hero Section */}
       <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-6">
@@ -120,7 +115,7 @@ const CookiePolicy = () => {
                           <td className="p-4">Google Analytics</td>
                           <td className="p-4">Website statistieken</td>
                           <td className="p-4">
-                            <a href="https://policies.google.com/privacy" className="text-accent hover:underline" target="_blank" rel="noopener">
+                            <a href="https://policies.google.com/privacy" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">
                               Google Privacy Policy
                             </a>
                           </td>
@@ -129,7 +124,7 @@ const CookiePolicy = () => {
                           <td className="p-4">Facebook</td>
                           <td className="p-4">Social media integratie</td>
                           <td className="p-4">
-                            <a href="https://www.facebook.com/privacy/explanation" className="text-accent hover:underline" target="_blank" rel="noopener">
+                            <a href="https://www.facebook.com/privacy/explanation" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">
                               Facebook Privacy Policy
                             </a>
                           </td>
@@ -138,7 +133,7 @@ const CookiePolicy = () => {
                           <td className="p-4">Stripe</td>
                           <td className="p-4">Betalingsverwerking</td>
                           <td className="p-4">
-                            <a href="https://stripe.com/privacy" className="text-accent hover:underline" target="_blank" rel="noopener">
+                            <a href="https://stripe.com/privacy" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">
                               Stripe Privacy Policy
                             </a>
                           </td>
@@ -238,9 +233,7 @@ const CookiePolicy = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
-    </div>
+    </>
   );
 };
 
