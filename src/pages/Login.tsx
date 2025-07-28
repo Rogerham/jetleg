@@ -1,14 +1,13 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -16,20 +15,12 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { error } = await signIn(email, password);
-      if (error) {
-        toast({
-          title: "Login Mislukt",
-          description: error.message || "Controleer je e-mail en wachtwoord.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Login Succesvol",
-          description: "Je wordt doorgestuurd naar je profiel.",
-        });
-        navigate('/profile');
-      }
+      await login(email, password);
+      toast({
+        title: "Login Succesvol",
+        description: "Je wordt doorgestuurd naar je profiel.",
+      });
+      navigate('/profile');
     } catch (error) {
       toast({
         title: "Login Mislukt",
@@ -70,7 +61,7 @@ const Login = () => {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">{t('login.password')}</label>
+              <label htmlFor="password">{t('login.password')}</label>
               <input
                 id="password"
                 name="password"

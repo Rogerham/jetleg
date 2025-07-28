@@ -1,17 +1,14 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const { signUp } = useAuth();
+  const [name, setName] = useState('');
+  const { register } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -19,22 +16,14 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { error } = await signUp(email, password, firstName, lastName, phone);
-      if (error) {
-        toast({
-          title: "Registratie Mislukt",
-          description: error.message || "Er is een fout opgetreden. Probeer het opnieuw.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Registratie Succesvol",
-          description: "Je account is aangemaakt. Controleer je e-mail voor bevestiging.",
-        });
-        navigate('/');
-      }
+      await register(email, password, name);
+       toast({
+        title: "Registratie Succesvol",
+        description: "Je account is aangemaakt. Je wordt ingelogd.",
+      });
+      navigate('/profile');
     } catch (error) {
-      toast({
+       toast({
         title: "Registratie Mislukt",
         description: "Er is een fout opgetreden. Probeer het opnieuw.",
         variant: "destructive",
@@ -59,45 +48,17 @@ const Register = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="firstName" className="sr-only">Voornaam</label>
+              <label htmlFor="name" className="sr-only">{t('register.name')}</label>
               <input
-                id="firstName"
-                name="firstName"
+                id="name"
+                name="name"
                 type="text"
-                autoComplete="given-name"
+                autoComplete="name"
                 required
                 className="input-jetleg rounded-t-md"
-                placeholder="Voornaam"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="lastName" className="sr-only">Achternaam</label>
-              <input
-                id="lastName"
-                name="lastName"
-                type="text"
-                autoComplete="family-name"
-                required
-                className="input-jetleg"
-                placeholder="Achternaam"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="sr-only">Telefoon</label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                autoComplete="tel"
-                required
-                className="input-jetleg"
-                placeholder="Telefoon"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                placeholder={t('register.name')}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -115,7 +76,7 @@ const Register = () => {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">{t('register.password')}</label>
+              <label htmlFor="password">{t('register.password')}</label>
               <input
                 id="password"
                 name="password"
