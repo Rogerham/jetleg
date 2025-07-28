@@ -14,10 +14,13 @@ interface TimelineStepProps {
   description: string;
   details: string[];
   isEven: boolean;
+  isActive: boolean;
+  isFirst: boolean;
+  isLast: boolean;
   onVisible: (stepNumber: number) => void;
 }
 
-const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, onVisible }: TimelineStepProps) => {
+const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, isActive, isFirst, isLast, onVisible }: TimelineStepProps) => {
   const stepRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,9 +28,6 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
       ([entry]) => {
         if (entry.isIntersecting) {
           onVisible(stepNumber);
-          if (stepRef.current) {
-            observer.unobserve(stepRef.current);
-          }
         }
       },
       { threshold: 0.6 }
@@ -44,14 +44,15 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-  // Content block for mobile/tablet (always left-aligned)
-  const mobileContent = (
+  // Content for both mobile and desktop
+  const contentBlock = (
     <>
       <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-4">{description}</p>
       <ul className="space-y-2">
         {details.map((detail, index) => (
-          <li key={index} className="flex items-start gap-3">
+          <li key={index} className={`flex items-start gap-3 ${!isEven ? 'lg:justify-end' : ''}`}>
+            {!isEven && <span className="text-muted-foreground text-right hidden lg:inline">{detail}</span>}
             <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <span className="text-muted-foreground">{detail}</span>
           </li>
@@ -60,46 +61,31 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     </>
   );
 
-  // Content block for desktop (staggered alignment)
-  const desktopContent = (
-    <>
-      <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
-      <p className="text-muted-foreground mb-4">{description}</p>
-      <ul className="space-y-2">
-        {details.map((detail, index) => (
-          <li key={index} className={`flex items-start gap-3 ${!isEven ? 'justify-end' : ''}`}>
-            {!isEven && <span className="text-muted-foreground text-right">{detail}</span>}
-            <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-            {isEven && <span className="text-muted-foreground">{detail}</span>}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-
   return (
     <div ref={stepRef} className="relative w-full">
-      {/* Mobile/Tablet Layout (FIXED) */}
-      <div className="lg:hidden flex items-start">
-        <div className="absolute left-10 flex items-center justify-center -translate-x-1/2">
-          <div className="z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg">
+      {/* Mobile/Tablet Layout (Flexbox Rebuild) */}
+      <div className="lg:hidden flex gap-6">
+        <div className="flex flex-col items-center w-12 flex-shrink-0">
+          <div className={cn("w-0.5 flex-grow", isFirst ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
+          <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
             <Icon className="h-6 w-6" />
           </div>
+          <div className={cn("w-0.5 flex-grow", isLast ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
         </div>
-        <div className="w-full pl-24">
-          {mobileContent}
+        <div className={cn("flex-grow transition-opacity duration-500 pb-12", isActive ? 'opacity-100' : 'opacity-50')}>
+          {contentBlock}
         </div>
       </div>
 
-      {/* Desktop Layout */}
+      {/* Desktop Layout (Original Staggered) */}
       <div className="hidden lg:grid grid-cols-12 gap-8 items-center">
-        {isEven ? <div className="col-span-5"></div> : <div className="col-span-5 text-right pr-8">{desktopContent}</div>}
+        {isEven ? <div className="col-span-5"></div> : <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>{contentBlock}</div>}
         <div className="col-span-2 flex justify-center">
-          <div className="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg">
-            <Icon className="h-8 w-8" />
-          </div>
+            <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
+                <Icon className="h-8 w-8" />
+            </div>
         </div>
-        {isEven ? <div className="col-span-5 text-left pl-8">{desktopContent}</div> : <div className="col-span-5"></div>}
+        {isEven ? <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>{contentBlock}</div> : <div className="col-span-5"></div>}
       </div>
     </div>
   );
@@ -112,9 +98,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
 const TimelineContainer = () => {
   const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const timelineRef = useRef<HTMLElement>(null);
-
+  
   const steps = [
     { icon: Search, title: t('howItWorks.steps.search.title'), description: t('howItWorks.steps.search.description'), details: [t('howItWorks.steps.search.details.0'), t('howItWorks.steps.search.details.1'), t('howItWorks.steps.search.details.2')] },
     { icon: Calendar, title: t('howItWorks.steps.book.title'), description: t('howItWorks.steps.book.description'), details: [t('howItWorks.steps.book.details.0'), t('howItWorks.steps.book.details.1'), t('howItWorks.steps.book.details.2')] },
@@ -126,36 +110,13 @@ const TimelineContainer = () => {
     setActiveStep(stepNumber - 1);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!timelineRef.current) return;
-      const rect = timelineRef.current.getBoundingClientRect();
-      
-      const triggerPoint = window.innerHeight / 2;
-      const scrollAmount = triggerPoint - rect.top;
-      const totalScrollableHeight = rect.height;
-      
-      const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
+    <section className="py-20 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6 relative">
-        {/* Vertical Timeline Line (FIXED) */}
-        <div className="absolute top-0 bottom-0 lg:left-1/2 left-10 w-[3px] -translate-x-1/2 bg-muted rounded-full">
-          <div 
-            className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
-            style={{ height: `${scrollProgress * 100}%` }}
-          />
-        </div>
+        {/* Vertical Timeline Line for Desktop */}
+        <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full hidden lg:block" />
 
-        <div className="relative space-y-24 lg:space-y-40">
+        <div className="relative">
           {steps.map((step, index) => (
             <TimelineStep
               key={index}
@@ -165,6 +126,9 @@ const TimelineContainer = () => {
               description={step.description}
               details={step.details}
               isEven={index % 2 === 1}
+              isActive={index <= activeStep}
+              isFirst={index === 0}
+              isLast={index === steps.length - 1}
               onVisible={handleStepVisible}
             />
           ))}
