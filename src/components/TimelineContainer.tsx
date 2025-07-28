@@ -1,11 +1,10 @@
-
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Search, Calendar, Plane, CheckCircle, LucideIcon } from 'lucide-react';
+import { Search, Calendar, Plane, CheckCircle, type Icon as LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'; // Aangenomen dat je de cn utility gebruikt
 
 // =================================================================
-//  1. TIMELINE STEP COMPONENT (HYBRIDE VOOR ALLE SCHERMEN)
+//  1. TIMELINE STEP COMPONENT
 // =================================================================
 
 interface TimelineStepProps {
@@ -45,15 +44,24 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-  // Classes voor de desktop (lg) layout
   const desktopAlignment = isEven ? 'lg:flex-row-reverse' : 'lg:flex-row';
   const desktopTextAlignment = isEven ? 'lg:text-left' : 'lg:text-right';
+  const desktopMargin = isEven ? 'lg:ml-auto' : 'lg:mr-auto';
 
   return (
-    <div ref={stepRef} className={cn("relative lg:flex", desktopAlignment)}>
-      {/* 1. Tekst Content */}
+    <div ref={stepRef} className={cn("flex w-full relative", desktopAlignment)}>
+      <div className="absolute lg:relative left-0 lg:left-auto flex lg:w-2/12 items-center justify-center">
+        <div className={cn(
+          "z-10 flex h-12 w-12 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg",
+          "lg:translate-x-0 transform -translate-x-1/2"
+        )}>
+          <Icon className="h-6 w-6 lg:h-8 lg:w-8" />
+        </div>
+      </div>
+      
       <div className={cn(
-        "w-full pl-20 lg:w-5/12 lg:pl-0",
+        "w-full pl-12 lg:pl-0 lg:w-5/12",
+        desktopMargin,
         desktopTextAlignment
       )}>
         <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
@@ -64,21 +72,13 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
               "flex items-start gap-3",
               isEven ? 'lg:justify-start' : 'lg:justify-end'
             )}>
-              <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+              <CheckCircle className={cn("h-5 w-5 text-accent flex-shrink-0 mt-0.5", isEven && "lg:order-first")} />
               <span className="text-muted-foreground">{detail}</span>
             </li>
           ))}
         </ul>
       </div>
-
-      {/* 2. Icoon (Centraal op desktop, links op mobiel) */}
-      <div className="lg:w-2/12 flex justify-center">
-        <div className="absolute top-0 left-6 -translate-x-1/2 lg:static lg:translate-x-0 z-10 flex h-12 w-12 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg">
-          <Icon className="h-6 w-6 lg:h-8 lg:w-8" />
-        </div>
-      </div>
-
-      {/* 3. Lege Ruimte (Alleen voor desktop) */}
+      
       <div className="hidden lg:block lg:w-5/12"></div>
     </div>
   );
@@ -86,7 +86,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
 
 
 // =================================================================
-//  2. TIMELINE CONTAINER COMPONENT (HYBRIDE VOOR ALLE SCHERMEN)
+//  2. TIMELINE CONTAINER COMPONENT
 // =================================================================
 
 const TimelineContainer = () => {
@@ -114,9 +114,7 @@ const TimelineContainer = () => {
       // UPDATE: Scroll-progressie is nu gebaseerd op het midden van het scherm
       const triggerPoint = window.innerHeight / 2;
       const scrollAmount = triggerPoint - rect.top;
-      // De totale scrollbare hoogte is de hoogte van de sectie, minus de helft van het scherm
-      // zodat de animatie eindigt wanneer de onderkant de triggerpoint bereikt.
-      const totalScrollableHeight = rect.height - window.innerHeight / 2;
+      const totalScrollableHeight = rect.height;
       
       const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
       setScrollProgress(progress);
@@ -129,31 +127,27 @@ const TimelineContainer = () => {
 
   return (
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        {/* UPDATE: Wrapper div voor correcte positionering van lijn en stappen */}
-        <div className="relative">
-          {/* Lijn, nu responsief en correct gepositioneerd */}
-          <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
-            <div 
-              className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
-              style={{ height: `${scrollProgress * 100}%` }}
-            />
-          </div>
+      <div className="container mx-auto px-6 relative">
+        <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+          <div 
+            className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
+            style={{ height: `${scrollProgress * 100}%` }}
+          />
+        </div>
 
-          <div className="relative space-y-24 lg:space-y-40">
-            {steps.map((step, index) => (
-              <TimelineStep
-                key={index}
-                icon={step.icon}
-                stepNumber={index + 1}
-                title={step.title}
-                description={step.description}
-                details={step.details}
-                isEven={index % 2 === 1}
-                onVisible={handleStepVisible}
-              />
-            ))}
-          </div>
+        <div className="relative space-y-24 lg:space-y-40">
+          {steps.map((step, index) => (
+            <TimelineStep
+              key={index}
+              icon={step.icon}
+              stepNumber={index + 1}
+              title={step.title}
+              description={step.description}
+              details={step.details}
+              isEven={index % 2 === 1}
+              onVisible={handleStepVisible}
+            />
+          ))}
         </div>
       </div>
     </section>
