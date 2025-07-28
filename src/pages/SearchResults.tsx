@@ -63,25 +63,13 @@ const CustomDurationSlider = ({
         min={min}
         max={max}
         step={step}
-        // UPDATE: De track (het niet-geselecteerde deel) is nu donkerder voor beter contrast
+        // De track (het niet-geselecteerde deel) is nu donkerder voor beter contrast
         className="w-full [&>span:first-child]:bg-slate-400"
       />
-      {/* UPDATE: Container voor alle tekst onder de slider */}
-      <div className="mt-2">
-        {/* De ankerpuntlabels */}
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span>{min}u</span>
-          <span>{Math.round(max / 4)}u</span>
-          <span>{Math.round(max / 2)}u</span>
-          <span>{Math.round((max * 3) / 4)}u</span>
-          <span>{max}u</span>
-        </div>
-        {/* De geselecteerde waarde, nu gecentreerd onder de slider */}
-        <div className="flex justify-center items-center mt-3">
-            <span className="text-sm font-bold text-foreground bg-white border border-border px-3 py-1.5 rounded-md tabular-nums">
-              {sliderValue[0]}u - {sliderValue[1]}u
-            </span>
-        </div>
+      {/* UPDATE: Geselecteerde waarden worden nu links en rechts onder de slider getoond */}
+      <div className="flex justify-between text-sm font-medium text-foreground mt-2">
+        <span>{sliderValue[0]}u</span>
+        <span>{sliderValue[1]}u</span>
       </div>
     </div>
   );
@@ -268,8 +256,24 @@ const SearchResults = () => {
     </div>
   );
 
-  if (isLoading) return <div className="min-h-screen bg-background flex items-center justify-center text-center"><Plane className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" /><div><h3 className="text-xl font-semibold text-foreground mb-2">Vluchten zoeken...</h3><p className="text-muted-foreground">We zoeken de beste beschikbare vluchten voor je.</p></div></div>;
-  if (error) return <div className="min-h-screen bg-background flex items-center justify-center text-center"><Plane className="h-16 w-16 text-destructive mx-auto mb-4" /><div><h3 className="text-xl font-semibold text-foreground mb-2">Er is een fout opgetreden</h3><p className="text-muted-foreground mb-4">We konden geen vluchten laden. Probeer het opnieuw.</p><button onClick={() => window.location.reload()} className="btn-jetleg-primary">Opnieuw proberen</button></div></div>;
+  // UPDATE: Laadscherm is nu correct gecentreerd
+  if (isLoading) return (
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center p-4">
+      <Plane className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
+      <h3 className="text-xl font-semibold text-foreground mb-2">Vluchten zoeken...</h3>
+      <p className="text-muted-foreground">We zoeken de beste beschikbare vluchten voor je.</p>
+    </div>
+  );
+
+  // UPDATE: Foutscherm is nu correct gecentreerd
+  if (error) return (
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center p-4">
+      <Plane className="h-16 w-16 text-destructive mx-auto mb-4" />
+      <h3 className="text-xl font-semibold text-foreground mb-2">Er is een fout opgetreden</h3>
+      <p className="text-muted-foreground mb-4">We konden geen vluchten laden. Probeer het opnieuw.</p>
+      <button onClick={() => window.location.reload()} className="btn-jetleg-primary">Opnieuw proberen</button>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
