@@ -1,13 +1,11 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-
 const TermsConditions = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-primary text-white py-20">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-hero mb-6">
@@ -235,8 +233,6 @@ const TermsConditions = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default TermsConditions;
