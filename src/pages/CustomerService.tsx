@@ -1,6 +1,3 @@
-
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { Phone, Mail, MessageCircle, Clock, HelpCircle, FileText } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -69,9 +66,7 @@ const CustomerService = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
+    <div className="bg-background">
       {/* Standardized Page Header */}
       <PageHeader
         title={t('customerService.hero.title')}
@@ -91,7 +86,8 @@ const CustomerService = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {contactMethods.map((method, index) => <div key={index} className="card-jetleg p-8 text-center">
+            {contactMethods.map((method, index) => (
+              <div key={index} className="card-jetleg p-8 text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <method.icon className="h-8 w-8 text-accent" />
                 </div>
@@ -111,7 +107,8 @@ const CustomerService = () => {
                 <div className="text-sm text-muted-foreground">
                   {method.availability}
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -129,7 +126,8 @@ const CustomerService = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {serviceCategories.map((category, index) => <div key={index} className="card-jetleg p-8">
+            {serviceCategories.map((category, index) => (
+              <div key={index} className="card-jetleg p-8">
                 <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
                   <category.icon className="h-8 w-8 text-accent" />
                 </div>
@@ -143,12 +141,15 @@ const CustomerService = () => {
                 </p>
                 
                 <ul className="space-y-3">
-                  {category.services.map((service, serviceIndex) => <li key={serviceIndex} className="flex items-start gap-3">
+                  {category.services.map((service, serviceIndex) => (
+                    <li key={serviceIndex} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
                       <span className="text-foreground">{service}</span>
-                    </li>)}
+                    </li>
+                  ))}
                 </ul>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -207,8 +208,6 @@ const CustomerService = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
