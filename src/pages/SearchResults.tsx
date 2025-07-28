@@ -7,11 +7,9 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SearchWithSuggestions from '@/components/SearchWithSuggestions';
 import ActiveFilters from '@/components/ActiveFilters';
-// SaveSearchButton wordt nu direct in deze component afgehandeld
-// import SaveSearchButton from '@/components/SaveSearchButton'; 
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Tooltip voor iconen
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from '@/lib/utils';
 
 // Hook & Context Imports
@@ -293,55 +291,53 @@ const SearchResults = () => {
               {getSearchResultsTitle()}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
-                <Calendar className="h-4 w-4" />
-                {getDateDisplayText()}
-              </span>
-              <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
-                <Users className="h-4 w-4" />
-                {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
-              </span>
-              <span className="font-medium text-accent">
-                {filteredFlights.length} beschikbare vluchten
-              </span>
-              
-              {/* UPDATE: Icon buttons with tooltips */}
-              <div className="flex items-center gap-1">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" aria-label="Zoekopdracht opslaan">
-                      <Heart className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Zoekopdracht opslaan</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" aria-label="Ontvang meldingen">
-                      <Bell className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Ontvang meldingen voor deze zoekopdracht</p>
-                  </TooltipContent>
-                </Tooltip>
+            {/* UPDATE: Wrapper voor info en controls voor betere alignment */}
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
+                  <Calendar className="h-4 w-4" />
+                  {getDateDisplayText()}
+                </span>
+                <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
+                  <Users className="h-4 w-4" />
+                  {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
+                </span>
+                <span className="font-medium text-accent">
+                  {filteredFlights.length} beschikbare vluchten
+                </span>
+                <div className="flex items-center gap-1">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" aria-label="Zoekopdracht opslaan">
+                        <Heart className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Zoekopdracht opslaan</p></TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" aria-label="Ontvang meldingen">
+                        <Bell className="h-5 w-5 text-muted-foreground hover:text-accent transition-colors" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>Ontvang meldingen voor deze zoekopdracht</p></TooltipContent>
+                  </Tooltip>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-4 w-full sm:w-auto">
-              <div className="block lg:hidden">
-                <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
-              </div>
-              <div className="flex items-center gap-2 flex-1 sm:flex-initial">
-                <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
-                <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 sm:flex-initial px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
-                  <option value="price">Prijs (laag naar hoog)</option>
-                  <option value="duration">Vliegduur</option>
-                  <option value="departure">Vertrektijd</option>
-                </select>
+              {/* Controls (Filter & Sort) */}
+              <div className="flex items-center justify-between w-full lg:w-auto gap-4">
+                <div className="block lg:hidden">
+                  <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
+                  <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
+                    <option value="price">Prijs (oplopend)</option>
+                    <option value="duration">Vliegduur</option>
+                    <option value="departure">Vertrektijd</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
