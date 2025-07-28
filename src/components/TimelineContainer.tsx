@@ -1,11 +1,10 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-// VERWIJDERD: import { useInView } from 'react-intersection-observer';
 import { Search, Calendar, Plane, CheckCircle, Icon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils'; // Aangenomen dat je de cn utility gebruikt
 
 // =================================================================
-//  1. TIMELINE STEP COMPONENT (AANGEPAST ZONDER EXTERNE DEPENDENCY)
+//  1. TIMELINE STEP COMPONENT (GECORRIGEERD VOOR DESKTOP & MOBIEL)
 // =================================================================
 
 interface TimelineStepProps {
@@ -19,32 +18,25 @@ interface TimelineStepProps {
 }
 
 const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, onVisible }: TimelineStepProps) => {
-  // VERVANGING: Gebruik useRef om een referentie naar het DOM-element te krijgen.
   const stepRef = useRef<HTMLDivElement>(null);
 
-  // VERVANGING: Gebruik de ingebouwde IntersectionObserver API.
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Wanneer de stap voor 60% in beeld is...
         if (entry.isIntersecting) {
           onVisible(stepNumber);
-          // Stop met observeren nadat de stap zichtbaar is geweest.
           if (stepRef.current) {
             observer.unobserve(stepRef.current);
           }
         }
       },
-      {
-        threshold: 0.6, // De stap wordt 'actief' als 60% zichtbaar is
-      }
+      { threshold: 0.6 }
     );
 
     if (stepRef.current) {
       observer.observe(stepRef.current);
     }
 
-    // Cleanup functie om de observer te verwijderen als de component unmount.
     return () => {
       if (stepRef.current) {
         observer.unobserve(stepRef.current);
@@ -52,43 +44,36 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-
   // Bepaalt de positionering voor de desktop layout
   const desktopAlignment = isEven ? 'lg:flex-row-reverse' : 'lg:flex-row';
   const desktopTextAlignment = isEven ? 'lg:text-left' : 'lg:text-right';
-  const desktopMargin = isEven ? 'lg:ml-auto' : 'lg:mr-auto';
 
   return (
-    <div ref={stepRef} className={cn("flex w-full relative", desktopAlignment)}>
-      <div className="absolute lg:relative left-0 lg:left-auto flex lg:w-2/12 items-center justify-center">
-        <div className={cn(
-          "z-10 flex h-12 w-12 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg",
-          "lg:translate-x-0 transform -translate-x-1/2"
-        )}>
-          <Icon className="h-6 w-6 lg:h-8 lg:w-8" />
-        </div>
-      </div>
+    // De container gebruikt flexbox voor de desktop layout
+    <div ref={stepRef} className={cn("relative lg:flex lg:items-center", desktopAlignment)}>
       
-      <div className={cn(
-        "w-full pl-12 lg:pl-0 lg:w-5/12",
-        desktopMargin,
-        desktopTextAlignment
-      )}>
+      {/* 1. Tekst Content */}
+      <div className={cn("w-full pl-16 lg:w-5/12 lg:pl-0", desktopTextAlignment)}>
         <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
         <p className="text-muted-foreground mb-4">{description}</p>
         <ul className="space-y-2">
           {details.map((detail, index) => (
-            <li key={index} className={cn(
-              "flex items-start gap-3",
-              isEven ? 'lg:justify-start' : 'lg:justify-end'
-            )}>
-              <CheckCircle className={cn("h-5 w-5 text-accent flex-shrink-0 mt-0.5", isEven && "lg:order-first")} />
+            <li key={index} className={cn("flex items-start gap-3", isEven ? 'lg:justify-start' : 'lg:justify-end')}>
+              <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
               <span className="text-muted-foreground">{detail}</span>
             </li>
           ))}
         </ul>
       </div>
-      
+
+      {/* 2. Icoon (Centraal element op desktop, absoluut op mobiel) */}
+      <div className="lg:w-2/12 flex justify-center">
+        <div className="absolute top-0 left-6 -translate-x-1/2 lg:static lg:translate-x-0 z-10 flex h-12 w-12 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg">
+          <Icon className="h-6 w-6 lg:h-8 lg:w-8" />
+        </div>
+      </div>
+
+      {/* 3. Lege Ruimte (Spacer voor desktop) */}
       <div className="hidden lg:block lg:w-5/12"></div>
     </div>
   );
@@ -96,7 +81,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
 
 
 // =================================================================
-//  2. TIMELINE CONTAINER COMPONENT (ONGEWIJZIGD)
+//  2. TIMELINE CONTAINER COMPONENT (GEOPTIMALISEERD)
 // =================================================================
 
 const TimelineContainer = () => {
@@ -116,21 +101,16 @@ const TimelineContainer = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (!timelineRef.current) return;
-
       const rect = timelineRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
       const scrollAmount = windowHeight - rect.top;
       const totalScrollableHeight = rect.height + windowHeight;
-      
       const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
-      
       setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -144,19 +124,18 @@ const TimelineContainer = () => {
           />
         </div>
 
-        <div className="relative space-y-24 lg:space-y-0">
+        <div className="relative space-y-24 lg:space-y-40">
           {steps.map((step, index) => (
-            <div key={index} className="lg:mb-40 last:mb-0">
-              <TimelineStep
-                icon={step.icon}
-                stepNumber={index + 1}
-                title={step.title}
-                description={step.description}
-                details={step.details}
-                isEven={index % 2 === 1}
-                onVisible={handleStepVisible}
-              />
-            </div>
+            <TimelineStep
+              key={index}
+              icon={step.icon}
+              stepNumber={index + 1}
+              title={step.title}
+              description={step.description}
+              details={step.details}
+              isEven={index % 2 === 1}
+              onVisible={handleStepVisible}
+            />
           ))}
         </div>
       </div>
