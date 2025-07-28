@@ -1,14 +1,14 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Search, Calendar, Plane, CheckCircle, type Icon as LucideIcon } from 'lucide-react';
+import { Search, Calendar, Plane, CheckCircle, type LucideProps } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils'; // Aangenomen dat je de cn utility gebruikt
+import { cn } from '@/lib/utils';
 
 // =================================================================
 //  1. TIMELINE STEP COMPONENT
 // =================================================================
 
 interface TimelineStepProps {
-  icon: LucideIcon;
+  icon: React.ComponentType<LucideProps>;
   stepNumber: number;
   title: string;
   description: string;
@@ -83,7 +83,6 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     </div>
   );
 };
-
 
 // =================================================================
 //  2. TIMELINE CONTAINER COMPONENT
