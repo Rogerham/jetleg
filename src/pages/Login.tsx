@@ -1,6 +1,9 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
@@ -54,7 +57,9 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      
       {/* Standardized Page Header */}
       <PageHeader
         title="Welkom terug"
@@ -143,7 +148,9 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </>
+      
+      <Footer />
+    </div>
   );
 };
 
