@@ -159,7 +159,6 @@ const SearchWithSuggestions = ({
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // === DE AANPASSING ZIT HIER ===
     if (!searchData.from) {
         toast.error("Vul een vertreklocatie in.");
         return;
@@ -187,188 +186,155 @@ const SearchWithSuggestions = ({
       <form onSubmit={handleSearch} className="space-y-6">
         {/* Mobile Layout */}
         <div className="lg:hidden space-y-6">
-          {/* From and To Fields Row */}
           <div className="space-y-4">
-            {/* From Field */}
             <div className="relative">
               <label htmlFor="from" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                Van
+                <MapPin className="h-4 w-4" /> Van
               </label>
               <input ref={fromInputRef} type="text" id="from" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-14 w-full" />
-              
-              {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                  {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
+              {activeSuggestion.field === 'from' && suggestions.from.length > 0 && 
+                <div className="absolute top-full left-0 right-0 bg-primary border border-white/20 rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                  {suggestions.from.map(airport => 
+                    <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-white/20 last:border-b-0 transition-colors hover:bg-white/10">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                           <Plane className="h-4 w-4 text-accent" />
                         </div>
                         <div>
-                          <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
-                          <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
+                          <div className="font-medium text-white">{airport.city} ({airport.code})</div>
+                          <div className="text-sm text-white/80">{airport.name}, {airport.country}</div>
                         </div>
                       </div>
                     </button>)}
                 </div>}
             </div>
-            
-            {/* Swap Button - Vertical on Mobile */}
-            
-            
-            {/* To Field */}
             <div className="relative">
               <label htmlFor="to" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                Naar
+                <MapPin className="h-4 w-4" /> Naar
               </label>
               <input ref={toInputRef} type="text" id="to" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-14 w-full" />
-              
-              {activeSuggestion.field === 'to' && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                  <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white">
+              {activeSuggestion.field === 'to' && 
+                <div className="absolute top-full left-0 right-0 bg-primary border border-white/20 rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                  <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left border-b border-white/20 transition-colors hover:bg-white/10">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
                         <Search className="h-4 w-4 text-white" />
                       </div>
                       <div>
-                        <div className="font-medium text-foreground">Overal</div>
-                        <div className="text-sm text-muted-foreground">Vind de beste deals naar elke bestemming</div>
+                        <div className="font-medium text-white">Overal</div>
+                        <div className="text-sm text-white/80">Vind de beste deals naar elke bestemming</div>
                       </div>
                     </div>
                   </button>
-                  
-                  {suggestions.to.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('to', airport)} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white">
+                  {suggestions.to.map(airport => 
+                    <button key={airport.code} type="button" onClick={() => handleSuggestionClick('to', airport)} className="w-full px-4 py-3 text-left border-b border-white/20 last:border-b-0 transition-colors hover:bg-white/10">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                           <Plane className="h-4 w-4 text-accent" />
                         </div>
                         <div>
-                          <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
-                          <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
+                          <div className="font-medium text-white">{airport.city} ({airport.code})</div>
+                          <div className="text-sm text-white/80">{airport.name}, {airport.country}</div>
                         </div>
                       </div>
                     </button>)}
                 </div>}
             </div>
           </div>
-          
-          {/* Date and Passengers Row */}
           <div className="grid grid-cols-3 gap-4">
-            {/* Enhanced Date Field */}
             <div className="col-span-2">
               <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-                <Search className="h-4 w-4" />
-                Datum
+                <Search className="h-4 w-4" /> Datum
               </label>
               <EnhancedDatePicker value={searchData.date} onChange={value => handleInputChange('date', value)} className="w-full h-14" />
             </div>
-            
-            {/* Passengers Field */}
             <div>
               <label htmlFor="passengers-mobile" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                Personen
+                <Users className="h-4 w-4" /> Personen
               </label>
               <PassengerCounter value={parseInt(searchData.passengers)} onChange={handlePassengerChange} className="h-14" hideArrows={false} />
             </div>
           </div>
-          
-          {/* Search Button */}
           <button type="submit" className="btn-jetleg-primary h-14 px-6 flex items-center justify-center gap-2 whitespace-nowrap w-full text-lg">
-            <Search className="h-5 w-5" />
-            Zoeken
+            <Search className="h-5 w-5" /> Zoeken
           </button>
         </div>
 
         {/* Desktop Layout */}
         <div className="hidden lg:flex items-end gap-4 lg:gap-1">
-          {/* From Field */}
           <div className="flex-1 min-w-0 relative">
             <label htmlFor="from-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              Van
+              <MapPin className="h-4 w-4" /> Van
             </label>
             <input type="text" id="from-desktop" value={searchData.from} onChange={e => handleInputChange('from', e.target.value)} onFocus={() => handleInputFocus('from')} placeholder="bv. Brussel" className="input-jetleg h-12" />
-            
-            {activeSuggestion.field === 'from' && suggestions.from.length > 0 && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                {suggestions.from.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors bg-white hover:bg-gray-100">
+            {activeSuggestion.field === 'from' && suggestions.from.length > 0 && 
+              <div className="absolute top-full left-0 right-0 bg-primary border border-white/20 rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                {suggestions.from.map(airport => 
+                  <button key={airport.code} type="button" onClick={() => handleSuggestionClick('from', airport)} className="w-full px-4 py-3 text-left border-b border-white/20 last:border-b-0 transition-colors hover:bg-white/10">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                         <Plane className="h-4 w-4 text-accent" />
                       </div>
                       <div>
-                        <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
-                        <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
+                        <div className="font-medium text-white">{airport.city} ({airport.code})</div>
+                        <div className="text-sm text-white/80">{airport.name}, {airport.country}</div>
                       </div>
                     </div>
                   </button>)}
               </div>}
           </div>
-          
-          {/* Swap Button - Horizontal on Desktop - Desktop Only with Clean Styling */}
           <div className="hidden lg:flex flex-shrink-0 self-end mb-1">
             <button type="button" onClick={handleSwapLocations} className="w-12 h-12 bg-transparent hover:bg-white/10 rounded-full flex items-center justify-center transition-all duration-200" title="Wissel vertrek en bestemming">
               <ArrowLeftRight className="w-5 h-5 text-white" />
             </button>
           </div>
-          
-          {/* To Field */}
           <div className="flex-1 min-w-0 relative">
             <label htmlFor="to-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              Naar
+              <MapPin className="h-4 w-4" /> Naar
             </label>
             <input type="text" id="to-desktop" value={searchData.to} onChange={e => handleInputChange('to', e.target.value)} onFocus={() => handleInputFocus('to')} placeholder="bv. Nice" className="input-jetleg h-12" />
-            
-            {activeSuggestion.field === 'to' && <div className="absolute top-full left-0 right-0 bg-white border border-border rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
-                <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border transition-colors bg-white">
+            {activeSuggestion.field === 'to' && 
+              <div className="absolute top-full left-0 right-0 bg-primary border border-white/20 rounded-xl mt-1 shadow-lg z-50 max-h-64 overflow-y-auto">
+                <button type="button" onClick={handleEverywhere} className="w-full px-4 py-3 text-left border-b border-white/20 transition-colors hover:bg-white/10">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-accent to-[hsl(var(--jetleg-amber-dark))] rounded-lg flex items-center justify-center">
                       <Search className="h-4 w-4 text-white" />
                     </div>
                     <div>
-                      <div className="font-medium text-foreground">Overal</div>
-                      <div className="text-sm text-muted-foreground">Vind de beste deals naar elke bestemming</div>
+                      <div className="font-medium text-white">Overal</div>
+                      <div className="text-sm text-white/80">Vind de beste deals naar elke bestemming</div>
                     </div>
                   </div>
                 </button>
-                
-                {suggestions.to.map(airport => <button key={airport.code} type="button" onClick={() => handleSuggestionClick('to', airport)} className="w-full px-4 py-3 text-left hover:bg-muted border-b border-border last:border-b-0 transition-colors bg-white">
+                {suggestions.to.map(airport => 
+                  <button key={airport.code} type="button" onClick={() => handleSuggestionClick('to', airport)} className="w-full px-4 py-3 text-left border-b border-white/20 last:border-b-0 transition-colors hover:bg-white/10">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
                         <Plane className="h-4 w-4 text-accent" />
                       </div>
                       <div>
-                        <div className="font-medium text-foreground">{airport.city} ({airport.code})</div>
-                        <div className="text-sm text-muted-foreground">{airport.name}, {airport.country}</div>
+                        <div className="font-medium text-white">{airport.city} ({airport.code})</div>
+                        <div className="text-sm text-white/80">{airport.name}, {airport.country}</div>
                       </div>
                     </div>
                   </button>)}
               </div>}
           </div>
-          
-          {/* Date Field */}
           <div className="flex-shrink-0 w-48">
             <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-              <Search className="h-4 w-4" />
-              Datum
+              <Search className="h-4 w-4" /> Datum
             </label>
             <EnhancedDatePicker value={searchData.date} onChange={value => handleInputChange('date', value)} className="h-12" />
           </div>
-          
-          {/* Passengers Field */}
           <div className="flex-shrink-0 w-32">
             <label htmlFor="passengers-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Personen
+              <Users className="h-4 w-4" /> Personen
             </label>
             <PassengerCounter value={parseInt(searchData.passengers)} onChange={handlePassengerChange} className="h-12" hideArrows={false} />
           </div>
-          
-          {/* Search Button */}
           <div className="flex-shrink-0 self-end">
             <button type="submit" className="btn-jetleg-primary h-12 px-6 flex items-center justify-center gap-2 whitespace-nowrap">
-              <Search className="h-5 w-5" />
-              Zoeken
+              <Search className="h-5 w-5" /> Zoeken
             </button>
           </div>
         </div>
