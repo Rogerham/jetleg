@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { MapPin, Search, Users, Plane, ArrowUpDown, ArrowLeftRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { worldwideAirports, type Airport } from '@/data/airports';
-import PassengerCounter from './PassengerCounter';
-import EnhancedDatePicker from './EnhancedDatePicker';
+import PassengerCounter from '@/components/PassengerCounter';
+import EnhancedDatePicker from '@/components/EnhancedDatePicker';
 
 interface SearchWithSuggestionsProps {
   className?: string;
