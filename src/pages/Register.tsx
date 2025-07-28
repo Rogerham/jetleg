@@ -1,9 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, Phone } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -82,9 +79,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
+    <>
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
@@ -262,9 +257,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      
-      <Footer />
-    </div>
+    </>
   );
 };
 
