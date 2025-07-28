@@ -19,7 +19,7 @@ import { useCurrency } from '@/contexts/CurrencyContext';
 
 
 // =================================================================
-//  GEÏNTEGREERDE CUSTOM DURATION SLIDER COMPONENT
+//  GEÏNTEGREERDE CUSTOM DURATION SLIDER COMPONENT (MET AANPASSINGEN)
 // =================================================================
 interface CustomDurationSliderProps {
   minDuration: number;
@@ -56,11 +56,6 @@ const CustomDurationSlider = ({
 
   return (
     <div className={cn("w-full", className)}>
-      <div className="flex justify-end items-center mb-4">
-        <span className="text-sm font-bold text-foreground bg-muted px-3 py-1.5 rounded-md tabular-nums">
-          {sliderValue[0]}u - {sliderValue[1]}u
-        </span>
-      </div>
       <Slider
         value={sliderValue}
         onValueChange={handleValueChange}
@@ -68,8 +63,26 @@ const CustomDurationSlider = ({
         min={min}
         max={max}
         step={step}
-        className="w-full"
+        // UPDATE: De track (het niet-geselecteerde deel) is nu donkerder voor beter contrast
+        className="w-full [&>span:first-child]:bg-slate-400"
       />
+      {/* UPDATE: Container voor alle tekst onder de slider */}
+      <div className="mt-2">
+        {/* De ankerpuntlabels */}
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <span>{min}u</span>
+          <span>{Math.round(max / 4)}u</span>
+          <span>{Math.round(max / 2)}u</span>
+          <span>{Math.round((max * 3) / 4)}u</span>
+          <span>{max}u</span>
+        </div>
+        {/* De geselecteerde waarde, nu gecentreerd onder de slider */}
+        <div className="flex justify-center items-center mt-3">
+            <span className="text-sm font-bold text-foreground bg-white border border-border px-3 py-1.5 rounded-md tabular-nums">
+              {sliderValue[0]}u - {sliderValue[1]}u
+            </span>
+        </div>
+      </div>
     </div>
   );
 };
