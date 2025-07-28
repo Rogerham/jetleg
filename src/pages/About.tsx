@@ -1,9 +1,6 @@
-
 import { Plane, Users, Award, Globe, Shield, Clock, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 
 const About = () => {
@@ -83,9 +80,7 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      
+    <div>
       {/* Standardized Page Header */}
       <PageHeader
         title={t('about.hero.title')}
@@ -197,8 +192,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
