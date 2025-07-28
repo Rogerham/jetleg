@@ -1,74 +1,47 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Phone, Mail, MessageCircle, Clock, HelpCircle, FileText } from 'lucide-react';
-
 const CustomerService = () => {
-  const contactMethods = [
-    {
-      icon: Phone,
-      title: "Telefoon",
-      description: "Bel ons voor directe hulp",
-      contact: "+32 2 123 45 67",
-      availability: "Ma-Vr: 8:00 - 20:00, Za-Zo: 9:00 - 17:00"
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      description: "Stuur ons een email",
-      contact: "support@jetleg.be",
-      availability: "Reactie binnen 2 uur"
-    },
-    {
-      icon: MessageCircle,
-      title: "Live Chat",
-      description: "Chat direct met onze experts",
-      contact: "Start chat in de rechter hoek",
-      availability: "24/7 beschikbaar"
-    }
-  ];
-
-  const serviceCategories = [
-    {
-      icon: HelpCircle,
-      title: "Boekingshulp",
-      description: "Hulp bij het zoeken en boeken van je perfecte vlucht",
-      services: [
-        "Vlucht zoeken en vergelijken",
-        "Boekingsproces ondersteuning",
-        "Betaling en factuurvragen",
-        "Speciale verzoeken afhandelen"
-      ]
-    },
-    {
-      icon: FileText,
-      title: "Boekingsbeheer",
-      description: "Wijzigingen en vragen over bestaande boekingen",
-      services: [
-        "Boekingsdetails wijzigen",
-        "Annulering en terugbetalingen",
-        "Vliegtuig- en tijdwijzigingen",
-        "Reisdocumenten en vouchers"
-      ]
-    },
-    {
-      icon: Clock,
-      title: "Dag van de vlucht",
-      description: "Support op de dag van je vlucht",
-      services: [
-        "Check-in informatie",
-        "Vluchtvertragingen of annuleringen",
-        "Terminal en bagagerichtlijnen",
-        "Last-minute wijzigingen"
-      ]
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const contactMethods = [{
+    icon: Phone,
+    title: "Telefoon",
+    description: "Bel ons voor directe hulp",
+    contact: "+32 2 123 45 67",
+    availability: "Ma-Vr: 8:00 - 20:00, Za-Zo: 9:00 - 17:00"
+  }, {
+    icon: Mail,
+    title: "Email",
+    description: "Stuur ons een email",
+    contact: "support@jetleg.be",
+    availability: "Reactie binnen 2 uur"
+  }, {
+    icon: MessageCircle,
+    title: "Live Chat",
+    description: "Chat direct met onze experts",
+    contact: "Start chat in de rechter hoek",
+    availability: "24/7 beschikbaar"
+  }];
+  const serviceCategories = [{
+    icon: HelpCircle,
+    title: "Boekingshulp",
+    description: "Hulp bij het zoeken en boeken van je perfecte vlucht",
+    services: ["Vlucht zoeken en vergelijken", "Boekingsproces ondersteuning", "Betaling en factuurvragen", "Speciale verzoeken afhandelen"]
+  }, {
+    icon: FileText,
+    title: "Boekingsbeheer",
+    description: "Wijzigingen en vragen over bestaande boekingen",
+    services: ["Boekingsdetails wijzigen", "Annulering en terugbetalingen", "Vliegtuig- en tijdwijzigingen", "Reisdocumenten en vouchers"]
+  }, {
+    icon: Clock,
+    title: "Dag van de vlucht",
+    description: "Support op de dag van je vlucht",
+    services: ["Check-in informatie", "Vluchtvertragingen of annuleringen", "Terminal en bagagerichtlijnen", "Last-minute wijzigingen"]
+  }];
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-primary text-white py-20">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-hero mb-6">
@@ -94,8 +67,7 @@ const CustomerService = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {contactMethods.map((method, index) => (
-              <div key={index} className="card-jetleg p-8 text-center">
+            {contactMethods.map((method, index) => <div key={index} className="card-jetleg p-8 text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <method.icon className="h-8 w-8 text-accent" />
                 </div>
@@ -115,8 +87,7 @@ const CustomerService = () => {
                 <div className="text-sm text-muted-foreground">
                   {method.availability}
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -134,8 +105,7 @@ const CustomerService = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {serviceCategories.map((category, index) => (
-              <div key={index} className="card-jetleg p-8">
+            {serviceCategories.map((category, index) => <div key={index} className="card-jetleg p-8">
                 <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
                   <category.icon className="h-8 w-8 text-accent" />
                 </div>
@@ -149,15 +119,12 @@ const CustomerService = () => {
                 </p>
                 
                 <ul className="space-y-3">
-                  {category.services.map((service, serviceIndex) => (
-                    <li key={serviceIndex} className="flex items-start gap-3">
+                  {category.services.map((service, serviceIndex) => <li key={serviceIndex} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"></div>
                       <span className="text-foreground">{service}</span>
-                    </li>
-                  ))}
+                    </li>)}
                 </ul>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -218,8 +185,6 @@ const CustomerService = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default CustomerService;
