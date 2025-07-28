@@ -291,7 +291,6 @@ const SearchResults = () => {
               {getSearchResultsTitle()}
             </h1>
 
-            {/* UPDATE: Wrapper voor info en controls voor betere alignment */}
             <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                 <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
@@ -302,7 +301,8 @@ const SearchResults = () => {
                   <Users className="h-4 w-4" />
                   {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
                 </span>
-                <span className="font-medium text-accent">
+                {/* UPDATE: Kleur van de tekst aangepast */}
+                <span className="font-medium text-muted-foreground">
                   {filteredFlights.length} beschikbare vluchten
                 </span>
                 <div className="flex items-center gap-1">
@@ -325,7 +325,6 @@ const SearchResults = () => {
                 </div>
               </div>
 
-              {/* Controls (Filter & Sort) */}
               <div className="flex items-center justify-between w-full lg:w-auto gap-4">
                 <div className="block lg:hidden">
                   <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
