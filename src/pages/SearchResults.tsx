@@ -256,7 +256,6 @@ const SearchResults = () => {
     </div>
   );
 
-  // UPDATE: Laadscherm is nu correct gecentreerd
   if (isLoading) return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center p-4">
       <Plane className="h-16 w-16 text-accent mx-auto mb-4 animate-pulse" />
@@ -265,7 +264,6 @@ const SearchResults = () => {
     </div>
   );
 
-  // UPDATE: Foutscherm is nu correct gecentreerd
   if (error) return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center p-4">
       <Plane className="h-16 w-16 text-destructive mx-auto mb-4" />
@@ -286,16 +284,34 @@ const SearchResults = () => {
       </div>
 
       <div className="container mx-auto px-6 py-8">
+        {/* UPDATE: Results Header is nu een flex container voor betere alignment */}
         <div className="flex flex-col gap-4 mb-8">
-          <div>
-            <h1 className="text-title text-foreground mb-2">{getSearchResultsTitle()}</h1>
-            <p className="text-muted-foreground flex items-center gap-4">
-              <span className="hidden lg:flex items-center gap-1"><Calendar className="h-4 w-4" />{getDateDisplayText()}</span>
-              <span className="hidden lg:flex items-center gap-1"><Users className="h-4 w-4" />{searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}</span>
-              <span className="font-medium text-accent">{filteredFlights.length} beschikbare vluchten</span>
-            </p>
+          {/* Top row: Title and Save Button */}
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+            <div>
+              <h1 className="text-title text-foreground mb-2">
+                {getSearchResultsTitle()}
+              </h1>
+              <p className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1">
+                <span className="flex items-center gap-1">
+                  <Calendar className="h-4 w-4" />
+                  {getDateDisplayText()}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Users className="h-4 w-4" />
+                  {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
+                </span>
+                <span className="font-medium text-accent">
+                  {filteredFlights.length} beschikbare vluchten
+                </span>
+              </p>
+            </div>
+            <div className="flex justify-start lg:justify-end">
+              <SaveSearchButton searchCriteria={searchData} />
+            </div>
           </div>
-          <div className="flex justify-center lg:justify-start mb-4 lg:mb-0"><SaveSearchButton searchCriteria={searchData} /></div>
+
+          {/* Bottom row: Filter and Sort Controls */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div className="flex items-center gap-4 w-full sm:w-auto">
               <div className="block lg:hidden">
