@@ -19,7 +19,7 @@ const CurrencySelector = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-sm text-primary-foreground/80 hover:text-accent transition-colors"
+        className="flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2"
       >
         <span>{currentCurrency.symbol} {currentCurrency.code}</span>
         <ChevronDown className="h-3 w-3" />
