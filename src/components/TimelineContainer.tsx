@@ -43,57 +43,63 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-  // General content block for all views
-  const contentBlock = (
-    <div className={cn("transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
-      <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
-      <p className="text-muted-foreground mb-4">{description}</p>
-      <ul className="space-y-2">
-        {details.map((detail, index) => (
-          <li key={index} className={`flex items-start gap-3 ${!isEven ? 'lg:justify-end' : ''}`}>
-            {!isEven && <span className="text-muted-foreground text-right hidden lg:inline">{detail}</span>}
-            <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-            <span className="text-muted-foreground">{detail}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
   return (
-    <div ref={stepRef} className="relative w-full lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
+    <div ref={stepRef} className="relative w-full">
       {/* Mobile & Tablet Layout Structure */}
-      <div className="lg:hidden relative pl-20 pb-16">
+      <div className={cn("lg:hidden relative pl-20 pb-16 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
         <div className="absolute left-8 top-0 -translate-x-1/2">
           <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
             <Icon className="h-6 w-6" />
           </div>
         </div>
-        {contentBlock}
+        <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+        <p className="text-muted-foreground mb-4">{description}</p>
+        <ul className="space-y-2">
+          {details.map((detail, index) => (
+            <li key={index} className="flex items-start gap-3">
+              <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+              <span className="text-muted-foreground">{detail}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Desktop Layout Structure */}
-      {isEven ? (
-        <>
-          <div className="hidden lg:block lg:col-span-5"></div>
-          <div className="hidden lg:flex lg:col-span-2 lg:justify-center">
+      <div className="hidden lg:grid grid-cols-12 items-start gap-8">
+        {isEven ? <div className="col-span-5"></div> : 
+          <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
+            <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+            <p className="text-muted-foreground mb-4">{description}</p>
+            <ul className="space-y-2">
+              {details.map((detail, index) => (
+                <li key={index} className="flex items-start gap-3 justify-end">
+                  <span className="text-muted-foreground text-right">{detail}</span>
+                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
+        <div className="flex col-span-2 justify-center">
              <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
               <Icon className="h-8 w-8" />
             </div>
-          </div>
-          <div className="hidden lg:block lg:col-span-5 text-left pl-8">{contentBlock}</div>
-        </>
-      ) : (
-        <>
-          <div className="hidden lg:block lg:col-span-5 text-right pr-8">{contentBlock}</div>
-           <div className="hidden lg:flex lg:col-span-2 lg:justify-center">
-             <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
-              <Icon className="h-8 w-8" />
-            </div>
-          </div>
-          <div className="hidden lg:block lg:col-span-5"></div>
-        </>
-      )}
+        </div>
+        {isEven ? 
+          <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
+            <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
+            <p className="text-muted-foreground mb-4">{description}</p>
+            <ul className="space-y-2">
+              {details.map((detail, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">{detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div> : <div className="col-span-5"></div>
+        }
+      </div>
     </div>
   );
 };
@@ -149,19 +155,21 @@ const TimelineContainer = () => {
             />
           </div>
 
-          {steps.map((step, index) => (
-            <TimelineStep
-              key={index}
-              icon={step.icon}
-              stepNumber={index + 1}
-              title={step.title}
-              description={step.description}
-              details={step.details}
-              isEven={index % 2 === 1}
-              isActive={index <= activeStep}
-              onVisible={handleStepVisible}
-            />
-          ))}
+          <div className="relative lg:space-y-48">
+            {steps.map((step, index) => (
+              <TimelineStep
+                key={index}
+                icon={step.icon}
+                stepNumber={index + 1}
+                title={step.title}
+                description={step.description}
+                details={step.details}
+                isEven={index % 2 === 1}
+                isActive={index <= activeStep}
+                onVisible={handleStepVisible}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
