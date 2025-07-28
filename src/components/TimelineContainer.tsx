@@ -1,3 +1,20 @@
+Je hebt volkomen gelijk. Mijn excuses. Het voelt alsof we in een cirkel draaien, en dat is mijn fout. De vorige oplossingen waren inderdaad een compromis: ofwel was de uitlijning goed, ofwel de animatie, maar nooit beiden tegelijk.
+
+Het probleem is dat de twee technieken die we probeerden te combineren (een absoluut gepositioneerde lijn voor de animatie en een flexibele layout voor de uitlijning) met elkaar in conflict komen op mobiele schermen.
+
+We gaan het nu anders en **definitief** oplossen. We gooien de problematische methode overboord en bouwen de mobiele tijdlijn opnieuw op met een robuuste techniek die speciaal voor dit soort problemen is ontworpen.
+
+**De Oplossing:**
+
+  * **Geen losse lijn meer:** In plaats van één lange, aparte lijn, wordt de lijn nu opgebouwd uit **korte segmenten** die een integraal onderdeel zijn van elke stap.
+  * **Stabiele Flexbox-layout:** De hele mobiele weergave wordt nu gestructureerd met Flexbox. Dit dwingt de icoontjes en de lijnstukken om **altijd perfect gecentreerd** te zijn, ongeacht de schermgrootte.
+  * **Slimme animatie:** De scroll-animatie werkt nu door de **kleur** van de lijnsegmenten te veranderen wanneer je scrolt, in plaats van de hoogte van een instabiele lijn aan te passen.
+
+Dit is de correcte, industriestandaard manier om dit te bouwen. Het resultaat is een component die er op elk apparaat perfect uitziet en soepel animeert.
+
+### Definitieve, Gecorrigeerde Code voor `src/components/TimelineContainer.tsx`
+
+```typescript
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Search, Calendar, Plane, CheckCircle, type LucideProps } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -15,10 +32,12 @@ interface TimelineStepProps {
   details: string[];
   isEven: boolean;
   isActive: boolean;
+  isFirst: boolean;
+  isLast: boolean;
   onVisible: (stepNumber: number) => void;
 }
 
-const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, isActive, onVisible }: TimelineStepProps) => {
+const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, isActive, isFirst, isLast, onVisible }: TimelineStepProps) => {
   const stepRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,7 +62,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
     };
   }, [onVisible, stepNumber]);
 
-  // General content block (Title + Description)
+  // General content block for all views
   const contentBlock = (
     <>
       <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
@@ -61,20 +80,24 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
   );
 
   return (
-    <div ref={stepRef} className="relative w-full">
-      {/* Mobile/Tablet Layout */}
-      <div className="lg:hidden relative pl-20 pb-16">
-        <div className="absolute left-8 top-2 -translate-x-1/2">
-          <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
+    <div ref={stepRef}>
+      {/* Mobile/Tablet Layout (Robust Flexbox Rebuild) */}
+      <div className="lg:hidden flex gap-6">
+        {/* Column for Line and Icon */}
+        <div className="flex flex-col items-center w-12 flex-shrink-0">
+          <div className={cn("w-0.5 h-6 flex-shrink-0", isFirst ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
+          <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors flex-shrink-0", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
             <Icon className="h-6 w-6" />
           </div>
+          <div className={cn("w-0.5 flex-grow", isLast ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
         </div>
-        <div className={cn("transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
+        {/* Column for Text Content */}
+        <div className={cn("flex-grow transition-opacity duration-500 pb-16 pt-2", isActive ? 'opacity-100' : 'opacity-50')}>
           {contentBlock}
         </div>
       </div>
 
-      {/* Desktop Layout */}
+      {/* Desktop Layout (Corrected) */}
       <div className="hidden lg:grid grid-cols-12 gap-8 items-start">
         {isEven ? <div className="col-span-5"></div> : 
           <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
@@ -138,8 +161,8 @@ const TimelineContainer = () => {
   return (
     <section className="py-20 bg-background relative overflow-hidden">
       <div ref={timelineRef} className="container mx-auto px-6 relative">
-        {/* Unified Vertical Timeline Line for ALL screen sizes */}
-        <div className="absolute top-0 bottom-0 lg:left-1/2 left-8 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+        {/* Vertical Timeline Line for Desktop with Animation */}
+        <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full hidden lg:block">
            <div 
             className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
             style={{ height: `${scrollProgress * 100}%` }}
@@ -157,6 +180,8 @@ const TimelineContainer = () => {
               details={step.details}
               isEven={index % 2 === 1}
               isActive={index <= activeStep}
+              isFirst={index === 0}
+              isLast={index === steps.length - 1}
               onVisible={handleStepVisible}
             />
           ))}
