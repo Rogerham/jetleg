@@ -1,43 +1,34 @@
-
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import TimelineContainer from '@/components/TimelineContainer';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 const HowItWorks = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const handleFAQClick = () => {
     navigate('/faq');
   };
-
-  const faqs = [
-    {
-      question: t('howItWorks.faq.questions.0'),
-      answer: t('howItWorks.faq.answers.0')
-    },
-    {
-      question: t('howItWorks.faq.questions.1'),
-      answer: t('howItWorks.faq.answers.1')
-    },
-    {
-      question: t('howItWorks.faq.questions.2'),
-      answer: t('howItWorks.faq.answers.2')
-    },
-    {
-      question: t('howItWorks.faq.questions.3'),
-      answer: t('howItWorks.faq.answers.3')
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const faqs = [{
+    question: t('howItWorks.faq.questions.0'),
+    answer: t('howItWorks.faq.answers.0')
+  }, {
+    question: t('howItWorks.faq.questions.1'),
+    answer: t('howItWorks.faq.answers.1')
+  }, {
+    question: t('howItWorks.faq.questions.2'),
+    answer: t('howItWorks.faq.answers.2')
+  }, {
+    question: t('howItWorks.faq.questions.3'),
+    answer: t('howItWorks.faq.answers.3')
+  }];
+  return <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-primary text-white py-20">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12 ">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-hero mb-6 animate-fade-in">
@@ -66,16 +57,14 @@ const HowItWorks = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {faqs.map((faq, index) => (
-              <div key={index} className="card-jetleg p-6">
+            {faqs.map((faq, index) => <div key={index} className="card-jetleg p-6">
                 <h3 className="font-semibold text-foreground mb-3">
                   {faq.question}
                 </h3>
                 <p className="text-muted-foreground">
                   {faq.answer}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
           
           <div className="text-center mt-12">
@@ -104,8 +93,6 @@ const HowItWorks = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default HowItWorks;
