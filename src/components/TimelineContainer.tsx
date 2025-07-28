@@ -113,7 +113,9 @@ const TimelineContainer = () => {
       // UPDATE: Scroll-progressie is nu gebaseerd op het midden van het scherm
       const triggerPoint = window.innerHeight / 2;
       const scrollAmount = triggerPoint - rect.top;
-      const totalScrollableHeight = rect.height;
+      // De totale scrollbare hoogte is de hoogte van de sectie, minus de helft van het scherm
+      // zodat de animatie eindigt wanneer de onderkant de triggerpoint bereikt.
+      const totalScrollableHeight = rect.height - window.innerHeight / 2;
       
       const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
       setScrollProgress(progress);
@@ -126,29 +128,31 @@ const TimelineContainer = () => {
 
   return (
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
-      {/* UPDATE: 'relative' toegevoegd aan de container voor correcte uitlijning */}
-      <div className="container mx-auto px-6 relative">
-        {/* Lijn, nu responsief en correct gepositioneerd */}
-        <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
-          <div 
-            className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
-            style={{ height: `${scrollProgress * 100}%` }}
-          />
-        </div>
-
-        <div className="relative space-y-24 lg:space-y-40">
-          {steps.map((step, index) => (
-            <TimelineStep
-              key={index}
-              icon={step.icon}
-              stepNumber={index + 1}
-              title={step.title}
-              description={step.description}
-              details={step.details}
-              isEven={index % 2 === 1}
-              onVisible={handleStepVisible}
+      <div className="container mx-auto px-6">
+        {/* UPDATE: Wrapper div voor correcte positionering van lijn en stappen */}
+        <div className="relative">
+          {/* Lijn, nu responsief en correct gepositioneerd */}
+          <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+            <div 
+              className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
+              style={{ height: `${scrollProgress * 100}%` }}
             />
-          ))}
+          </div>
+
+          <div className="relative space-y-24 lg:space-y-40">
+            {steps.map((step, index) => (
+              <TimelineStep
+                key={index}
+                icon={step.icon}
+                stepNumber={index + 1}
+                title={step.title}
+                description={step.description}
+                details={step.details}
+                isEven={index % 2 === 1}
+                onVisible={handleStepVisible}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
