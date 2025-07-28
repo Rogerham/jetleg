@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
@@ -90,9 +88,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      
+    <div>
       {/* Standardized Page Header */}
       <PageHeader
         title={t('contact.hero.title')}
@@ -256,8 +252,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
