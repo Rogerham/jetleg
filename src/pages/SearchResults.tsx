@@ -66,7 +66,6 @@ const CustomDurationSlider = ({
         // De track (het niet-geselecteerde deel) is nu donkerder voor beter contrast
         className="w-full [&>span:first-child]:bg-slate-400"
       />
-      {/* UPDATE: Geselecteerde waarden worden nu links en rechts onder de slider getoond */}
       <div className="flex justify-between text-sm font-medium text-foreground mt-2">
         <span>{sliderValue[0]}u</span>
         <span>{sliderValue[1]}u</span>
@@ -177,7 +176,17 @@ const SearchResults = () => {
 
   const formatTime = (dateString: string) => new Date(dateString).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
   const extractAirportCode = (airport: string) => (airport.match(/\(([^)]+)\)/) || [])[1] || airport.slice(-3);
-  const getSearchResultsTitle = () => `Vluchten van ${searchData.from || 'Alle luchthavens'} naar ${searchData.to === 'Overal' ? 'alle bestemmingen' : searchData.to || 'alle bestemmingen'}`;
+  
+  // UPDATE: Functie geeft nu JSX terug voor gekleurde tekst
+  const getSearchResultsTitle = () => {
+    const fromText = searchData.from || 'Alle luchthavens';
+    const toText = searchData.to === 'Overal' ? 'alle bestemmingen' : searchData.to || 'alle bestemmingen';
+    return (
+      <>
+        Vluchten van <span className="text-accent">{fromText}</span> naar <span className="text-accent">{toText}</span>
+      </>
+    );
+  };
   
   const getDateDisplayText = () => {
     if (!searchData.date) return 'Alle data';
@@ -284,47 +293,41 @@ const SearchResults = () => {
       </div>
 
       <div className="container mx-auto px-6 py-8">
-        {/* UPDATE: Results Header is nu een flex container voor betere alignment */}
         <div className="flex flex-col gap-4 mb-8">
-          {/* Top row: Title and Save Button */}
-          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
-            <div>
-              <h1 className="text-title text-foreground mb-2">
-                {getSearchResultsTitle()}
-              </h1>
-              <p className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1">
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {getDateDisplayText()}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Users className="h-4 w-4" />
-                  {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
-                </span>
-                <span className="font-medium text-accent">
-                  {filteredFlights.length} beschikbare vluchten
-                </span>
-              </p>
-            </div>
-            <div className="flex justify-start lg:justify-end">
-              <SaveSearchButton searchCriteria={searchData} />
-            </div>
+          {/* Title */}
+          <h1 className="text-title text-foreground">
+            {getSearchResultsTitle()}
+          </h1>
+
+          {/* UPDATE: Info line and Save Button now in a flex-wrap container */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
+              <Calendar className="h-4 w-4" />
+              {getDateDisplayText()}
+            </span>
+            <span className="hidden lg:inline-flex items-center gap-1 text-muted-foreground">
+              <Users className="h-4 w-4" />
+              {searchData.passengers} {parseInt(searchData.passengers) === 1 ? 'passagier' : 'passagiers'}
+            </span>
+            <span className="font-medium text-accent">
+              {filteredFlights.length} beschikbare vluchten
+            </span>
+            {/* De knop staat nu hier, en zal op mobiel naar de volgende regel springen */}
+            <SaveSearchButton searchCriteria={searchData} />
           </div>
 
-          {/* Bottom row: Filter and Sort Controls */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div className="flex items-center gap-4 w-full sm:w-auto">
-              <div className="block lg:hidden">
-                <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
-              </div>
-              <div className="flex items-center gap-2 flex-1 sm:flex-initial">
-                <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
-                <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 sm:flex-initial px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
-                  <option value="price">Prijs (laag naar hoog)</option>
-                  <option value="duration">Vliegduur</option>
-                  <option value="departure">Vertrektijd</option>
-                </select>
-              </div>
+          {/* Sort Controls */}
+          <div className="flex items-center gap-4 w-full sm:w-auto">
+            <div className="block lg:hidden">
+              <Button variant="outline" onClick={() => setIsFilterOpen(!isFilterOpen)} className="flex items-center gap-2"><SlidersHorizontal className="h-4 w-4" />Filters</Button>
+            </div>
+            <div className="flex items-center gap-2 flex-1 sm:flex-initial">
+              <span className="text-sm text-muted-foreground whitespace-nowrap">Sorteer:</span>
+              <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="flex-1 sm:flex-initial px-3 py-2 border border-border rounded-lg bg-card text-foreground focus:ring-2 focus:ring-accent/20">
+                <option value="price">Prijs (laag naar hoog)</option>
+                <option value="duration">Vliegduur</option>
+                <option value="departure">Vertrektijd</option>
+              </select>
             </div>
           </div>
         </div>
