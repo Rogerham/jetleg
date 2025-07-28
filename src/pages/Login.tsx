@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -59,13 +60,14 @@ const Login = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
+      {/* Standardized Page Header */}
+      <PageHeader
+        title="Welkom terug"
+        subtitle="Log in om toegang te krijgen tot je account"
+      />
+      
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-md mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Welkom terug</h1>
-            <p className="text-muted-foreground">Log in om toegang te krijgen tot je account</p>
-          </div>
-
           <div className="card-jetleg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>

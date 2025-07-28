@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import PageHeader from '@/components/PageHeader';
 
 const About = () => {
   const navigate = useNavigate();
@@ -85,15 +86,11 @@ const About = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section - Reduced height */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-12">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-hero mb-4">{t('about.hero.title')}</h1>
-          <p className="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">
-            {t('about.hero.subtitle')}
-          </p>
-        </div>
-      </section>
+      {/* Standardized Page Header */}
+      <PageHeader
+        title={t('about.hero.title')}
+        subtitle={t('about.hero.subtitle')}
+      />
 
       {/* Mission Section */}
       <section className="py-20 bg-background">
