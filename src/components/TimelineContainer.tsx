@@ -15,12 +15,10 @@ interface TimelineStepProps {
   details: string[];
   isEven: boolean;
   isActive: boolean;
-  isFirst: boolean;
-  isLast: boolean;
   onVisible: (stepNumber: number) => void;
 }
 
-const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, isActive, isFirst, isLast, onVisible }: TimelineStepProps) => {
+const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isEven, isActive, onVisible }: TimelineStepProps) => {
   const stepRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,7 +45,7 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
 
   // General content block for all views
   const contentBlock = (
-    <>
+    <div className={cn("transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
       <h3 className="text-2xl font-bold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-4">{description}</p>
       <ul className="space-y-2">
@@ -59,45 +57,43 @@ const TimelineStep = ({ icon: Icon, stepNumber, title, description, details, isE
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 
   return (
-    <div ref={stepRef}>
-      {/* Mobile/Tablet Layout (Robust Flexbox Rebuild) */}
-      <div className="lg:hidden flex gap-6">
-        {/* Column for Line and Icon */}
-        <div className="flex flex-col items-center w-12 flex-shrink-0">
-          <div className={cn("w-0.5 h-6 flex-shrink-0", isFirst ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
-          <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors flex-shrink-0", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
+    <div ref={stepRef} className="relative w-full lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
+      {/* Mobile & Tablet Layout Structure */}
+      <div className="lg:hidden relative pl-20 pb-16">
+        <div className="absolute left-8 top-2 -translate-x-1/2">
+          <div className={cn("z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
             <Icon className="h-6 w-6" />
           </div>
-          <div className={cn("w-0.5 flex-grow", isLast ? 'bg-transparent' : isActive ? 'bg-accent' : 'bg-muted')} />
         </div>
-        {/* Column for Text Content */}
-        <div className={cn("flex-grow transition-opacity duration-500 pb-16 pt-2", isActive ? 'opacity-100' : 'opacity-50')}>
-          {contentBlock}
-        </div>
+        {contentBlock}
       </div>
 
-      {/* Desktop Layout (Corrected) */}
-      <div className="hidden lg:grid grid-cols-12 gap-8 items-start">
-        {isEven ? <div className="col-span-5"></div> : 
-          <div className={cn("col-span-5 text-right pr-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
-            {contentBlock}
+      {/* Desktop Layout Structure */}
+      {isEven ? (
+        <>
+          <div className="hidden lg:block lg:col-span-5"></div>
+          <div className="hidden lg:flex lg:col-span-2 lg:justify-center pt-2">
+             <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
+              <Icon className="h-8 w-8" />
+            </div>
           </div>
-        }
-        <div className="col-span-2 flex justify-center pt-2">
-          <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
-            <Icon className="h-8 w-8" />
+          <div className="hidden lg:block lg:col-span-5 text-left pl-8">{contentBlock}</div>
+        </>
+      ) : (
+        <>
+          <div className="hidden lg:block lg:col-span-5 text-right pr-8">{contentBlock}</div>
+           <div className="hidden lg:flex lg:col-span-2 lg:justify-center pt-2">
+             <div className={cn("z-10 flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-colors", isActive ? 'bg-accent text-white' : 'bg-card text-accent')}>
+              <Icon className="h-8 w-8" />
+            </div>
           </div>
-        </div>
-        {isEven ? 
-          <div className={cn("col-span-5 text-left pl-8 transition-opacity duration-500", isActive ? 'opacity-100' : 'opacity-50')}>
-            {contentBlock}
-          </div> : <div className="col-span-5"></div>
-        }
-      </div>
+          <div className="hidden lg:block lg:col-span-5"></div>
+        </>
+      )}
     </div>
   );
 };
@@ -143,16 +139,16 @@ const TimelineContainer = () => {
 
   return (
     <section className="py-20 bg-background relative overflow-hidden">
-      <div ref={timelineRef} className="container mx-auto px-6 relative">
-        {/* Vertical Timeline Line for Desktop with Animation */}
-        <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full hidden lg:block">
-           <div 
-            className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
-            style={{ height: `${scrollProgress * 100}%` }}
-          />
-        </div>
+      <div className="container mx-auto px-6 relative">
+        <div ref={timelineRef} className="relative">
+          {/* Unified Vertical Timeline Line for ALL screen sizes */}
+          <div className="absolute top-0 bottom-0 lg:left-1/2 left-8 w-[3px] -translate-x-1/2 bg-muted rounded-full">
+            <div 
+              className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
+              style={{ height: `${scrollProgress * 100}%` }}
+            />
+          </div>
 
-        <div className="relative lg:space-y-48">
           {steps.map((step, index) => (
             <TimelineStep
               key={index}
@@ -163,8 +159,6 @@ const TimelineContainer = () => {
               details={step.details}
               isEven={index % 2 === 1}
               isActive={index <= activeStep}
-              isFirst={index === 0}
-              isLast={index === steps.length - 1}
               onVisible={handleStepVisible}
             />
           ))}
