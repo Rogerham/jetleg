@@ -1,6 +1,3 @@
-
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
 import { Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
@@ -102,9 +99,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
+    <div className="bg-background">
       {/* Standardized Page Header */}
       <PageHeader
         title={t('faq.hero.title')}
@@ -115,32 +110,45 @@ const FAQ = () => {
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            {faqCategories.map((category, categoryIndex) => <div key={categoryIndex} className="mb-12">
+            {faqCategories.map((category, categoryIndex) => (
+              <div key={categoryIndex} className="mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-8">
                   {category.title}
                 </h2>
                 
                 <div className="space-y-4">
                   {category.faqs.map((faq, faqIndex) => {
-                const globalIndex = categoryIndex * 100 + faqIndex;
-                const isOpen = openFAQ === globalIndex;
-                return <div key={faqIndex} className="card-jetleg overflow-hidden">
-                        <button onClick={() => toggleFAQ(globalIndex)} className="w-full p-6 text-left flex items-center justify-between hover:bg-muted/30 transition-colors">
+                    const globalIndex = categoryIndex * 100 + faqIndex;
+                    const isOpen = openFAQ === globalIndex;
+                    return (
+                      <div key={faqIndex} className="card-jetleg overflow-hidden">
+                        <button
+                          onClick={() => toggleFAQ(globalIndex)}
+                          className="w-full p-6 text-left flex items-center justify-between hover:bg-muted/30 transition-colors"
+                        >
                           <h3 className="text-lg font-semibold text-foreground pr-4">
                             {faq.question}
                           </h3>
-                          {isOpen ? <Minus className="h-5 w-5 text-accent flex-shrink-0" /> : <Plus className="h-5 w-5 text-accent flex-shrink-0" />}
+                          {isOpen ? (
+                            <Minus className="h-5 w-5 text-accent flex-shrink-0" />
+                          ) : (
+                            <Plus className="h-5 w-5 text-accent flex-shrink-0" />
+                          )}
                         </button>
                         
-                        {isOpen && <div className="px-6 pb-6">
+                        {isOpen && (
+                          <div className="px-6 pb-6">
                             <div className="text-muted-foreground leading-relaxed">
                               {faq.answer}
                             </div>
-                          </div>}
-                      </div>;
-              })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -166,8 +174,6 @@ const FAQ = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
