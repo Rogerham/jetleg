@@ -252,7 +252,7 @@ const SearchWithSuggestions = ({
             <div>
               <label htmlFor="passengers-mobile" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
                 <Users className="h-4 w-4" />
-                Pax
+                Personen
               </label>
               <PassengerCounter value={parseInt(searchData.passengers)} onChange={handlePassengerChange} className="h-14" hideArrows={false} />
             </div>
@@ -345,7 +345,7 @@ const SearchWithSuggestions = ({
           <div className="flex-shrink-0 w-32">
             <label htmlFor="passengers-desktop" className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Pax
+              Personen
             </label>
             <PassengerCounter value={parseInt(searchData.passengers)} onChange={handlePassengerChange} className="h-12" hideArrows={false} />
           </div>
