@@ -1,5 +1,3 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import { Plane, TrendingUp, Users, Shield, CheckCircle, Star } from 'lucide-react';
 
 const ForOperators = () => {
@@ -57,9 +55,7 @@ const ForOperators = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      
+    <div className="bg-background">
       {/* Hero Section */}
       <section className="bg-primary text-white py-20">
         <div className="container mx-auto px-6">
@@ -254,8 +250,6 @@ const ForOperators = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };
