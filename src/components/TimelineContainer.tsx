@@ -109,9 +109,12 @@ const TimelineContainer = () => {
     const handleScroll = () => {
       if (!timelineRef.current) return;
       const rect = timelineRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const scrollAmount = windowHeight - rect.top;
-      const totalScrollableHeight = rect.height; // Aangepast voor een betere 'feel'
+      
+      // UPDATE: Scroll-progressie is nu gebaseerd op het midden van het scherm
+      const triggerPoint = window.innerHeight / 2;
+      const scrollAmount = triggerPoint - rect.top;
+      const totalScrollableHeight = rect.height;
+      
       const progress = Math.min(1, Math.max(0, scrollAmount / totalScrollableHeight));
       setScrollProgress(progress);
     };
@@ -123,8 +126,9 @@ const TimelineContainer = () => {
 
   return (
     <section ref={timelineRef} className="py-20 bg-background relative overflow-hidden">
+      {/* UPDATE: 'relative' toegevoegd aan de container voor correcte uitlijning */}
       <div className="container mx-auto px-6 relative">
-        {/* Lijn, nu responsief gepositioneerd */}
+        {/* Lijn, nu responsief en correct gepositioneerd */}
         <div className="absolute top-0 bottom-0 left-6 lg:left-1/2 w-[3px] -translate-x-1/2 bg-muted rounded-full">
           <div 
             className="absolute top-0 left-0 w-full bg-accent transition-all duration-150 ease-linear"
