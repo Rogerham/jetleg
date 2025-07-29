@@ -186,7 +186,7 @@
     "seats": "stoelen",
     "operators": "operatoren",
     "more": "meer",
-    "discoverDestination": "Ontdek {{destination}}, {{country}} met {{count}} {{operators}} beschikbaa{{plural}}",
+    "discoverDestination": "Ontdek {{destination}}, {{country}} met {{count}} {{operators}} beschikbaar",
     "operator": "operator",
     "oneOperator": "operator",
     "multipleOperators": "operatoren"
@@ -196,6 +196,11 @@
     "description1": "Een empty leg vlucht, ook wel \"positioneringsvlucht\" genoemd, is een privéjet die leeg vliegt nadat hij passagiers heeft afgezet, of onderweg is om passagiers op te halen.",
     "description2": "Omdat het vliegtuig deze vlucht toch moet maken, bieden chartermaatschappijen deze \"lege\" stoelen aan met een aanzienlijke korting - vaak tot 75% van de normale prijs.",
     "description3": "Jetleg centraliseert het aanbod van honderden betrouwbare operators, zodat je gemakkelijk de perfecte deal kunt vinden en boeken. Het is de slimste manier om de luxe van privévliegen te ervaren.",
+    "hero": {
+      "title": "Hoe werkt het?",
+      "subtitle": "Ontdek hoe je tot 75% kunt besparen op luxe privéjet reizen door empty leg vluchten."
+    },
+    "step": "Stap",
     "benefits": {
       "savings": {
         "title": "Tot 75% Besparing",
@@ -213,6 +218,70 @@
         "title": "Betrouwbaar en Veilig",
         "description": "Alle operators zijn volledig gecertificeerd en voldoen aan de strengste Europese luchtvaartnormen."
       }
+    },
+    "timeline": {
+      "step1": {
+        "title": "Zoek je Perfect Empty Leg",
+        "description": "Gebruik onze geavanceerde zoekfunctie om beschikbare empty leg vluchten te vinden die passen bij jouw reisplannen.",
+        "details": [
+          "Zoek op vertrek- en aankomstluchthaven",
+          "Flexibele datums voor meer opties",
+          "Filter op vliegtuigtype en capaciteit",
+          "Real-time beschikbaarheid en prijzen"
+        ]
+      },
+      "step2": {
+        "title": "Vergelijk en Selecteer",
+        "description": "Bekijk alle beschikbare opties en kies de vlucht die het beste bij jouw behoeften en budget past.",
+        "details": [
+          "Transparante prijzen zonder verborgen kosten",
+          "Gedetailleerde vliegtuiginformatie",
+          "Operator beoordelingen en certificeringen",
+          "Flexibele annuleringsvoorwaarden"
+        ]
+      },
+      "step3": {
+        "title": "Veilig Boeken",
+        "description": "Voltooi je boeking met onze veilige betaalomgeving en ontvang direct je vliegbevestiging.",
+        "details": [
+          "Beveiligde online betaling",
+          "Directe bevestiging en e-tickets",
+          "24/7 klantenservice",
+          "Volledige GDPR-compliance"
+        ]
+      },
+      "step4": {
+        "title": "Geniet van je Luxe Reis",
+        "description": "Stap aan boord van je privéjet en ervaar de ultieme luxe en comfort tegen een fractie van de normale prijs.",
+        "details": [
+          "VIP terminal service",
+          "Persoonlijke concierge service",
+          "Premium catering aan boord",
+          "Geen wachtrijen of vertragingen"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde Vragen",
+      "subtitle": "Krijg antwoorden op de meest gestelde vragen over empty leg vluchten.",
+      "viewAll": "Bekijk alle FAQ's",
+      "questions": [
+        "Hoe boek ik een empty leg vlucht?",
+        "Wat zijn de annuleringsvoorwaarden?", 
+        "Welke documenten heb ik nodig?",
+        "Kan ik mijn vlucht wijzigen?"
+      ],
+      "answers": [
+        "Het boeken van een empty leg vlucht is eenvoudig via ons platform. Zoek naar beschikbare vluchten, selecteer je gewenste optie en voltooi de betaling online.",
+        "Onze annuleringsvoorwaarden variëren per operator, maar bieden meestal flexibiliteit tot 24-48 uur voor vertrek. Check altijd de specifieke voorwaarden bij je boeking.",
+        "Je hebt een geldig paspoort of identiteitskaart nodig, afhankelijk van je bestemming. Voor internationale vluchten kan een visum vereist zijn.",
+        "Wijzigingen zijn mogelijk afhankelijk van beschikbaarheid en de voorwaarden van de operator. Neem contact op met onze klantenservice voor ondersteuning."
+      ]
+    },
+    "cta": {
+      "title": "Klaar voor je volgende luxe avontuur?",
+      "subtitle": "Ontdek beschikbare empty leg vluchten en bespaar tot 75% op je volgende privéjet reis.",
+      "button": "Zoek vluchten"
     }
   },
   "contact": {
