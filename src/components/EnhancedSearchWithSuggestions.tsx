@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -266,7 +267,7 @@ const EnhancedSearchWithSuggestions = ({
                 setShowSuggestions(prev => ({ ...prev, from: true }));
               }
             }}
-            className={`bg-input ${hasFieldError('from') ? 'border-destructive ring-1 ring-destructive' : ''}`}
+            className={hasFieldError('from') ? 'border-destructive ring-1 ring-destructive' : ''}
           />
           
           {/* Show inline error for from field */}
@@ -314,7 +315,7 @@ const EnhancedSearchWithSuggestions = ({
                 setShowSuggestions(prev => ({ ...prev, to: true }));
               }
             }}
-            className={`bg-input ${hasFieldError('to') ? 'border-destructive ring-1 ring-destructive' : ''}`}
+            className={hasFieldError('to') ? 'border-destructive ring-1 ring-destructive' : ''}
           />
           
           {/* Show inline error for to field */}
@@ -388,7 +389,7 @@ const EnhancedSearchWithSuggestions = ({
           <Button
             onClick={handleSearch}
             disabled={isSearching}
-            className="w-full md:w-auto min-w-[200px] btn-jetleg-primary"
+            className="w-full md:w-auto min-w-[200px] bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
           >
             {isSearching ? (
               <>

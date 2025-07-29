@@ -1,9 +1,9 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
-import { ThemeToggle } from './ThemeToggle';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -152,13 +152,6 @@ const Navigation = () => {
             <Link to="/my-bookings" className="block py-2 text-center text-muted-foreground hover:text-accent transition-jetleg" onClick={() => setIsMenuOpen(false)}>
               {t('nav.myBookings')}
             </Link>
-          </div>
-          
-          <div className="flex justify-center pt-4 border-t border-border">
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-muted-foreground">{t('nav.theme', 'Theme')}</span>
-              <ThemeToggle />
-            </div>
           </div>
         </div>
       )}
