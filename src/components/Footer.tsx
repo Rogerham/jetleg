@@ -3,7 +3,6 @@ import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CurrencySelector from './CurrencySelector';
-import { ThemeToggle } from './ThemeToggle';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -131,9 +130,6 @@ const Footer = () => {
                 {t('footer.terms')}
               </Link>
               <CurrencySelector />
-              <div className="hidden md:block">
-                <ThemeToggle />
-              </div>
             </div>
           </div>
         </div>
