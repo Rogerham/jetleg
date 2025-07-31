@@ -344,5 +344,131 @@
       "viewFlights": "Voir les vols",
       "contact": "Prendre contact"
     }
+  },
+  "faq": {
+    "hero": {
+      "title": "Questions Fréquemment Posées",
+      "subtitle": "Trouvez des réponses aux questions les plus fréquemment posées sur les vols empty leg et notre plateforme."
+    },
+    "categories": {
+      "general": {
+        "title": "Général",
+        "questions": [
+          "Qu'est-ce que Jetleg?",
+          "Qu'est-ce qu'un vol empty leg?",
+          "Quelles sont les économies?",
+          "Jetleg est-il sûr?"
+        ],
+        "answers": [
+          "Jetleg est une plateforme spécialisée dans les vols empty leg - des vols de jets privés qui voleraient autrement vides. Nous offrons ces vols à des prix fortement réduits, rendant les voyages en jet privé plus accessibles.",
+          "Un vol empty leg se produit quand un jet privé doit retourner à sa base sans passagers, ou doit se déplacer vers un nouvel emplacement pour le prochain client. Au lieu de voler vide, les opérateurs offrent ces vols à prix réduit.",
+          "Les vols empty leg peuvent être jusqu'à 75% moins chers que les charters de jets privés réguliers. Les économies exactes dépendent de la route, du type d'avion et du timing du vol.",
+          "Absolument. Tous les vols sont opérés par des opérateurs certifiés qui respectent les plus hauts standards de sécurité. Nos partenaires ont toutes les licences et certifications nécessaires pour les vols commerciaux."
+        ]
+      },
+      "booking": {
+        "title": "Réservation et Paiement",
+        "questions": [
+          "Comment réserver un vol?",
+          "Quelles méthodes de paiement acceptez-vous?",
+          "Puis-je annuler ma réservation?",
+          "Recevrai-je une facture?"
+        ],
+        "answers": [
+          "La réservation est simple : recherchez un vol sur notre site web, sélectionnez votre option désirée, remplissez vos détails et payez de manière sécurisée en ligne. Vous recevrez une confirmation immédiate par e-mail.",
+          "Nous acceptons toutes les principales cartes de crédit (Visa, Mastercard, American Express), iDEAL, virement bancaire et autres méthodes de paiement locales selon votre localisation.",
+          "Les conditions d'annulation varient par vol et opérateur. En général, les empty legs sont moins flexibles que les charters réguliers. Vérifiez toujours les conditions spécifiques lors de la réservation.",
+          "Oui, après paiement vous recevez automatiquement une facture par e-mail. Pour les réservations d'entreprise, nous pouvons fournir des factures personnalisées avec les détails de votre société."
+        ]
+      },
+      "flights": {
+        "title": "Détails des Vols",
+        "questions": [
+          "Combien de temps à l'avance les empty legs sont-ils disponibles?",
+          "Puis-je changer l'heure de départ?",
+          "Que se passe-t-il par mauvais temps?",
+          "Les repas et boissons sont-ils inclus?"
+        ],
+        "answers": [
+          "Les empty legs sont souvent disponibles en dernière minute, de quelques heures à un maximum de 2 semaines à l'avance. La plupart des offres sont publiées 24-72 heures à l'avance.",
+          "Une flexibilité limitée est possible, mais les changements dépendent de l'opérateur et du planning de vol. De petits ajustements (1-2 heures) sont parfois possibles moyennant un coût supplémentaire.",
+          "Par mauvais temps, nous suivons les protocoles d'aviation standard. Les vols peuvent être retardés ou annulés pour votre sécurité. Dans ce cas, vous obtenez un remboursement complet ou des options alternatives.",
+          "La restauration standard est généralement incluse. Les exigences diététiques spéciales ou la restauration premium peuvent entraîner des coûts supplémentaires. Ceci est clairement indiqué lors de la réservation."
+        ]
+      },
+      "practical": {
+        "title": "Questions Pratiques",
+        "questions": [
+          "Combien de bagages puis-je emporter?",
+          "Dois-je m'enregistrer plus tôt?",
+          "Puis-je amener mon animal de compagnie?",
+          "Quels documents ai-je besoin?"
+        ],
+        "answers": [
+          "Les limites de bagages varient selon le type d'avion. Généralement 20-30kg de bagages à main et 20-50kg de bagages en soute sont autorisés. Vous pouvez voir les limites exactes dans les détails du vol.",
+          "L'enregistrement est beaucoup plus rapide pour les jets privés. Arrivez 15-30 minutes avant le départ au terminal. Dans les petits aéroports, cela peut être encore plus court.",
+          "Les animaux de compagnie sont souvent autorisés sur les jets privés, selon l'opérateur et la destination. Demandez les règles spécifiques et les coûts additionnels lors de la réservation.",
+          "Vous avez besoin d'un passeport valide pour les vols internationaux et d'une carte d'identité pour les vols domestiques. Vérifiez les exigences de visa pour votre destination."
+        ]
+      }
+    }
+  },
+  "customerService": {
+    "hero": {
+      "title": "Service Client",
+      "subtitle": "Notre équipe expérimentée est prête à vous aider avec toutes vos questions sur les vols empty leg et les réservations."
+    },
+    "contact": {
+      "phone": {
+        "title": "Téléphone",
+        "description": "Appelez-nous pour une aide directe",
+        "contact": "+32 2 123 45 67",
+        "availability": "Lun-Ven: 8:00 - 20:00, Sam-Dim: 9:00 - 17:00"
+      },
+      "email": {
+        "title": "E-mail",
+        "description": "Envoyez-nous un e-mail",
+        "contact": "support@jetleg.com",
+        "availability": "Réponse sous 2 heures"
+      },
+      "chat": {
+        "title": "Chat en Direct",
+        "description": "Chattez directement avec nos experts",
+        "contact": "Démarrez le chat dans le coin droit",
+        "availability": "Disponible 24/7"
+      }
+    },
+    "services": {
+      "booking": {
+        "title": "Aide à la réservation",
+        "description": "Aide pour trouver et réserver votre vol parfait",
+        "services": [
+          "Recherche et comparaison de vols",
+          "Support du processus de réservation",
+          "Questions de paiement et facture",
+          "Gérer les demandes spéciales"
+        ]
+      },
+      "management": {
+        "title": "Gestion des réservations",
+        "description": "Modifications et questions sur les réservations existantes",
+        "services": [
+          "Modifier les détails de réservation",
+          "Annulations et remboursements",
+          "Changements d'avion et d'horaire",
+          "Documents de voyage et bons"
+        ]
+      },
+      "dayOf": {
+        "title": "Jour du vol",
+        "description": "Support le jour de votre vol",
+        "services": [
+          "Informations d'enregistrement",
+          "Retards ou annulations de vol",
+          "Directives terminal et bagages",
+          "Changements de dernière minute"
+        ]
+      }
+    }
   }
 }

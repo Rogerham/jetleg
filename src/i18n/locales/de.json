@@ -344,5 +344,131 @@
       "viewFlights": "Flüge anzeigen",
       "contact": "Kontakt aufnehmen"
     }
+  },
+  "faq": {
+    "hero": {
+      "title": "Häufig Gestellte Fragen",
+      "subtitle": "Finden Sie Antworten auf die häufigsten Fragen zu Empty Leg Flügen und unserer Plattform."
+    },
+    "categories": {
+      "general": {
+        "title": "Allgemein",
+        "questions": [
+          "Was ist Jetleg?",
+          "Was ist ein Empty Leg Flug?",
+          "Wie groß sind die Ersparnisse?",
+          "Ist Jetleg sicher?"
+        ],
+        "answers": [
+          "Jetleg ist eine Plattform, die sich auf Empty Leg Flüge spezialisiert hat - Privatjet-Flüge, die sonst leer fliegen würden. Wir bieten diese Flüge zu stark reduzierten Preisen an und machen Privatjet-Reisen zugänglicher.",
+          "Ein Empty Leg Flug entsteht, wenn ein Privatjet ohne Passagiere zu seiner Basis zurückkehren muss oder sich zu einem neuen Standort für den nächsten Kunden bewegen muss. Anstatt leer zu fliegen, bieten Betreiber diese Flüge zu reduzierten Preisen an.",
+          "Empty Leg Flüge können bis zu 75% günstiger sein als reguläre Privatjet-Charter. Die genauen Ersparnisse hängen von der Route, dem Flugzeugtyp und dem Timing des Fluges ab.",
+          "Absolut. Alle Flüge werden von zertifizierten Betreibern durchgeführt, die die höchsten Sicherheitsstandards erfüllen. Unsere Partner haben alle notwendigen Lizenzen und Zertifizierungen für kommerzielle Flüge."
+        ]
+      },
+      "booking": {
+        "title": "Buchung und Zahlung",
+        "questions": [
+          "Wie buche ich einen Flug?",
+          "Welche Zahlungsmethoden akzeptieren Sie?",
+          "Kann ich meine Buchung stornieren?",
+          "Erhalte ich eine Rechnung?"
+        ],
+        "answers": [
+          "Die Buchung ist einfach: Suchen Sie einen Flug auf unserer Website, wählen Sie Ihre gewünschte Option, füllen Sie Ihre Daten aus und zahlen Sie sicher online. Sie erhalten sofort eine Bestätigung per E-Mail.",
+          "Wir akzeptieren alle gängigen Kreditkarten (Visa, Mastercard, American Express), iDEAL, Banküberweisung und andere lokale Zahlungsmethoden je nach Standort.",
+          "Stornierungsbedingungen variieren je nach Flug und Betreiber. Im Allgemeinen sind Empty Legs weniger flexibel als reguläre Charter. Prüfen Sie immer die spezifischen Bedingungen bei der Buchung.",
+          "Ja, nach der Zahlung erhalten Sie automatisch eine Rechnung per E-Mail. Für Geschäftsbuchungen können wir angepasste Rechnungen mit Ihren Firmendaten bereitstellen."
+        ]
+      },
+      "flights": {
+        "title": "Flugdetails",
+        "questions": [
+          "Wie weit im Voraus sind Empty Legs verfügbar?",
+          "Kann ich die Abflugzeit ändern?",
+          "Was passiert bei schlechtem Wetter?",
+          "Sind Mahlzeiten und Getränke inklusive?"
+        ],
+        "answers": [
+          "Empty Legs sind oft kurzfristig verfügbar, von wenigen Stunden bis maximal 2 Wochen im Voraus. Die meisten Angebote werden 24-72 Stunden im Voraus veröffentlicht.",
+          "Begrenzte Flexibilität ist möglich, aber Änderungen hängen vom Betreiber und Flugplan ab. Kleine Anpassungen (1-2 Stunden) sind manchmal gegen Aufpreis möglich.",
+          "Bei schlechtem Wetter folgen wir den Standard-Luftfahrtprotokollen. Flüge können zu Ihrer Sicherheit verspätet oder annulliert werden. In diesem Fall erhalten Sie eine vollständige Rückerstattung oder alternative Optionen.",
+          "Standard-Catering ist normalerweise enthalten. Spezielle Diätanforderungen oder Premium-Catering können zusätzliche Kosten verursachen. Dies wird bei der Buchung klar angegeben."
+        ]
+      },
+      "practical": {
+        "title": "Praktische Angelegenheiten",
+        "questions": [
+          "Wie viel Gepäck kann ich mitnehmen?",
+          "Muss ich früher einchecken?",
+          "Kann ich mein Haustier mitbringen?",
+          "Welche Dokumente benötige ich?"
+        ],
+        "answers": [
+          "Gepäckgrenzen variieren je nach Flugzeugtyp. Allgemein sind 20-30kg Handgepäck und 20-50kg aufgegebenes Gepäck erlaubt. Sie können genaue Limits in den Flugdetails sehen.",
+          "Check-in ist viel schneller für Privatjets. Kommen Sie 15-30 Minuten vor Abflug am Terminal an. Bei kleineren Flughäfen kann dies noch kürzer sein.",
+          "Haustiere sind oft auf Privatjets erlaubt, abhängig vom Betreiber und Ziel. Fragen Sie nach spezifischen Regeln und zusätzlichen Kosten bei der Buchung.",
+          "Sie benötigen einen gültigen Reisepass für internationale Flüge und einen Personalausweis für Inlandsflüge. Überprüfen Sie Visa-Anforderungen für Ihr Ziel."
+        ]
+      }
+    }
+  },
+  "customerService": {
+    "hero": {
+      "title": "Kundendienst",
+      "subtitle": "Unser erfahrenes Team ist bereit, Ihnen bei allen Fragen zu Empty Leg Flügen und Buchungen zu helfen."
+    },
+    "contact": {
+      "phone": {
+        "title": "Telefon",
+        "description": "Rufen Sie uns für direkte Hilfe an",
+        "contact": "+32 2 123 45 67",
+        "availability": "Mo-Fr: 8:00 - 20:00, Sa-So: 9:00 - 17:00"
+      },
+      "email": {
+        "title": "E-Mail",
+        "description": "Senden Sie uns eine E-Mail",
+        "contact": "support@jetleg.com",
+        "availability": "Antwort innerhalb von 2 Stunden"
+      },
+      "chat": {
+        "title": "Live Chat",
+        "description": "Chatten Sie direkt mit unseren Experten",
+        "contact": "Chat in der rechten Ecke starten",
+        "availability": "24/7 verfügbar"
+      }
+    },
+    "services": {
+      "booking": {
+        "title": "Buchungshilfe",
+        "description": "Hilfe beim Finden und Buchen Ihres perfekten Fluges",
+        "services": [
+          "Flugsuche und -vergleich",
+          "Unterstützung beim Buchungsprozess",
+          "Zahlungs- und Rechnungsfragen",
+          "Spezielle Anfragen bearbeiten"
+        ]
+      },
+      "management": {
+        "title": "Buchungsverwaltung",
+        "description": "Änderungen und Fragen zu bestehenden Buchungen",
+        "services": [
+          "Buchungsdetails ändern",
+          "Stornierungen und Rückerstattungen",
+          "Flugzeug- und Zeitänderungen",
+          "Reisedokumente und Gutscheine"
+        ]
+      },
+      "dayOf": {
+        "title": "Tag des Fluges",
+        "description": "Support am Tag Ihres Fluges",
+        "services": [
+          "Check-in Informationen",
+          "Flugverspätungen oder -annullierungen",
+          "Terminal- und Gepäckrichtlinien",
+          "Last-Minute-Änderungen"
+        ]
+      }
+    }
   }
 }

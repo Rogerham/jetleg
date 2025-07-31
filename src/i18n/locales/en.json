@@ -1,4 +1,3 @@
-
 {
   "nav": {
     "home": "Home",
@@ -10,7 +9,8 @@
     "login": "Login",
     "register": "Register",
     "myBookings": "My Bookings",
-    "profile": "Profile"
+    "profile": "Profile",
+    "operators": "Operators"
   },
   "footer": {
     "brandDescription": "We make luxury private jet travel accessible through smart technology and empty leg flights.",
@@ -76,13 +76,150 @@
     "date": "Date",
     "aircraft": "Aircraft",
     "passengers": "Passengers",
-    "upTo": "Up to"
+    "upTo": "Up to",
+    "from": "from",
+    "parisNice": {
+      "description": "Fly to the Côte d'Azur in style."
+    },
+    "londonZurich": {
+      "description": "Perfect for a business trip or weekend in the Alps."
+    },
+    "barcelonaIbiza": {
+      "description": "Start your vacation on the White Island with supreme luxury."
+    }
+  },
+  "booking": {
+    "steps": {
+      "passengers": "Passengers",
+      "payment": "Payment", 
+      "confirmation": "Confirmation",
+      "passengersDesc": "Enter details",
+      "paymentDesc": "Payment details",
+      "confirmationDesc": "Review and confirm"
+    },
+    "passengers": {
+      "title": "Passenger Details",
+      "passenger": "Passenger",
+      "remove": "Remove",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "dateOfBirth": "Date of Birth",
+      "passportNumber": "Passport Number",
+      "addPassenger": "Add Passenger",
+      "required": "*"
+    },
+    "payment": {
+      "title": "Secure Payment",
+      "method": "Credit Card / Debit Card",
+      "cardNumber": "Card Number",
+      "expiryDate": "Expiry Date",
+      "cvv": "CVV",
+      "cardholderName": "Cardholder Name",
+      "billingAddress": "Billing Address",
+      "street": "Street and Number",
+      "city": "City",
+      "postalCode": "Postal Code",
+      "country": "Country"
+    },
+    "confirmation": {
+      "title": "Confirmation",
+      "flightSummary": "Flight Summary",
+      "route": "Route:",
+      "date": "Date:",
+      "departure": "Departure:",
+      "aircraft": "Aircraft:",
+      "operator": "Operator:",
+      "passengers": "Passengers",
+      "terms": "I agree to the terms and conditions and privacy policy",
+      "pay": "Pay"
+    },
+    "navigation": {
+      "back": "Previous",
+      "next": "Next",
+      "backToResults": "Back to Results"
+    },
+    "overview": {
+      "title": "Booking Overview",
+      "pricePerPerson": "Price per person",
+      "passengers": "Number of passengers",
+      "total": "Total"
+    },
+    "validation": {
+      "incompleteData": "Incomplete data",
+      "fillPassengers": "Fill in all passenger details to continue.",
+      "incompletePayment": "Incomplete payment details",
+      "fillPayment": "Fill in all payment details to continue."
+    }
+  },
+  "topDeals": {
+    "title": "Top Destinations",
+    "subtitle": "Discover the best empty leg deals to Europe's most beautiful destinations. Exclusive destinations like Barcelona, Paris, London and more.",
+    "backToHome": "Back to home",
+    "exclusiveDestinations": "Exclusive Destinations",
+    "firstComeFirstServed": "Be quick to be the first to book your dream charter to your favorite destination. 'First come, first served.'",
+    "destinationsAvailable": "destinations available",
+    "loading": {
+      "title": "Loading destinations...",
+      "description": "We're searching for the best available destinations for you."
+    },
+    "error": {
+      "title": "An error occurred",
+      "description": "We couldn't load the destinations. Please try again.",
+      "retry": "Try again"
+    },
+    "noFlights": {
+      "title": "No flights available yet",
+      "description": "There are currently no flights available to our exclusive destinations. Come back later for new deals."
+    }
+  },
+  "destinations": {
+    "Barcelona": "Barcelona",
+    "Berlin": "Berlin",
+    "Cannes": "Cannes",
+    "Dubai": "Dubai",
+    "Courchevel": "Courchevel",
+    "London": "London",
+    "Los Angeles": "Los Angeles",
+    "Madrid": "Madrid",
+    "Monaco": "Monaco",
+    "New York": "New York",
+    "Paris": "Paris",
+    "Geneva": "Geneva"
+  },
+  "countries": {
+    "Spain": "Spain",
+    "Germany": "Germany",
+    "France": "France",
+    "UAE": "United Arab Emirates",
+    "UK": "United Kingdom",
+    "USA": "United States",
+    "Monaco": "Monaco",
+    "Switzerland": "Switzerland"
+  },
+  "destinationDeals": {
+    "from": "From",
+    "viewDeals": "View Deals",
+    "flightsAvailable": "flights available",
+    "seats": "seats",
+    "operators": "operators",
+    "more": "more",
+    "discoverDestination": "Discover {{destination}}, {{country}} with {{count}} {{operators}} available",
+    "operator": "operator",
+    "oneOperator": "operator",
+    "multipleOperators": "operators"
   },
   "howItWorks": {
     "title": "What is an \"Empty Leg\"?",
     "description1": "An empty leg flight, also called a \"positioning flight\", is a private aircraft flying empty after dropping off passengers, or on its way to pick up passengers.",
     "description2": "Since the aircraft has to make this flight anyway, charter companies offer these \"empty\" seats at a significant discount - often up to 75% off the normal price.",
     "description3": "Jetleg centralizes the supply from hundreds of reliable operators, so you can easily find and book the perfect deal. It's the smartest way to experience the luxury of private flying.",
+    "hero": {
+      "title": "How does it work?",
+      "subtitle": "Discover how you can save up to 75% on luxury private jet travel through empty leg flights."
+    },
+    "step": "Step",
     "benefits": {
       "savings": {
         "title": "Up to 75% Savings",
@@ -101,70 +238,69 @@
         "description": "All operators are fully certified and comply with the strictest European aviation standards."
       }
     },
-    "hero": {
-      "title": "How does Jetleg work?",
-      "subtitle": "Discover how easy it is to book last-minute private jet deals with Jetleg. From searching to landing, we make the process as simple as possible."
-    },
-    "step": "Step",
-    "steps": {
-      "search": {
-        "title": "Find your ideal flight",
-        "description": "Use our advanced search engine to find empty leg flights to your desired destination. Filter by price, date, aircraft type and more.",
+    "timeline": {
+      "step1": {
+        "title": "Find your Perfect Empty Leg",
+        "description": "Use our advanced search function to find available empty leg flights that fit your travel plans.",
         "details": [
-          "Search through thousands of available empty legs",
-          "Real-time availability and prices",
-          "Flexible search options for best deals"
+          "Search by departure and arrival airport",
+          "Flexible dates for more options",
+          "Filter by aircraft type and capacity",
+          "Real-time availability and pricing"
         ]
       },
-      "book": {
-        "title": "Book directly online",
-        "description": "Reserve your flight with just a few clicks. Our secure booking process is fast and transparent, with no hidden fees.",
+      "step2": {
+        "title": "Compare and Select",
+        "description": "View all available options and choose the flight that best fits your needs and budget.",
+        "details": [
+          "Transparent pricing without hidden costs",
+          "Detailed aircraft information",
+          "Operator reviews and certifications",
+          "Flexible cancellation conditions"
+        ]
+      },
+      "step3": {
+        "title": "Book Securely",
+        "description": "Complete your booking with our secure payment environment and receive your flight confirmation immediately.",
         "details": [
           "Secure online payment",
-          "Instant confirmation by email",
-          "24/7 customer service available"
+          "Direct confirmation and e-tickets",
+          "24/7 customer service",
+          "Full GDPR compliance"
         ]
       },
-      "fly": {
-        "title": "Enjoy your flight",
-        "description": "Board your private jet and experience ultimate luxury and comfort. Our certified operators ensure an unforgettable flying experience.",
+      "step4": {
+        "title": "Enjoy your Luxury Journey",
+        "description": "Board your private jet and experience ultimate luxury and comfort at a fraction of the normal price.",
         "details": [
-          "Luxury private jet experience",
-          "Personal service on board",
-          "Flexible departure and arrival times"
-        ]
-      },
-      "arrive": {
-        "title": "Arrival at destination",
-        "description": "Arrive refreshed and on time at your destination. With a private jet you fly directly, without stopovers or waiting times at busy airports.",
-        "details": [
-          "Direct flights to smaller airports",
-          "Faster check-in and check-out procedures",
-          "More time for what really matters"
+          "VIP terminal service",
+          "Personal concierge service",
+          "Premium catering on board",
+          "No queues or delays"
         ]
       }
     },
     "faq": {
-      "title": "Frequently asked questions",
-      "subtitle": "Everything you need to know about empty leg flights",
-      "viewAll": "View all",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Get answers to the most frequently asked questions about empty leg flights.",
+      "viewAll": "View all FAQs",
       "questions": [
-        "What is an empty leg flight?",
-        "How far in advance should I book?",
-        "Can I change my booking?",
-        "What is included in the price?"
+        "How do I book an empty leg flight?",
+        "What are the cancellation conditions?",
+        "What documents do I need?",
+        "Can I change my flight?"
       ],
       "answers": [
-        "An empty leg flight is a private jet flying empty back to its base or to a new client. These flights are offered at heavily reduced prices.",
-        "Empty legs are often available last-minute, from a few hours to a few days in advance. The more flexible you are, the better chance of great deals.",
-        "Changes are limited and depend on the specific flight. Contact our customer service for more information about your booking.",
-        "The price includes the complete flight, fuel, crew and standard catering. Additional services can be added for an extra charge."
+        "Booking an empty leg flight is simple through our platform. Search for available flights, select your desired option and complete the payment online.",
+        "Our cancellation conditions vary by operator, but usually offer flexibility up to 24-48 hours before departure. Always check the specific conditions in your booking.",
+        "You need a valid passport or identity card, depending on your destination. For international flights a visa may be required.",
+        "Changes are possible depending on availability and the operator's conditions. Contact our customer service for assistance."
       ]
     },
     "cta": {
-      "title": "Ready to get started?",
-      "subtitle": "Start your search for the perfect empty leg deal and experience private jet travel like never before.",
-      "button": "Search Empty Legs"
+      "title": "Ready for your next luxury adventure?",
+      "subtitle": "Discover available empty leg flights and save up to 75% on your next private jet journey.",
+      "button": "Search flights"
     }
   },
   "contact": {
@@ -424,63 +560,6 @@
       "subtitle": "Discover our available flights and experience for yourself why thousands of travelers choose Jetleg.",
       "viewFlights": "View flights",
       "contact": "Contact us"
-    }
-  },
-  "destinations": {
-    "Barcelona": "Barcelona",
-    "Berlin": "Berlin",
-    "Cannes": "Cannes",
-    "Dubai": "Dubai",
-    "Courchevel": "Courchevel",
-    "London": "London",
-    "Los Angeles": "Los Angeles",
-    "Madrid": "Madrid",
-    "Monaco": "Monaco",
-    "New York": "New York",
-    "Paris": "Paris",
-    "Geneva": "Geneva"
-  },
-  "countries": {
-    "Spain": "Spain",
-    "Germany": "Germany",
-    "France": "France",
-    "UAE": "United Arab Emirates",
-    "UK": "United Kingdom",
-    "USA": "United States",
-    "Monaco": "Monaco",
-    "Switzerland": "Switzerland"
-  },
-  "destinationDeals": {
-    "from": "From",
-    "viewDeals": "View Deals",
-    "flightsAvailable": "flights available",
-    "seats": "seats",
-    "operators": "operators",
-    "more": "more",
-    "discoverDestination": "Discover {{destination}}, {{country}} with {{count}} available {{operators}}",
-    "operator": "operator",
-    "oneOperator": "operator",
-    "multipleOperators": "operators"
-  },
-  "topDeals": {
-    "title": "Top Destinations",
-    "subtitle": "Discover the best empty leg deals to Europe's most beautiful destinations. Exclusive destinations like Barcelona, Paris, London and more.",
-    "backToHome": "Back to home",
-    "exclusiveDestinations": "Exclusive Destinations",
-    "firstComeFirstServed": "Be quick to be the first to book the dream charter to your favorite destination. 'First come, first served.'",
-    "destinationsAvailable": "destinations available",
-    "loading": {
-      "title": "Loading destinations...",
-      "description": "We are searching for the best available destinations for you."
-    },
-    "error": {
-      "title": "An error occurred",
-      "description": "We could not load destinations. Please try again.",
-      "retry": "Try again"
-    },
-    "noFlights": {
-      "title": "No flights available yet",
-      "description": "There are currently no flights available to our exclusive destinations. Come back later for new offers."
     }
   }
 }

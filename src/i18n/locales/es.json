@@ -279,5 +279,202 @@
       "viewFlights": "Ver vuelos",
       "contact": "Ponerse en contacto"
     }
+  },
+  "faq": {
+    "hero": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a las preguntas más frecuentes sobre vuelos empty leg y nuestra plataforma."
+    },
+    "categories": {
+      "general": {
+        "title": "General",
+        "questions": [
+          "¿Qué es Jetleg?",
+          "¿Qué es un vuelo empty leg?",
+          "¿Cuánto se puede ahorrar?",
+          "¿Es seguro Jetleg?"
+        ],
+        "answers": [
+          "Jetleg es una plataforma especializada en vuelos empty leg - vuelos de jets privados que de otro modo volarían vacíos. Ofrecemos estos vuelos a precios muy reducidos, haciendo los viajes en jet privado más accesibles.",
+          "Un vuelo empty leg ocurre cuando un jet privado debe regresar a su base sin pasajeros, o debe moverse a una nueva ubicación para el próximo cliente. En lugar de volar vacío, los operadores ofrecen estos vuelos a precios reducidos.",
+          "Los vuelos empty leg pueden ser hasta 75% más baratos que los charters de jets privados regulares. Los ahorros exactos dependen de la ruta, tipo de aeronave y momento del vuelo.",
+          "Absolutamente. Todos los vuelos son operados por operadores certificados que cumplen con los más altos estándares de seguridad. Nuestros socios tienen todas las licencias y certificaciones necesarias para vuelos comerciales."
+        ]
+      },
+      "booking": {
+        "title": "Reserva y Pago",
+        "questions": [
+          "¿Cómo reservo un vuelo?",
+          "¿Qué métodos de pago aceptan?",
+          "¿Puedo cancelar mi reserva?",
+          "¿Recibiré una factura?"
+        ],
+        "answers": [
+          "Reservar es simple: busca un vuelo en nuestro sitio web, selecciona tu opción deseada, completa tus detalles y paga de forma segura en línea. Recibirás confirmación inmediata por correo electrónico.",
+          "Aceptamos todas las principales tarjetas de crédito (Visa, Mastercard, American Express), iDEAL, transferencia bancaria y otros métodos de pago locales según tu ubicación.",
+          "Las condiciones de cancelación varían por vuelo y operador. En general, los empty legs son menos flexibles que los charters regulares. Siempre verifica las condiciones específicas al reservar.",
+          "Sí, después del pago recibes automáticamente una factura por correo electrónico. Para reservas comerciales podemos proporcionar facturas personalizadas con los detalles de tu empresa."
+        ]
+      },
+      "flights": {
+        "title": "Detalles de Vuelos",
+        "questions": [
+          "¿Con cuánta anticipación están disponibles los empty legs?",
+          "¿Puedo cambiar la hora de salida?",
+          "¿Qué pasa con mal tiempo?",
+          "¿Están incluidas las comidas y bebidas?"
+        ],
+        "answers": [
+          "Los empty legs a menudo están disponibles de último momento, desde unas pocas horas hasta un máximo de 2 semanas de anticipación. La mayoría de las ofertas se publican 24-72 horas antes.",
+          "La flexibilidad limitada es posible, pero los cambios dependen del operador y horario de vuelo. Pequeños ajustes (1-2 horas) a veces son posibles por una tarifa adicional.",
+          "Con mal tiempo seguimos protocolos estándar de aviación. Los vuelos pueden retrasarse o cancelarse por tu seguridad. En ese caso obtienes reembolso completo u opciones alternativas.",
+          "El catering estándar generalmente está incluido. Requisitos dietéticos especiales o catering premium pueden incurrir en costos adicionales. Esto se indica claramente al reservar."
+        ]
+      },
+      "practical": {
+        "title": "Asuntos Prácticos",
+        "questions": [
+          "¿Cuánto equipaje puedo llevar?",
+          "¿Tengo que registrarme antes?",
+          "¿Puedo traer mi mascota?",
+          "¿Qué documentos necesito?"
+        ],
+        "answers": [
+          "Los límites de equipaje varían según el tipo de aeronave. Generalmente se permiten 20-30kg de equipaje de mano y 20-50kg de equipaje facturado. Puedes ver los límites exactos en los detalles del vuelo.",
+          "El registro es mucho más rápido para jets privados. Llega 15-30 minutos antes de la salida al terminal. En aeropuertos más pequeños esto puede ser aún más corto.",
+          "Las mascotas a menudo están permitidas en jets privados, dependiendo del operador y destino. Pregunta sobre reglas específicas y costos adicionales al reservar.",
+          "Necesitas un pasaporte válido para vuelos internacionales y una tarjeta de identidad para vuelos domésticos. Verifica los requisitos de visa para tu destino."
+        ]
+      }
+    }
+  },
+  "customerService": {
+    "hero": {
+      "title": "Atención al Cliente",
+      "subtitle": "Nuestro equipo experimentado está listo para ayudarte con todas tus preguntas sobre vuelos empty leg y reservas."
+    },
+    "contact": {
+      "phone": {
+        "title": "Teléfono",
+        "description": "Llámanos para ayuda directa",
+        "contact": "+32 2 123 45 67",
+        "availability": "Lun-Vie: 8:00 - 20:00, Sáb-Dom: 9:00 - 17:00"
+      },
+      "email": {
+        "title": "Correo Electrónico",
+        "description": "Envíanos un correo",
+        "contact": "support@jetleg.com",
+        "availability": "Respuesta en 2 horas"
+      },
+      "chat": {
+        "title": "Chat en Vivo",
+        "description": "Chatea directamente con nuestros expertos",
+        "contact": "Inicia chat en la esquina derecha",
+        "availability": "Disponible 24/7"
+      }
+    },
+    "services": {
+      "booking": {
+        "title": "Ayuda con reservas",
+        "description": "Ayuda para encontrar y reservar tu vuelo perfecto",
+        "services": [
+          "Búsqueda y comparación de vuelos",
+          "Soporte del proceso de reserva",
+          "Preguntas de pago y factura",
+          "Manejar solicitudes especiales"
+        ]
+      },
+      "management": {
+        "title": "Gestión de reservas",
+        "description": "Cambios y preguntas sobre reservas existentes",
+        "services": [
+          "Cambiar detalles de reserva",
+          "Cancelaciones y reembolsos",
+          "Cambios de aeronave y horario",
+          "Documentos de viaje y vouchers"
+        ]
+      },
+      "dayOf": {
+        "title": "Día del vuelo",
+        "description": "Soporte el día de tu vuelo",
+        "services": [
+          "Información de registro",
+          "Retrasos o cancelaciones de vuelo",
+          "Directrices de terminal y equipaje",
+          "Cambios de último momento"
+        ]
+      }
+    }
+  },
+  "howItWorks": {
+    "hero": {
+      "title": "¿Cómo funciona?",
+      "subtitle": "Descubre lo fácil que es reservar ofertas de jets privados de último momento con Jetleg."
+    },
+    "step": "Paso",
+    "timeline": {
+      "step1": {
+        "title": "Busca tu Empty Leg Perfecto",
+        "description": "Usa nuestra función de búsqueda avanzada para encontrar vuelos empty leg disponibles que se ajusten a tus planes de viaje.",
+        "details": [
+          "Busca por aeropuerto de salida y llegada",
+          "Fechas flexibles para más opciones",
+          "Filtrar por tipo de aeronave y capacidad",
+          "Disponibilidad y precios en tiempo real"
+        ]
+      },
+      "step2": {
+        "title": "Compara y Selecciona",
+        "description": "Ve todas las opciones disponibles y elige el vuelo que mejor se adapte a tus necesidades y presupuesto.",
+        "details": [
+          "Precios transparentes sin costos ocultos",
+          "Información detallada de la aeronave",
+          "Reseñas y certificaciones del operador",
+          "Condiciones de cancelación flexibles"
+        ]
+      },
+      "step3": {
+        "title": "Reserva de Forma Segura",
+        "description": "Completa tu reserva con nuestro entorno de pago seguro y recibe tu confirmación de vuelo inmediatamente.",
+        "details": [
+          "Pago en línea seguro",
+          "Confirmación directa y e-tickets",
+          "Atención al cliente 24/7",
+          "Cumplimiento completo de GDPR"
+        ]
+      },
+      "step4": {
+        "title": "Disfruta tu Viaje de Lujo",
+        "description": "Sube a bordo de tu jet privado y experimenta el lujo y comodidad definitivos por una fracción del precio normal.",
+        "details": [
+          "Servicio de terminal VIP",
+          "Servicio de conserjería personal",
+          "Catering premium a bordo",
+          "Sin filas ni retrasos"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Obtén respuestas a las preguntas más comunes sobre vuelos empty leg.",
+      "viewAll": "Ver todas las FAQ",
+      "questions": [
+        "¿Cómo reservo un vuelo empty leg?",
+        "¿Cuáles son las condiciones de cancelación?",
+        "¿Qué documentos necesito?",
+        "¿Puedo cambiar mi vuelo?"
+      ],
+      "answers": [
+        "Reservar un vuelo empty leg es simple a través de nuestra plataforma. Busca vuelos disponibles, selecciona tu opción deseada y completa el pago en línea.",
+        "Nuestras condiciones de cancelación varían por operador, pero generalmente ofrecen flexibilidad hasta 24-48 horas antes de la salida. Siempre verifica las condiciones específicas en tu reserva.",
+        "Necesitas un pasaporte válido o tarjeta de identidad, dependiendo de tu destino. Para vuelos internacionales puede requerirse visa.",
+        "Los cambios son posibles dependiendo de la disponibilidad y las condiciones del operador. Contacta nuestro servicio al cliente para asistencia."
+      ]
+    },
+    "cta": {
+      "title": "¿Listo para tu próxima aventura de lujo?",
+      "subtitle": "Descubre vuelos empty leg disponibles y ahorra hasta 75% en tu próximo viaje en jet privado.",
+      "button": "Buscar vuelos"
+    }
   }
 }
