@@ -416,5 +416,69 @@
       "viewFlights": "Bekijk vluchten",
       "contact": "Neem contact op"
     }
+  },
+  "privacyPolicy": {
+    "title": "Privacybeleid",
+    "lastUpdate": "Laatste update: 21 juli 2025"
+  },
+  "termsConditions": {
+    "title": "Algemene Voorwaarden", 
+    "lastUpdate": "Laatste update: 21 juli 2025"
+  },
+  "forOperators": {
+    "hero": {
+      "title": "Voor Operators",
+      "subtitle": "Transformeer je empty legs in winstgevende vluchten. Sluit je aan bij honderden operators die al succesvol zijn met Jetleg.",
+      "becomePartner": "Word Partner",
+      "planDemo": "Plan Demo"
+    },
+    "stats": {
+      "extraRevenue": "Extra omzet gegenereerd voor onze partners in 2024",
+      "operators": "Operators", 
+      "flights": "Vluchten",
+      "averageIncrease": "Gem. toename"
+    },
+    "benefits": {
+      "title": "Waarom kiezen voor Jetleg?",
+      "subtitle": "Ons platform is speciaal ontworpen om operators te helpen het maximale uit hun empty legs te halen.",
+      "revenue": {
+        "title": "Meer omzet genereren",
+        "description": "Verdien geld met vluchten die anders leeg zouden vliegen. Gemiddeld 30% meer inkomsten uit je vloot."
+      },
+      "customers": {
+        "title": "Toegang tot nieuwe klanten", 
+        "description": "Bereik duizenden potentiële klanten die op zoek zijn naar last-minute privéjet oplossingen."
+      },
+      "payments": {
+        "title": "Veilige betalingen",
+        "description": "Gegarandeerde uitbetalingen binnen 48 uur na voltooiing van de vlucht."
+      },
+      "management": {
+        "title": "Eenvoudig beheer",
+        "description": "Intuïtief dashboard om je empty legs te beheren en real-time beschikbaarheid bij te werken."
+      }
+    },
+    "features": {
+      "title": "Alles wat je nodig hebt in één platform",
+      "subtitle": "Ons geavanceerde platform biedt alle tools die je nodig hebt om je empty leg business te laten groeien.",
+      "list": [
+        "Real-time inventory management",
+        "Automatische prijsoptimalisatie", 
+        "24/7 customer support",
+        "Geïntegreerde betalingsverwerking",
+        "Uitgebreide rapportage en analytics",
+        "API integratie voor je eigen systemen"
+      ]
+    },
+    "testimonials": {
+      "title": "Wat onze partners zeggen",
+      "subtitle": "Hoor van operators die hun succes hebben vergroot met Jetleg"
+    },
+    "cta": {
+      "title": "Klaar om te beginnen?",
+      "subtitle": "Sluit je aan bij de snelst groeiende empty leg marketplace en start vandaag nog met het genereren van extra omzet.",
+      "becomePartner": "Aanmelden als Partner",
+      "contact": "Contact Opnemen"
+    }
   }
 }

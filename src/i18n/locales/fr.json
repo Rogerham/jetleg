@@ -470,5 +470,69 @@
         ]
       }
     }
+  },
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "lastUpdate": "Dernière mise à jour : 21 juillet 2025"
+  },
+  "termsConditions": {
+    "title": "Conditions Générales", 
+    "lastUpdate": "Dernière mise à jour : 21 juillet 2025"
+  },
+  "forOperators": {
+    "hero": {
+      "title": "Pour les Opérateurs",
+      "subtitle": "Transformez vos empty legs en vols rentables. Rejoignez des centaines d'opérateurs qui réussissent déjà avec Jetleg.",
+      "becomePartner": "Devenir Partenaire",
+      "planDemo": "Planifier une Démo"
+    },
+    "stats": {
+      "extraRevenue": "Revenus supplémentaires générés pour nos partenaires en 2024",
+      "operators": "Opérateurs", 
+      "flights": "Vols",
+      "averageIncrease": "Augmentation moy."
+    },
+    "benefits": {
+      "title": "Pourquoi choisir Jetleg ?",
+      "subtitle": "Notre plateforme est spécialement conçue pour aider les opérateurs à maximiser le potentiel de leurs empty legs.",
+      "revenue": {
+        "title": "Générer plus de revenus",
+        "description": "Gagnez de l'argent avec des vols qui voleraient autrement vides. En moyenne 30% de revenus supplémentaires de votre flotte."
+      },
+      "customers": {
+        "title": "Accès à de nouveaux clients", 
+        "description": "Atteignez des milliers de clients potentiels à la recherche de solutions de jets privés de dernière minute."
+      },
+      "payments": {
+        "title": "Paiements sécurisés",
+        "description": "Paiements garantis dans les 48 heures après la completion du vol."
+      },
+      "management": {
+        "title": "Gestion facile",
+        "description": "Tableau de bord intuitif pour gérer vos empty legs et mettre à jour la disponibilité en temps réel."
+      }
+    },
+    "features": {
+      "title": "Tout ce dont vous avez besoin sur une seule plateforme",
+      "subtitle": "Notre plateforme avancée fournit tous les outils nécessaires pour développer votre business d'empty legs.",
+      "list": [
+        "Gestion d'inventaire en temps réel",
+        "Optimisation automatique des prix", 
+        "Support client 24/7",
+        "Traitement de paiement intégré",
+        "Rapports et analyses complets",
+        "Intégration API pour vos propres systèmes"
+      ]
+    },
+    "testimonials": {
+      "title": "Ce que disent nos partenaires",
+      "subtitle": "Entendez des opérateurs qui ont développé leur succès avec Jetleg"
+    },
+    "cta": {
+      "title": "Prêt à commencer ?",
+      "subtitle": "Rejoignez la marketplace d'empty legs qui croît le plus rapidement et commencez à générer des revenus supplémentaires dès aujourd'hui.",
+      "becomePartner": "S'inscrire comme Partenaire",
+      "contact": "Prendre Contact"
+    }
   }
 }

@@ -470,5 +470,69 @@
         ]
       }
     }
+  },
+  "privacyPolicy": {
+    "title": "Datenschutzrichtlinie",
+    "lastUpdate": "Letzte Aktualisierung: 21. Juli 2025"
+  },
+  "termsConditions": {
+    "title": "Allgemeine Geschäftsbedingungen", 
+    "lastUpdate": "Letzte Aktualisierung: 21. Juli 2025"
+  },
+  "forOperators": {
+    "hero": {
+      "title": "Für Betreiber",
+      "subtitle": "Verwandeln Sie Ihre Empty Legs in profitable Flüge. Schließen Sie sich Hunderten von Betreibern an, die bereits erfolgreich mit Jetleg sind.",
+      "becomePartner": "Partner werden",
+      "planDemo": "Demo planen"
+    },
+    "stats": {
+      "extraRevenue": "Zusätzliche Einnahmen für unsere Partner im Jahr 2024 generiert",
+      "operators": "Betreiber", 
+      "flights": "Flüge",
+      "averageIncrease": "Durchschn. Steigerung"
+    },
+    "benefits": {
+      "title": "Warum Jetleg wählen?",
+      "subtitle": "Unsere Plattform ist speziell entwickelt, um Betreibern zu helfen, das Potenzial ihrer Empty Legs zu maximieren.",
+      "revenue": {
+        "title": "Mehr Umsatz generieren",
+        "description": "Verdienen Sie Geld mit Flügen, die sonst leer fliegen würden. Durchschnittlich 30% mehr Einkommen aus Ihrer Flotte."
+      },
+      "customers": {
+        "title": "Zugang zu neuen Kunden", 
+        "description": "Erreichen Sie Tausende potentieller Kunden, die nach Last-Minute-Privatjet-Lösungen suchen."
+      },
+      "payments": {
+        "title": "Sichere Zahlungen",
+        "description": "Garantierte Auszahlungen innerhalb von 48 Stunden nach Flugabschluss."
+      },
+      "management": {
+        "title": "Einfache Verwaltung",
+        "description": "Intuitives Dashboard zur Verwaltung Ihrer Empty Legs und Aktualisierung der Echtzeitverfügbarkeit."
+      }
+    },
+    "features": {
+      "title": "Alles was Sie brauchen auf einer Plattform",
+      "subtitle": "Unsere fortschrittliche Plattform bietet alle Tools, die Sie benötigen, um Ihr Empty Leg Geschäft zu erweitern.",
+      "list": [
+        "Echtzeit-Inventarverwaltung",
+        "Automatische Preisoptimierung", 
+        "24/7 Kundensupport",
+        "Integrierte Zahlungsabwicklung",
+        "Umfassende Berichterstattung und Analytik",
+        "API-Integration für Ihre eigenen Systeme"
+      ]
+    },
+    "testimonials": {
+      "title": "Was unsere Partner sagen",
+      "subtitle": "Hören Sie von Betreibern, die ihren Erfolg mit Jetleg gesteigert haben"
+    },
+    "cta": {
+      "title": "Bereit anzufangen?",
+      "subtitle": "Schließen Sie sich dem am schnellsten wachsenden Empty Leg Marktplatz an und beginnen Sie noch heute mit der Generierung zusätzlicher Einnahmen.",
+      "becomePartner": "Als Partner anmelden",
+      "contact": "Kontakt aufnehmen"
+    }
   }
 }

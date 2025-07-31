@@ -9,10 +9,11 @@
     "login": "Accedi",
     "register": "Registrati",
     "myBookings": "Le mie prenotazioni",
-    "profile": "Profilo"
+    "profile": "Profilo",
+    "operators": "Operatori"
   },
   "footer": {
-    "brandDescription": "Rendiamo accessibili i viaggi in jet privato di lusso attraverso tecnologia intelligente e voli vuoti.",
+    "brandDescription": "Rendiamo accessibili i viaggi in jet privato di lusso attraverso tecnologia intelligente e voli empty leg.",
     "menu": "Menu",
     "support": "Supporto",
     "faq": "FAQ",
@@ -26,10 +27,10 @@
     "terms": "Termini"
   },
   "hero": {
-    "title": "Vola privato, paga meno",
+    "title": "Vola in privato, paga meno",
     "subtitle": "Scopri voli empty leg esclusivi e vivi viaggi di lusso per una frazione del prezzo.",
     "searchPlaceholder": "Da dove?",
-    "destinationPlaceholder": "Verso dove?",
+    "destinationPlaceholder": "Dove?",
     "datePlaceholder": "Data di partenza",
     "passengersLabel": "Passeggeri",
     "searchButton": "Cerca voli",
@@ -47,6 +48,7 @@
     "aircraft": "Aereo",
     "passengers": "Passeggeri",
     "upTo": "Fino a",
+    "from": "da",
     "parisNice": {
       "description": "Vola verso la Costa Azzurra con stile."
     },
@@ -66,12 +68,77 @@
     "bookNow": "Prenota ora",
     "privateJet": "Jet Privato"
   },
+  "booking": {
+    "steps": {
+      "passengers": "Passeggeri",
+      "payment": "Pagamento", 
+      "confirmation": "Conferma",
+      "passengersDesc": "Inserisci i dettagli",
+      "paymentDesc": "Dettagli di pagamento",
+      "confirmationDesc": "Rivedi e conferma"
+    },
+    "passengers": {
+      "title": "Dettagli Passeggeri",
+      "passenger": "Passeggero",
+      "remove": "Rimuovi",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Email",
+      "phone": "Numero di telefono",
+      "dateOfBirth": "Data di nascita",
+      "passportNumber": "Numero passaporto",
+      "addPassenger": "Aggiungi passeggero",
+      "required": "*"
+    },
+    "payment": {
+      "title": "Pagamento sicuro",
+      "method": "Carta di credito / Carta di debito",
+      "cardNumber": "Numero carta",
+      "expiryDate": "Data di scadenza",
+      "cvv": "CVV",
+      "cardholderName": "Nome titolare carta",
+      "billingAddress": "Indirizzo di fatturazione",
+      "street": "Via e numero",
+      "city": "Città",
+      "postalCode": "Codice postale",
+      "country": "Paese"
+    },
+    "confirmation": {
+      "title": "Conferma",
+      "flightSummary": "Riassunto volo",
+      "route": "Rotta:",
+      "date": "Data:",
+      "departure": "Partenza:",
+      "aircraft": "Aereo:",
+      "operator": "Operatore:",
+      "passengers": "Passeggeri",
+      "terms": "Accetto i termini e condizioni e l'informativa sulla privacy",
+      "pay": "Paga"
+    },
+    "navigation": {
+      "back": "Precedente",
+      "next": "Successivo",
+      "backToResults": "Torna ai risultati"
+    },
+    "overview": {
+      "title": "Panoramica prenotazione",
+      "pricePerPerson": "Prezzo per persona",
+      "passengers": "Numero di passeggeri",
+      "total": "Totale"
+    },
+    "validation": {
+      "incompleteData": "Dati incompleti",
+      "fillPassengers": "Compila tutti i dettagli dei passeggeri per continuare.",
+      "incompletePayment": "Dettagli di pagamento incompleti",
+      "fillPayment": "Compila tutti i dettagli di pagamento per continuare."
+    }
+  },
   "topDeals": {
-    "title": "Destinazioni Principali",
-    "subtitle": "Scopri le migliori offerte empty leg verso le più belle destinazioni d'Europa. Destinazioni esclusive come Barcellona, Parigi, Londra e altro ancora.",
+    "title": "Destinazioni Top",
+    "subtitle": "Scopri le migliori offerte empty leg verso le più belle destinazioni d'Europa. Destinazioni esclusive come Barcellona, Parigi, Londra e altro.",
     "backToHome": "Torna alla home",
     "exclusiveDestinations": "Destinazioni Esclusive",
-    "firstComeFirstServed": "Sii veloce per essere il primo a prenotare il charter dei sogni verso la tua destinazione preferita. 'Chi primo arriva, meglio alloggia.'",
+    "firstComeFirstServed": "Sii veloce per essere il primo a prenotare il charter dei tuoi sogni verso la tua destinazione preferita. 'Chi primo arriva, meglio alloggia.'",
     "destinationsAvailable": "destinazioni disponibili",
     "loading": {
       "title": "Caricamento destinazioni...",
@@ -117,25 +184,30 @@
     "flightsAvailable": "voli disponibili",
     "seats": "posti",
     "operators": "operatori",
-    "more": "di più",
-    "discoverDestination": "Scopri {{destination}}, {{country}} con {{count}} {{operators}} disponibil{{plural}}",
+    "more": "altri",
+    "discoverDestination": "Scopri {{destination}}, {{country}} con {{count}} {{operators}} disponibili",
     "operator": "operatore",
     "oneOperator": "operatore",
     "multipleOperators": "operatori"
   },
   "howItWorks": {
     "title": "Cos'è un \"Empty Leg\"?",
-    "description1": "Un volo empty leg, anche chiamato \"volo di posizionamento\", è un jet privato che vola vuoto dopo aver lasciato i passeggeri, o è in viaggio per raccogliere i passeggeri.",
+    "description1": "Un volo empty leg, chiamato anche \"volo di posizionamento\", è un jet privato che vola vuoto dopo aver lasciato i passeggeri, o è in viaggio per prendere i passeggeri.",
     "description2": "Poiché l'aereo deve fare questo volo comunque, le compagnie charter offrono questi posti \"vuoti\" con uno sconto significativo - spesso fino al 75% del prezzo normale.",
-    "description3": "Jetleg centralizza l'offerta di centinaia di operatori affidabili, così puoi facilmente trovare e prenotare l'affare perfetto. È il modo più intelligente di sperimentare il lusso del volo privato.",
+    "description3": "Jetleg centralizza l'offerta di centinaia di operatori affidabili, così puoi facilmente trovare e prenotare l'affare perfetto. È il modo più intelligente per sperimentare il lusso del volo privato.",
+    "hero": {
+      "title": "Come funziona?",
+      "subtitle": "Scopri come puoi risparmiare fino al 75% sui viaggi in jet privato di lusso attraverso i voli empty leg."
+    },
+    "step": "Passo",
     "benefits": {
       "savings": {
         "title": "Fino al 75% di Risparmio",
-        "description": "Risparmia fino al 75% rispetto ai voli privati regolari utilizzando voli di posizionamento empty leg."
+        "description": "Risparmia fino al 75% rispetto ai voli privati regolari utilizzando i voli di posizionamento empty leg."
       },
       "availability": {
-        "title": "Disponibilità Last-minute",
-        "description": "Trova e prenota voli esclusivi che diventano disponibili presto, perfetto per viaggiatori flessibili."
+        "title": "Disponibilità dell'Ultimo Minuto",
+        "description": "Trova e prenota voli esclusivi che diventano disponibili presto, perfetti per viaggiatori flessibili."
       },
       "premium": {
         "title": "Aerei Premium",
@@ -143,8 +215,72 @@
       },
       "reliable": {
         "title": "Affidabile e Sicuro",
-        "description": "Tutti gli operatori sono completamente certificati e rispettano i più rigorosi standard di aviazione europea."
+        "description": "Tutti gli operatori sono completamente certificati e rispettano i più rigidi standard dell'aviazione europea."
       }
+    },
+    "timeline": {
+      "step1": {
+        "title": "Trova il tuo Empty Leg Perfetto",
+        "description": "Usa la nostra funzione di ricerca avanzata per trovare voli empty leg disponibili che si adattano ai tuoi piani di viaggio.",
+        "details": [
+          "Cerca per aeroporto di partenza e arrivo",
+          "Date flessibili per più opzioni",
+          "Filtra per tipo di aereo e capacità",
+          "Disponibilità e prezzi in tempo reale"
+        ]
+      },
+      "step2": {
+        "title": "Confronta e Seleziona",
+        "description": "Vedi tutte le opzioni disponibili e scegli il volo che meglio si adatta alle tue esigenze e budget.",
+        "details": [
+          "Prezzi trasparenti senza costi nascosti",
+          "Informazioni dettagliate sull'aereo",
+          "Recensioni e certificazioni operatore",
+          "Condizioni di cancellazione flessibili"
+        ]
+      },
+      "step3": {
+        "title": "Prenota in Sicurezza",
+        "description": "Completa la tua prenotazione con il nostro ambiente di pagamento sicuro e ricevi la tua conferma di volo immediatamente.",
+        "details": [
+          "Pagamento online sicuro",
+          "Conferma diretta e e-ticket",
+          "Servizio clienti 24/7",
+          "Piena conformità GDPR"
+        ]
+      },
+      "step4": {
+        "title": "Goditi il tuo Viaggio di Lusso",
+        "description": "Sali a bordo del tuo jet privato e sperimenta il lusso e comfort definitivi per una frazione del prezzo normale.",
+        "details": [
+          "Servizio terminal VIP",
+          "Servizio concierge personale",
+          "Catering premium a bordo",
+          "Nessuna coda o ritardo"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Domande Frequenti",
+      "subtitle": "Ottieni risposte alle domande più comuni sui voli empty leg.",
+      "viewAll": "Vedi tutte le FAQ",
+      "questions": [
+        "Come prenoto un volo empty leg?",
+        "Quali sono le condizioni di cancellazione?",
+        "Quali documenti mi servono?",
+        "Posso cambiare il mio volo?"
+      ],
+      "answers": [
+        "Prenotare un volo empty leg è semplice attraverso la nostra piattaforma. Cerca voli disponibili, seleziona la tua opzione desiderata e completa il pagamento online.",
+        "Le nostre condizioni di cancellazione variano per operatore, ma generalmente offrono flessibilità fino a 24-48 ore prima della partenza. Controlla sempre le condizioni specifiche nella tua prenotazione.",
+        "Hai bisogno di un passaporto valido o carta d'identità, a seconda della tua destinazione. Per voli internazionali potrebbe essere richiesto un visto.",
+        "I cambiamenti sono possibili a seconda della disponibilità e delle condizioni dell'operatore. Contatta il nostro servizio clienti per assistenza."
+      ]
+    },
+    "cta": {
+      "title": "Pronto per la tua prossima avventura di lusso?",
+      "subtitle": "Scopri voli empty leg disponibili e risparmia fino al 75% sul tuo prossimo viaggio in jet privato.",
+      "button": "Cerca voli"
     }
   },
   "contact": {
@@ -158,7 +294,7 @@
         "details": ["+32 1 234 56 789", "Lun-Ven: 08:00 - 20:00", "Sab-Dom: 10:00 - 18:00"]
       },
       "email": {
-        "title": "E-mail",
+        "title": "Email",
         "details": ["info@jetleg.com", "support@jetleg.com", "Risposta entro 2 ore"]
       },
       "address": {
@@ -173,7 +309,7 @@
     "form": {
       "title": "Inviaci un messaggio",
       "name": "Nome",
-      "email": "Indirizzo e-mail",
+      "email": "Indirizzo email",
       "phone": "Numero di telefono",
       "subject": "Oggetto",
       "message": "Messaggio",
@@ -202,7 +338,7 @@
     },
     "emergency": {
       "title": "Contatto di emergenza",
-      "description": "Per questioni urgenti fuori dall'orario di ufficio puoi contattarci 24/7:",
+      "description": "Per questioni urgenti fuori dall'orario di ufficio puoi raggiungerci 24/7:",
       "phone": "+32 800 123 456",
       "email": "emergency@jetleg.com"
     },
@@ -212,34 +348,160 @@
       "note": "Situato a 5 minuti dall'Aeroporto di Bruxelles. Parcheggio gratuito disponibile."
     },
     "validation": {
-      "incomplete": "Dati incompleti",
+      "incomplete": "Informazioni incomplete",
       "fillRequired": "Compila tutti i campi obbligatori.",
       "success": "Messaggio inviato!",
       "response": "Ti contatteremo entro 24 ore."
     }
   },
+  "faq": {
+    "hero": {
+      "title": "Domande Frequenti",
+      "subtitle": "Trova risposte alle domande più frequenti sui voli empty leg e la nostra piattaforma."
+    },
+    "categories": {
+      "general": {
+        "title": "Generale",
+        "questions": [
+          "Cos'è Jetleg?",
+          "Cos'è un volo empty leg?",
+          "Quanto si può risparmiare?",
+          "Jetleg è sicuro?"
+        ],
+        "answers": [
+          "Jetleg è una piattaforma specializzata in voli empty leg - voli di jet privati che altrimenti volerebbero vuoti. Offriamo questi voli a prezzi fortemente ridotti, rendendo i viaggi in jet privato più accessibili.",
+          "Un volo empty leg si verifica quando un jet privato deve tornare alla sua base senza passeggeri, o deve spostarsi in una nuova posizione per il prossimo cliente. Invece di volare vuoto, gli operatori offrono questi voli a prezzi ridotti.",
+          "I voli empty leg possono essere fino al 75% più economici dei charter di jet privati regolari. I risparmi esatti dipendono dalla rotta, dal tipo di aereo e dal timing del volo.",
+          "Assolutamente. Tutti i voli sono operati da operatori certificati che soddisfano i più alti standard di sicurezza. I nostri partner hanno tutte le licenze e certificazioni necessarie per i voli commerciali."
+        ]
+      },
+      "booking": {
+        "title": "Prenotazione e Pagamento",
+        "questions": [
+          "Come prenoto un volo?",
+          "Quali metodi di pagamento accettate?",
+          "Posso cancellare la mia prenotazione?",
+          "Riceverò una fattura?"
+        ],
+        "answers": [
+          "Prenotare è semplice: cerca un volo sul nostro sito web, seleziona la tua opzione desiderata, compila i tuoi dati e paga in modo sicuro online. Riceverai conferma immediata via email.",
+          "Accettiamo tutte le principali carte di credito (Visa, Mastercard, American Express), iDEAL, bonifico bancario e altri metodi di pagamento locali a seconda della tua posizione.",
+          "Le condizioni di cancellazione variano per volo e operatore. In generale, gli empty leg sono meno flessibili dei charter regolari. Controlla sempre le condizioni specifiche quando prenoti.",
+          "Sì, dopo il pagamento ricevi automaticamente una fattura via email. Per prenotazioni aziendali possiamo fornire fatture personalizzate con i dettagli della tua azienda."
+        ]
+      },
+      "flights": {
+        "title": "Dettagli Voli",
+        "questions": [
+          "Con quanto anticipo sono disponibili gli empty leg?",
+          "Posso cambiare l'orario di partenza?",
+          "Cosa succede con il maltempo?",
+          "Sono inclusi pasti e bevande?"
+        ],
+        "answers": [
+          "Gli empty leg sono spesso disponibili all'ultimo minuto, da poche ore fino a un massimo di 2 settimane in anticipo. La maggior parte delle offerte viene pubblicata 24-72 ore prima.",
+          "La flessibilità limitata è possibile, ma i cambiamenti dipendono dall'operatore e dal programma di volo. Piccoli aggiustamenti (1-2 ore) sono talvolta possibili con un costo aggiuntivo.",
+          "Con il maltempo seguiamo i protocolli standard dell'aviazione. I voli possono essere ritardati o cancellati per la tua sicurezza. In quel caso ottieni un rimborso completo o opzioni alternative.",
+          "Il catering standard è solitamente incluso. Requisiti dietetici speciali o catering premium possono comportare costi aggiuntivi. Questo è chiaramente indicato quando prenoti."
+        ]
+      },
+      "practical": {
+        "title": "Questioni Pratiche",
+        "questions": [
+          "Quanto bagaglio posso portare?",
+          "Devo fare il check-in prima?",
+          "Posso portare il mio animale domestico?",
+          "Quali documenti mi servono?"
+        ],
+        "answers": [
+          "I limiti di bagaglio variano per tipo di aereo. Generalmente sono consentiti 20-30kg di bagaglio a mano e 20-50kg di bagaglio registrato. Puoi vedere i limiti esatti nei dettagli del volo.",
+          "Il check-in è molto più veloce per i jet privati. Arriva 15-30 minuti prima della partenza al terminal. Negli aeroporti più piccoli questo può essere ancora più breve.",
+          "Gli animali domestici sono spesso ammessi sui jet privati, a seconda dell'operatore e della destinazione. Chiedi informazioni su regole specifiche e costi aggiuntivi quando prenoti.",
+          "Hai bisogno di un passaporto valido per voli internazionali e una carta d'identità per voli domestici. Controlla i requisiti per il visto per la tua destinazione."
+        ]
+      }
+    }
+  },
+  "customerService": {
+    "hero": {
+      "title": "Servizio Clienti",
+      "subtitle": "Il nostro team esperto è pronto ad aiutarti con tutte le tue domande sui voli empty leg e le prenotazioni."
+    },
+    "contact": {
+      "phone": {
+        "title": "Telefono",
+        "description": "Chiamaci per aiuto diretto",
+        "contact": "+32 2 123 45 67",
+        "availability": "Lun-Ven: 8:00 - 20:00, Sab-Dom: 9:00 - 17:00"
+      },
+      "email": {
+        "title": "Email",
+        "description": "Inviaci un'email",
+        "contact": "support@jetleg.com",
+        "availability": "Risposta entro 2 ore"
+      },
+      "chat": {
+        "title": "Chat Live",
+        "description": "Chatta direttamente con i nostri esperti",
+        "contact": "Inizia chat nell'angolo destro",
+        "availability": "Disponibile 24/7"
+      }
+    },
+    "services": {
+      "booking": {
+        "title": "Aiuto prenotazioni",
+        "description": "Aiuto per trovare e prenotare il tuo volo perfetto",
+        "services": [
+          "Ricerca e confronto voli",
+          "Supporto processo di prenotazione",
+          "Domande su pagamento e fattura",
+          "Gestire richieste speciali"
+        ]
+      },
+      "management": {
+        "title": "Gestione prenotazioni",
+        "description": "Modifiche e domande su prenotazioni esistenti",
+        "services": [
+          "Cambiare dettagli prenotazione",
+          "Cancellazioni e rimborsi",
+          "Cambi di aereo e orario",
+          "Documenti di viaggio e voucher"
+        ]
+      },
+      "dayOf": {
+        "title": "Giorno del volo",
+        "description": "Supporto il giorno del tuo volo",
+        "services": [
+          "Informazioni check-in",
+          "Ritardi o cancellazioni volo",
+          "Linee guida terminal e bagagli",
+          "Cambiamenti dell'ultimo minuto"
+        ]
+      }
+    }
+  },
   "about": {
     "hero": {
-      "title": "Chi è Jetleg",
-      "subtitle": "Rivoluzionamo i viaggi in jet privato rendendo i voli vuoti accessibili e convenienti per tutti."
+      "title": "Chi Siamo - Jetleg",
+      "subtitle": "Rivoluzionamo i viaggi in jet privato rendendo i voli empty leg accessibili e convenienti per tutti."
     },
     "mission": {
       "title": "La nostra missione",
       "paragraph1": "Jetleg è stata fondata con una missione semplice ma potente: democratizzare i viaggi di lusso. Crediamo che tutti dovrebbero poter godere dei benefici dei viaggi in jet privato, senza i tradizionali costi elevati.",
-      "paragraph2": "Utilizzando i voli vuoti - voli che altrimenti volerebbero vuoti - offriamo ai nostri clienti l'opportunità di viaggiare con stile a una frazione del prezzo normale.",
+      "paragraph2": "Utilizzando i voli empty leg - voli che altrimenti volerebbero vuoti - offriamo ai nostri clienti l'opportunità di viaggiare con stile a una frazione del prezzo normale.",
       "paragraph3": "La nostra tecnologia collega direttamente i viaggiatori con i voli disponibili, creando benefici sia economici che ecologici."
     },
     "stats": {
       "title": "Jetleg in numeri",
       "customers": "Clienti soddisfatti",
       "destinations": "Destinazioni",
-      "satisfaction": "Punteggio di soddisfazione",
+      "satisfaction": "Punteggio soddisfazione",
       "support": "Servizio clienti"
     },
     "values": {
       "title": "I nostri valori",
       "safety": {
-        "title": "Sicurezza prima",
+        "title": "Sicurezza prima di tutto",
         "description": "Lavoriamo solo con operatori certificati che soddisfano i più alti standard di sicurezza."
       },
       "excellence": {
@@ -247,12 +509,12 @@
         "description": "Ogni volo è gestito con la massima attenzione ai dettagli e al servizio."
       },
       "customerCentric": {
-        "title": "Centrato sul cliente",
+        "title": "Centrati sul cliente",
         "description": "I nostri clienti sono al centro di tutto ciò che facciamo, dalla prenotazione al post-vendita."
       },
       "accessibility": {
         "title": "Accessibilità",
-        "description": "Rendiamo accessibili i viaggi di lusso utilizzando in modo ottimale la capacità inutilizzata."
+        "description": "Rendiamo i viaggi di lusso accessibili utilizzando in modo ottimale la capacità inutilizzata."
       }
     },
     "team": {
@@ -270,14 +532,78 @@
       "marc": {
         "name": "Marc Dubois",
         "role": "COO",
-        "description": "Marc si assicura che ogni volo si svolga perfettamente, dalla prenotazione all'atterraggio."
+        "description": "Marc assicura che ogni volo funzioni perfettamente, dalla prenotazione all'atterraggio."
       }
     },
     "cta": {
       "title": "Pronto per iniziare la tua prossima avventura?",
-      "subtitle": "Scopri i nostri voli disponibili e sperimenta tu stesso perché migliaia di viaggiatori scelgono Jetleg.",
+      "subtitle": "Scopri i nostri voli disponibili e sperimenta di persona perché migliaia di viaggiatori scelgono Jetleg.",
       "viewFlights": "Visualizza voli",
       "contact": "Mettiti in contatto"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Informativa sulla Privacy",
+    "lastUpdate": "Ultimo aggiornamento: 21 luglio 2025"
+  },
+  "termsConditions": {
+    "title": "Termini e Condizioni", 
+    "lastUpdate": "Ultimo aggiornamento: 21 luglio 2025"
+  },
+  "forOperators": {
+    "hero": {
+      "title": "Per Operatori",
+      "subtitle": "Trasforma i tuoi empty leg in voli redditizi. Unisciti a centinaia di operatori che hanno già successo con Jetleg.",
+      "becomePartner": "Diventare Partner",
+      "planDemo": "Programma Demo"
+    },
+    "stats": {
+      "extraRevenue": "Entrate extra generate per i nostri partner nel 2024",
+      "operators": "Operatori", 
+      "flights": "Voli",
+      "averageIncrease": "Aumento medio"
+    },
+    "benefits": {
+      "title": "Perché scegliere Jetleg?",
+      "subtitle": "La nostra piattaforma è specificamente progettata per aiutare gli operatori a massimizzare il potenziale dei loro empty leg.",
+      "revenue": {
+        "title": "Generare più entrate",
+        "description": "Guadagna con voli che altrimenti volerebbero vuoti. In media il 30% di entrate in più dalla tua flotta."
+      },
+      "customers": {
+        "title": "Accesso a nuovi clienti", 
+        "description": "Raggiungi migliaia di clienti potenziali che cercano soluzioni di jet privati dell'ultimo minuto."
+      },
+      "payments": {
+        "title": "Pagamenti sicuri",
+        "description": "Pagamenti garantiti entro 48 ore dal completamento del volo."
+      },
+      "management": {
+        "title": "Gestione facile",
+        "description": "Dashboard intuitiva per gestire i tuoi empty leg e aggiornare la disponibilità in tempo reale."
+      }
+    },
+    "features": {
+      "title": "Tutto quello che ti serve in una piattaforma",
+      "subtitle": "La nostra piattaforma avanzata fornisce tutti gli strumenti necessari per far crescere il tuo business di empty leg.",
+      "list": [
+        "Gestione inventario in tempo reale",
+        "Ottimizzazione automatica dei prezzi", 
+        "Supporto clienti 24/7",
+        "Elaborazione pagamenti integrata",
+        "Report e analisi completi",
+        "Integrazione API per i tuoi sistemi"
+      ]
+    },
+    "testimonials": {
+      "title": "Cosa dicono i nostri partner",
+      "subtitle": "Senti da operatori che hanno aumentato il loro successo con Jetleg"
+    },
+    "cta": {
+      "title": "Pronto per iniziare?",
+      "subtitle": "Unisciti al marketplace di empty leg in più rapida crescita e inizia a generare entrate extra oggi.",
+      "becomePartner": "Registrarsi come Partner",
+      "contact": "Mettersi in Contatto"
     }
   }
 }

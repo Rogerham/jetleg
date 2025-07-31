@@ -561,5 +561,69 @@
       "viewFlights": "View flights",
       "contact": "Contact us"
     }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "lastUpdate": "Last updated: July 21, 2025"
+  },
+  "termsConditions": {
+    "title": "Terms & Conditions", 
+    "lastUpdate": "Last updated: July 21, 2025"
+  },
+  "forOperators": {
+    "hero": {
+      "title": "For Operators",
+      "subtitle": "Transform your empty legs into profitable flights. Join hundreds of operators already succeeding with Jetleg.",
+      "becomePartner": "Become Partner",
+      "planDemo": "Schedule Demo"
+    },
+    "stats": {
+      "extraRevenue": "Extra revenue generated for our partners in 2024",
+      "operators": "Operators", 
+      "flights": "Flights",
+      "averageIncrease": "Avg. increase"
+    },
+    "benefits": {
+      "title": "Why choose Jetleg?",
+      "subtitle": "Our platform is specifically designed to help operators maximize their empty legs potential.",
+      "revenue": {
+        "title": "Generate more revenue",
+        "description": "Earn money from flights that would otherwise fly empty. Average 30% more income from your fleet."
+      },
+      "customers": {
+        "title": "Access to new customers", 
+        "description": "Reach thousands of potential customers looking for last-minute private jet solutions."
+      },
+      "payments": {
+        "title": "Secure payments",
+        "description": "Guaranteed payouts within 48 hours after flight completion."
+      },
+      "management": {
+        "title": "Easy management",
+        "description": "Intuitive dashboard to manage your empty legs and update real-time availability."
+      }
+    },
+    "features": {
+      "title": "Everything you need in one platform",
+      "subtitle": "Our advanced platform provides all the tools you need to grow your empty leg business.",
+      "list": [
+        "Real-time inventory management",
+        "Automatic price optimization", 
+        "24/7 customer support",
+        "Integrated payment processing",
+        "Comprehensive reporting and analytics",
+        "API integration for your own systems"
+      ]
+    },
+    "testimonials": {
+      "title": "What our partners say",
+      "subtitle": "Hear from operators who have grown their success with Jetleg"
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Join the fastest growing empty leg marketplace and start generating extra revenue today.",
+      "becomePartner": "Sign up as Partner",
+      "contact": "Get in Touch"
+    }
   }
 }

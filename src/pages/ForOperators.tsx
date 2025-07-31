@@ -1,6 +1,8 @@
 import { Plane, TrendingUp, Users, Shield, CheckCircle, Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ForOperators = () => {
+  const { t } = useTranslation();
   const benefits = [
     {
       icon: TrendingUp,

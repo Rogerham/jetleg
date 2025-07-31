@@ -1,6 +1,9 @@
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { useTranslation } from 'react-i18next';
+
 const PrivacyPolicy = () => {
+  const { t } = useTranslation();
   return <div className="min-h-screen bg-background">
       <Navigation />
       
@@ -9,10 +12,10 @@ const PrivacyPolicy = () => {
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-hero mb-6">
-              Privacybeleid
+              {t('privacyPolicy.title')}
             </h1>
             <p className="text-xl text-white/90">
-              Laatste update: 21 juli 2025
+              {t('privacyPolicy.lastUpdate')}
             </p>
           </div>
         </div>
